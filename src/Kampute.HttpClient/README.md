@@ -46,20 +46,21 @@ array of functionalities to address the complexities of web service consumption.
 
 By default, `Kampute.HttpClient` does not include any content deserializer. To accommodate popular content types, the following extension packages are available:
 
-- **Kampute.HttpClient.Json**:
+- **[Kampute.HttpClient.Json](https://www.nuget.org/packages/Kampute.HttpClient.Json)**:
   Utilizes the `System.Text.Json` library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
   with the .NET ecosystem.
 
-- **Kampute.HttpClient.NewtonsoftJson**:
+- **[Kampute.HttpClient.NewtonsoftJson](https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson)**:
   Leverages the `Newtonsoft.Json` library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON
   features and formats.
 
-- **Kampute.HttpClient.Xml**:
+- **[Kampute.HttpClient.Xml](https://www.nuget.org/packages/Kampute.HttpClient.Xml)**:
   Employs the `XmlSerializer` for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom
   class structures.
 
-- **Kampute.HttpClient.DataContract**: Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET
-  objects into XML based on data contract attributes for fine-grained control over the XML output.
+- **[Kampute.HttpClient.DataContract](https://www.nuget.org/packages/Kampute.HttpClient.DataContract)**: 
+  Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract 
+  attributes for fine-grained control over the XML output.
 
 For scenarios where the provided serialization packages do not meet specific requirements, `Kampute.HttpClient` allows the implementation of custom deserializers.
 Developers can create their own serialization modules by implementing interfaces for deserialization, thus enabling support for custom content types or proprietary
@@ -85,12 +86,16 @@ To get started with `HttpRestClient`, simply instantiate it and use it to perfor
 using Kampute.HttpClient;
 using Kampute.HttpClient.Json;
 
+// Create a new instance of the HttpRestClient
 using var client = new HttpRestClient();
 
-// Configure the client to accept JSON responses.
+// Configure the client to accept JSON responses, using System.Text.Json library.
+// This is an extension method provided by the Kampute.HttpClient.Json package.
 client.AcceptJson();
 
-// Perform a GET request
+// Perform a GET request.
+// The GetAsync<TResponse> method will automatically deserialize the JSON response
+// into the specified MyModel type.
 var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 ```
 
@@ -101,6 +106,15 @@ service unavailability. The example below demonstrates how to apply a Fibonacci 
 the need to retry soon against the need to wait longer as the number of attempts increases.
 
 ```csharp
+using Kampute.HttpClient;
+
+// Create a new instance of the HttpRestClient
+using var client = new HttpRestClient();
+
+// Configure the client's retry mechanism.
+// The Fibonacci strategy will retry up to 5 times 
+// with an initial delay of 1 second between retries
+// and delay increases following the Fibonacci sequence for subsequent retries.
 client.BackoffStrategy = BackoffStrategies.Fibonacci(maxAttempts: 5, initialDelay: TimeSpan.FromSeconds(1));
 ```
 
@@ -110,16 +124,31 @@ The library includes built-in handlers for managing common HTTP errors, streamli
 Here's how to utilize the built-in '401 Unauthorized' error handler:
 
 ```csharp
-var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =>
+using Kampute.HttpClient;
+using Kampute.HttpClient.ErrorHandlers;
+
+// Create an instance of the built-in '401 Unauthorized' error handler.
+// This handler defines the logic to handle unauthorized responses.
+using var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =>
 {
-	var auth = await client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
-	[
-		KeyValuePair.Create("client_id", "my application id"),
-		KeyValuePair.Create("client_secret", "my application secret")
-	]);
+    // In this example, we're handling the unauthorized error by making a POST request to an 
+    // authentication endpoint to obtain a new authentication token.
+    var auth = await client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
+    [
+        KeyValuePair.Create("client_id", MY_APP_ID),
+        KeyValuePair.Create("client_secret", MY_APP_SECRET)
+    ]);
+
+    // Return a new AuthenticationHeaderValue with the obtained token.
+    // This will be used to include the authentication header in subsequent requests.
     return new AuthenticationHeaderValue(AuthSchemes.Bearer, auth.Token);
 });
 
+// Create a new instance of the HttpRestClient
+using var client = new HttpRestClient();
+
+// Register the unauthorized error handler with the client.
+// This allows the client to handle '401 Unauthorized' responses automatically.
 client.ErrorHandlers.Add(unauthorizedErrorHandler);
 ```
 
@@ -138,21 +167,28 @@ using Kampute.HttpClient;
 using Kampute.HttpClient.NewtonsoftJson;
 using Kampute.HttpClient.DataContract;
 
+// Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
 
 // Configure the client to accept JSON responses, using the Newtonsoft.Json library.
+// This is an extension method provided by the Kampute.HttpClient.NewtonsoftJson package
 client.AcceptJson();
 
 // Configure the client to accept XML responses, using DataContractSerializer.
+// This is an extension method provided by the Kampute.HttpClient.DataContract package
 client.AcceptXml();
 
 // Execute a GET request. The server may respond in either JSON or XML format.
+// The GetAsync<TResponse> method will automatically deserialize the response
+// into the specified MyResource type, based on the response content type (JSON or XML).
 var result = await client.GetAsync<MyResource>("https://api.example.com/resource");
 
 // Send a PATCH request with a payload in JSON format.
+// The PatchAsJsonAsync method is provided by the Kampute.HttpClient.NewtonsoftJson package.
 await client.PatchAsJsonAsync("https://api.example.com/resource", new { name = "new name" });
 
 // Send a POST request with a payload in XML format.
+// The PostAsXmlAsync method is provided by the Kampute.HttpClient.DataContract package.
 var newResource = new MyResource();
 await client.PostAsXmlAsync("https://api.example.com/resource", newResource);
 ```

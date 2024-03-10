@@ -24,7 +24,6 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         /// <param name="initialDelay">The initial delay duration before the first retry attempt.</param>
         /// <param name="rate">The rate at which the delay duration increases exponentially between retries.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rate"/> is less than 1.</exception>
-        /// </remarks>
         public ExponentialStrategy(TimeSpan initialDelay, double rate)
         {
             if (rate < 1.0)

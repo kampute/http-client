@@ -13,7 +13,7 @@
     <Copyright>Copyright (c) Kampute</Copyright>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Kampute.HttpClient.Xml</PackageId>
     <PackageTags>http http-client restful rest-client rest-api web-api xml</PackageTags>

@@ -11,10 +11,10 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
       
@@ -31,11 +31,11 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup DocFX
         run: |
-          wget https://github.com/dotnet/docfx/releases/download/v2.58.9/docfx.zip
+          wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx.zip
           unzip docfx.zip -d docfx
           
       - name: Generate Documentation
@@ -46,13 +46,13 @@ jobs:
     needs: generate-docs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: '12.x'
+          node-version: '20.x'
       
       - name: Publish Documentation
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+        uses: JamesIves/github-pages-deploy-action@4.5.0
         with:
           branch: gh-pages
           folder: docs
@@ -61,7 +61,7 @@ jobs:
     needs: publish-docs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Cleanup Intermediary Files/Folders
         run: |
           rm -rf api

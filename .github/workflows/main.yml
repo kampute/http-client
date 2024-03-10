@@ -8,7 +8,6 @@ on:
     branches: [ master ]
 
 jobs:
-
   build-test-document:
     runs-on: ubuntu-latest
 
@@ -33,7 +32,7 @@ jobs:
       run: |
         wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx-linux-x64-v2.75.3.zip -O docfx.zip
         unzip docfx.zip -d docfx
-      
+
     - name: Generate Documentation
       run: |
         docfx/docfx docfx.json
@@ -43,5 +42,4 @@ jobs:
       if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
-        destination_dir: ''
+        publish_dir: ./docs

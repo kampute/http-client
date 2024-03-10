@@ -1,0 +1,66 @@
+name: Build, Test, and Document
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup .NET 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --no-restore -c Release
+        
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
+  generate-docs:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup DocFX
+        run: |
+          wget https://github.com/dotnet/docfx/releases/download/v2.58.9/docfx.zip
+          unzip docfx.zip -d docfx
+          
+      - name: Generate Documentation
+        run: |
+          mono docfx/docfx.exe docfx.json
+
+  publish-docs:
+    needs: generate-docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+      
+      - name: Publish Documentation
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs
+
+  cleanup:
+    needs: publish-docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cleanup Intermediary Files/Folders
+        run: |
+          rm -rf api

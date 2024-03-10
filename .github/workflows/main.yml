@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  build-and-test:
+  build-test-document:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,14 +30,14 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Setup DocFX
-      uses: crazy-max/ghaction-chocolatey@v2
-      with:
-        args: install docfx
-
+      run: |
+        wget https://github.com/dotnet/docfx/releases/download/v2.58.9/docfx.zip
+        unzip docfx.zip -d docfx
+      
     - name: Generate Documentation
       run: |
-        docfx docfx.json
-        
+        mono docfx/docfx.exe docfx.json
+
     - name: Upload Documentation
       uses: actions/upload-artifact@v3
       with:

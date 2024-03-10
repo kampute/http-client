@@ -27,7 +27,7 @@
   "build": {
     "content": [
       {
-        "files": [ "../README.md" ]
+        "files": [ "docs/**/*.yml", "../README.md" ]
       }
     ],
     "globalMetadata": {

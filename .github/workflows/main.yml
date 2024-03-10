@@ -8,45 +8,38 @@ on:
     branches: [ master ]
 
 jobs:
+
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      
-      - name: Restore dependencies
-        run: dotnet restore
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET 6.0
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore -c Release
+
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+
+    - name: Setup DocFX
+      uses: crazy-max/ghaction-chocolatey@v2
+      with:
+        args: install docfx
+
+    - name: Generate Documentation
+      run: |
+        docfx docfx.json
         
-      - name: Build
-        run: dotnet build --no-restore -c Release
-        
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
-
-  generate-docs:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup DocFX
-        run: |
-          wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx-linux-x64-v2.75.3.zip -O docfx.zip
-          unzip docfx.zip -d docfx
-          
-      - name: Generate Documentation
-        run: |
-          mono docfx/docfx.exe docfx.json
-
-  cleanup:
-    needs: generate-docs
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Cleanup Intermediary Files/Folders
-        run: |
-          rm -rf api
+    - name: Upload Documentation
+      uses: actions/upload-artifact@v3
+      with:
+        name: Documentation
+        path: docs

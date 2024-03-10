@@ -36,10 +36,9 @@ jobs:
       
     - name: Generate Documentation
       run: |
-        mono docfx/docfx docfx.json
+        docfx/docfx docfx.json
 
-    - name: Upload Documentation
-      uses: actions/upload-artifact@v3
+    - name: Upload Documentation to Branch
+      uses: actions/upload-pages-artifact@v1
       with:
-        name: Documentation
-        path: docs
+        path: docs/_site

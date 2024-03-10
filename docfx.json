@@ -1,0 +1,35 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["src/**.csproj"],
+          "exclude": ["**/obj/**", "**/bin/**"]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["api/**.yml"],
+        "src": "api",
+        "dest": "api"
+      }
+    ],
+    "globalMetadata": {
+      "_appTitle": "Kampute.HttpClient",
+      "_appFooter": "© 2024 Kampute"
+    },
+    "template": ["default"],
+    "dest": "docs",
+    "overwrite": [
+      {
+        "files": ["api/**.md"],
+        "exclude": ["**/toc.md"]
+      }
+    ],
+    "generateToc": true
+  }
+}

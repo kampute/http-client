@@ -210,7 +210,7 @@ namespace Kampute.HttpClient
         /// <remarks>
         /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines 
         /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network 
-        /// issues or temporary server unavailability. The default is <see cref="ZeroRetryStrategy"/>.
+        /// issues or temporary server unavailability. The default is <see cref="BackoffStrategies.None"/>.
         /// </remarks>
         public IRetrySchedulerFactory BackoffStrategy
         {

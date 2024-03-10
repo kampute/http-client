@@ -39,20 +39,19 @@
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 
-            var timer = new Stopwatch();
             var retryDelay = TimeSpan.FromMilliseconds(100);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                if (++attempts == 1)
-                    timer.Start();
+                attempts++;
 
                 var response = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
                 response.Headers.RetryAfter = new RetryConditionHeaderValue(DateTimeOffset.UtcNow.Add(retryDelay));
                 return response;
             });
 
+            var timer = Stopwatch.StartNew();
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
             timer.Stop();
 
@@ -69,20 +68,19 @@
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 
-            var timer = new Stopwatch();
             var retryDelay = TimeSpan.FromMilliseconds(100);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                if (++attempts == 1)
-                    timer.Start();
+                attempts++;
 
                 var response = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
                 response.Headers.RetryAfter = new RetryConditionHeaderValue(retryDelay);
                 return response;
             });
 
+            var timer = Stopwatch.StartNew();
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
             timer.Stop();
 

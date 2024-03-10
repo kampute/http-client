@@ -38,20 +38,19 @@
             var tooManyRequestsHandler = new HttpError429Handler();
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
 
-            var timer = new Stopwatch();
             var resetDelay = TimeSpan.FromSeconds(2); // The delay should be more than a second because the reset time is expressed as a Unix time in seconds.
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                if (++attempts == 1)
-                    timer.Start();
+                attempts++;
 
                 var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
                 response.Headers.Add("x-rate-limit-reset", DateTimeOffset.UtcNow.Add(resetDelay).ToUnixTimeSeconds().ToString());
                 return response;
             });
 
+            var timer = Stopwatch.StartNew();
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"), Throws.TypeOf<HttpResponseException>());
             timer.Stop();
 

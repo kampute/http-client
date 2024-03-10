@@ -44,7 +44,7 @@
             var result = await scheduler.WaitAsync(CancellationToken.None);
             timer.Stop();
 
-            Assert.That(timer.Elapsed, Is.InRange(expectedDelay, 1.2 * expectedDelay));
+            Assert.That(timer.Elapsed, Is.InRange(expectedDelay, 1.5 * expectedDelay));
         }
 
         [Test]

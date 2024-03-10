@@ -280,6 +280,9 @@ namespace Kampute.HttpClient.ErrorHandlers
             /// <summary>
             /// Gets or sets a value indicating whether the client was successfully authenticated on the last authentication attempt.
             /// </summary>
+            /// <value>
+            /// A <see cref="bool"/> value indicating whether the client was successfully authenticated on the last authentication attempt.
+            /// </value>
             public bool LastAuthenticationResult
             {
                 get => _authenticated;

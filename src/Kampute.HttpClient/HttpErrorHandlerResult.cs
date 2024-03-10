@@ -36,6 +36,9 @@ namespace Kampute.HttpClient
         /// Gets the <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; 
         /// otherwise, <c>null</c>.
         /// </summary>
+        /// <value>
+        /// The <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; otherwise, <c>null</c>.
+        /// </value>
         public readonly HttpRequestMessage? RequestToRetry;
 
         /// <summary>

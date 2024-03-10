@@ -19,8 +19,11 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         private NoneStrategy() { }
 
         /// <summary>
-        /// Gets the singleton instance of the <see cref="NoneStrategy"/> class, ensuring that only one instance is used throughout the application.
+        /// Gets the singleton instance of the <see cref="NoneStrategy"/> class.
         /// </summary>
+        /// <value>
+        /// The singleton instance of the <see cref="NoneStrategy"/> class.
+        /// </value>
         public static NoneStrategy Instance { get; } = new NoneStrategy();
 
         /// <summary>

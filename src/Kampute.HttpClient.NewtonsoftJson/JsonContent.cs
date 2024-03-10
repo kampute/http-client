@@ -39,8 +39,11 @@ namespace Kampute.HttpClient.NewtonsoftJson
         }
 
         /// <summary>
-        /// Gets or sets the serialization settings.
+        /// Gets or sets the JSON serialization settings.
         /// </summary>
+        /// <value>
+        /// The JSON serialization settings, if any.
+        /// </value>
         public JsonSerializerSettings? Settings { get; set; }
 
         /// <inheritdoc/>

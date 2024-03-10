@@ -32,6 +32,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the HTTP request message.
         /// </summary>
+        /// <value>
+        /// The HTTP request message involved in the event.
+        /// </value>
         public HttpRequestMessage Request { get; }
     }
 }

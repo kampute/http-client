@@ -27,11 +27,17 @@
         /// <summary>
         /// Gets the underlying retry strategy, to which the specified timeout duration is applied as a limit for the total retry attempts.
         /// </summary>
+        /// <value>
+        /// The underlying <see cref="IRetryStrategy"/>, to which the specified timeout duration is applied as a limit for the total retry attempts.
+        /// </value>
         public IRetryStrategy Source { get; }
 
         /// <summary>
         /// Gets the maximum duration to continue attempting retries before giving up.
         /// </summary>
+        /// <value>
+        /// The maximum duration to continue attempting retries before giving up.
+        /// </value>
         public TimeSpan Timeout { get; }
 
         /// <summary>

@@ -163,6 +163,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets or sets the base address for HTTP requests.
         /// </summary>
+        /// <value>
+        /// The base address for HTTP requests.
+        /// </value>
         /// <remarks>
         /// <para>
         /// If the provided base address does not end with a slash, one is automatically appended. The presence or absence of this trailing 
@@ -185,6 +188,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets or sets the <see cref="Type"/> used to deserialize the response body when the response status code indicates an error.
         /// </summary>
+        /// <value>
+        /// The <see cref="Type"/> used to deserialize the response body when the response status code indicates an error.
+        /// </value>
         /// <exception cref="ArgumentException">Thrown if the specified type does not implement the <see cref="IHttpErrorResponse"/> interface.</exception>
         /// <remarks>
         /// <para>
@@ -207,6 +213,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.
         /// </summary>
+        /// <value>
+        /// The backoff strategy for handling transient connection failures during HTTP requests.
+        /// </value>
         /// <remarks>
         /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines 
         /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network 
@@ -221,6 +230,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the mutable collection of HTTP error handlers used for handling error responses.
         /// </summary>
+        /// <value>
+        /// The mutable collection of HTTP error handlers used for handling error responses.
+        /// </value>
         /// <remarks>
         /// This property provides access to a collection of <see cref="IHttpErrorHandler"/> instances that are used to handle 
         /// HTTP error responses. The handlers in this collection are tried in order to handle errors.
@@ -230,6 +242,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the mutable collection of HTTP content deserializers used for deserializing response content.
         /// </summary>
+        /// <value>
+        /// The mutable collection of HTTP content deserializers used for deserializing response content.
+        /// </value>
         /// <remarks>
         /// This property provides access to a collection of <see cref="IHttpContentDeserializer"/> instances that are used to 
         /// deserialize the content of HTTP responses. The deserializers in this list are tried in order to deserialize the response 
@@ -240,6 +255,9 @@ namespace Kampute.HttpClient
         /// <summary>
         ///  Gets the headers which should be sent with each request.
         /// </summary>
+        /// <value>
+        /// The headers which should be sent with each request.
+        /// </value>
         public HttpRequestHeaders DefaultRequestHeaders => _defaultRequestHeaders;
 
         /// <summary>

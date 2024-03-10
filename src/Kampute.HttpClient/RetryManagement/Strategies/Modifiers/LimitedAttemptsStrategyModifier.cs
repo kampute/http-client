@@ -28,11 +28,17 @@
         /// <summary>
         /// Gets the underlying retry strategy, to which the specified maximum number of retry attempts is applied as a limit.
         /// </summary>
+        /// <value>
+        /// The underlying <see cref="IRetryStrategy"/>, to which the specified maximum number of retry attempts is applied as a limit.
+        /// </value>
         public IRetryStrategy Source { get; }
 
         /// <summary>
         /// Gets the maximum number of retry attempts before giving up.
         /// </summary>
+        /// <value>
+        /// The maximum number of retry attempts before giving up.
+        /// </value>
         public uint MaxAttempts { get; }
 
         /// <summary>

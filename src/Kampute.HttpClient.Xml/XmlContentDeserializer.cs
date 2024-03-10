@@ -23,8 +23,11 @@ namespace Kampute.HttpClient.Xml
     public sealed class XmlContentDeserializer : IHttpContentDeserializer
     {
         /// <summary>
-        /// Gets a collection of media types that this deserializer supports.
+        /// Gets the collection of media types that this deserializer supports.
         /// </summary>
+        /// <value>
+        /// The collection of media types that this deserializer supports.
+        /// </value>
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Xml];
 
         /// <summary>

@@ -31,11 +31,17 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the <see cref="HttpResponseMessage"/> indicating the failure.
         /// </summary>
+        /// <value>
+        /// The <see cref="HttpResponseMessage"/> indicating the failure.
+        /// </value>
         public HttpResponseMessage Response { get; }
 
         /// <summary>
-        /// Gets the <see cref="Exception"/> containing details of the error encountered during the HTTP request.
+        /// Gets the <see cref="HttpResponseException"/> containing details of the HTTP response error.
         /// </summary>
+        /// <value>
+        /// The <see cref="HttpResponseException"/> containing details of the HTTP response error.
+        /// </value>
         public new HttpResponseException Error => (HttpResponseException)base.Error;
     }
 }

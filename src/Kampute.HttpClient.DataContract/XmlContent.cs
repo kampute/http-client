@@ -55,11 +55,17 @@ namespace Kampute.HttpClient.DataContract
         /// <summary>
         /// Gets the character encoding of the serialized XML content.
         /// </summary>
+        /// <value>
+        /// The character encoding of the serialized XML content.
+        /// </value>
         public Encoding Encoding => _encoding;
 
         /// <summary>
-        /// Gets or sets the serialization settings.
+        /// Gets or sets the XML serialization settings.
         /// </summary>
+        /// <value>
+        /// The XML serialization settings, if any.
+        /// </value>
         public DataContractSerializerSettings? Settings { get; set; }
 
         /// <inheritdoc/>

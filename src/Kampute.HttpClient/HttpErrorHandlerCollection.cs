@@ -38,12 +38,18 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the number of <see cref="IHttpErrorHandler"/> instances contained in the collection.
         /// </summary>
+        /// <value>
+        /// The number of <see cref="IHttpErrorHandler"/> instances contained in the collection.
+        /// </value>
         public int Count => _collection.Count;
 
         /// <summary>
         /// Gets a value indicating whether the collection is read-only. Always returns <c>false</c> for this implementation.
         /// </summary>
-        public bool IsReadOnly => false;
+        /// <value>
+        /// Indicates whether the collection is read-only. This property always returns <c>false</c>.
+        /// </value>
+        bool ICollection<IHttpErrorHandler>.IsReadOnly => false;
 
         /// <summary>
         /// Retrieves all <see cref="IHttpErrorHandler"/> instances in the collection that support handling a specific HTTP status code.

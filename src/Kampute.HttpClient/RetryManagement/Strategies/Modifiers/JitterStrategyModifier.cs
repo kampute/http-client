@@ -38,12 +38,17 @@
         /// <summary>
         /// Gets the underlying retry strategy to which jitter is added.
         /// </summary>
+        /// <value>
+        /// The underlying <see cref="IRetryStrategy"/> to which jitter is added.
+        /// </value>
         public IRetryStrategy Source { get; }
 
         /// <summary>
-        /// Gets actor to apply to the delay to introduce jitter.
+        /// Gets the factor to apply to the delay to introduce jitter.
         /// </summary>
-        /// <value>A floating-point number between 0 and 1, inclusive.</value>
+        /// <value>
+        /// The factor to apply to the delay to introduce jitter. It is a floating-point number between 0 and 1, inclusive.
+        /// </value>
         public double JitterFactor { get; }
 
         /// <summary>

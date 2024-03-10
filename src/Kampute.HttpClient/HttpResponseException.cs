@@ -52,16 +52,25 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the HTTP status code associated with the exception.
         /// </summary>
+        /// <value>
+        /// The HTTP status code associated with the exception.
+        /// </value>
         public HttpStatusCode StatusCode { get; }
 
         /// <summary>
         /// Gets or sets the validation errors associated with the exception.
         /// </summary>
+        /// <value>
+        /// The validation errors associated with the exception, if any. It maps error keys to their corresponding error messages arrays. Can be <c>null</c> if there are no validation errors.
+        /// </value>
         public IDictionary<string, string[]>? Errors { get; set; }
 
         /// <summary>
         /// Gets or sets the response message associated with the exception.
         /// </summary>
+        /// <value>
+        /// The response message associated with the exception, which may include additional details about the error. Can be <c>null</c> if there is no response message.
+        /// </value>
         public HttpResponseMessage? ResponseMessage { get; set; }
 
         /// <summary>

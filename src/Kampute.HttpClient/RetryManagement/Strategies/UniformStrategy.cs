@@ -29,6 +29,9 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         /// <summary>
         /// Gets the delay duration between retries.
         /// </summary>
+        /// <value>
+        /// The delay duration between retries.
+        /// </value>
         public TimeSpan Delay { get; }
 
         /// <summary>

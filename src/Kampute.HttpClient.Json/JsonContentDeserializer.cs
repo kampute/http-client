@@ -21,13 +21,19 @@ namespace Kampute.HttpClient.Json
     public sealed class JsonContentDeserializer : IHttpContentDeserializer
     {
         /// <summary>
-        /// Gets or sets the deserialization options.
+        /// Gets or sets the JSON deserialization options.
         /// </summary>
+        /// <value>
+        /// The JSON deserialization options, if any.
+        /// </value>
         public JsonSerializerOptions? Options { get; set; }
 
         /// <summary>
-        /// Gets a collection of media types that this deserializer supports.
+        /// Gets the collection of media types that this deserializer supports.
         /// </summary>
+        /// <value>
+        /// The collection of media types that this deserializer supports.
+        /// </value>
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Json];
 
         /// <summary>

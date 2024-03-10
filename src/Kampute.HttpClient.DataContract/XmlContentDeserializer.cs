@@ -23,13 +23,19 @@ namespace Kampute.HttpClient.DataContract
     public sealed class XmlContentDeserializer : IHttpContentDeserializer
     {
         /// <summary>
-        /// Gets or sets the deserialization settings.
+        /// Gets or sets the XML deserialization settings.
         /// </summary>
+        /// <value>
+        /// The XML deserialization settings, if any.
+        /// </value>
         public DataContractSerializerSettings? Settings { get; set; }
 
         /// <summary>
-        /// Gets a collection of media types that this deserializer supports.
+        /// Gets the collection of media types that this deserializer supports.
         /// </summary>
+        /// <value>
+        /// The collection of media types that this deserializer supports.
+        /// </value>
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Xml];
 
         /// <summary>

@@ -30,16 +30,25 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the <see cref="HttpRestClient"/> instance used to send the request.
         /// </summary>
+        /// <value>
+        /// The <see cref="HttpRestClient"/> instance used to send the request.
+        /// </value>
         public HttpRestClient Client { get; }
 
         /// <summary>
         /// Gets the <see cref="HttpRequestMessage"/> that resulted in a failure.
         /// </summary>
+        /// <value>
+        /// The <see cref="HttpRequestMessage"/> that resulted in a failure.
+        /// </value>
         public HttpRequestMessage Request { get; }
 
         /// <summary>
-        /// Gets the <see cref="Exception"/> containing details of the error encountered during the HTTP request.
+        /// Gets the <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.
         /// </summary>
+        /// <value>
+        /// The <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.
+        /// </value>
         public HttpRequestException Error { get; }
     }
 }

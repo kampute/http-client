@@ -43,11 +43,17 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         /// <summary>
         /// Gets the initial delay duration before the first retry attempt.
         /// </summary>
+        /// <value>
+        /// The initial delay duration before the first retry attempt.
+        /// </value>
         public TimeSpan InitialDelay { get; }
 
         /// <summary>
         /// Gets the fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.
         /// </summary>
+        /// <value>
+        /// The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.
+        /// </value>
         public TimeSpan DelayStep { get; }
 
         /// <summary>

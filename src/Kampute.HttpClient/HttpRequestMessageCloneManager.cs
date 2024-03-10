@@ -36,6 +36,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets the current <see cref="HttpRequestMessage"/> to send. This request may be the original or a new request based on retry decisions.
         /// </summary>
+        /// <value>
+        /// The current <see cref="HttpRequestMessage"/> to send.
+        /// </value>
         public readonly HttpRequestMessage RequestToSend
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

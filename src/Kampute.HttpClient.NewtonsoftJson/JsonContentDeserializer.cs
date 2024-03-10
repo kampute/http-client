@@ -24,11 +24,17 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// <summary>
         /// Gets or sets the deserialization settings.
         /// </summary>
+        /// <value>
+        /// The JSON deserialization settings, if any.
+        /// </value>
         public JsonSerializerSettings? Settings { get; set; }
 
         /// <summary>
-        /// Gets a collection of media types that this deserializer supports.
+        /// Gets the collection of media types that this deserializer supports.
         /// </summary>
+        /// <value>
+        /// The collection of media types that this deserializer supports.
+        /// </value>
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Json];
 
         /// <summary>

@@ -37,8 +37,11 @@ namespace Kampute.HttpClient.Json
         }
 
         /// <summary>
-        /// Gets or sets the serialization options.
+        /// Gets or sets the JSON serialization options.
         /// </summary>
+        /// <value>
+        /// The JSON serialization options, if any.
+        /// </value>
         public JsonSerializerOptions? Options { get; set; }
 
         /// <inheritdoc/>

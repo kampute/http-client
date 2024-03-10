@@ -55,6 +55,9 @@ namespace Kampute.HttpClient.Xml
         /// <summary>
         /// Gets the character encoding of the serialized XML content.
         /// </summary>
+        /// <value>
+        /// The character encoding of the serialized XML content.
+        /// </value>
         public Encoding Encoding => _encoding;
 
         /// <inheritdoc/>

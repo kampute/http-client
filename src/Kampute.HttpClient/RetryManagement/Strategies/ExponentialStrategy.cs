@@ -36,11 +36,17 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         /// <summary>
         /// Gets the initial delay duration before the first retry attempt.
         /// </summary>
+        /// <value>
+        /// The initial delay duration before the first retry attempt.
+        /// </value>
         public TimeSpan InitialDelay { get; }
 
         /// <summary>
         /// Gets the rate at which the delay duration increases exponentially between retries.
         /// </summary>
+        /// <value>
+        /// The rate at which the delay duration increases exponentially between retries.
+        /// </value>
         public double Rate { get; }
 
         /// <summary>

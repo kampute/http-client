@@ -58,6 +58,9 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Gets a strategy where no retry attempts are made.
         /// </summary>
+        /// <value>
+        /// An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy of no retry attempts.
+        /// </value>
         /// <remarks>
         /// This strategy schedules no retry attempts, making it ideal for operations where failure handling is immediate or managed through other means.
         /// </remarks>
@@ -67,6 +70,7 @@ namespace Kampute.HttpClient
         /// Creates a strategy that performs a single retry attempt after the specified delay.
         /// </summary>
         /// <param name="delay">The delay before the single retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy of a single attempt after a specified delay.</returns>
         /// <remarks>
         /// This strategy performs a single retry attempt after the specified delay. It is suitable for operations where one additional attempt may resolve
         /// a transient issue.
@@ -81,6 +85,7 @@ namespace Kampute.HttpClient
         /// Creates a strategy that performs a single retry attempt after the specified date and time.
         /// </summary>
         /// <param name="after">The date and time after which the single retry attempt will be made.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy of a single attempt after a specified date and time.</returns>
         /// <remarks>
         /// This strategy schedules a single retry attempt for a specified future point in time, ensuring operations are retried when certain 
         /// conditions are likely met. If the specified time has already passed, it immediately schedules the retry attempt.
@@ -97,6 +102,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
         /// <param name="delay">The constant delay between each retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified maximum number of retry attempts.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with a constant delay between each attempt. It is ideal for cases needing multiple attempts with
         /// predictable delays.
@@ -129,6 +135,7 @@ namespace Kampute.HttpClient
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <param name="delayStep">The amount by which the delay increases for each subsequent retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt. It is optimal for reducing system load with
         /// gradually increasing wait times.
@@ -145,6 +152,7 @@ namespace Kampute.HttpClient
         /// <param name="timeout">The maximum time to spend retrying.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <param name="delayStep">The amount by which the delay increases for each subsequent retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified maximum number of retry attempts.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout. It is optimal for
         /// reducing system load with gradually increasing wait times, while enforcing a maximum time limit for retrying.
@@ -161,6 +169,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt. It is optimal for reducing system load with
         /// gradually increasing wait times.
@@ -176,6 +185,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="timeout">The maximum time to spend retrying.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout. It is optimal for
         /// reducing system load with gradually increasing wait times, while enforcing a maximum time limit for retrying.
@@ -193,6 +203,7 @@ namespace Kampute.HttpClient
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <param name="rate">The rate at which the delay increases for each subsequent retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified maximum number of retry attempts.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays increasing exponentially between each attempt. It is suitable for aggressively minimizing
         /// the impact on systems by rapidly increasing wait times between retry attempts.
@@ -210,6 +221,7 @@ namespace Kampute.HttpClient
         /// <param name="timeout">The maximum time to spend retrying.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <param name="rate">The rate at which the delay increases for each subsequent retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified timeout. It is suitable
         /// for aggressively minimizing the impact on systems by rapidly increasing wait times between retry attempts, while enforcing a maximum time limit for
@@ -229,6 +241,7 @@ namespace Kampute.HttpClient
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <param name="delayStep">The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt. It provides a balanced choice between
         /// aggressive and cautious retry pacing, suitable for a wide range of scenarios.
@@ -245,6 +258,7 @@ namespace Kampute.HttpClient
         /// <param name="timeout">The maximum time to spend retrying.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <param name="delayStep">The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout. It provides
         /// a balanced choice between aggressive and cautious retry pacing, suitable for a wide range of scenarios, while enforcing a maximum time limit for retrying.
@@ -261,6 +275,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt. It provides a balanced choice between
         /// aggressive and cautious retry pacing, suitable for a wide range of scenarios.
@@ -276,6 +291,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="timeout">The maximum time to spend retrying.</param>
         /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout. It provides
         /// a balanced choice between aggressive and cautious retry pacing, suitable for a wide range of scenarios, while enforcing a maximum time limit for retrying.

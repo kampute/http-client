@@ -21,13 +21,13 @@
           }
         }
       ],
-      "dest": "obj/api"
+      "dest": "docs"
     }
   ],
   "build": {
     "content": [
       {
-        "files": [ "obj/api/**/*.yml" ]
+        "files": [ "../README.md" ]
       }
     ],
     "globalMetadata": {

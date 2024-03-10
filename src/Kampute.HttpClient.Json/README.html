@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Kampute.HttpClient.Json | Kampute.HttpClient </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Kampute.HttpClient.Json | Kampute.HttpClient ">
+    
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="">
+      <meta property="docfx:tocrel" content="">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="kamputehttpclientjson">Kampute.HttpClient.Json</h1>
+
+<p><code>Kampute.HttpClient.Json</code> is an extension for the <a href="https://www.nuget.org/packages/Kampute.HttpClient"><code>Kampute.HttpClient</code></a> library,
+designed to enhance its functionality by providing support for handling <code>application/json</code> content types. This package leverages the
+<code>System.Text.Json</code> for efficient serialization and deserialization of JSON data, simplifying the process of sending and receiving
+JSON payloads in RESTful API communications.</p>
+<h2 id="installation">Installation</h2>
+<p>Install <code>Kampute.HttpClient.Json</code> via NuGet:</p>
+<pre><code class="lang-shell">dotnet add package Kampute.HttpClient.Json
+</code></pre>
+<h2 id="usage">Usage</h2>
+<p>To enable JSON processing capabilities in your <code>HttpRestClient</code> instance, simply import the <code>Kampute.HttpClient.Json</code> namespace and
+use the provided extension methods.</p>
+<pre><code class="lang-csharp">using Kampute.HttpClient;
+using Kampute.HttpClient.Json;
+
+// Create a new instance of the HttpRestClient.
+using var client = new HttpRestClient();
+
+// Configure the client to accept JSON responses.
+client.AcceptJson();
+
+// Sending a JSON payload to an API endpoint.
+var payload = new MyPayload();
+var result = await client.PostAsJsonAsync&lt;MyResult&gt;(&quot;https://api.example.com/resource&quot;, payload);
+</code></pre>
+<h2 id="contributing">Contributing</h2>
+<p>Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new
+features, please open an issue first to discuss what you would like to change.</p>
+<h2 id="license">License</h2>
+<p><code>Kampute.HttpClient.Json</code> is licensed under the terms of the MIT license. See the <a href="LICENSE">LICENSE</a> file for more details.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Json/README.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      © 2024 Kampute
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

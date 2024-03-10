@@ -3,33 +3,31 @@
     {
       "src": [
         {
-          "files": ["src/**.csproj"],
-          "exclude": ["**/obj/**", "**/bin/**"]
+          "files": [ "src/**/*.csproj" ],
+          "exclude": [ "**/obj/**", "**/bin/**" ],
+          "properties": {
+            "TargetFrameworks": "netstandard2.0;netstandard2.1",
+            "OutputPaths": [
+              "bin/Release/netstandard2.0",
+              "bin/Release/netstandard2.1"
+            ]
+          }
         }
       ],
-      "dest": "api"
+      "dest": "obj/api"
     }
   ],
   "build": {
     "content": [
       {
-        "files": ["api/**.yml"],
-        "src": "api",
-        "dest": "api"
+        "files": [ "obj/api/**/*.yml" ]
       }
     ],
     "globalMetadata": {
       "_appTitle": "Kampute.HttpClient",
       "_appFooter": "© 2024 Kampute"
     },
-    "template": ["default"],
-    "dest": "docs",
-    "overwrite": [
-      {
-        "files": ["api/**.md"],
-        "exclude": ["**/toc.md"]
-      }
-    ],
-    "generateToc": true
+    "template": [ "default" ],
+    "dest": "docs"
   }
 }

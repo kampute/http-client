@@ -1,0 +1,69 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.NewtonsoftJson
+  commentId: N:Kampute.HttpClient.NewtonsoftJson
+  id: Kampute.HttpClient.NewtonsoftJson
+  children:
+  - Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions
+  - Kampute.HttpClient.NewtonsoftJson.JsonContent
+  - Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient.NewtonsoftJson
+  nameWithType: Kampute.HttpClient.NewtonsoftJson
+  fullName: Kampute.HttpClient.NewtonsoftJson
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient.NewtonsoftJson
+references:
+- uid: Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions
+  commentId: T:Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions
+  parent: Kampute.HttpClient.NewtonsoftJson
+  href: Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html
+  name: HttpRestClientJsonExtensions
+  nameWithType: HttpRestClientJsonExtensions
+  fullName: Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions
+- uid: Kampute.HttpClient.NewtonsoftJson.JsonContent
+  commentId: T:Kampute.HttpClient.NewtonsoftJson.JsonContent
+  href: Kampute.HttpClient.NewtonsoftJson.JsonContent.html
+  name: JsonContent
+  nameWithType: JsonContent
+  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContent
+- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer
+  commentId: T:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer
+  parent: Kampute.HttpClient.NewtonsoftJson
+  href: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html
+  name: JsonContentDeserializer
+  nameWithType: JsonContentDeserializer
+  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer
+- uid: Kampute.HttpClient.NewtonsoftJson
+  commentId: N:Kampute.HttpClient.NewtonsoftJson
+  href: Kampute.html
+  name: Kampute.HttpClient.NewtonsoftJson
+  nameWithType: Kampute.HttpClient.NewtonsoftJson
+  fullName: Kampute.HttpClient.NewtonsoftJson
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.NewtonsoftJson
+    name: NewtonsoftJson
+    href: Kampute.HttpClient.NewtonsoftJson.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.NewtonsoftJson
+    name: NewtonsoftJson
+    href: Kampute.HttpClient.NewtonsoftJson.html

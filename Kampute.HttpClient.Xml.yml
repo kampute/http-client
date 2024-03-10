@@ -1,0 +1,69 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.Xml
+  commentId: N:Kampute.HttpClient.Xml
+  id: Kampute.HttpClient.Xml
+  children:
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  - Kampute.HttpClient.Xml.XmlContent
+  - Kampute.HttpClient.Xml.XmlContentDeserializer
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient.Xml
+  nameWithType: Kampute.HttpClient.Xml
+  fullName: Kampute.HttpClient.Xml
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient.Xml
+references:
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  commentId: T:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  parent: Kampute.HttpClient.Xml
+  href: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html
+  name: HttpRestClientXmlExtensions
+  nameWithType: HttpRestClientXmlExtensions
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+- uid: Kampute.HttpClient.Xml.XmlContent
+  commentId: T:Kampute.HttpClient.Xml.XmlContent
+  href: Kampute.HttpClient.Xml.XmlContent.html
+  name: XmlContent
+  nameWithType: XmlContent
+  fullName: Kampute.HttpClient.Xml.XmlContent
+- uid: Kampute.HttpClient.Xml.XmlContentDeserializer
+  commentId: T:Kampute.HttpClient.Xml.XmlContentDeserializer
+  parent: Kampute.HttpClient.Xml
+  href: Kampute.HttpClient.Xml.XmlContentDeserializer.html
+  name: XmlContentDeserializer
+  nameWithType: XmlContentDeserializer
+  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer
+- uid: Kampute.HttpClient.Xml
+  commentId: N:Kampute.HttpClient.Xml
+  href: Kampute.html
+  name: Kampute.HttpClient.Xml
+  nameWithType: Kampute.HttpClient.Xml
+  fullName: Kampute.HttpClient.Xml
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Xml
+    name: Xml
+    href: Kampute.HttpClient.Xml.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Xml
+    name: Xml
+    href: Kampute.HttpClient.Xml.html

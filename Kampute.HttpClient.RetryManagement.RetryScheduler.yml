@@ -1,0 +1,842 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler
+  commentId: T:Kampute.HttpClient.RetryManagement.RetryScheduler
+  id: RetryScheduler
+  parent: Kampute.HttpClient.RetryManagement
+  children:
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.Reset
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy
+  - Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: RetryScheduler
+  nameWithType: RetryScheduler
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler
+  type: Class
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: RetryScheduler
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 16
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Represents a scheduler for managing retry attempts.
+  example: []
+  syntax:
+    content: 'public class RetryScheduler : IRetryScheduler'
+    content.vb: Public Class RetryScheduler Implements IRetryScheduler
+  inheritance:
+  - System.Object
+  implements:
+  - Kampute.HttpClient.Interfaces.IRetryScheduler
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryScheduler.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  id: '#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)'
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: RetryScheduler(IRetryStrategy)
+  nameWithType: RetryScheduler.RetryScheduler(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.RetryScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  type: Constructor
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: .ctor
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 26
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Initializes a new instance of the <xref href="Kampute.HttpClient.RetryManagement.RetryScheduler" data-throw-if-not-resolved="false"></xref> class with a specified retry strategy.
+  example: []
+  syntax:
+    content: public RetryScheduler(IRetryStrategy strategy)
+    parameters:
+    - id: strategy
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+      description: The retry strategy to be used by this scheduler.
+    content.vb: Public Sub New(strategy As IRetryStrategy)
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.#ctor*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">strategy</code> is <code>null</code>.
+  nameWithType.vb: RetryScheduler.New(IRetryStrategy)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryScheduler.New(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  name.vb: New(IRetryStrategy)
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy
+  commentId: P:Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy
+  id: Strategy
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: Strategy
+  nameWithType: RetryScheduler.Strategy
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy
+  type: Property
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Strategy
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 34
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Gets the retry strategy associated with this scheduler.
+  example: []
+  syntax:
+    content: public virtual IRetryStrategy Strategy { get; }
+    parameters: []
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+    content.vb: Public Overridable ReadOnly Property Strategy As IRetryStrategy
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy*
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts
+  commentId: P:Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts
+  id: Attempts
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: Attempts
+  nameWithType: RetryScheduler.Attempts
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts
+  type: Property
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Attempts
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 39
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Gets the number of retry attempts that have been made.
+  example: []
+  syntax:
+    content: public virtual uint Attempts { get; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: Public Overridable ReadOnly Property Attempts As UInteger
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts*
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed
+  commentId: P:Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed
+  id: Elapsed
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: Elapsed
+  nameWithType: RetryScheduler.Elapsed
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed
+  type: Property
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Elapsed
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 44
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Gets the total elapsed time since the retry attempts were started.
+  example: []
+  syntax:
+    content: public virtual TimeSpan Elapsed { get; }
+    parameters: []
+    return:
+      type: System.TimeSpan
+    content.vb: Public Overridable ReadOnly Property Elapsed As TimeSpan
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed*
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  id: WaitAsync(System.Threading.CancellationToken)
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: WaitAsync(CancellationToken)
+  nameWithType: RetryScheduler.WaitAsync(CancellationToken)
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: WaitAsync
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 52
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Waits for the appropriate time before the next retry attempt, and determines if a retry should be attempted.
+  example: []
+  syntax:
+    content: public virtual Task<bool> WaitAsync(CancellationToken cancellationToken)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token that can be used to cancel the wait operation.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: A task that resolves to <code>true</code> if a retry should be attempted; otherwise, <code>false</code>.
+    content.vb: Public Overridable Function WaitAsync(cancellationToken As CancellationToken) As Task(Of Boolean)
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync*
+  exceptions:
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the wait operation is canceled.
+  implements:
+  - Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync(System.Threading.CancellationToken)
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Reset
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryScheduler.Reset
+  id: Reset
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: Reset()
+  nameWithType: RetryScheduler.Reset()
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Reset()
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Reset
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 70
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Resets the internal state of the scheduler to its initial condition.
+  example: []
+  syntax:
+    content: public virtual void Reset()
+    content.vb: Public Overridable Sub Reset()
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.Reset*
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt
+  id: ReadyNextAttempt
+  parent: Kampute.HttpClient.RetryManagement.RetryScheduler
+  langs:
+  - csharp
+  - vb
+  name: ReadyNextAttempt()
+  nameWithType: RetryScheduler.ReadyNextAttempt()
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt()
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: ReadyNextAttempt
+    path: src/Kampute.HttpClient/RetryManagement/RetryScheduler.cs
+    startLine: 83
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Prepares the internal state for the next retry attempt.
+  remarks: >-
+    This method is called immediately after a retry attempt is determined to be necessary and before the delay for the next attempt begins. 
+
+    It allows for updating the internal state or performing any preparations required before the next attempt.
+  example: []
+  syntax:
+    content: protected virtual void ReadyNextAttempt()
+    content.vb: Protected Overridable Sub ReadyNextAttempt()
+  overload: Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt*
+references:
+- uid: Kampute.HttpClient.RetryManagement
+  commentId: N:Kampute.HttpClient.RetryManagement
+  href: Kampute.html
+  name: Kampute.HttpClient.RetryManagement
+  nameWithType: Kampute.HttpClient.RetryManagement
+  fullName: Kampute.HttpClient.RetryManagement
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Kampute.HttpClient.Interfaces.IRetryScheduler
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryScheduler
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryScheduler.html
+  name: IRetryScheduler
+  nameWithType: IRetryScheduler
+  fullName: Kampute.HttpClient.Interfaces.IRetryScheduler
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler
+  commentId: T:Kampute.HttpClient.RetryManagement.RetryScheduler
+  parent: Kampute.HttpClient.RetryManagement
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html
+  name: RetryScheduler
+  nameWithType: RetryScheduler
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.#ctor*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.#ctor
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: RetryScheduler
+  nameWithType: RetryScheduler.RetryScheduler
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.RetryScheduler
+  nameWithType.vb: RetryScheduler.New
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryScheduler.New
+  name.vb: New
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryStrategy
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  name: IRetryStrategy
+  nameWithType: IRetryStrategy
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler_Strategy
+  name: Strategy
+  nameWithType: RetryScheduler.Strategy
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Strategy
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler_Attempts
+  name: Attempts
+  nameWithType: RetryScheduler.Attempts
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Attempts
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler_Elapsed
+  name: Elapsed
+  nameWithType: RetryScheduler.Elapsed
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Elapsed
+- uid: System.TimeSpan
+  commentId: T:System.TimeSpan
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.timespan
+  name: TimeSpan
+  nameWithType: TimeSpan
+  fullName: System.TimeSpan
+- uid: System.Threading.Tasks.TaskCanceledException
+  commentId: T:System.Threading.Tasks.TaskCanceledException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception
+  name: TaskCanceledException
+  nameWithType: TaskCanceledException
+  fullName: System.Threading.Tasks.TaskCanceledException
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler_WaitAsync_System_Threading_CancellationToken_
+  name: WaitAsync
+  nameWithType: RetryScheduler.WaitAsync
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync
+- uid: Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  parent: Kampute.HttpClient.Interfaces.IRetryScheduler
+  isExternal: true
+  href: Kampute.HttpClient.Interfaces.IRetryScheduler.html#Kampute_HttpClient_Interfaces_IRetryScheduler_WaitAsync_System_Threading_CancellationToken_
+  name: WaitAsync(CancellationToken)
+  nameWithType: IRetryScheduler.WaitAsync(CancellationToken)
+  fullName: Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync(System.Threading.CancellationToken)
+    name: WaitAsync
+    href: Kampute.HttpClient.Interfaces.IRetryScheduler.html#Kampute_HttpClient_Interfaces_IRetryScheduler_WaitAsync_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync(System.Threading.CancellationToken)
+    name: WaitAsync
+    href: Kampute.HttpClient.Interfaces.IRetryScheduler.html#Kampute_HttpClient_Interfaces_IRetryScheduler_WaitAsync_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<bool>
+  nameWithType: Task<bool>
+  fullName: System.Threading.Tasks.Task<bool>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.Reset*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.Reset
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler_Reset
+  name: Reset
+  nameWithType: RetryScheduler.Reset
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.Reset
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html#Kampute_HttpClient_RetryManagement_RetryScheduler_ReadyNextAttempt
+  name: ReadyNextAttempt
+  nameWithType: RetryScheduler.ReadyNextAttempt
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.ReadyNextAttempt

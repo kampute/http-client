@@ -1,0 +1,719 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  id: IHttpContentDeserializer
+  parent: Kampute.HttpClient.Interfaces
+  children:
+  - Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  - Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  langs:
+  - csharp
+  - vb
+  name: IHttpContentDeserializer
+  nameWithType: IHttpContentDeserializer
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  type: Interface
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: IHttpContentDeserializer
+    path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+    startLine: 44
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Defines the functionality for deserializing an object from the HTTP request body.
+  remarks: >-
+    <p>
+
+    The <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> interface is designed for the purpose of abstracting the mechanism of deserializing data 
+
+    from HTTP responses into .NET objects. Implementers of this interface provide the logic necessary to convert HTTP content, identified 
+
+    by a specific media type, into instances of model types used within an application.
+
+    </p>
+
+    <p>
+
+    The <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)" data-throw-if-not-resolved="false"></xref> method is designed to communicate the content types that the deserializer can process, effectively 
+
+    informing the server about the media types acceptable to the client. It ensures that the client and server can agree on a common format for 
+
+    data exchange, enhancing the efficiency and compatibility of HTTP communications.
+
+    </p>
+
+    <p>
+
+    Through the <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String%2cSystem.Type)" data-throw-if-not-resolved="false"></xref> method, implementations can provide a quick check to ascertain compatibility between the deserializer, 
+
+    the media type of the content, and the target model type. This check is typically performed before attempting deserialization to ensure that 
+
+    the deserializer is capable of processing the content as expected.
+
+    </p>
+
+    <p>
+
+    The asynchronous <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent%2cSystem.Type%2cSystem.Threading.CancellationToken)" data-throw-if-not-resolved="false"></xref> method forms the core of the interface, where the actual deserialization logic is implemented. 
+
+    This method takes <xref href="System.Net.Http.HttpContent" data-throw-if-not-resolved="false"></xref>, along with the target model type, and returns a task that, when completed, yields the deserialized 
+
+    object. Implementations must handle the asynchronous nature of this operation, catering to potential cancellation requests through the 
+
+    provided <xref href="System.Threading.CancellationToken" data-throw-if-not-resolved="false"></xref> provided by the parameter.
+
+    </p>
+
+    <p>
+
+    The implementations of <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> should be thread-safe and reusable across multiple deserialization operations to 
+
+    facilitate efficient processing of HTTP response content in a concurrent environment.
+
+    </p>
+  example: []
+  syntax:
+    content: public interface IHttpContentDeserializer
+    content.vb: Public Interface IHttpContentDeserializer
+  seealso:
+  - linkId: Kampute.HttpClient.HttpRestClient.ResponseDeserializers
+    commentId: P:Kampute.HttpClient.HttpRestClient.ResponseDeserializers
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  id: GetSupportedMediaTypes(System.Type)
+  parent: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  langs:
+  - csharp
+  - vb
+  name: GetSupportedMediaTypes(Type?)
+  nameWithType: IHttpContentDeserializer.GetSupportedMediaTypes(Type?)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type?)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: GetSupportedMediaTypes
+    path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+    startLine: 51
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Retrieves a collection of supported media types for a specific model type.
+  example: []
+  syntax:
+    content: IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
+    parameters:
+    - id: modelType
+      type: System.Type
+      description: The type of the model for which to retrieve supported media types.
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{System.String}
+      description: A read-only collection of strings representing the media types supported for the specified model type.
+    content.vb: Function GetSupportedMediaTypes(modelType As Type) As IReadOnlyCollection(Of String)
+  overload: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes*
+  nameWithType.vb: IHttpContentDeserializer.GetSupportedMediaTypes(Type)
+  fullName.vb: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  name.vb: GetSupportedMediaTypes(Type)
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  id: CanDeserialize(System.String,System.Type)
+  parent: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  langs:
+  - csharp
+  - vb
+  name: CanDeserialize(string, Type?)
+  nameWithType: IHttpContentDeserializer.CanDeserialize(string, Type?)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(string, System.Type?)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: CanDeserialize
+    path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+    startLine: 59
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Determines whether this deserializer can handle data of a specific content type and deserialize it into the specified model type.
+  example: []
+  syntax:
+    content: bool CanDeserialize(string mediaType, Type? modelType)
+    parameters:
+    - id: mediaType
+      type: System.String
+      description: The media type of the content.
+    - id: modelType
+      type: System.Type
+      description: The type of the model to be deserialized.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if this deserializer can handle the specified content type and model type; otherwise, <code>false</code>.
+    content.vb: Function CanDeserialize(mediaType As String, modelType As Type) As Boolean
+  overload: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize*
+  nameWithType.vb: IHttpContentDeserializer.CanDeserialize(String, Type)
+  fullName.vb: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(String, System.Type)
+  name.vb: CanDeserialize(String, Type)
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  id: DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  parent: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  langs:
+  - csharp
+  - vb
+  name: DeserializeAsync(HttpContent, Type, CancellationToken)
+  nameWithType: IHttpContentDeserializer.DeserializeAsync(HttpContent, Type, CancellationToken)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent, System.Type, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: DeserializeAsync
+    path: src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs
+    startLine: 69
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Asynchronously deserializes an object from the provided <xref href="System.Net.Http.HttpContent" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
+    parameters:
+    - id: content
+      type: System.Net.Http.HttpContent
+      description: The <xref href="System.Net.Http.HttpContent" data-throw-if-not-resolved="false"></xref> from which to deserialize the data.
+    - id: modelType
+      type: System.Type
+      description: The type of the object to be deserialized.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the operation (optional).
+    return:
+      type: System.Threading.Tasks.Task{System.Object}
+      description: A task representing the asynchronous deserialization operation. Contains the deserialized object.
+    content.vb: Function DeserializeAsync(content As HttpContent, modelType As Type, cancellationToken As CancellationToken = Nothing) As Task(Of Object)
+  overload: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">content</code> or <code class="paramref">modelType</code> is <code>null</code>.
+references:
+- uid: Kampute.HttpClient.HttpRestClient.ResponseDeserializers
+  commentId: P:Kampute.HttpClient.HttpRestClient.ResponseDeserializers
+  href: Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseDeserializers
+  name: ResponseDeserializers
+  nameWithType: HttpRestClient.ResponseDeserializers
+  fullName: Kampute.HttpClient.HttpRestClient.ResponseDeserializers
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  name: IHttpContentDeserializer
+  nameWithType: IHttpContentDeserializer
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  parent: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  isExternal: true
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_
+  name: GetSupportedMediaTypes(Type)
+  nameWithType: IHttpContentDeserializer.GetSupportedMediaTypes(Type)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  spec.csharp:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+    name: GetSupportedMediaTypes
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+    name: GetSupportedMediaTypes
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  parent: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  isExternal: true
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_
+  name: CanDeserialize(string, Type)
+  nameWithType: IHttpContentDeserializer.CanDeserialize(string, Type)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(string, System.Type)
+  nameWithType.vb: IHttpContentDeserializer.CanDeserialize(String, Type)
+  fullName.vb: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(String, System.Type)
+  name.vb: CanDeserialize(String, Type)
+  spec.csharp:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+    name: CanDeserialize
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
+    name: CanDeserialize
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  parent: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  isExternal: true
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
+  name: DeserializeAsync(HttpContent, Type, CancellationToken)
+  nameWithType: IHttpContentDeserializer.DeserializeAsync(HttpContent, Type, CancellationToken)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent, System.Type, System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+    name: DeserializeAsync
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Net.Http.HttpContent
+    name: HttpContent
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+    name: DeserializeAsync
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
+  - name: (
+  - uid: System.Net.Http.HttpContent
+    name: HttpContent
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  - name: )
+- uid: System.Net.Http.HttpContent
+  commentId: T:System.Net.Http.HttpContent
+  parent: System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent
+  name: HttpContent
+  nameWithType: HttpContent
+  fullName: System.Net.Http.HttpContent
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: System.Net.Http
+  commentId: N:System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Net.Http
+  nameWithType: System.Net.Http
+  fullName: System.Net.Http
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes*
+  commentId: Overload:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_
+  name: GetSupportedMediaTypes
+  nameWithType: IHttpContentDeserializer.GetSupportedMediaTypes
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Collections.Generic.IReadOnlyCollection{System.String}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<string>
+  nameWithType: IReadOnlyCollection<string>
+  fullName: System.Collections.Generic.IReadOnlyCollection<string>
+  nameWithType.vb: IReadOnlyCollection(Of String)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of String)
+  name.vb: IReadOnlyCollection(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IReadOnlyCollection`1
+  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize*
+  commentId: Overload:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_
+  name: CanDeserialize
+  nameWithType: IHttpContentDeserializer.CanDeserialize
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync*
+  commentId: Overload:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
+  name: DeserializeAsync
+  nameWithType: IHttpContentDeserializer.DeserializeAsync
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync
+- uid: System.Threading.Tasks.Task{System.Object}
+  commentId: T:System.Threading.Tasks.Task{System.Object}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<object>
+  nameWithType: Task<object>
+  fullName: System.Threading.Tasks.Task<object>
+  nameWithType.vb: Task(Of Object)
+  fullName.vb: System.Threading.Tasks.Task(Of Object)
+  name.vb: Task(Of Object)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

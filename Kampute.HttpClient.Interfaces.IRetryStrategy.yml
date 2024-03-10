@@ -1,0 +1,529 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryStrategy
+  id: IRetryStrategy
+  parent: Kampute.HttpClient.Interfaces
+  children:
+  - Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay(System.TimeSpan,System.UInt32,System.TimeSpan@)
+  langs:
+  - csharp
+  - vb
+  name: IRetryStrategy
+  nameWithType: IRetryStrategy
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy
+  type: Interface
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IRetryStrategy.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: IRetryStrategy
+    path: src/Kampute.HttpClient/Interfaces/IRetryStrategy.cs
+    startLine: 7
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Defines a strategy for calculating the delay duration between retry attempts based on elapsed time and the number of attempts already made.
+  example: []
+  syntax:
+    content: public interface IRetryStrategy
+    content.vb: Public Interface IRetryStrategy
+  extensionMethods:
+  - Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(System.Double)
+  - Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(System.UInt32)
+  - Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(System.TimeSpan)
+  - Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler
+  - Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay(System.TimeSpan,System.UInt32,System.TimeSpan@)
+  commentId: M:Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay(System.TimeSpan,System.UInt32,System.TimeSpan@)
+  id: TryGetRetryDelay(System.TimeSpan,System.UInt32,System.TimeSpan@)
+  parent: Kampute.HttpClient.Interfaces.IRetryStrategy
+  langs:
+  - csharp
+  - vb
+  name: TryGetRetryDelay(TimeSpan, uint, out TimeSpan)
+  nameWithType: IRetryStrategy.TryGetRetryDelay(TimeSpan, uint, out TimeSpan)
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay(System.TimeSpan, uint, out System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IRetryStrategy.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: TryGetRetryDelay
+    path: src/Kampute.HttpClient/Interfaces/IRetryStrategy.cs
+    startLine: 16
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Calculates the delay duration for the next retry attempt and indicates whether a retry should be attempted.
+  example: []
+  syntax:
+    content: bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay)
+    parameters:
+    - id: elapsed
+      type: System.TimeSpan
+      description: The total time elapsed since the start of retry attempts.
+    - id: attempts
+      type: System.UInt32
+      description: The count of retry attempts made so far.
+    - id: delay
+      type: System.TimeSpan
+      description: When this method returns, contains the calculated delay duration for the next retry attempt, if a retry is advisable. This parameter is passed uninitialized.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if a retry attempt is advisable and should be made after the calculated delay; <code>false</code> otherwise, indicating no further retry attempts should be made.
+    content.vb: Function TryGetRetryDelay(elapsed As TimeSpan, attempts As UInteger, delay As TimeSpan) As Boolean
+  overload: Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay*
+  nameWithType.vb: IRetryStrategy.TryGetRetryDelay(TimeSpan, UInteger, TimeSpan)
+  fullName.vb: Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay(System.TimeSpan, UInteger, System.TimeSpan)
+  name.vb: TryGetRetryDelay(TimeSpan, UInteger, TimeSpan)
+references:
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(System.Double)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  definition: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  name: Jitter(IRetryStrategy, double)
+  nameWithType: RetryStrategyExtensions.Jitter(IRetryStrategy, double)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, double)
+  nameWithType.vb: RetryStrategyExtensions.Jitter(IRetryStrategy, Double)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, Double)
+  name.vb: Jitter(IRetryStrategy, Double)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+    name: Jitter
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+    name: Jitter
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(System.UInt32)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  definition: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  name: MaxAttempts(IRetryStrategy, uint)
+  nameWithType: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, uint)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, uint)
+  nameWithType.vb: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, UInteger)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, UInteger)
+  name.vb: MaxAttempts(IRetryStrategy, UInteger)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+    name: MaxAttempts
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+    name: MaxAttempts
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(System.TimeSpan)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  definition: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  name: Timeout(IRetryStrategy, TimeSpan)
+  nameWithType: RetryStrategyExtensions.Timeout(IRetryStrategy, TimeSpan)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy, System.TimeSpan)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+    name: Timeout
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.TimeSpan
+    name: TimeSpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.timespan
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+    name: Timeout
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.TimeSpan
+    name: TimeSpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.timespan
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  definition: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: ToScheduler(IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToScheduler(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToScheduler
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToScheduler
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  definition: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: ToSchedulerFactory(IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToSchedulerFactory(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToSchedulerFactory
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToSchedulerFactory
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  isExternal: true
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  name: Jitter(IRetryStrategy, double)
+  nameWithType: RetryStrategyExtensions.Jitter(IRetryStrategy, double)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, double)
+  nameWithType.vb: RetryStrategyExtensions.Jitter(IRetryStrategy, Double)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, Double)
+  name.vb: Jitter(IRetryStrategy, Double)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+    name: Jitter
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+    name: Jitter
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  commentId: T:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  parent: Kampute.HttpClient.RetryManagement
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html
+  name: RetryStrategyExtensions
+  nameWithType: RetryStrategyExtensions
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  isExternal: true
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  name: MaxAttempts(IRetryStrategy, uint)
+  nameWithType: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, uint)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, uint)
+  nameWithType.vb: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, UInteger)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, UInteger)
+  name.vb: MaxAttempts(IRetryStrategy, UInteger)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+    name: MaxAttempts
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+    name: MaxAttempts
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: )
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  isExternal: true
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  name: Timeout(IRetryStrategy, TimeSpan)
+  nameWithType: RetryStrategyExtensions.Timeout(IRetryStrategy, TimeSpan)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy, System.TimeSpan)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+    name: Timeout
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.TimeSpan
+    name: TimeSpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.timespan
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+    name: Timeout
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: ','
+  - name: " "
+  - uid: System.TimeSpan
+    name: TimeSpan
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.timespan
+  - name: )
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: ToScheduler(IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToScheduler(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToScheduler
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToScheduler
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: ToSchedulerFactory(IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToSchedulerFactory(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  spec.csharp:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToSchedulerFactory
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+  spec.vb:
+  - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+    name: ToSchedulerFactory
+    href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+- uid: Kampute.HttpClient.RetryManagement
+  commentId: N:Kampute.HttpClient.RetryManagement
+  href: Kampute.html
+  name: Kampute.HttpClient.RetryManagement
+  nameWithType: Kampute.HttpClient.RetryManagement
+  fullName: Kampute.HttpClient.RetryManagement
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay*
+  commentId: Overload:Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay
+  href: Kampute.HttpClient.Interfaces.IRetryStrategy.html#Kampute_HttpClient_Interfaces_IRetryStrategy_TryGetRetryDelay_System_TimeSpan_System_UInt32_System_TimeSpan__
+  name: TryGetRetryDelay
+  nameWithType: IRetryStrategy.TryGetRetryDelay
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy.TryGetRetryDelay
+- uid: System.TimeSpan
+  commentId: T:System.TimeSpan
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.timespan
+  name: TimeSpan
+  nameWithType: TimeSpan
+  fullName: System.TimeSpan
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

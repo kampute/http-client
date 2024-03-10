@@ -1,0 +1,44 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.ErrorHandlers
+  commentId: N:Kampute.HttpClient.ErrorHandlers
+  id: Kampute.HttpClient.ErrorHandlers
+  children:
+  - Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler
+  - Kampute.HttpClient.ErrorHandlers.HttpError401Handler
+  - Kampute.HttpClient.ErrorHandlers.HttpError429Handler
+  - Kampute.HttpClient.ErrorHandlers.HttpError503Handler
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient.ErrorHandlers
+  nameWithType: Kampute.HttpClient.ErrorHandlers
+  fullName: Kampute.HttpClient.ErrorHandlers
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient
+references:
+- uid: Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler
+  commentId: T:Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler
+  href: Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html
+  name: DynamicHttpErrorHandler
+  nameWithType: DynamicHttpErrorHandler
+  fullName: Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler
+  commentId: T:Kampute.HttpClient.ErrorHandlers.HttpError401Handler
+  href: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html
+  name: HttpError401Handler
+  nameWithType: HttpError401Handler
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler
+  commentId: T:Kampute.HttpClient.ErrorHandlers.HttpError429Handler
+  href: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html
+  name: HttpError429Handler
+  nameWithType: HttpError429Handler
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError429Handler
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError503Handler
+  commentId: T:Kampute.HttpClient.ErrorHandlers.HttpError503Handler
+  href: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html
+  name: HttpError503Handler
+  nameWithType: HttpError503Handler
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler

@@ -1,0 +1,726 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  commentId: T:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  id: RetryStrategyExtensions
+  parent: Kampute.HttpClient.RetryManagement
+  children:
+  - Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  - Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  - Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  - Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  - Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  langs:
+  - csharp
+  - vb
+  name: RetryStrategyExtensions
+  nameWithType: RetryStrategyExtensions
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  type: Class
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: RetryStrategyExtensions
+    path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+    startLine: 10
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Provides extension methods for <xref href="Kampute.HttpClient.Interfaces.IRetryStrategy" data-throw-if-not-resolved="false"></xref> to enhance retry strategies with additional behavior.
+  example: []
+  syntax:
+    content: public static class RetryStrategyExtensions
+    content.vb: Public Module RetryStrategyExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  id: Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  langs:
+  - csharp
+  - vb
+  name: Jitter(IRetryStrategy, double)
+  nameWithType: RetryStrategyExtensions.Jitter(IRetryStrategy, double)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, double)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Jitter
+    path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+    startLine: 20
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Enhances a retry strategy with jitter to add randomness to the retry delay.
+  example: []
+  syntax:
+    content: public static JitterStrategyModifier Jitter(this IRetryStrategy source, double jitterFactor = 0.5)
+    parameters:
+    - id: source
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+      description: The original retry strategy to be enhanced.
+    - id: jitterFactor
+      type: System.Double
+      description: The factor by which to adjust the delay randomly, with a default of 0.5.
+    return:
+      type: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier
+      description: A <xref href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier" data-throw-if-not-resolved="false"></xref> instance wrapping the original retry strategy with added jitter.
+    content.vb: Public Shared Function Jitter(source As IRetryStrategy, jitterFactor As Double = 0.5) As JitterStrategyModifier
+  overload: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">source</code> is <code>null</code>.
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: Thrown if <code class="paramref">jitterFactor</code> is not between 0 and 1.
+  nameWithType.vb: RetryStrategyExtensions.Jitter(IRetryStrategy, Double)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, Double)
+  name.vb: Jitter(IRetryStrategy, Double)
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  id: MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  langs:
+  - csharp
+  - vb
+  name: MaxAttempts(IRetryStrategy, uint)
+  nameWithType: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, uint)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, uint)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: MaxAttempts
+    path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+    startLine: 30
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Enhances a retry strategy with a maximum number of retry attempts.
+  example: []
+  syntax:
+    content: public static LimitedAttemptsStrategyModifier MaxAttempts(this IRetryStrategy source, uint maxAttempts)
+    parameters:
+    - id: source
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+      description: The original retry strategy to be enhanced.
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of attempts allowed before giving up.
+    return:
+      type: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier
+      description: A <xref href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier" data-throw-if-not-resolved="false"></xref> instance wrapping the original retry strategy with a limit on the number of attempts.
+    content.vb: Public Shared Function MaxAttempts(source As IRetryStrategy, maxAttempts As UInteger) As LimitedAttemptsStrategyModifier
+  overload: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">source</code> is <code>null</code>.
+  nameWithType.vb: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, UInteger)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, UInteger)
+  name.vb: MaxAttempts(IRetryStrategy, UInteger)
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  id: Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  langs:
+  - csharp
+  - vb
+  name: Timeout(IRetryStrategy, TimeSpan)
+  nameWithType: RetryStrategyExtensions.Timeout(IRetryStrategy, TimeSpan)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Timeout
+    path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+    startLine: 40
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Enhances a retry strategy with a timeout, limiting the total duration allowed for retry attempts.
+  example: []
+  syntax:
+    content: public static LimitedDurationStrategyModifier Timeout(this IRetryStrategy source, TimeSpan timeout)
+    parameters:
+    - id: source
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+      description: The original retry strategy to be enhanced.
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum duration to attempt retries before giving up.
+    return:
+      type: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier
+      description: A <xref href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier" data-throw-if-not-resolved="false"></xref> instance wrapping the original retry strategy with a timeout limit.
+    content.vb: Public Shared Function Timeout(source As IRetryStrategy, timeout As TimeSpan) As LimitedDurationStrategyModifier
+  overload: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">source</code> is <code>null</code>.
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  id: ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToScheduler(IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToScheduler(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: ToScheduler
+    path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+    startLine: 49
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: Converts an <xref href="Kampute.HttpClient.Interfaces.IRetryStrategy" data-throw-if-not-resolved="false"></xref> into a <xref href="Kampute.HttpClient.RetryManagement.RetryScheduler" data-throw-if-not-resolved="false"></xref>, creating a scheduler instance based on the provided strategy.
+  example: []
+  syntax:
+    content: public static RetryScheduler ToScheduler(this IRetryStrategy source)
+    parameters:
+    - id: source
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+      description: The retry strategy to convert into a scheduler.
+    return:
+      type: Kampute.HttpClient.RetryManagement.RetryScheduler
+      description: A new instance of <xref href="Kampute.HttpClient.RetryManagement.RetryScheduler" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Shared Function ToScheduler(source As IRetryStrategy) As RetryScheduler
+  overload: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">source</code> is <code>null</code>.
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  id: ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToSchedulerFactory(IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToSchedulerFactory(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: ToSchedulerFactory
+    path: src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs
+    startLine: 59
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.RetryManagement
+  summary: >-
+    Converts an <xref href="Kampute.HttpClient.Interfaces.IRetryStrategy" data-throw-if-not-resolved="false"></xref> into a <xref href="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory" data-throw-if-not-resolved="false"></xref>, creating a factory capable of producing schedulers based
+
+    on the provided strategy.
+  example: []
+  syntax:
+    content: public static RetrySchedulerFactory ToSchedulerFactory(this IRetryStrategy source)
+    parameters:
+    - id: source
+      type: Kampute.HttpClient.Interfaces.IRetryStrategy
+      description: The retry strategy to use for creating a scheduler factory.
+    return:
+      type: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
+      description: A new instance of <xref href="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Shared Function ToSchedulerFactory(source As IRetryStrategy) As RetrySchedulerFactory
+  overload: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">source</code> is <code>null</code>.
+references:
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryStrategy
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  name: IRetryStrategy
+  nameWithType: IRetryStrategy
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy
+- uid: Kampute.HttpClient.RetryManagement
+  commentId: N:Kampute.HttpClient.RetryManagement
+  href: Kampute.html
+  name: Kampute.HttpClient.RetryManagement
+  nameWithType: Kampute.HttpClient.RetryManagement
+  fullName: Kampute.HttpClient.RetryManagement
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier
+  parent: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  href: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html
+  name: JitterStrategyModifier
+  nameWithType: JitterStrategyModifier
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception
+  name: ArgumentOutOfRangeException
+  nameWithType: ArgumentOutOfRangeException
+  fullName: System.ArgumentOutOfRangeException
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  name: Jitter
+  nameWithType: RetryStrategyExtensions.Jitter
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  commentId: N:Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  href: Kampute.html
+  name: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  nameWithType: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement.Strategies
+    name: Strategies
+    href: Kampute.HttpClient.RetryManagement.Strategies.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+    name: Modifiers
+    href: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement.Strategies
+    name: Strategies
+    href: Kampute.HttpClient.RetryManagement.Strategies.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+    name: Modifiers
+    href: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html
+- uid: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier
+  parent: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  href: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html
+  name: LimitedAttemptsStrategyModifier
+  nameWithType: LimitedAttemptsStrategyModifier
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  name: MaxAttempts
+  nameWithType: RetryStrategyExtensions.MaxAttempts
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier
+  parent: Kampute.HttpClient.RetryManagement.Strategies.Modifiers
+  href: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html
+  name: LimitedDurationStrategyModifier
+  nameWithType: LimitedDurationStrategyModifier
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  name: Timeout
+  nameWithType: RetryStrategyExtensions.Timeout
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout
+- uid: System.TimeSpan
+  commentId: T:System.TimeSpan
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.timespan
+  name: TimeSpan
+  nameWithType: TimeSpan
+  fullName: System.TimeSpan
+- uid: Kampute.HttpClient.RetryManagement.RetryScheduler
+  commentId: T:Kampute.HttpClient.RetryManagement.RetryScheduler
+  parent: Kampute.HttpClient.RetryManagement
+  href: Kampute.HttpClient.RetryManagement.RetryScheduler.html
+  name: RetryScheduler
+  nameWithType: RetryScheduler
+  fullName: Kampute.HttpClient.RetryManagement.RetryScheduler
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: ToScheduler
+  nameWithType: RetryStrategyExtensions.ToScheduler
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler
+- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
+  commentId: T:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
+  parent: Kampute.HttpClient.RetryManagement
+  href: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html
+  name: RetrySchedulerFactory
+  nameWithType: RetrySchedulerFactory
+  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory*
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory
+  href: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  name: ToSchedulerFactory
+  nameWithType: RetryStrategyExtensions.ToSchedulerFactory
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory

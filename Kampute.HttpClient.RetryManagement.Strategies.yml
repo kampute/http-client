@@ -1,0 +1,90 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.RetryManagement.Strategies
+  commentId: N:Kampute.HttpClient.RetryManagement.Strategies
+  id: Kampute.HttpClient.RetryManagement.Strategies
+  children:
+  - Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy
+  - Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy
+  - Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy
+  - Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy
+  - Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient.RetryManagement.Strategies
+  nameWithType: Kampute.HttpClient.RetryManagement.Strategies
+  fullName: Kampute.HttpClient.RetryManagement.Strategies
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient
+references:
+- uid: Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy
+  href: Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy.html
+  name: ExponentialStrategy
+  nameWithType: ExponentialStrategy
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy
+- uid: Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy
+  href: Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy.html
+  name: FibonacciStrategy
+  nameWithType: FibonacciStrategy
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy
+- uid: Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy
+  href: Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy.html
+  name: LinearStrategy
+  nameWithType: LinearStrategy
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy
+- uid: Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy
+  parent: Kampute.HttpClient.RetryManagement.Strategies
+  href: Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy.html
+  name: NoneStrategy
+  nameWithType: NoneStrategy
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy
+- uid: Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy
+  commentId: T:Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy
+  href: Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.html
+  name: UniformStrategy
+  nameWithType: UniformStrategy
+  fullName: Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy
+- uid: Kampute.HttpClient.RetryManagement.Strategies
+  commentId: N:Kampute.HttpClient.RetryManagement.Strategies
+  href: Kampute.html
+  name: Kampute.HttpClient.RetryManagement.Strategies
+  nameWithType: Kampute.HttpClient.RetryManagement.Strategies
+  fullName: Kampute.HttpClient.RetryManagement.Strategies
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement.Strategies
+    name: Strategies
+    href: Kampute.HttpClient.RetryManagement.Strategies.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement
+    name: RetryManagement
+    href: Kampute.HttpClient.RetryManagement.html
+  - name: .
+  - uid: Kampute.HttpClient.RetryManagement.Strategies
+    name: Strategies
+    href: Kampute.HttpClient.RetryManagement.Strategies.html

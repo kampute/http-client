@@ -1,0 +1,93 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  id: Kampute.HttpClient.Interfaces
+  children:
+  - Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  - Kampute.HttpClient.Interfaces.IHttpErrorHandler
+  - Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  - Kampute.HttpClient.Interfaces.IRetryScheduler
+  - Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+  - Kampute.HttpClient.Interfaces.IRetryStrategy
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient
+references:
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  name: IHttpContentDeserializer
+  nameWithType: IHttpContentDeserializer
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+- uid: Kampute.HttpClient.Interfaces.IHttpErrorHandler
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpErrorHandler
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IHttpErrorHandler.html
+  name: IHttpErrorHandler
+  nameWithType: IHttpErrorHandler
+  fullName: Kampute.HttpClient.Interfaces.IHttpErrorHandler
+- uid: Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  href: Kampute.HttpClient.Interfaces.IHttpErrorResponse.html
+  name: IHttpErrorResponse
+  nameWithType: IHttpErrorResponse
+  fullName: Kampute.HttpClient.Interfaces.IHttpErrorResponse
+- uid: Kampute.HttpClient.Interfaces.IRetryScheduler
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryScheduler
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryScheduler.html
+  name: IRetryScheduler
+  nameWithType: IRetryScheduler
+  fullName: Kampute.HttpClient.Interfaces.IRetryScheduler
+- uid: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+  commentId: T:Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html
+  name: IRetrySchedulerFactory
+  nameWithType: IRetrySchedulerFactory
+  fullName: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryStrategy
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  name: IRetryStrategy
+  nameWithType: IRetryStrategy
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html

@@ -36,9 +36,12 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../../SigningKey.snk</AssemblyOriginatorKeyFile>
    </PropertyGroup>
+
+  <PropertyGroup Condition="Exists('../../SigningKey.snk')">
+    <SignAssembly >true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../SigningKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="/" />

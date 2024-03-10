@@ -1,7 +1,6 @@
 ﻿namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
-    using Kampute.HttpClient.RetryStrategies;
     using Kampute.HttpClient.Test.TestHelpers;
     using Moq;
     using NUnit.Framework;
@@ -39,7 +38,6 @@
         {
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
-
 
             var timer = new Stopwatch();
             var retryDelay = TimeSpan.FromMilliseconds(100);
@@ -96,11 +94,11 @@
         }
 
         [Test]
-        public async Task On503Response_WithoutRetryAfterHeader_RetriesAccordingToDefaultPolicy()
+        public async Task On503Response_WithoutRetryAfterHeader_RetriesAccordingToDefaultStrategy()
         {
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
-            _client.BackoffStrategy = new UniformRetryStrategy(2, TimeSpan.FromMilliseconds(100));
+            _client.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -116,31 +114,11 @@
         }
 
         [Test]
-        public async Task On503Response_WithoutRetryAfterHeader_RetriesAccordingToClientPolicy()
-        {
-            var serviceUnavailableHandler = new HttpError503Handler();
-            _client.ErrorHandlers.Add(serviceUnavailableHandler);
-            _client.BackoffStrategy = new UniformRetryStrategy(2, TimeSpan.FromMilliseconds(100));
-
-            var attempts = 0;
-            _mockMessageHandler.MockHttpResponse(request =>
-            {
-                attempts++;
-
-                return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
-            });
-
-            await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
-
-            Assert.That(attempts, Is.EqualTo(3));
-        }
-
-        [Test]
-        public async Task On503Response_WithCustomBackoffStrategy_RetriesAccordingToPolicy()
+        public async Task On503Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
         {
             var serviceUnavailableHandler = new HttpError503Handler
             {
-                OnBackoffStrategy = (ctx, retryAfter) => new UniformRetryStrategy(2, TimeSpan.FromMilliseconds(100))
+                OnBackoffStrategy = (ctx, retryAfter) => BackoffStrategies.Uniform(2, TimeSpan.Zero)
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 

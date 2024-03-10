@@ -6,7 +6,6 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
-    using Kampute.HttpClient.RetryStrategies;
     using System;
     using System.IO;
     using System.Net;
@@ -67,7 +66,7 @@ namespace Kampute.HttpClient
 
         private Uri? _baseAddress = null;
         private Type? _responseErrorType = null;
-        private IRetryStrategy _backoffStrategy = BackoffStrategies.None;
+        private IRetrySchedulerFactory _backoffStrategy = BackoffStrategies.None;
         private readonly HttpErrorHandlerCollection _errorHandlers = [];
         private readonly HttpContentDeserializerCollection _deserializers = [];
         private readonly HttpRequestHeaders _defaultRequestHeaders = CreateRequestHeaders();
@@ -213,7 +212,7 @@ namespace Kampute.HttpClient
         /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network 
         /// issues or temporary server unavailability. The default is <see cref="ZeroRetryStrategy"/>.
         /// </remarks>
-        public IRetryStrategy BackoffStrategy
+        public IRetrySchedulerFactory BackoffStrategy
         {
             get => _backoffStrategy;
             set => _backoffStrategy = value ?? BackoffStrategies.None;

@@ -1,29 +1,19 @@
-﻿// Copyright (C) 2024 Kampute
-//
-// This file is part of the Kampute.HttpClient package and is released under the terms of the MIT license.
-// See the LICENSE file in the project root for the full license text.
-
-namespace Kampute.HttpClient.Interfaces
+﻿namespace Kampute.HttpClient.Interfaces
 {
     using System;
 
     /// <summary>
-    /// Defines a contract for a retry strategy that determines how HTTP request retries should be handled.
+    /// Defines a strategy for calculating the delay duration between retry attempts based on elapsed time and the number of attempts already made.
     /// </summary>
-    /// <remarks>
-    /// The <see cref="IRetryStrategy"/> interface facilitates the creation of various retry strategies, including but not limited to 
-    /// backoff algorithms such as fixed delay, exponential backoff, or more sophisticated adaptive strategies. These strategies are 
-    /// responsible for determining not only the delay between retry attempts but also whether and under what conditions a retry should 
-    /// be attempted.
-    /// </remarks>
     public interface IRetryStrategy
     {
         /// <summary>
-        /// Creates a scheduler responsible for scheduling retry attempts for HTTP requests according to the strategy.
+        /// Calculates the delay duration for the next retry attempt and indicates whether a retry should be attempted.
         /// </summary>
-        /// <param name="ctx">The context containing detailed information about the failed HTTP request, including the client, request, and error information.</param>
-        /// <returns>An instance of <see cref="IRetryScheduler"/> that will manage the retry attempts for the given context in accordance with this strategy.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <c>null</c>.</exception>
-        IRetryScheduler CreateScheduler(HttpRequestErrorContext ctx);
+        /// <param name="elapsed">The total time elapsed since the start of retry attempts.</param>
+        /// <param name="attempts">The count of retry attempts made so far.</param>
+        /// <param name="delay">When this method returns, contains the calculated delay duration for the next retry attempt, if a retry is advisable. This parameter is passed uninitialized.</param>
+        /// <returns><c>true</c> if a retry attempt is advisable and should be made after the calculated delay; <c>false</c> otherwise, indicating no further retry attempts should be made.</returns>
+        bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay);
     }
 }

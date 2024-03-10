@@ -1,7 +1,6 @@
 ﻿namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
-    using Kampute.HttpClient.RetryStrategies;
     using Kampute.HttpClient.Test.TestHelpers;
     using Moq;
     using NUnit.Framework;
@@ -83,11 +82,11 @@
         }
 
         [Test]
-        public async Task On429Response_WithCustomBackoffStrategy_RetriesAccordingToPolicy()
+        public async Task On429Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
         {
             var tooManyRequestsHandler = new HttpError429Handler
             {
-                OnBackoffStrategy = (ctx, resetTime) => new UniformRetryStrategy(2, TimeSpan.FromMilliseconds(100))
+                OnBackoffStrategy = (ctx, resetTime) => BackoffStrategies.Uniform(2, TimeSpan.Zero)
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
 

@@ -28,7 +28,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If this delegate is set and returns an <see cref="IRetryStrategy"/>, the returned strategy is used for the retry operation. 
+        /// If this delegate is set and returns an <see cref="IRetrySchedulerFactory"/>, the returned strategy is used for the retry operation. 
         /// If it is not set, or returns <c>null</c>, the handler will defer to the <c>Retry-After</c> header in the response.
         /// </para>
         /// <para>
@@ -48,7 +48,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </list>
         /// </para>
         /// </remarks>
-        public Func<HttpResponseErrorContext, DateTimeOffset?, IRetryStrategy?>? OnBackoffStrategy { get; set; }
+        public Func<HttpResponseErrorContext, DateTimeOffset?, IRetrySchedulerFactory?>? OnBackoffStrategy { get; set; }
 
         /// <summary>
         /// Determines whether this handler can process the specified HTTP status code.
@@ -69,13 +69,13 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Determines the backoff strategy to use based on the error context.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
-        /// <returns>An <see cref="IRetryStrategy"/> that defines the backoff strategy.</returns>
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines the backoff strategy.</returns>
         /// <remarks>
         /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not 
         /// provided or returns <c>null</c>, and a rate limit reset header is present, the value of this header is used to create a retry delay. 
         /// If neither condition is met, no retries will be attempted.
         /// </remarks>
-        protected override IRetryStrategy DetermineBackoffPolicy(HttpResponseErrorContext ctx)
+        protected override IRetrySchedulerFactory DetermineBackoffStrategy(HttpResponseErrorContext ctx)
         {
             ctx.Response.Headers.TryExtractRateLimitResetTime(out var resetTime);
 

@@ -28,8 +28,8 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// Determines the backoff strategy to use based on the error context.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
-        /// <returns>An <see cref="IRetryStrategy"/> that defines the backoff strategy.</returns>
-        protected abstract IRetryStrategy DetermineBackoffPolicy(HttpResponseErrorContext ctx);
+        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines the backoff strategy.</returns>
+        protected abstract IRetrySchedulerFactory DetermineBackoffStrategy(HttpResponseErrorContext ctx);
 
         /// <summary>
         /// Attempts to recover from a HTTP error by backing off and retrying the request.
@@ -39,7 +39,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <c>null</c>.</exception>
         /// <remarks>
-        /// This method attempts to retry the request based on the backoff strategy determined by <see cref="DetermineBackoffPolicy(HttpResponseErrorContext)"/>. 
+        /// This method attempts to retry the request based on the backoff strategy determined by <see cref="DetermineBackoffStrategy(HttpResponseErrorContext)"/>. 
         /// It checks for the ability to retry the request, waits according to the backoff strategy, and then decides whether a retry should be attempted.
         /// </remarks>
         protected virtual async Task<HttpErrorHandlerResult> BackoffAndDecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
@@ -50,7 +50,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
             if (!ctx.Request.CanClone())
                 return HttpErrorHandlerResult.NoRetry;
 
-            var scheduler = ctx.Request.Properties.GetOrAdd(HttpRequestMessagePropertyKeys.RetryScheduler, _ => DetermineBackoffPolicy(ctx).CreateScheduler(ctx));
+            var scheduler = ctx.Request.Properties.GetOrAdd(HttpRequestMessagePropertyKeys.RetryScheduler, _ => DetermineBackoffStrategy(ctx).CreateScheduler(ctx));
             if (!await scheduler.WaitAsync(cancellationToken).ConfigureAwait(false))
                 return HttpErrorHandlerResult.NoRetry;
 

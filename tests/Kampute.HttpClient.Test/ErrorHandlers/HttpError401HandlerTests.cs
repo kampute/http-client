@@ -94,7 +94,7 @@
         }
 
         [Test]
-        public async Task TryAuthenticateAsync_ForConcurrentCalls_OnlyOnceInvokesOnAuthenticationChallenge()
+        public async Task TryAuthenticateAsync_ForConcurrentCalls_InvokesDelegateOnlyOnce()
         {
             var authScheme = AuthSchemes.Bearer;
             var authToken = "Token";
@@ -140,7 +140,7 @@
         }
 
         [Test]
-        public async Task On401Response_InvokesOnAuthenticationChallenge()
+        public async Task On401Response_InvokesDelegate()
         {
             var wwwAuthenticate = new AuthenticationHeaderValue(AuthSchemes.ApiKey, "Provide an API Key");
             var ApiKey = "Key";

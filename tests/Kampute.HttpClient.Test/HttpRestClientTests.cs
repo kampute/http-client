@@ -243,20 +243,20 @@
         }
 
         [Test]
-        public async Task OnConnectionFailure_UsesBackoffPolicy()
+        public async Task OnConnectionFailure_UsesBackoffStrategy()
         {
             var maxRetries = 2;
 
-            var mockBackoffPolicy = new Mock<IRetryStrategy>();
+            var mockBackoffStrategy = new Mock<IRetrySchedulerFactory>();
             var mockRetryScheduler = new Mock<IRetryScheduler>();
 
             var retries = 0;
             mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(() => retries < maxRetries).Callback(() => ++retries);
-            mockBackoffPolicy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
+            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
                 .Returns(mockRetryScheduler.Object);
 
-            _client.BackoffStrategy = mockBackoffPolicy.Object;
+            _client.BackoffStrategy = mockBackoffStrategy.Object;
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>

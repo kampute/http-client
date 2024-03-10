@@ -6,7 +6,8 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
-    using Kampute.HttpClient.RetryStrategies;
+    using Kampute.HttpClient.RetryManagement;
+    using Kampute.HttpClient.RetryManagement.Strategies;
     using System;
     using System.Runtime.CompilerServices;
 
@@ -55,169 +56,266 @@ namespace Kampute.HttpClient
     public static class BackoffStrategies
     {
         /// <summary>
-        /// Gets an instance of <see cref="ZeroRetryStrategy"/> that represents a strategy where no retry attempts are made.
+        /// Gets a strategy where no retry attempts are made.
         /// </summary>
         /// <remarks>
         /// This strategy schedules no retry attempts, making it ideal for operations where failure handling is immediate or managed through other means.
         /// </remarks>
-        public static ZeroRetryStrategy None => ZeroRetryStrategy.Instance;
+        public static IRetrySchedulerFactory None { get; } = NoneStrategy.Instance.ToSchedulerFactory();
 
         /// <summary>
-        /// Creates an instance of <see cref="UniformRetryStrategy"/> with a specified delay for a single retry attempt.
+        /// Creates a strategy that performs a single retry attempt after the specified delay.
         /// </summary>
-        /// <param name="delay">The fixed delay before the retry attempt.</param>
-        /// <returns>An instance of <see cref="UniformRetryStrategy"/> configured to attempt a single retry after the specified delay.</returns>
+        /// <param name="delay">The delay before the single retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules a single retry attempt after a specified fixed delay.
+        /// This strategy performs a single retry attempt after the specified delay. It is suitable for operations where one additional attempt may resolve
+        /// a transient issue.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UniformRetryStrategy Once(TimeSpan delay) => new(1, delay);
+        public static IRetrySchedulerFactory Once(TimeSpan delay)
+        {
+            return new UniformStrategy(delay).MaxAttempts(1).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="UniformRetryStrategy"/> that schedules exactly one retry attempt to occur after a specified <see cref="DateTimeOffset"/>.
+        /// Creates a strategy that performs a single retry attempt after the specified date and time.
         /// </summary>
-        /// <param name="after">The <see cref="DateTimeOffset"/> after which a single retry attempt should be made.</param>
-        /// <returns>An instance of <see cref="UniformRetryStrategy"/> configured to attempt a single retry after the specified time.</returns>
+        /// <param name="after">The date and time after which the single retry attempt will be made.</param>
         /// <remarks>
         /// This strategy schedules a single retry attempt for a specified future point in time, ensuring operations are retried when certain 
         /// conditions are likely met. If the specified time has already passed, it immediately schedules the retry attempt.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UniformRetryStrategy Once(DateTimeOffset after) => new(1, after - DateTimeOffset.UtcNow);
+        public static IRetrySchedulerFactory Once(DateTimeOffset after)
+        {
+            return new UniformStrategy(after - DateTimeOffset.UtcNow).MaxAttempts(1).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="UniformRetryStrategy"/> with a specified maximum number of retry attempts and a fixed delay between retries.
+        /// Creates a strategy that performs multiple retry attempts with a constant delay between each attempt, up to a specified maximum number of retry
+        /// attempts.
         /// </summary>
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
-        /// <param name="delay">The fixed delay duration between retry attempts.</param>
-        /// <returns>An instance of <see cref="UniformRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="maxAttempts"/> is less than 1.</exception>
+        /// <param name="delay">The constant delay between each retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules a specific number of retry attempts with a uniform delay between each, ideal for scenarios where a consistent retry 
-        /// interval is beneficial.
+        /// This strategy performs multiple retry attempts with a constant delay between each attempt. It is ideal for cases needing multiple attempts with
+        /// predictable delays.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UniformRetryStrategy Uniform(int maxAttempts, TimeSpan delay) => new(maxAttempts, delay);
+        public static IRetrySchedulerFactory Uniform(uint maxAttempts, TimeSpan delay)
+        {
+            return new UniformStrategy(delay).MaxAttempts(maxAttempts).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="UniformRetryStrategy"/> with a specified timeout duration for retries and a fixed delay between retries.
+        /// Creates a strategy that performs multiple retry attempts with a constant delay between each attempt, up to a specified timeout.
         /// </summary>
-        /// <param name="timeout">The maximum duration to continue attempting retries before giving up.</param>
-        /// <param name="delay">The fixed delay duration between retry attempts.</param>
-        /// <returns>An instance of <see cref="UniformRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="timeout"/> is not a positive duration.</exception>
+        /// <param name="timeout">The maximum time to spend retrying.</param>
+        /// <param name="delay">The constant delay between each retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules retries within a predetermined total timeout period with a uniform delay between attempts.
+        /// This strategy performs multiple retry attempts with a constant delay between each attempt, up to a specified timeout. It is ideal for cases needing
+        /// multiple attempts with predictable delays, but with a maximum time limit for retrying.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UniformRetryStrategy Uniform(TimeSpan timeout, TimeSpan delay) => new(timeout, delay);
+        public static IRetrySchedulerFactory Uniform(TimeSpan timeout, TimeSpan delay)
+        {
+            return new UniformStrategy(delay).Timeout(timeout).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="LinearRetryStrategy"/> with a specified maximum number of retry attempts, initial delay, and delay increment step.
-        /// </summary>
-        /// <param name="maxAttempts">The maximum number of retry attempts.</param>
-        /// <param name="initialDelay">The initial delay before the first retry attempt.</param>
-        /// <param name="delayStep">The fixed amount of time by which the delay increases with each retry.</param>
-        /// <returns>An instance of <see cref="LinearRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="maxAttempts"/> is less than 1.</exception>
-        /// <remarks>
-        /// This strategy schedules a specific number of retry attempts where the delay increases linearly after each attempt.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LinearRetryStrategy Linear(int maxAttempts, TimeSpan initialDelay, TimeSpan delayStep) => new(maxAttempts, initialDelay, delayStep);
-
-        /// <summary>
-        /// Creates an instance of <see cref="LinearRetryStrategy"/> with a specified timeout duration for retries, initial delay, and delay increment step.
-        /// </summary>
-        /// <param name="timeout">The maximum duration to continue attempting retries before giving up.</param>
-        /// <param name="initialDelay">The initial delay before the first retry attempt.</param>
-        /// <param name="delayStep">The fixed amount of time by which the delay increases with each retry.</param>
-        /// <returns>An instance of <see cref="LinearRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="timeout"/> is not a positive duration.</exception>
-        /// <remarks>
-        /// This strategy schedules retries within a predetermined total timeout period where the delay increases linearly after each attempt.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LinearRetryStrategy Linear(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep) => new(timeout, initialDelay, delayStep);
-
-        /// <summary>
-        /// Creates an instance of <see cref="ExponentialRetryStrategy"/> with a specified maximum number of retry attempts, initial delay, and exponential rate.
+        /// Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified maximum number of
+        /// retry attempts.
         /// </summary>
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
-        /// <param name="initialDelay">The initial delay before the first retry attempt.</param>
-        /// <param name="rate">The rate at which the delay increases exponentially.</param>
-        /// <returns>An instance of <see cref="ExponentialRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="maxAttempts"/> is less than 1 or <paramref name="rate"/> is less than or equal to 0.</exception>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <param name="delayStep">The amount by which the delay increases for each subsequent retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules a specific number of retry attempts where the delay increases exponentially after each attempt.
+        /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt. It is optimal for reducing system load with
+        /// gradually increasing wait times.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ExponentialRetryStrategy Exponential(int maxAttempts, TimeSpan initialDelay, double rate = 2.0) => new(maxAttempts, initialDelay, rate);
+        public static IRetrySchedulerFactory Linear(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)
+        {
+            return new LinearStrategy(initialDelay, delayStep).MaxAttempts(maxAttempts).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="ExponentialRetryStrategy"/> with a specified timeout duration for retries, initial delay, and exponential rate.
+        /// Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout.
         /// </summary>
-        /// <param name="timeout">The maximum duration to continue attempting retries before giving up.</param>
-        /// <param name="initialDelay">The initial delay before the first retry attempt.</param>
-        /// <param name="rate">The rate at which the delay increases exponentially.</param>
-        /// <returns>An instance of <see cref="ExponentialRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="timeout"/> is not a positive duration or <paramref name="rate"/> is less than or equal to 0.</exception>
+        /// <param name="timeout">The maximum time to spend retrying.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <param name="delayStep">The amount by which the delay increases for each subsequent retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules retries within a predetermined total timeout period where the delay increases exponentially after each attempt.
+        /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout. It is optimal for
+        /// reducing system load with gradually increasing wait times, while enforcing a maximum time limit for retrying.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ExponentialRetryStrategy Exponential(TimeSpan timeout, TimeSpan initialDelay, double rate = 2.0) => new(timeout, initialDelay, rate);
+        public static IRetrySchedulerFactory Linear(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)
+        {
+            return new LinearStrategy(initialDelay, delayStep).Timeout(timeout).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="FibonacciRetryStrategy"/> with a specified maximum number of retry attempts and an initial delay.
+        /// Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified maximum number of
+        /// retry attempts.
         /// </summary>
         /// <param name="maxAttempts">The maximum number of retry attempts.</param>
-        /// <param name="initialDelay">The initial delay before the first retry attempt.</param>
-        /// <returns>An instance of <see cref="FibonacciRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="maxAttempts"/> is less than 1.</exception>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules a specific number of retry attempts where the delay increases based on the Fibonacci sequence after each attempt.
+        /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt. It is optimal for reducing system load with
+        /// gradually increasing wait times.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static FibonacciRetryStrategy Fibonacci(int maxAttempts, TimeSpan initialDelay) => new(maxAttempts, initialDelay);
+        public static IRetrySchedulerFactory Linear(uint maxAttempts, TimeSpan initialDelay)
+        {
+            return new LinearStrategy(initialDelay).MaxAttempts(maxAttempts).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="FibonacciRetryStrategy"/> with a specified timeout duration for retries and an initial delay.
+        /// Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout.
         /// </summary>
-        /// <param name="timeout">The maximum duration to continue attempting retries before giving up.</param>
-        /// <param name="initialDelay">The initial delay before the first retry attempt.</param>
-        /// <returns>An instance of <see cref="FibonacciRetryStrategy"/>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="timeout"/> is not a positive duration.</exception>
+        /// <param name="timeout">The maximum time to spend retrying.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
         /// <remarks>
-        /// This strategy schedules retries within a predetermined total timeout period where the delay increases based on the Fibonacci sequence after each attempt.
+        /// This strategy performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout. It is optimal for
+        /// reducing system load with gradually increasing wait times, while enforcing a maximum time limit for retrying.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static FibonacciRetryStrategy Fibonacci(TimeSpan timeout, TimeSpan initialDelay) => new(timeout, initialDelay);
+        public static IRetrySchedulerFactory Linear(TimeSpan timeout, TimeSpan initialDelay)
+        {
+            return new LinearStrategy(initialDelay).Timeout(timeout).ToSchedulerFactory();
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="DynamicRetryStrategy"/> with a dynamic strategy factory based on the context of a failed HTTP request.
+        /// Creates a strategy that performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified maximum number
+        /// of retry attempts.
+        /// </summary>
+        /// <param name="maxAttempts">The maximum number of retry attempts.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <param name="rate">The rate at which the delay increases for each subsequent retry attempt.</param>
+        /// <remarks>
+        /// This strategy performs multiple retry attempts with delays increasing exponentially between each attempt. It is suitable for aggressively minimizing
+        /// the impact on systems by rapidly increasing wait times between retry attempts.
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rate"/> is less than 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IRetrySchedulerFactory Exponential(uint maxAttempts, TimeSpan initialDelay, double rate = 2.0)
+        {
+            return new ExponentialStrategy(initialDelay, rate).MaxAttempts(maxAttempts).ToSchedulerFactory();
+        }
+
+        /// <summary>
+        /// Creates a strategy that performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified timeout.
+        /// </summary>
+        /// <param name="timeout">The maximum time to spend retrying.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <param name="rate">The rate at which the delay increases for each subsequent retry attempt.</param>
+        /// <remarks>
+        /// This strategy performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified timeout. It is suitable
+        /// for aggressively minimizing the impact on systems by rapidly increasing wait times between retry attempts, while enforcing a maximum time limit for
+        /// retrying.
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rate"/> is less than 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IRetrySchedulerFactory Exponential(TimeSpan timeout, TimeSpan initialDelay, double rate = 2.0)
+        {
+            return new ExponentialStrategy(initialDelay, rate).Timeout(timeout).ToSchedulerFactory();
+        }
+
+        /// <summary>
+        /// Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified maximum
+        /// number of retry attempts.
+        /// </summary>
+        /// <param name="maxAttempts">The maximum number of retry attempts.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <param name="delayStep">The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.</param>
+        /// <remarks>
+        /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt. It provides a balanced choice between
+        /// aggressive and cautious retry pacing, suitable for a wide range of scenarios.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IRetrySchedulerFactory Fibonacci(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)
+        {
+            return new FibonacciStrategy(initialDelay, delayStep).MaxAttempts(maxAttempts).ToSchedulerFactory();
+        }
+
+        /// <summary>
+        /// Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout.
+        /// </summary>
+        /// <param name="timeout">The maximum time to spend retrying.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <param name="delayStep">The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.</param>
+        /// <remarks>
+        /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout. It provides
+        /// a balanced choice between aggressive and cautious retry pacing, suitable for a wide range of scenarios, while enforcing a maximum time limit for retrying.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IRetrySchedulerFactory Fibonacci(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)
+        {
+            return new FibonacciStrategy(initialDelay, delayStep).Timeout(timeout).ToSchedulerFactory();
+        }
+
+        /// <summary>
+        /// Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified maximum
+        /// number of retry attempts.
+        /// </summary>
+        /// <param name="maxAttempts">The maximum number of retry attempts.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <remarks>
+        /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt. It provides a balanced choice between
+        /// aggressive and cautious retry pacing, suitable for a wide range of scenarios.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IRetrySchedulerFactory Fibonacci(uint maxAttempts, TimeSpan initialDelay)
+        {
+            return new FibonacciStrategy(initialDelay).MaxAttempts(maxAttempts).ToSchedulerFactory();
+        }
+
+        /// <summary>
+        /// Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout.
+        /// </summary>
+        /// <param name="timeout">The maximum time to spend retrying.</param>
+        /// <param name="initialDelay">The delay before the first retry attempt.</param>
+        /// <remarks>
+        /// This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout. It provides
+        /// a balanced choice between aggressive and cautious retry pacing, suitable for a wide range of scenarios, while enforcing a maximum time limit for retrying.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IRetrySchedulerFactory Fibonacci(TimeSpan timeout, TimeSpan initialDelay)
+        {
+            return new FibonacciStrategy(initialDelay).Timeout(timeout).ToSchedulerFactory();
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="DynamicRetrySchedulerFactory"/> with a dynamic strategy factory based on the context of a failed HTTP request.
         /// </summary>
         /// <param name="strategyFactory">A factory function that creates <see cref="IRetryStrategy"/> instances based on the failed HTTP request context.</param>
-        /// <returns>An instance of <see cref="DynamicRetryStrategy"/>.</returns>
+        /// <returns>An instance of <see cref="DynamicRetrySchedulerFactory"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategyFactory"/> is <c>null</c>.</exception>
         /// <remarks>
         /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static DynamicRetryStrategy Dynamic(Func<HttpRequestErrorContext, IRetryStrategy> strategyFactory) => new(strategyFactory);
+        public static IRetrySchedulerFactory Dynamic(Func<HttpRequestErrorContext, IRetryStrategy> strategyFactory)
+        {
+            return new DynamicRetrySchedulerFactory(strategyFactory);
+        }
 
         /// <summary>
-        /// Creates an instance of <see cref="DynamicRetryStrategy"/> with a dynamic scheduler factory based on the context of a failed HTTP request.
+        /// Creates an instance of <see cref="DynamicRetrySchedulerFactory"/> with a dynamic scheduler factory based on the context of a failed HTTP request.
         /// </summary>
         /// <param name="schedulerFactory">A factory function that creates <see cref="IRetryScheduler"/> instances based on the failed HTTP request context.</param>
-        /// <returns>An instance of <see cref="DynamicRetryStrategy"/>.</returns>
+        /// <returns>An instance of <see cref="DynamicRetrySchedulerFactory"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="schedulerFactory"/> is <c>null</c>.</exception>
         /// <remarks>
         /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static DynamicRetryStrategy Dynamic(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory) => new(schedulerFactory);
+        public static IRetrySchedulerFactory Dynamic(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory)
+        {
+            return new DynamicRetrySchedulerFactory(schedulerFactory);
+        }
     }
 }

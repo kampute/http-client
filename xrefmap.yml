@@ -1066,19 +1066,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes
   nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.IsReadOnly
-  name: IsReadOnly
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_IsReadOnly
-  commentId: P:Kampute.HttpClient.HttpContentDeserializerCollection.IsReadOnly
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.IsReadOnly
-  nameWithType: HttpContentDeserializerCollection.IsReadOnly
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.IsReadOnly*
-  name: IsReadOnly
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_IsReadOnly_
-  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.IsReadOnly
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.IsReadOnly
-  nameWithType: HttpContentDeserializerCollection.IsReadOnly
 - uid: Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
   name: Remove(IHttpContentDeserializer)
   href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_
@@ -1267,19 +1254,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpErrorHandlerCollection.GetEnumerator
   nameWithType: HttpErrorHandlerCollection.GetEnumerator
-- uid: Kampute.HttpClient.HttpErrorHandlerCollection.IsReadOnly
-  name: IsReadOnly
-  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_IsReadOnly
-  commentId: P:Kampute.HttpClient.HttpErrorHandlerCollection.IsReadOnly
-  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.IsReadOnly
-  nameWithType: HttpErrorHandlerCollection.IsReadOnly
-- uid: Kampute.HttpClient.HttpErrorHandlerCollection.IsReadOnly*
-  name: IsReadOnly
-  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_IsReadOnly_
-  commentId: Overload:Kampute.HttpClient.HttpErrorHandlerCollection.IsReadOnly
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.IsReadOnly
-  nameWithType: HttpErrorHandlerCollection.IsReadOnly
 - uid: Kampute.HttpClient.HttpErrorHandlerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpErrorHandler)
   name: Remove(IHttpErrorHandler)
   href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpErrorHandler_

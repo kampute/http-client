@@ -35,30 +35,15 @@ jobs:
 
       - name: Setup DocFX
         run: |
-          wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx.zip
+          wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx-linux-x64-v2.75.3.zip
           unzip docfx.zip -d docfx
           
       - name: Generate Documentation
         run: |
           mono docfx/docfx.exe docfx.json
 
-  publish-docs:
-    needs: generate-docs
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-      
-      - name: Publish Documentation
-        uses: JamesIves/github-pages-deploy-action@4.5.0
-        with:
-          branch: gh-pages
-          folder: docs
-
   cleanup:
-    needs: publish-docs
+    needs: generate-docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

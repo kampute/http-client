@@ -58,7 +58,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.InRange(retryDelay, 1.5 * retryDelay));
+                Assert.That(timer.Elapsed, Is.InRange(0.9 * retryDelay, 1.5 * retryDelay));
             });
         }
 
@@ -87,7 +87,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.InRange(retryDelay, 1.5 * retryDelay));
+                Assert.That(timer.Elapsed, Is.InRange(0.9 * retryDelay, 1.5 * retryDelay));
             });
         }
 

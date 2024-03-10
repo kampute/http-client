@@ -39,7 +39,7 @@
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 
-            var retryDelay = TimeSpan.FromMilliseconds(100);
+            var retryDelay = TimeSpan.FromMilliseconds(1000);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -58,7 +58,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.InRange(0.9 * retryDelay, 1.5 * retryDelay));
+                Assert.That(timer.Elapsed, Is.EqualTo(retryDelay).Within(0.1 * retryDelay));
             });
         }
 
@@ -68,7 +68,7 @@
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 
-            var retryDelay = TimeSpan.FromMilliseconds(100);
+            var retryDelay = TimeSpan.FromMilliseconds(1000);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -87,7 +87,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.InRange(0.9 * retryDelay, 1.5 * retryDelay));
+                Assert.That(timer.Elapsed, Is.EqualTo(retryDelay).Within(0.1 * retryDelay));
             });
         }
 

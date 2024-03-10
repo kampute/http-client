@@ -38,17 +38,6 @@ jobs:
       run: |
         docfx/docfx docfx.json
 
-    - name: Grant Write Permissions
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        permissions: write all
-
-    - name: Upload Documentation to Branch
-      uses: actions/upload-pages-artifact@v1
-      with:
-        path: docs/_site
-
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'

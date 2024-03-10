@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup DocFX
         run: |
-          wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx-linux-x64-v2.75.3.zip
+          wget https://github.com/dotnet/docfx/releases/download/v2.75.3/docfx-linux-x64-v2.75.3.zip -O docfx.zip
           unzip docfx.zip -d docfx
           
       - name: Generate Documentation

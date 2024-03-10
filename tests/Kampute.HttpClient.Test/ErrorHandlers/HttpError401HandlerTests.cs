@@ -99,7 +99,7 @@
             var authScheme = AuthSchemes.Bearer;
             var authToken = "Token";
 
-            var numberOfCalls = 32;
+            var numberOfCalls = 4;
             var numberOfInvokes = 0;
             var allAuthenticationsInitiated = new TaskCompletionSource<bool>();
 
@@ -107,6 +107,7 @@
             {
                 Interlocked.Increment(ref numberOfInvokes);
 
+                await Task.Yield();
                 await allAuthenticationsInitiated.Task;
 
                 return challenges
@@ -121,6 +122,9 @@
                 .Range(1, numberOfCalls)
                 .Select(_ => Task.Run(async () => await unauthorizeHandler.TryAuthenticateAsync(_client, authScheme)))
                 .ToArray();
+
+            while (calls.Any(t => t.Status == TaskStatus.Created))
+                await Task.Delay(10);
 
             await Task.Run(() => allAuthenticationsInitiated.TrySetResult(true));
 

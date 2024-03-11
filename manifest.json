@@ -14,763 +14,763 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.AuthSchemes.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.AuthSchemes.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.AuthSchemes.html"
+          "relative_path": "docs/Kampute.HttpClient.AuthSchemes.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.BackoffStrategies.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.BackoffStrategies.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.BackoffStrategies.html"
+          "relative_path": "docs/Kampute.HttpClient.BackoffStrategies.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.DataContract.XmlContent.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.DataContract.XmlContent.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.DataContract.XmlContent.html"
+          "relative_path": "docs/Kampute.HttpClient.DataContract.XmlContent.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.DataContract.XmlContentDeserializer.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.DataContract.XmlContentDeserializer.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html"
+          "relative_path": "docs/Kampute.HttpClient.DataContract.XmlContentDeserializer.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.DataContract.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.DataContract.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.DataContract.html"
+          "relative_path": "docs/Kampute.HttpClient.DataContract.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.DictionaryExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.DictionaryExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.DictionaryExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.DictionaryExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.Abstracts.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.Abstracts.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.Abstracts.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.Abstracts.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ErrorHandlers.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ErrorHandlers.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ErrorHandlers.html"
+          "relative_path": "docs/Kampute.HttpClient.ErrorHandlers.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.ExceptionExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.ExceptionExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.ExceptionExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.ExceptionExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpContentDeserializerCollection.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpContentDeserializerCollection.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpContentDeserializerCollection.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpContentDeserializerCollection.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpContentException.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpContentException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpContentException.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpContentException.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpContentExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpContentExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpContentExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpContentExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpErrorHandlerCollection.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpErrorHandlerCollection.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpErrorHandlerCollection.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpErrorHandlerCollection.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpErrorHandlerResult.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpErrorHandlerResult.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpErrorHandlerResult.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpErrorHandlerResult.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRequestErrorContext.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRequestErrorContext.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRequestErrorContext.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRequestErrorContext.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRequestMessageCloneManager.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRequestMessageCloneManager.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRequestMessageCloneManager.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRequestMessageCloneManager.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRequestMessageEventArgs.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRequestMessageEventArgs.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRequestMessageEventArgs.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRequestMessageEventArgs.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRequestMessageExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRequestMessageExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRequestMessageExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRequestMessageExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRequestMessagePropertyKeys.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpResponseErrorContext.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpResponseErrorContext.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpResponseErrorContext.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpResponseErrorContext.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpResponseException.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpResponseException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpResponseException.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpResponseException.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpResponseHeadersExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpResponseHeadersExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpResponseHeadersExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpResponseHeadersExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpResponseMessageEventArgs.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpResponseMessageEventArgs.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpResponseMessageEventArgs.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpResponseMessageEventArgs.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRestClient.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRestClient.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRestClient.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRestClient.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRestClientExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRestClientExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRestClientExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRestClientExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpRestClientFormExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpRestClientFormExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpRestClientFormExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpRestClientFormExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.HttpVerb.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.HttpVerb.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.HttpVerb.html"
+          "relative_path": "docs/Kampute.HttpClient.HttpVerb.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.IHttpErrorHandler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.IHttpErrorHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.IHttpErrorHandler.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.IHttpErrorHandler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.IHttpErrorResponse.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.IRetryScheduler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.IRetryScheduler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.IRetryScheduler.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.IRetryScheduler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.IRetryStrategy.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.IRetryStrategy.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.IRetryStrategy.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.IRetryStrategy.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Interfaces.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Interfaces.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Interfaces.html"
+          "relative_path": "docs/Kampute.HttpClient.Interfaces.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Json.JsonContent.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Json.JsonContent.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Json.JsonContent.html"
+          "relative_path": "docs/Kampute.HttpClient.Json.JsonContent.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Json.JsonContentDeserializer.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Json.JsonContentDeserializer.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Json.JsonContentDeserializer.html"
+          "relative_path": "docs/Kampute.HttpClient.Json.JsonContentDeserializer.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Json.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Json.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Json.html"
+          "relative_path": "docs/Kampute.HttpClient.Json.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.MediaTypeNames.Application.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Application.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.MediaTypeNames.Application.html"
+          "relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Application.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.MediaTypeNames.Audio.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Audio.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.MediaTypeNames.Audio.html"
+          "relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Audio.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.MediaTypeNames.Image.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Image.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.MediaTypeNames.Image.html"
+          "relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Image.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.MediaTypeNames.Text.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Text.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.MediaTypeNames.Text.html"
+          "relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Text.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.MediaTypeNames.Video.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Video.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.MediaTypeNames.Video.html"
+          "relative_path": "docs/Kampute.HttpClient.MediaTypeNames.Video.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.MediaTypeNames.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.MediaTypeNames.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.MediaTypeNames.html"
+          "relative_path": "docs/Kampute.HttpClient.MediaTypeNames.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.NewtonsoftJson.JsonContent.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.JsonContent.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.NewtonsoftJson.JsonContent.html"
+          "relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.JsonContent.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html"
+          "relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.NewtonsoftJson.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.NewtonsoftJson.html"
+          "relative_path": "docs/Kampute.HttpClient.NewtonsoftJson.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.RetryScheduler.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.RetryScheduler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.RetryScheduler.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.RetryScheduler.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.Strategies.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.Strategies.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.RetryManagement.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.RetryManagement.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.RetryManagement.html"
+          "relative_path": "docs/Kampute.HttpClient.RetryManagement.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.SharedDisposableManager-1.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.SharedDisposableManager-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.SharedDisposableManager-1.html"
+          "relative_path": "docs/Kampute.HttpClient.SharedDisposableManager-1.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html"
+          "relative_path": "docs/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Xml.XmlContent.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Xml.XmlContent.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Xml.XmlContent.html"
+          "relative_path": "docs/Kampute.HttpClient.Xml.XmlContent.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Xml.XmlContentDeserializer.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Xml.XmlContentDeserializer.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Xml.XmlContentDeserializer.html"
+          "relative_path": "docs/Kampute.HttpClient.Xml.XmlContentDeserializer.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.Xml.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.Xml.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.Xml.html"
+          "relative_path": "docs/Kampute.HttpClient.Xml.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Kampute.HttpClient.yml",
+      "source_relative_path": "docs/Kampute.HttpClient.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Kampute.HttpClient.html"
+          "relative_path": "docs/Kampute.HttpClient.html"
         }
       },
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "api/toc.yml",
+      "source_relative_path": "docs/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "api/toc.html"
+          "relative_path": "docs/toc.html"
         },
         ".json": {
-          "relative_path": "api/toc.json"
+          "relative_path": "docs/toc.json"
         }
       },
       "version": ""

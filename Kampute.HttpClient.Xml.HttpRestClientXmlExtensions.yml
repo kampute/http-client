@@ -1,0 +1,1222 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  commentId: T:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  id: HttpRestClientXmlExtensions
+  parent: Kampute.HttpClient.Xml
+  children:
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml(Kampute.HttpClient.HttpRestClient)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  - Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: HttpRestClientXmlExtensions
+  nameWithType: HttpRestClientXmlExtensions
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  type: Class
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: HttpRestClientXmlExtensions
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 22
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Provides extension methods for <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> to support XML-based HTTP operations.
+  remarks: >-
+    This static class extends <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> with methods tailored for handling HTTP requests and responses 
+
+    involving XML data. It facilitates the sending and receiving of XML content by abstracting the complexities of serialization 
+
+    and deserialization of XML to and from .NET objects.
+  example: []
+  syntax:
+    content: public static class HttpRestClientXmlExtensions
+    content.vb: Public Module HttpRestClientXmlExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml(Kampute.HttpClient.HttpRestClient)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml(Kampute.HttpClient.HttpRestClient)
+  id: AcceptXml(Kampute.HttpClient.HttpRestClient)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: AcceptXml(HttpRestClient)
+  nameWithType: HttpRestClientXmlExtensions.AcceptXml(HttpRestClient)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml(Kampute.HttpClient.HttpRestClient)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: AcceptXml
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 33
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Configures the <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> to accept XML responses by adding a <xref href="Kampute.HttpClient.Xml.XmlContentDeserializer" data-throw-if-not-resolved="false"></xref> in its response deserializers collection.
+  remarks: >-
+    If the client already has a <xref href="Kampute.HttpClient.Xml.XmlContentDeserializer" data-throw-if-not-resolved="false"></xref>, this method does nothing. Otherwise, it adds a new <xref href="Kampute.HttpClient.Xml.XmlContentDeserializer" data-throw-if-not-resolved="false"></xref> to
+
+    the client's response deserializers.
+  example: []
+  syntax:
+    content: public static XmlContentDeserializer AcceptXml(this HttpRestClient client)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to configure.
+    return:
+      type: Kampute.HttpClient.Xml.XmlContentDeserializer
+      description: The <xref href="Kampute.HttpClient.Xml.XmlContentDeserializer" data-throw-if-not-resolved="false"></xref> used for XML content deserialization.
+    content.vb: Public Shared Function AcceptXml(client As HttpRestClient) As XmlContentDeserializer
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml*
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  id: SendAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: SendAsXmlAsync<T>(HttpRestClient, HttpMethod, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.SendAsXmlAsync<T>(HttpRestClient, HttpMethod, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync<T>(Kampute.HttpClient.HttpRestClient, System.Net.Http.HttpMethod, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: SendAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 59
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous request with XML-formatted payload to the specified URI.
+  example: []
+  syntax:
+    content: public static Task<T?> SendAsXmlAsync<T>(this HttpRestClient client, HttpMethod method, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: method
+      type: System.Net.Http.HttpMethod
+      description: The HTTP method to use for the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    typeParameters:
+    - id: T
+      description: The type of the object expected in the response.
+    return:
+      type: System.Threading.Tasks.Task{{T}}
+      description: A task representing the asynchronous operation, returning a deserialized object of type <code class="typeparamref">T</code>.
+    content.vb: Public Shared Function SendAsXmlAsync(Of T)(client As HttpRestClient, method As HttpMethod, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task(Of T)
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">method</code>, <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.SendAsXmlAsync(Of T)(HttpRestClient, HttpMethod, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Of T)(Kampute.HttpClient.HttpRestClient, System.Net.Http.HttpMethod, String, Object, System.Threading.CancellationToken)
+  name.vb: SendAsXmlAsync(Of T)(HttpRestClient, HttpMethod, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  id: SendAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: SendAsXmlAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.SendAsXmlAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Kampute.HttpClient.HttpRestClient, System.Net.Http.HttpMethod, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: SendAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 89
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous POST request with XML-formatted payload to the specified URI without processing the response body.
+  example: []
+  syntax:
+    content: public static Task<HttpResponseHeaders> SendAsXmlAsync(this HttpRestClient client, HttpMethod method, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: method
+      type: System.Net.Http.HttpMethod
+      description: The HTTP method to use for the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    return:
+      type: System.Threading.Tasks.Task{System.Net.Http.Headers.HttpResponseHeaders}
+      description: A task representing the asynchronous operation, returning headers of the response.
+    content.vb: Public Shared Function SendAsXmlAsync(client As HttpRestClient, method As HttpMethod, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task(Of HttpResponseHeaders)
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">method</code>, <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.SendAsXmlAsync(HttpRestClient, HttpMethod, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Kampute.HttpClient.HttpRestClient, System.Net.Http.HttpMethod, String, Object, System.Threading.CancellationToken)
+  name.vb: SendAsXmlAsync(HttpRestClient, HttpMethod, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  id: PostAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: PostAsXmlAsync<T>(HttpRestClient, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.PostAsXmlAsync<T>(HttpRestClient, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync<T>(Kampute.HttpClient.HttpRestClient, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: PostAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 119
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous POST request with XML-formatted payload to the specified URI.
+  example: []
+  syntax:
+    content: public static Task<T?> PostAsXmlAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    typeParameters:
+    - id: T
+      description: The type of the object expected in the response.
+    return:
+      type: System.Threading.Tasks.Task{{T}}
+      description: A task representing the asynchronous operation, returning a deserialized object of type <code class="typeparamref">T</code>.
+    content.vb: Public Shared Function PostAsXmlAsync(Of T)(client As HttpRestClient, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task(Of T)
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.PostAsXmlAsync(Of T)(HttpRestClient, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, Object, System.Threading.CancellationToken)
+  name.vb: PostAsXmlAsync(Of T)(HttpRestClient, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  id: PostAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: PostAsXmlAsync(HttpRestClient, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.PostAsXmlAsync(HttpRestClient, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Kampute.HttpClient.HttpRestClient, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: PostAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 138
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous POST request with XML-formatted payload to the specified URI without processing the response body.
+  example: []
+  syntax:
+    content: public static Task PostAsXmlAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    return:
+      type: System.Threading.Tasks.Task
+      description: A task that represents the asynchronous operation.
+    content.vb: Public Shared Function PostAsXmlAsync(client As HttpRestClient, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.PostAsXmlAsync(HttpRestClient, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Kampute.HttpClient.HttpRestClient, String, Object, System.Threading.CancellationToken)
+  name.vb: PostAsXmlAsync(HttpRestClient, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  id: PutAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: PutAsXmlAsync<T>(HttpRestClient, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.PutAsXmlAsync<T>(HttpRestClient, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync<T>(Kampute.HttpClient.HttpRestClient, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: PutAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 158
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous PUT request with XML-formatted payload to the specified URI and returns the response body deserialized as the specified type.
+  example: []
+  syntax:
+    content: public static Task<T?> PutAsXmlAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    typeParameters:
+    - id: T
+      description: The type of the response object.
+    return:
+      type: System.Threading.Tasks.Task{{T}}
+      description: A task that represents the asynchronous operation, with a result of the specified type.
+    content.vb: Public Shared Function PutAsXmlAsync(Of T)(client As HttpRestClient, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task(Of T)
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.PutAsXmlAsync(Of T)(HttpRestClient, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, Object, System.Threading.CancellationToken)
+  name.vb: PutAsXmlAsync(Of T)(HttpRestClient, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  id: PutAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: PutAsXmlAsync(HttpRestClient, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.PutAsXmlAsync(HttpRestClient, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Kampute.HttpClient.HttpRestClient, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: PutAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 177
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous PUT request with XML-formatted payload to the specified URI without processing the response body.
+  example: []
+  syntax:
+    content: public static Task PutAsXmlAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    return:
+      type: System.Threading.Tasks.Task
+      description: A task that represents the asynchronous operation.
+    content.vb: Public Shared Function PutAsXmlAsync(client As HttpRestClient, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.PutAsXmlAsync(HttpRestClient, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Kampute.HttpClient.HttpRestClient, String, Object, System.Threading.CancellationToken)
+  name.vb: PutAsXmlAsync(HttpRestClient, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  id: PatchAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: PatchAsXmlAsync<T>(HttpRestClient, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.PatchAsXmlAsync<T>(HttpRestClient, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync<T>(Kampute.HttpClient.HttpRestClient, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: PatchAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 197
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous PATCH request with XML-formatted payload to the specified URI and returns the response body deserialized as the specified type.
+  example: []
+  syntax:
+    content: public static Task<T?> PatchAsXmlAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    typeParameters:
+    - id: T
+      description: The type of the response object.
+    return:
+      type: System.Threading.Tasks.Task{{T}}
+      description: A task that represents the asynchronous operation, with a result of the specified type.
+    content.vb: Public Shared Function PatchAsXmlAsync(Of T)(client As HttpRestClient, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task(Of T)
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.PatchAsXmlAsync(Of T)(HttpRestClient, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, Object, System.Threading.CancellationToken)
+  name.vb: PatchAsXmlAsync(Of T)(HttpRestClient, String, Object, CancellationToken)
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  commentId: M:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  id: PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions
+  langs:
+  - csharp
+  - vb
+  name: PatchAsXmlAsync(HttpRestClient, string, object, CancellationToken)
+  nameWithType: HttpRestClientXmlExtensions.PatchAsXmlAsync(HttpRestClient, string, object, CancellationToken)
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient, string, object, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: PatchAsXmlAsync
+    path: src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs
+    startLine: 216
+  assemblies:
+  - Kampute.HttpClient.Xml
+  namespace: Kampute.HttpClient.Xml
+  summary: Sends an asynchronous PATCH request with XML-formatted payload to the specified URI without processing the response body.
+  example: []
+  syntax:
+    content: public static Task PatchAsXmlAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
+    parameters:
+    - id: client
+      type: Kampute.HttpClient.HttpRestClient
+      description: The <xref href="Kampute.HttpClient.HttpRestClient" data-throw-if-not-resolved="false"></xref> instance to be used for sending the request.
+    - id: uri
+      type: System.String
+      description: The URI to which the request is sent.
+    - id: payload
+      type: System.Object
+      description: The object to serialize as the XML-formatted HTTP request payload.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: A token for canceling the request (optional).
+    return:
+      type: System.Threading.Tasks.Task
+      description: A task that represents the asynchronous operation.
+    content.vb: Public Shared Function PatchAsXmlAsync(client As HttpRestClient, uri As String, payload As Object, cancellationToken As CancellationToken = Nothing) As Task
+  overload: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">uri</code> or <code class="paramref">payload</code> is <code>null</code>.
+  - type: Kampute.HttpClient.HttpResponseException
+    commentId: T:Kampute.HttpClient.HttpResponseException
+    description: Thrown if the response status code indicates a failure.
+  - type: System.Net.Http.HttpRequestException
+    commentId: T:System.Net.Http.HttpRequestException
+    description: Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.
+  - type: Kampute.HttpClient.HttpContentException
+    commentId: T:Kampute.HttpClient.HttpContentException
+    description: Thrown if the content type of the response is either unknown or not supported.
+  - type: System.Threading.Tasks.TaskCanceledException
+    commentId: T:System.Threading.Tasks.TaskCanceledException
+    description: Thrown if the operation is canceled via the cancellation token.
+  nameWithType.vb: HttpRestClientXmlExtensions.PatchAsXmlAsync(HttpRestClient, String, Object, CancellationToken)
+  fullName.vb: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient, String, Object, System.Threading.CancellationToken)
+  name.vb: PatchAsXmlAsync(HttpRestClient, String, Object, CancellationToken)
+references:
+- uid: Kampute.HttpClient.HttpRestClient
+  commentId: T:Kampute.HttpClient.HttpRestClient
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpRestClient.html
+  name: HttpRestClient
+  nameWithType: HttpRestClient
+  fullName: Kampute.HttpClient.HttpRestClient
+- uid: Kampute.HttpClient.Xml
+  commentId: N:Kampute.HttpClient.Xml
+  href: Kampute.html
+  name: Kampute.HttpClient.Xml
+  nameWithType: Kampute.HttpClient.Xml
+  fullName: Kampute.HttpClient.Xml
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Xml
+    name: Xml
+    href: Kampute.HttpClient.Xml.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Xml
+    name: Xml
+    href: Kampute.HttpClient.Xml.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Kampute.HttpClient
+  commentId: N:Kampute.HttpClient
+  href: Kampute.html
+  name: Kampute.HttpClient
+  nameWithType: Kampute.HttpClient
+  fullName: Kampute.HttpClient
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Kampute.HttpClient.Xml.XmlContentDeserializer
+  commentId: T:Kampute.HttpClient.Xml.XmlContentDeserializer
+  parent: Kampute.HttpClient.Xml
+  href: Kampute.HttpClient.Xml.XmlContentDeserializer.html
+  name: XmlContentDeserializer
+  nameWithType: XmlContentDeserializer
+  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml*
+  commentId: Overload:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml
+  href: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_AcceptXml_Kampute_HttpClient_HttpRestClient_
+  name: AcceptXml
+  nameWithType: HttpRestClientXmlExtensions.AcceptXml
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: Kampute.HttpClient.HttpResponseException
+  commentId: T:Kampute.HttpClient.HttpResponseException
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpResponseException.html
+  name: HttpResponseException
+  nameWithType: HttpResponseException
+  fullName: Kampute.HttpClient.HttpResponseException
+- uid: System.Net.Http.HttpRequestException
+  commentId: T:System.Net.Http.HttpRequestException
+  parent: System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception
+  name: HttpRequestException
+  nameWithType: HttpRequestException
+  fullName: System.Net.Http.HttpRequestException
+- uid: Kampute.HttpClient.HttpContentException
+  commentId: T:Kampute.HttpClient.HttpContentException
+  href: Kampute.HttpClient.HttpContentException.html
+  name: HttpContentException
+  nameWithType: HttpContentException
+  fullName: Kampute.HttpClient.HttpContentException
+- uid: System.Threading.Tasks.TaskCanceledException
+  commentId: T:System.Threading.Tasks.TaskCanceledException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception
+  name: TaskCanceledException
+  nameWithType: TaskCanceledException
+  fullName: System.Threading.Tasks.TaskCanceledException
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync*
+  commentId: Overload:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync
+  href: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_SendAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_
+  name: SendAsXmlAsync
+  nameWithType: HttpRestClientXmlExtensions.SendAsXmlAsync
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync
+- uid: System.Net.Http.HttpMethod
+  commentId: T:System.Net.Http.HttpMethod
+  parent: System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod
+  name: HttpMethod
+  nameWithType: HttpMethod
+  fullName: System.Net.Http.HttpMethod
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{{T}}
+  commentId: T:System.Threading.Tasks.Task{``0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<T>
+  nameWithType: Task<T>
+  fullName: System.Threading.Tasks.Task<T>
+  nameWithType.vb: Task(Of T)
+  fullName.vb: System.Threading.Tasks.Task(Of T)
+  name.vb: Task(Of T)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Net.Http
+  commentId: N:System.Net.Http
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Net.Http
+  nameWithType: System.Net.Http
+  fullName: System.Net.Http
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  - name: .
+  - uid: System.Net.Http
+    name: Http
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: System.Threading.Tasks.Task{System.Net.Http.Headers.HttpResponseHeaders}
+  commentId: T:System.Threading.Tasks.Task{System.Net.Http.Headers.HttpResponseHeaders}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<HttpResponseHeaders>
+  nameWithType: Task<HttpResponseHeaders>
+  fullName: System.Threading.Tasks.Task<System.Net.Http.Headers.HttpResponseHeaders>
+  nameWithType.vb: Task(Of HttpResponseHeaders)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Net.Http.Headers.HttpResponseHeaders)
+  name.vb: Task(Of HttpResponseHeaders)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Net.Http.Headers.HttpResponseHeaders
+    name: HttpResponseHeaders
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpresponseheaders
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Net.Http.Headers.HttpResponseHeaders
+    name: HttpResponseHeaders
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpresponseheaders
+  - name: )
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync*
+  commentId: Overload:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync
+  href: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_
+  name: PostAsXmlAsync
+  nameWithType: HttpRestClientXmlExtensions.PostAsXmlAsync
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync*
+  commentId: Overload:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync
+  href: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PutAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_
+  name: PutAsXmlAsync
+  nameWithType: HttpRestClientXmlExtensions.PutAsXmlAsync
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync
+- uid: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync*
+  commentId: Overload:Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync
+  href: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PatchAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_
+  name: PatchAsXmlAsync
+  nameWithType: HttpRestClientXmlExtensions.PatchAsXmlAsync
+  fullName: Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync

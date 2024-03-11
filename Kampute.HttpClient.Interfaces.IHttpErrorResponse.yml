@@ -1,0 +1,173 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  id: IHttpErrorResponse
+  parent: Kampute.HttpClient.Interfaces
+  children:
+  - Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException(System.Net.HttpStatusCode)
+  langs:
+  - csharp
+  - vb
+  name: IHttpErrorResponse
+  nameWithType: IHttpErrorResponse
+  fullName: Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  type: Interface
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IHttpErrorResponse.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: IHttpErrorResponse
+    path: src/Kampute.HttpClient/Interfaces/IHttpErrorResponse.cs
+    startLine: 17
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Defines an interface for handling HTTP error responses and converting them into a <xref href="Kampute.HttpClient.HttpResponseException" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    This interface is especially beneficial in RESTful operation contexts where the server provides error details in a 
+
+    distinct format. It facilitates the conversion of these details into a structured <xref href="Kampute.HttpClient.HttpResponseException" data-throw-if-not-resolved="false"></xref>, 
+
+    thereby enhancing error handling and its integration into client-side logic.
+  example: []
+  syntax:
+    content: public interface IHttpErrorResponse
+    content.vb: Public Interface IHttpErrorResponse
+- uid: Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException(System.Net.HttpStatusCode)
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException(System.Net.HttpStatusCode)
+  id: ToException(System.Net.HttpStatusCode)
+  parent: Kampute.HttpClient.Interfaces.IHttpErrorResponse
+  langs:
+  - csharp
+  - vb
+  name: ToException(HttpStatusCode)
+  nameWithType: IHttpErrorResponse.ToException(HttpStatusCode)
+  fullName: Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException(System.Net.HttpStatusCode)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/Interfaces/IHttpErrorResponse.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: ToException
+    path: src/Kampute.HttpClient/Interfaces/IHttpErrorResponse.cs
+    startLine: 24
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient.Interfaces
+  summary: Converts the object into a <xref href="Kampute.HttpClient.HttpResponseException" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: HttpResponseException ToException(HttpStatusCode statusCode)
+    parameters:
+    - id: statusCode
+      type: System.Net.HttpStatusCode
+      description: The HTTP status code associated with the error.
+    return:
+      type: Kampute.HttpClient.HttpResponseException
+      description: A <xref href="Kampute.HttpClient.HttpResponseException" data-throw-if-not-resolved="false"></xref> that represents the error.
+    content.vb: Function ToException(statusCode As HttpStatusCode) As HttpResponseException
+  overload: Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException*
+references:
+- uid: Kampute.HttpClient.HttpResponseException
+  commentId: T:Kampute.HttpClient.HttpResponseException
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpResponseException.html
+  name: HttpResponseException
+  nameWithType: HttpResponseException
+  fullName: Kampute.HttpClient.HttpResponseException
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: Kampute.HttpClient
+  commentId: N:Kampute.HttpClient
+  href: Kampute.html
+  name: Kampute.HttpClient
+  nameWithType: Kampute.HttpClient
+  fullName: Kampute.HttpClient
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+- uid: Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException*
+  commentId: Overload:Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException
+  href: Kampute.HttpClient.Interfaces.IHttpErrorResponse.html#Kampute_HttpClient_Interfaces_IHttpErrorResponse_ToException_System_Net_HttpStatusCode_
+  name: ToException
+  nameWithType: IHttpErrorResponse.ToException
+  fullName: Kampute.HttpClient.Interfaces.IHttpErrorResponse.ToException
+- uid: System.Net.HttpStatusCode
+  commentId: T:System.Net.HttpStatusCode
+  parent: System.Net
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.httpstatuscode
+  name: HttpStatusCode
+  nameWithType: HttpStatusCode
+  fullName: System.Net.HttpStatusCode
+- uid: System.Net
+  commentId: N:System.Net
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Net
+  nameWithType: System.Net
+  fullName: System.Net
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Net
+    name: Net
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net

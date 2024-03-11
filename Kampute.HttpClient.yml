@@ -1,0 +1,351 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient
+  commentId: N:Kampute.HttpClient
+  id: Kampute.HttpClient
+  children:
+  - Kampute.HttpClient.AuthSchemes
+  - Kampute.HttpClient.BackoffStrategies
+  - Kampute.HttpClient.DictionaryExtensions
+  - Kampute.HttpClient.ExceptionExtensions
+  - Kampute.HttpClient.HttpContentDeserializerCollection
+  - Kampute.HttpClient.HttpContentException
+  - Kampute.HttpClient.HttpContentExtensions
+  - Kampute.HttpClient.HttpErrorHandlerCollection
+  - Kampute.HttpClient.HttpErrorHandlerResult
+  - Kampute.HttpClient.HttpRequestErrorContext
+  - Kampute.HttpClient.HttpRequestMessageCloneManager
+  - Kampute.HttpClient.HttpRequestMessageEventArgs
+  - Kampute.HttpClient.HttpRequestMessageExtensions
+  - Kampute.HttpClient.HttpRequestMessagePropertyKeys
+  - Kampute.HttpClient.HttpResponseErrorContext
+  - Kampute.HttpClient.HttpResponseException
+  - Kampute.HttpClient.HttpResponseHeadersExtensions
+  - Kampute.HttpClient.HttpResponseMessageEventArgs
+  - Kampute.HttpClient.HttpRestClient
+  - Kampute.HttpClient.HttpRestClientExtensions
+  - Kampute.HttpClient.HttpRestClientFormExtensions
+  - Kampute.HttpClient.HttpVerb
+  - Kampute.HttpClient.MediaTypeNames
+  - Kampute.HttpClient.MediaTypeNames.Application
+  - Kampute.HttpClient.MediaTypeNames.Audio
+  - Kampute.HttpClient.MediaTypeNames.Image
+  - Kampute.HttpClient.MediaTypeNames.Text
+  - Kampute.HttpClient.MediaTypeNames.Video
+  - Kampute.HttpClient.SharedDisposableManager`1
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient
+  nameWithType: Kampute.HttpClient
+  fullName: Kampute.HttpClient
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient
+references:
+- uid: Kampute.HttpClient.AuthSchemes
+  commentId: T:Kampute.HttpClient.AuthSchemes
+  href: Kampute.HttpClient.AuthSchemes.html
+  name: AuthSchemes
+  nameWithType: AuthSchemes
+  fullName: Kampute.HttpClient.AuthSchemes
+- uid: Kampute.HttpClient.BackoffStrategies
+  commentId: T:Kampute.HttpClient.BackoffStrategies
+  href: Kampute.HttpClient.BackoffStrategies.html
+  name: BackoffStrategies
+  nameWithType: BackoffStrategies
+  fullName: Kampute.HttpClient.BackoffStrategies
+- uid: Kampute.HttpClient.DictionaryExtensions
+  commentId: T:Kampute.HttpClient.DictionaryExtensions
+  href: Kampute.HttpClient.DictionaryExtensions.html
+  name: DictionaryExtensions
+  nameWithType: DictionaryExtensions
+  fullName: Kampute.HttpClient.DictionaryExtensions
+- uid: Kampute.HttpClient.ExceptionExtensions
+  commentId: T:Kampute.HttpClient.ExceptionExtensions
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.ExceptionExtensions.html
+  name: ExceptionExtensions
+  nameWithType: ExceptionExtensions
+  fullName: Kampute.HttpClient.ExceptionExtensions
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection
+  commentId: T:Kampute.HttpClient.HttpContentDeserializerCollection
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html
+  name: HttpContentDeserializerCollection
+  nameWithType: HttpContentDeserializerCollection
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection
+- uid: Kampute.HttpClient.HttpContentException
+  commentId: T:Kampute.HttpClient.HttpContentException
+  href: Kampute.HttpClient.HttpContentException.html
+  name: HttpContentException
+  nameWithType: HttpContentException
+  fullName: Kampute.HttpClient.HttpContentException
+- uid: Kampute.HttpClient.HttpContentExtensions
+  commentId: T:Kampute.HttpClient.HttpContentExtensions
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpContentExtensions.html
+  name: HttpContentExtensions
+  nameWithType: HttpContentExtensions
+  fullName: Kampute.HttpClient.HttpContentExtensions
+- uid: Kampute.HttpClient.HttpErrorHandlerCollection
+  commentId: T:Kampute.HttpClient.HttpErrorHandlerCollection
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpErrorHandlerCollection.html
+  name: HttpErrorHandlerCollection
+  nameWithType: HttpErrorHandlerCollection
+  fullName: Kampute.HttpClient.HttpErrorHandlerCollection
+- uid: Kampute.HttpClient.HttpErrorHandlerResult
+  commentId: T:Kampute.HttpClient.HttpErrorHandlerResult
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpErrorHandlerResult.html
+  name: HttpErrorHandlerResult
+  nameWithType: HttpErrorHandlerResult
+  fullName: Kampute.HttpClient.HttpErrorHandlerResult
+- uid: Kampute.HttpClient.HttpRequestErrorContext
+  commentId: T:Kampute.HttpClient.HttpRequestErrorContext
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpRequestErrorContext.html
+  name: HttpRequestErrorContext
+  nameWithType: HttpRequestErrorContext
+  fullName: Kampute.HttpClient.HttpRequestErrorContext
+- uid: Kampute.HttpClient.HttpRequestMessageCloneManager
+  commentId: T:Kampute.HttpClient.HttpRequestMessageCloneManager
+  href: Kampute.HttpClient.HttpRequestMessageCloneManager.html
+  name: HttpRequestMessageCloneManager
+  nameWithType: HttpRequestMessageCloneManager
+  fullName: Kampute.HttpClient.HttpRequestMessageCloneManager
+- uid: Kampute.HttpClient.HttpRequestMessageEventArgs
+  commentId: T:Kampute.HttpClient.HttpRequestMessageEventArgs
+  href: Kampute.HttpClient.HttpRequestMessageEventArgs.html
+  name: HttpRequestMessageEventArgs
+  nameWithType: HttpRequestMessageEventArgs
+  fullName: Kampute.HttpClient.HttpRequestMessageEventArgs
+- uid: Kampute.HttpClient.HttpRequestMessageExtensions
+  commentId: T:Kampute.HttpClient.HttpRequestMessageExtensions
+  href: Kampute.HttpClient.HttpRequestMessageExtensions.html
+  name: HttpRequestMessageExtensions
+  nameWithType: HttpRequestMessageExtensions
+  fullName: Kampute.HttpClient.HttpRequestMessageExtensions
+- uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys
+  commentId: T:Kampute.HttpClient.HttpRequestMessagePropertyKeys
+  href: Kampute.HttpClient.HttpRequestMessagePropertyKeys.html
+  name: HttpRequestMessagePropertyKeys
+  nameWithType: HttpRequestMessagePropertyKeys
+  fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys
+- uid: Kampute.HttpClient.HttpResponseErrorContext
+  commentId: T:Kampute.HttpClient.HttpResponseErrorContext
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpResponseErrorContext.html
+  name: HttpResponseErrorContext
+  nameWithType: HttpResponseErrorContext
+  fullName: Kampute.HttpClient.HttpResponseErrorContext
+- uid: Kampute.HttpClient.HttpResponseException
+  commentId: T:Kampute.HttpClient.HttpResponseException
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpResponseException.html
+  name: HttpResponseException
+  nameWithType: HttpResponseException
+  fullName: Kampute.HttpClient.HttpResponseException
+- uid: Kampute.HttpClient.HttpResponseHeadersExtensions
+  commentId: T:Kampute.HttpClient.HttpResponseHeadersExtensions
+  href: Kampute.HttpClient.HttpResponseHeadersExtensions.html
+  name: HttpResponseHeadersExtensions
+  nameWithType: HttpResponseHeadersExtensions
+  fullName: Kampute.HttpClient.HttpResponseHeadersExtensions
+- uid: Kampute.HttpClient.HttpResponseMessageEventArgs
+  commentId: T:Kampute.HttpClient.HttpResponseMessageEventArgs
+  href: Kampute.HttpClient.HttpResponseMessageEventArgs.html
+  name: HttpResponseMessageEventArgs
+  nameWithType: HttpResponseMessageEventArgs
+  fullName: Kampute.HttpClient.HttpResponseMessageEventArgs
+- uid: Kampute.HttpClient.HttpRestClient
+  commentId: T:Kampute.HttpClient.HttpRestClient
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpRestClient.html
+  name: HttpRestClient
+  nameWithType: HttpRestClient
+  fullName: Kampute.HttpClient.HttpRestClient
+- uid: Kampute.HttpClient.HttpRestClientExtensions
+  commentId: T:Kampute.HttpClient.HttpRestClientExtensions
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpRestClientExtensions.html
+  name: HttpRestClientExtensions
+  nameWithType: HttpRestClientExtensions
+  fullName: Kampute.HttpClient.HttpRestClientExtensions
+- uid: Kampute.HttpClient.HttpRestClientFormExtensions
+  commentId: T:Kampute.HttpClient.HttpRestClientFormExtensions
+  parent: Kampute.HttpClient
+  href: Kampute.HttpClient.HttpRestClientFormExtensions.html
+  name: HttpRestClientFormExtensions
+  nameWithType: HttpRestClientFormExtensions
+  fullName: Kampute.HttpClient.HttpRestClientFormExtensions
+- uid: Kampute.HttpClient.HttpVerb
+  commentId: T:Kampute.HttpClient.HttpVerb
+  href: Kampute.HttpClient.HttpVerb.html
+  name: HttpVerb
+  nameWithType: HttpVerb
+  fullName: Kampute.HttpClient.HttpVerb
+- uid: Kampute.HttpClient.MediaTypeNames
+  commentId: T:Kampute.HttpClient.MediaTypeNames
+  href: Kampute.HttpClient.MediaTypeNames.html
+  name: MediaTypeNames
+  nameWithType: MediaTypeNames
+  fullName: Kampute.HttpClient.MediaTypeNames
+- uid: Kampute.HttpClient.MediaTypeNames.Application
+  commentId: T:Kampute.HttpClient.MediaTypeNames.Application
+  href: Kampute.HttpClient.MediaTypeNames.html
+  name: MediaTypeNames.Application
+  nameWithType: MediaTypeNames.Application
+  fullName: Kampute.HttpClient.MediaTypeNames.Application
+  spec.csharp:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Application
+    name: Application
+    href: Kampute.HttpClient.MediaTypeNames.Application.html
+  spec.vb:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Application
+    name: Application
+    href: Kampute.HttpClient.MediaTypeNames.Application.html
+- uid: Kampute.HttpClient.MediaTypeNames.Image
+  commentId: T:Kampute.HttpClient.MediaTypeNames.Image
+  href: Kampute.HttpClient.MediaTypeNames.html
+  name: MediaTypeNames.Image
+  nameWithType: MediaTypeNames.Image
+  fullName: Kampute.HttpClient.MediaTypeNames.Image
+  spec.csharp:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Image
+    name: Image
+    href: Kampute.HttpClient.MediaTypeNames.Image.html
+  spec.vb:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Image
+    name: Image
+    href: Kampute.HttpClient.MediaTypeNames.Image.html
+- uid: Kampute.HttpClient.MediaTypeNames.Text
+  commentId: T:Kampute.HttpClient.MediaTypeNames.Text
+  href: Kampute.HttpClient.MediaTypeNames.html
+  name: MediaTypeNames.Text
+  nameWithType: MediaTypeNames.Text
+  fullName: Kampute.HttpClient.MediaTypeNames.Text
+  spec.csharp:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Text
+    name: Text
+    href: Kampute.HttpClient.MediaTypeNames.Text.html
+  spec.vb:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Text
+    name: Text
+    href: Kampute.HttpClient.MediaTypeNames.Text.html
+- uid: Kampute.HttpClient.MediaTypeNames.Audio
+  commentId: T:Kampute.HttpClient.MediaTypeNames.Audio
+  href: Kampute.HttpClient.MediaTypeNames.html
+  name: MediaTypeNames.Audio
+  nameWithType: MediaTypeNames.Audio
+  fullName: Kampute.HttpClient.MediaTypeNames.Audio
+  spec.csharp:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Audio
+    name: Audio
+    href: Kampute.HttpClient.MediaTypeNames.Audio.html
+  spec.vb:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Audio
+    name: Audio
+    href: Kampute.HttpClient.MediaTypeNames.Audio.html
+- uid: Kampute.HttpClient.MediaTypeNames.Video
+  commentId: T:Kampute.HttpClient.MediaTypeNames.Video
+  href: Kampute.HttpClient.MediaTypeNames.html
+  name: MediaTypeNames.Video
+  nameWithType: MediaTypeNames.Video
+  fullName: Kampute.HttpClient.MediaTypeNames.Video
+  spec.csharp:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Video
+    name: Video
+    href: Kampute.HttpClient.MediaTypeNames.Video.html
+  spec.vb:
+  - uid: Kampute.HttpClient.MediaTypeNames
+    name: MediaTypeNames
+    href: Kampute.HttpClient.MediaTypeNames.html
+  - name: .
+  - uid: Kampute.HttpClient.MediaTypeNames.Video
+    name: Video
+    href: Kampute.HttpClient.MediaTypeNames.Video.html
+- uid: Kampute.HttpClient.SharedDisposableManager`1
+  commentId: T:Kampute.HttpClient.SharedDisposableManager`1
+  href: Kampute.HttpClient.SharedDisposableManager-1.html
+  name: SharedDisposableManager<T>
+  nameWithType: SharedDisposableManager<T>
+  fullName: Kampute.HttpClient.SharedDisposableManager<T>
+  nameWithType.vb: SharedDisposableManager(Of T)
+  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T)
+  name.vb: SharedDisposableManager(Of T)
+  spec.csharp:
+  - uid: Kampute.HttpClient.SharedDisposableManager`1
+    name: SharedDisposableManager
+    href: Kampute.HttpClient.SharedDisposableManager-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Kampute.HttpClient.SharedDisposableManager`1
+    name: SharedDisposableManager
+    href: Kampute.HttpClient.SharedDisposableManager-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Kampute.HttpClient
+  commentId: N:Kampute.HttpClient
+  href: Kampute.html
+  name: Kampute.HttpClient
+  nameWithType: Kampute.HttpClient
+  fullName: Kampute.HttpClient
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html

@@ -1,0 +1,69 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.DataContract
+  commentId: N:Kampute.HttpClient.DataContract
+  id: Kampute.HttpClient.DataContract
+  children:
+  - Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions
+  - Kampute.HttpClient.DataContract.XmlContent
+  - Kampute.HttpClient.DataContract.XmlContentDeserializer
+  langs:
+  - csharp
+  - vb
+  name: Kampute.HttpClient.DataContract
+  nameWithType: Kampute.HttpClient.DataContract
+  fullName: Kampute.HttpClient.DataContract
+  type: Namespace
+  assemblies:
+  - Kampute.HttpClient.DataContract
+references:
+- uid: Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions
+  commentId: T:Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions
+  parent: Kampute.HttpClient.DataContract
+  href: Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html
+  name: HttpRestClientXmlExtensions
+  nameWithType: HttpRestClientXmlExtensions
+  fullName: Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions
+- uid: Kampute.HttpClient.DataContract.XmlContent
+  commentId: T:Kampute.HttpClient.DataContract.XmlContent
+  href: Kampute.HttpClient.DataContract.XmlContent.html
+  name: XmlContent
+  nameWithType: XmlContent
+  fullName: Kampute.HttpClient.DataContract.XmlContent
+- uid: Kampute.HttpClient.DataContract.XmlContentDeserializer
+  commentId: T:Kampute.HttpClient.DataContract.XmlContentDeserializer
+  parent: Kampute.HttpClient.DataContract
+  href: Kampute.HttpClient.DataContract.XmlContentDeserializer.html
+  name: XmlContentDeserializer
+  nameWithType: XmlContentDeserializer
+  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer
+- uid: Kampute.HttpClient.DataContract
+  commentId: N:Kampute.HttpClient.DataContract
+  href: Kampute.html
+  name: Kampute.HttpClient.DataContract
+  nameWithType: Kampute.HttpClient.DataContract
+  fullName: Kampute.HttpClient.DataContract
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.DataContract
+    name: DataContract
+    href: Kampute.HttpClient.DataContract.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.DataContract
+    name: DataContract
+    href: Kampute.HttpClient.DataContract.html

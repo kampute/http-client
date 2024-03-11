@@ -1,0 +1,1625 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection
+  commentId: T:Kampute.HttpClient.HttpContentDeserializerCollection
+  id: HttpContentDeserializerCollection
+  parent: Kampute.HttpClient
+  children:
+  - Kampute.HttpClient.HttpContentDeserializerCollection.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  - Kampute.HttpClient.HttpContentDeserializerCollection.Clear
+  - Kampute.HttpClient.HttpContentDeserializerCollection.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  - Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  - Kampute.HttpClient.HttpContentDeserializerCollection.Count
+  - Kampute.HttpClient.HttpContentDeserializerCollection.Find``1
+  - Kampute.HttpClient.HttpContentDeserializerCollection.For(System.String,System.Type)
+  - Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
+  - Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
+  - Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type,System.Type)
+  - Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  langs:
+  - csharp
+  - vb
+  name: HttpContentDeserializerCollection
+  nameWithType: HttpContentDeserializerCollection
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection
+  type: Class
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: HttpContentDeserializerCollection
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 30
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Represents a specialized collection of <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> instances.
+  remarks: >-
+    <p>
+
+    This collection provides capabilities for managing <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> instances, such as adding, 
+
+    removing, and selecting deserializers. It utilizes internal caches to optimize performance when retrieving deserializers 
+
+    for specific media types and model types, as well as when fetching supported media types for deserialization. 
+
+    </p>
+
+    <p>
+
+    These caches are automatically invalidated and updated as deserializers are added or removed, ensuring efficient access 
+
+    patterns and reducing the overhead of frequently performed operations.
+
+    </p>
+  example: []
+  syntax:
+    content: 'public sealed class HttpContentDeserializerCollection : ICollection<IHttpContentDeserializer>, IEnumerable<IHttpContentDeserializer>, IEnumerable'
+    content.vb: Public NotInheritable Class HttpContentDeserializerCollection Implements ICollection(Of IHttpContentDeserializer), IEnumerable(Of IHttpContentDeserializer), IEnumerable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  - System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  - System.Collections.IEnumerable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Count
+  commentId: P:Kampute.HttpClient.HttpContentDeserializerCollection.Count
+  id: Count
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: HttpContentDeserializerCollection.Count
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Count
+  type: Property
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Count
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 45
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Gets the number of <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> instances contained in the collection.
+  example: []
+  syntax:
+    content: public int Count { get; }
+    parameters: []
+    return:
+      type: System.Int32
+      description: The number of <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> instances contained in the collection.
+    content.vb: Public ReadOnly Property Count As Integer
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.Count*
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Count
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.For(System.String,System.Type)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.For(System.String,System.Type)
+  id: For(System.String,System.Type)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: For(string, Type)
+  nameWithType: HttpContentDeserializerCollection.For(string, Type)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.For(string, System.Type)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: For
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 61
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Retrieves all <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> instances in the collection that support deserializing a specific media type and model type.
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<IHttpContentDeserializer> For(string mediaType, Type modelType)
+    parameters:
+    - id: mediaType
+      type: System.String
+      description: The media type to deserialize.
+    - id: modelType
+      type: System.Type
+      description: The type of the model to deserialize.
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+      description: A read-only collection of <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> that can deserialize the specified media type and model type.
+    content.vb: Public Function [For](mediaType As String, modelType As Type) As IReadOnlyCollection(Of IHttpContentDeserializer)
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.For*
+  nameWithType.vb: HttpContentDeserializerCollection.For(String, Type)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.For(String, System.Type)
+  name.vb: For(String, Type)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
+  id: GetSupportedMediaTypes(System.Type)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: GetSupportedMediaTypes(Type?)
+  nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type?)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type?)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: GetSupportedMediaTypes
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 76
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Retrieves all supported media types for a specified model type from the collection of deserializers.
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<MediaTypeWithQualityHeaderValue> GetSupportedMediaTypes(Type? modelType)
+    parameters:
+    - id: modelType
+      type: System.Type
+      description: The type of the model for which to retrieve supported media types.
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue}
+      description: A read-only collection of <xref href="System.Net.Http.Headers.MediaTypeWithQualityHeaderValue" data-throw-if-not-resolved="false"></xref> that represent the media types supported for deserializing the specified model type.
+    content.vb: Public Function GetSupportedMediaTypes(modelType As Type) As IReadOnlyCollection(Of MediaTypeWithQualityHeaderValue)
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes*
+  nameWithType.vb: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
+  name.vb: GetSupportedMediaTypes(Type)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type,System.Type)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type,System.Type)
+  id: GetSupportedMediaTypes(System.Type,System.Type)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: GetSupportedMediaTypes(Type?, Type?)
+  nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type?, Type?)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type?, System.Type?)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: GetSupportedMediaTypes
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 94
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Retrieves all supported media types for a specified model type and error type from the collection of deserializers.
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<MediaTypeWithQualityHeaderValue> GetSupportedMediaTypes(Type? modelType, Type? errorType)
+    parameters:
+    - id: modelType
+      type: System.Type
+      description: The type of the model for which to retrieve supported media types.
+    - id: errorType
+      type: System.Type
+      description: The type of the error for which to retrieve supported media types.
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue}
+      description: A read-only collection of <xref href="System.Net.Http.Headers.MediaTypeWithQualityHeaderValue" data-throw-if-not-resolved="false"></xref> representing the supported media types for the specified types.
+    content.vb: Public Function GetSupportedMediaTypes(modelType As Type, errorType As Type) As IReadOnlyCollection(Of MediaTypeWithQualityHeaderValue)
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes*
+  nameWithType.vb: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type, Type)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type, System.Type)
+  name.vb: GetSupportedMediaTypes(Type, Type)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  id: Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: Add(IHttpContentDeserializer)
+  nameWithType: HttpContentDeserializerCollection.Add(IHttpContentDeserializer)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Add
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 115
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Adds an <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> to the collection if an instance of the same type doesn't already exist.
+  example: []
+  syntax:
+    content: public void Add(IHttpContentDeserializer deserializer)
+    parameters:
+    - id: deserializer
+      type: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+      description: The <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> to add.
+    content.vb: Public Sub Add(deserializer As IHttpContentDeserializer)
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.Add*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">deserializer</code> is <code>null</code>.
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if an instance of the same type already exists in the collection.
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  id: Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: Remove(IHttpContentDeserializer)
+  nameWithType: HttpContentDeserializerCollection.Remove(IHttpContentDeserializer)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Remove
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 133
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Removes the first occurrence of a specific <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> from the collection.
+  example: []
+  syntax:
+    content: public bool Remove(IHttpContentDeserializer deserializer)
+    parameters:
+    - id: deserializer
+      type: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+      description: The <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> to remove from the collection.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if <code class="paramref">deserializer</code> was successfully removed from the collection; otherwise, <code>false</code>.
+    content.vb: Public Function Remove(deserializer As IHttpContentDeserializer) As Boolean
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.Remove*
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  id: Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: Contains(IHttpContentDeserializer)
+  nameWithType: HttpContentDeserializerCollection.Contains(IHttpContentDeserializer)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Contains
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 148
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Determines whether the collection contains a specific <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool Contains(IHttpContentDeserializer deserializer)
+    parameters:
+    - id: deserializer
+      type: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+      description: The <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> to locate in the collection.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if <code class="paramref">deserializer</code> is found in the collection; otherwise, <code>false</code>.
+    content.vb: Public Function Contains(deserializer As IHttpContentDeserializer) As Boolean
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.Contains*
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Find``1
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.Find``1
+  id: Find``1
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: Find<T>()
+  nameWithType: HttpContentDeserializerCollection.Find<T>()
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Find<T>()
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Find
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 158
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Finds an <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> by its type.
+  example: []
+  syntax:
+    content: 'public T Find<T>() where T : IHttpContentDeserializer'
+    typeParameters:
+    - id: T
+      description: The type of the deserializer to find.
+    return:
+      type: '{T}'
+      description: The instance of <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref> of the specified type, or <code>null</code> if not found.
+    content.vb: Public Function Find(Of T As IHttpContentDeserializer)() As T
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.Find*
+  nameWithType.vb: HttpContentDeserializerCollection.Find(Of T)()
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.Find(Of T)()
+  name.vb: Find(Of T)()
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Clear
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.Clear
+  id: Clear
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: HttpContentDeserializerCollection.Clear()
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Clear()
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Clear
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 166
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Removes all items from the collection.
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear()
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.Clear*
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Clear
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  id: CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: CopyTo(IHttpContentDeserializer[], int)
+  nameWithType: HttpContentDeserializerCollection.CopyTo(IHttpContentDeserializer[], int)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[], int)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: CopyTo
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 176
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Copies the elements of the collection to an array, starting at a particular array index.
+  example: []
+  syntax:
+    content: public void CopyTo(IHttpContentDeserializer[] array, int arrayIndex)
+    parameters:
+    - id: array
+      type: Kampute.HttpClient.Interfaces.IHttpContentDeserializer[]
+      description: The one-dimensional array that is the destination of the elements copied from the collection. The array must have zero-based indexing.
+    - id: arrayIndex
+      type: System.Int32
+      description: The zero-based index in array at which copying begins.
+    content.vb: Public Sub CopyTo(array As IHttpContentDeserializer(), arrayIndex As Integer)
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo*
+  implements:
+  - System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  nameWithType.vb: HttpContentDeserializerCollection.CopyTo(IHttpContentDeserializer(), Integer)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer(), Integer)
+  name.vb: CopyTo(IHttpContentDeserializer(), Integer)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
+  id: GetEnumerator
+  parent: Kampute.HttpClient.HttpContentDeserializerCollection
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: HttpContentDeserializerCollection.GetEnumerator()
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: GetEnumerator
+    path: src/Kampute.HttpClient/HttpContentDeserializerCollection.cs
+    startLine: 185
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Returns an enumerator that iterates through the collection.
+  example: []
+  syntax:
+    content: public IEnumerator<IHttpContentDeserializer> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+      description: A <xref href="System.Collections.Generic.IEnumerator%601" data-throw-if-not-resolved="false"></xref> for <xref href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetEnumerator() As IEnumerator(Of IHttpContentDeserializer)
+  overload: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.GetEnumerator
+references:
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  name: IHttpContentDeserializer
+  nameWithType: IHttpContentDeserializer
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+- uid: Kampute.HttpClient
+  commentId: N:Kampute.HttpClient
+  href: Kampute.html
+  name: Kampute.HttpClient
+  nameWithType: Kampute.HttpClient
+  fullName: Kampute.HttpClient
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  commentId: T:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.ICollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1
+  name: ICollection<IHttpContentDeserializer>
+  nameWithType: ICollection<IHttpContentDeserializer>
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  name.vb: ICollection(Of IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1
+  - name: <
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  commentId: T:System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IHttpContentDeserializer>
+  nameWithType: IEnumerable<IHttpContentDeserializer>
+  fullName: System.Collections.Generic.IEnumerable<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>
+  nameWithType.vb: IEnumerable(Of IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  name.vb: IEnumerable(Of IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.ICollection`1
+  commentId: T:System.Collections.Generic.ICollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1
+  name: ICollection<T>
+  nameWithType: ICollection<T>
+  fullName: System.Collections.Generic.ICollection<T>
+  nameWithType.vb: ICollection(Of T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T)
+  name.vb: ICollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1
+    name: ICollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Count*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.Count
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Count
+  name: Count
+  nameWithType: HttpContentDeserializerCollection.Count
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Count
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Count
+  commentId: P:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Count
+  parent: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.ICollection`1.Count
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.count
+  name: Count
+  nameWithType: ICollection<IHttpContentDeserializer>.Count
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.Count
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer).Count
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).Count
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Collections.Generic.ICollection`1.Count
+  commentId: P:System.Collections.Generic.ICollection`1.Count
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.count
+  name: Count
+  nameWithType: ICollection<T>.Count
+  fullName: System.Collections.Generic.ICollection<T>.Count
+  nameWithType.vb: ICollection(Of T).Count
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Count
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.For*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.For
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_For_System_String_System_Type_
+  name: For
+  nameWithType: HttpContentDeserializerCollection.For
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.For
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Collections.Generic.IReadOnlyCollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<IHttpContentDeserializer>
+  nameWithType: IReadOnlyCollection<IHttpContentDeserializer>
+  fullName: System.Collections.Generic.IReadOnlyCollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>
+  nameWithType.vb: IReadOnlyCollection(Of IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  name.vb: IReadOnlyCollection(Of IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyCollection`1
+  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Net.Http.Headers.MediaTypeWithQualityHeaderValue
+  commentId: T:System.Net.Http.Headers.MediaTypeWithQualityHeaderValue
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue
+  name: MediaTypeWithQualityHeaderValue
+  nameWithType: MediaTypeWithQualityHeaderValue
+  fullName: System.Net.Http.Headers.MediaTypeWithQualityHeaderValue
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetSupportedMediaTypes_System_Type_
+  name: GetSupportedMediaTypes
+  nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes
+- uid: System.Collections.Generic.IReadOnlyCollection{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<MediaTypeWithQualityHeaderValue>
+  nameWithType: IReadOnlyCollection<MediaTypeWithQualityHeaderValue>
+  fullName: System.Collections.Generic.IReadOnlyCollection<System.Net.Http.Headers.MediaTypeWithQualityHeaderValue>
+  nameWithType.vb: IReadOnlyCollection(Of MediaTypeWithQualityHeaderValue)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of System.Net.Http.Headers.MediaTypeWithQualityHeaderValue)
+  name.vb: IReadOnlyCollection(Of MediaTypeWithQualityHeaderValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: System.Net.Http.Headers.MediaTypeWithQualityHeaderValue
+    name: MediaTypeWithQualityHeaderValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Net.Http.Headers.MediaTypeWithQualityHeaderValue
+    name: MediaTypeWithQualityHeaderValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue
+  - name: )
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Add*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.Add
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Add_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_
+  name: Add
+  nameWithType: HttpContentDeserializerCollection.Add
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Add
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  commentId: M:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  parent: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.ICollection`1.Add(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.add
+  name: Add(IHttpContentDeserializer)
+  nameWithType: ICollection<IHttpContentDeserializer>.Add(IHttpContentDeserializer)
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer).Add(IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+    name: Add
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.add
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+    name: Add
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.add
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Collections.Generic.ICollection`1.Add(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Add(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.add
+  name: Add(T)
+  nameWithType: ICollection<T>.Add(T)
+  fullName: System.Collections.Generic.ICollection<T>.Add(T)
+  nameWithType.vb: ICollection(Of T).Add(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Add(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.add
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Add(`0)
+    name: Add
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.add
+  - name: (
+  - name: T
+  - name: )
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Remove*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.Remove
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_
+  name: Remove
+  nameWithType: HttpContentDeserializerCollection.Remove
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Remove
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  commentId: M:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  parent: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.ICollection`1.Remove(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.remove
+  name: Remove(IHttpContentDeserializer)
+  nameWithType: ICollection<IHttpContentDeserializer>.Remove(IHttpContentDeserializer)
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer).Remove(IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+    name: Remove
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.remove
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+    name: Remove
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.remove
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Collections.Generic.ICollection`1.Remove(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Remove(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.remove
+  name: Remove(T)
+  nameWithType: ICollection<T>.Remove(T)
+  fullName: System.Collections.Generic.ICollection<T>.Remove(T)
+  nameWithType.vb: ICollection(Of T).Remove(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Remove(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.remove
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Remove(`0)
+    name: Remove
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.remove
+  - name: (
+  - name: T
+  - name: )
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Contains*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.Contains
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Contains_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_
+  name: Contains
+  nameWithType: HttpContentDeserializerCollection.Contains
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Contains
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  commentId: M:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  parent: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.ICollection`1.Contains(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.contains
+  name: Contains(IHttpContentDeserializer)
+  nameWithType: ICollection<IHttpContentDeserializer>.Contains(IHttpContentDeserializer)
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer).Contains(IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+    name: Contains
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.contains
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+    name: Contains
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.contains
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Collections.Generic.ICollection`1.Contains(`0)
+  commentId: M:System.Collections.Generic.ICollection`1.Contains(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.contains
+  name: Contains(T)
+  nameWithType: ICollection<T>.Contains(T)
+  fullName: System.Collections.Generic.ICollection<T>.Contains(T)
+  nameWithType.vb: ICollection(Of T).Contains(T)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Contains(T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.contains
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Contains(`0)
+    name: Contains
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.contains
+  - name: (
+  - name: T
+  - name: )
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Find*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.Find
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Find__1
+  name: Find
+  nameWithType: HttpContentDeserializerCollection.Find
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Find
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.Clear*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.Clear
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Clear
+  name: Clear
+  nameWithType: HttpContentDeserializerCollection.Clear
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Clear
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Clear
+  commentId: M:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Clear
+  parent: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.ICollection`1.Clear
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.clear
+  name: Clear()
+  nameWithType: ICollection<IHttpContentDeserializer>.Clear()
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.Clear()
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer).Clear()
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).Clear()
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Clear
+    name: Clear
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.Clear
+    name: Clear
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.clear
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.ICollection`1.Clear
+  commentId: M:System.Collections.Generic.ICollection`1.Clear
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.clear
+  name: Clear()
+  nameWithType: ICollection<T>.Clear()
+  fullName: System.Collections.Generic.ICollection<T>.Clear()
+  nameWithType.vb: ICollection(Of T).Clear()
+  fullName.vb: System.Collections.Generic.ICollection(Of T).Clear()
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.Clear
+    name: Clear
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.clear
+  - name: (
+  - name: )
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_CopyTo_Kampute_HttpClient_Interfaces_IHttpContentDeserializer___System_Int32_
+  name: CopyTo
+  nameWithType: HttpContentDeserializerCollection.CopyTo
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo
+- uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  commentId: M:System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+  parent: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.copyto
+  name: CopyTo(IHttpContentDeserializer[], int)
+  nameWithType: ICollection<IHttpContentDeserializer>.CopyTo(IHttpContentDeserializer[], int)
+  fullName: System.Collections.Generic.ICollection<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[], int)
+  nameWithType.vb: ICollection(Of IHttpContentDeserializer).CopyTo(IHttpContentDeserializer(), Integer)
+  fullName.vb: System.Collections.Generic.ICollection(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer(), Integer)
+  name.vb: CopyTo(IHttpContentDeserializer(), Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+    name: CopyTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.copyto
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
+    name: CopyTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.copyto
+  - name: (
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer[]
+  isExternal: true
+  href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  name: IHttpContentDeserializer[]
+  nameWithType: IHttpContentDeserializer[]
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer[]
+  nameWithType.vb: IHttpContentDeserializer()
+  fullName.vb: Kampute.HttpClient.Interfaces.IHttpContentDeserializer()
+  name.vb: IHttpContentDeserializer()
+  spec.csharp:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  commentId: M:System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.copyto
+  name: CopyTo(T[], int)
+  nameWithType: ICollection<T>.CopyTo(T[], int)
+  fullName: System.Collections.Generic.ICollection<T>.CopyTo(T[], int)
+  nameWithType.vb: ICollection(Of T).CopyTo(T(), Integer)
+  fullName.vb: System.Collections.Generic.ICollection(Of T).CopyTo(T(), Integer)
+  name.vb: CopyTo(T(), Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.copyto
+  - name: (
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)
+    name: CopyTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1.copyto
+  - name: (
+  - name: T
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator*
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
+  href: Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetEnumerator
+  name: GetEnumerator
+  nameWithType: HttpContentDeserializerCollection.GetEnumerator
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<IHttpContentDeserializer>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of IHttpContentDeserializer).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  commentId: T:System.Collections.Generic.IEnumerator{Kampute.HttpClient.Interfaces.IHttpContentDeserializer}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<IHttpContentDeserializer>
+  nameWithType: IEnumerator<IHttpContentDeserializer>
+  fullName: System.Collections.Generic.IEnumerator<Kampute.HttpClient.Interfaces.IHttpContentDeserializer>
+  nameWithType.vb: IEnumerator(Of IHttpContentDeserializer)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
+  name.vb: IEnumerator(Of IHttpContentDeserializer)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
+    name: IHttpContentDeserializer
+    href: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )

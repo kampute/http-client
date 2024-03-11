@@ -1,0 +1,1385 @@
+### YamlMime:ManagedReference
+items:
+- uid: Kampute.HttpClient.BackoffStrategies
+  commentId: T:Kampute.HttpClient.BackoffStrategies
+  id: BackoffStrategies
+  parent: Kampute.HttpClient
+  children:
+  - Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
+  - Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
+  - Kampute.HttpClient.BackoffStrategies.Exponential(System.TimeSpan,System.TimeSpan,System.Double)
+  - Kampute.HttpClient.BackoffStrategies.Exponential(System.UInt32,System.TimeSpan,System.Double)
+  - Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.None
+  - Kampute.HttpClient.BackoffStrategies.Once(System.DateTimeOffset)
+  - Kampute.HttpClient.BackoffStrategies.Once(System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Uniform(System.TimeSpan,System.TimeSpan)
+  - Kampute.HttpClient.BackoffStrategies.Uniform(System.UInt32,System.TimeSpan)
+  langs:
+  - csharp
+  - vb
+  name: BackoffStrategies
+  nameWithType: BackoffStrategies
+  fullName: Kampute.HttpClient.BackoffStrategies
+  type: Class
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: BackoffStrategies
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 55
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Provides a collection of factory methods for creating instances of different retry strategies.
+  remarks: >-
+    <p>
+
+    This class offers various retry strategies to manage transient failures in distributed systems for flexible, use case-specific configuration.
+
+    </p>
+
+    <p>
+
+    Strategies are ordered by increasing delay approach:
+
+    <ol><li><span class="term">None</span>No retries. Best for critical operations where failures should be immediately addressed without retries.</li><li><span class="term">Once</span>A single retry after a delay. Suitable for operations where one additional attempt may resolve a transient issue.</li><li><span class="term">Uniform</span>Multiple retries with constant delays. Ideal for cases needing multiple attempts with predictable delays.</li><li><span class="term">Linear</span>Multiple retries with delays increasing linearly. Optimal for reducing system load with gradually increasing wait times.</li><li><span class="term">Fibonacci</span>Multiple retries with delays following the Fibonacci sequence. A balanced choice between aggressive and cautious retry pacing.</li><li><span class="term">Exponential</span>Multiple retries with delays growing exponentially. For aggressively minimizing impact on systems by rapidly increasing wait times.</li></ol>
+
+    </p>
+
+    <p>
+
+    The <code>Dynamic</code> strategy stands apart, as its delay can vary based on the context of the failure. It tailors retry attempts to specific conditions, such 
+
+    as error type or system load, offering the flexibility to adapt retry logic for optimal outcomes. This approach is most useful in complex systems where a 
+
+    static retry strategy may not adequately address the nuances of different failure scenarios.
+
+    </p>
+  example: []
+  syntax:
+    content: public static class BackoffStrategies
+    content.vb: Public Module BackoffStrategies
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Kampute.HttpClient.BackoffStrategies.None
+  commentId: P:Kampute.HttpClient.BackoffStrategies.None
+  id: None
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: BackoffStrategies.None
+  fullName: Kampute.HttpClient.BackoffStrategies.None
+  type: Property
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: None
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 66
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Gets a strategy where no retry attempts are made.
+  remarks: This strategy schedules no retry attempts, making it ideal for operations where failure handling is immediate or managed through other means.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory None { get; }
+    parameters: []
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy of no retry attempts.
+    content.vb: Public Shared ReadOnly Property None As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.None*
+- uid: Kampute.HttpClient.BackoffStrategies.Once(System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Once(System.TimeSpan)
+  id: Once(System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Once(TimeSpan)
+  nameWithType: BackoffStrategies.Once(TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Once(System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Once
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 77
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs a single retry attempt after the specified delay.
+  remarks: >-
+    This strategy performs a single retry attempt after the specified delay. It is suitable for operations where one additional attempt may resolve
+
+    a transient issue.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Once(TimeSpan delay)
+    parameters:
+    - id: delay
+      type: System.TimeSpan
+      description: The delay before the single retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy of a single attempt after a specified delay.
+    content.vb: Public Shared Function Once(delay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Once*
+- uid: Kampute.HttpClient.BackoffStrategies.Once(System.DateTimeOffset)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Once(System.DateTimeOffset)
+  id: Once(System.DateTimeOffset)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Once(DateTimeOffset)
+  nameWithType: BackoffStrategies.Once(DateTimeOffset)
+  fullName: Kampute.HttpClient.BackoffStrategies.Once(System.DateTimeOffset)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Once
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 92
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs a single retry attempt after the specified date and time.
+  remarks: >-
+    This strategy schedules a single retry attempt for a specified future point in time, ensuring operations are retried when certain 
+
+    conditions are likely met. If the specified time has already passed, it immediately schedules the retry attempt.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Once(DateTimeOffset after)
+    parameters:
+    - id: after
+      type: System.DateTimeOffset
+      description: The date and time after which the single retry attempt will be made.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy of a single attempt after a specified date and time.
+    content.vb: Public Shared Function Once(after As DateTimeOffset) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Once*
+- uid: Kampute.HttpClient.BackoffStrategies.Uniform(System.UInt32,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Uniform(System.UInt32,System.TimeSpan)
+  id: Uniform(System.UInt32,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Uniform(uint, TimeSpan)
+  nameWithType: BackoffStrategies.Uniform(uint, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Uniform(uint, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Uniform
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 109
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: >-
+    Creates a strategy that performs multiple retry attempts with a constant delay between each attempt, up to a specified maximum number of retry
+
+    attempts.
+  remarks: >-
+    This strategy performs multiple retry attempts with a constant delay between each attempt. It is ideal for cases needing multiple attempts with
+
+    predictable delays.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Uniform(uint maxAttempts, TimeSpan delay)
+    parameters:
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of retry attempts.
+    - id: delay
+      type: System.TimeSpan
+      description: The constant delay between each retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified maximum number of retry attempts.
+    content.vb: Public Shared Function Uniform(maxAttempts As UInteger, delay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Uniform*
+  nameWithType.vb: BackoffStrategies.Uniform(UInteger, TimeSpan)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Uniform(UInteger, System.TimeSpan)
+  name.vb: Uniform(UInteger, TimeSpan)
+- uid: Kampute.HttpClient.BackoffStrategies.Uniform(System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Uniform(System.TimeSpan,System.TimeSpan)
+  id: Uniform(System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Uniform(TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Uniform(TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Uniform(System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Uniform
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 124
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs multiple retry attempts with a constant delay between each attempt, up to a specified timeout.
+  remarks: >-
+    This strategy performs multiple retry attempts with a constant delay between each attempt, up to a specified timeout. It is ideal for cases needing
+
+    multiple attempts with predictable delays, but with a maximum time limit for retrying.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Uniform(TimeSpan timeout, TimeSpan delay)
+    parameters:
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum time to spend retrying.
+    - id: delay
+      type: System.TimeSpan
+      description: The constant delay between each retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+    content.vb: Public Shared Function Uniform(timeout As TimeSpan, delay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Uniform*
+- uid: Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan,System.TimeSpan)
+  id: Linear(System.UInt32,System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Linear(uint, TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Linear(uint, TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Linear(uint, System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Linear
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 142
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: >-
+    Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified maximum number of
+
+    retry attempts.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays increasing linearly between each attempt. It is optimal for reducing system load with
+
+    gradually increasing wait times.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Linear(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)
+    parameters:
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of retry attempts.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    - id: delayStep
+      type: System.TimeSpan
+      description: The amount by which the delay increases for each subsequent retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified timeout.
+    content.vb: Public Shared Function Linear(maxAttempts As UInteger, initialDelay As TimeSpan, delayStep As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Linear*
+  nameWithType.vb: BackoffStrategies.Linear(UInteger, TimeSpan, TimeSpan)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Linear(UInteger, System.TimeSpan, System.TimeSpan)
+  name.vb: Linear(UInteger, TimeSpan, TimeSpan)
+- uid: Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  id: Linear(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Linear(TimeSpan, TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Linear(TimeSpan, TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan, System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Linear
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 159
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout. It is optimal for
+
+    reducing system load with gradually increasing wait times, while enforcing a maximum time limit for retrying.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Linear(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)
+    parameters:
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum time to spend retrying.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    - id: delayStep
+      type: System.TimeSpan
+      description: The amount by which the delay increases for each subsequent retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified maximum number of retry attempts.
+    content.vb: Public Shared Function Linear(timeout As TimeSpan, initialDelay As TimeSpan, delayStep As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Linear*
+- uid: Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan)
+  id: Linear(System.UInt32,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Linear(uint, TimeSpan)
+  nameWithType: BackoffStrategies.Linear(uint, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Linear(uint, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Linear
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 176
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: >-
+    Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified maximum number of
+
+    retry attempts.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays increasing linearly between each attempt. It is optimal for reducing system load with
+
+    gradually increasing wait times.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Linear(uint maxAttempts, TimeSpan initialDelay)
+    parameters:
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of retry attempts.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.
+    content.vb: Public Shared Function Linear(maxAttempts As UInteger, initialDelay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Linear*
+  nameWithType.vb: BackoffStrategies.Linear(UInteger, TimeSpan)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Linear(UInteger, System.TimeSpan)
+  name.vb: Linear(UInteger, TimeSpan)
+- uid: Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan)
+  id: Linear(System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Linear(TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Linear(TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Linear
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 192
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout. It is optimal for
+
+    reducing system load with gradually increasing wait times, while enforcing a maximum time limit for retrying.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Linear(TimeSpan timeout, TimeSpan initialDelay)
+    parameters:
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum time to spend retrying.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.
+    content.vb: Public Shared Function Linear(timeout As TimeSpan, initialDelay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Linear*
+- uid: Kampute.HttpClient.BackoffStrategies.Exponential(System.UInt32,System.TimeSpan,System.Double)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Exponential(System.UInt32,System.TimeSpan,System.Double)
+  id: Exponential(System.UInt32,System.TimeSpan,System.Double)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Exponential(uint, TimeSpan, double)
+  nameWithType: BackoffStrategies.Exponential(uint, TimeSpan, double)
+  fullName: Kampute.HttpClient.BackoffStrategies.Exponential(uint, System.TimeSpan, double)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Exponential
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 211
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: >-
+    Creates a strategy that performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified maximum number
+
+    of retry attempts.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays increasing exponentially between each attempt. It is suitable for aggressively minimizing
+
+    the impact on systems by rapidly increasing wait times between retry attempts.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Exponential(uint maxAttempts, TimeSpan initialDelay, double rate = 2)
+    parameters:
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of retry attempts.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    - id: rate
+      type: System.Double
+      description: The rate at which the delay increases for each subsequent retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified maximum number of retry attempts.
+    content.vb: Public Shared Function Exponential(maxAttempts As UInteger, initialDelay As TimeSpan, rate As Double = 2) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Exponential*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: Thrown if <code class="paramref">rate</code> is less than 1.
+  nameWithType.vb: BackoffStrategies.Exponential(UInteger, TimeSpan, Double)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Exponential(UInteger, System.TimeSpan, Double)
+  name.vb: Exponential(UInteger, TimeSpan, Double)
+- uid: Kampute.HttpClient.BackoffStrategies.Exponential(System.TimeSpan,System.TimeSpan,System.Double)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Exponential(System.TimeSpan,System.TimeSpan,System.Double)
+  id: Exponential(System.TimeSpan,System.TimeSpan,System.Double)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Exponential(TimeSpan, TimeSpan, double)
+  nameWithType: BackoffStrategies.Exponential(TimeSpan, TimeSpan, double)
+  fullName: Kampute.HttpClient.BackoffStrategies.Exponential(System.TimeSpan, System.TimeSpan, double)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Exponential
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 230
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified timeout.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified timeout. It is suitable
+
+    for aggressively minimizing the impact on systems by rapidly increasing wait times between retry attempts, while enforcing a maximum time limit for
+
+    retrying.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Exponential(TimeSpan timeout, TimeSpan initialDelay, double rate = 2)
+    parameters:
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum time to spend retrying.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    - id: rate
+      type: System.Double
+      description: The rate at which the delay increases for each subsequent retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified timeout.
+    content.vb: Public Shared Function Exponential(timeout As TimeSpan, initialDelay As TimeSpan, rate As Double = 2) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Exponential*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: Thrown if <code class="paramref">rate</code> is less than 1.
+  nameWithType.vb: BackoffStrategies.Exponential(TimeSpan, TimeSpan, Double)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Exponential(System.TimeSpan, System.TimeSpan, Double)
+  name.vb: Exponential(TimeSpan, TimeSpan, Double)
+- uid: Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan,System.TimeSpan)
+  id: Fibonacci(System.UInt32,System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Fibonacci(uint, TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Fibonacci(uint, TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Fibonacci(uint, System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Fibonacci
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 248
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: >-
+    Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified maximum
+
+    number of retry attempts.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt. It provides a balanced choice between
+
+    aggressive and cautious retry pacing, suitable for a wide range of scenarios.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Fibonacci(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)
+    parameters:
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of retry attempts.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    - id: delayStep
+      type: System.TimeSpan
+      description: The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.
+    content.vb: Public Shared Function Fibonacci(maxAttempts As UInteger, initialDelay As TimeSpan, delayStep As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Fibonacci*
+  nameWithType.vb: BackoffStrategies.Fibonacci(UInteger, TimeSpan, TimeSpan)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Fibonacci(UInteger, System.TimeSpan, System.TimeSpan)
+  name.vb: Fibonacci(UInteger, TimeSpan, TimeSpan)
+- uid: Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  id: Fibonacci(System.TimeSpan,System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Fibonacci(TimeSpan, TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Fibonacci(TimeSpan, TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan, System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Fibonacci
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 265
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout. It provides
+
+    a balanced choice between aggressive and cautious retry pacing, suitable for a wide range of scenarios, while enforcing a maximum time limit for retrying.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Fibonacci(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)
+    parameters:
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum time to spend retrying.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    - id: delayStep
+      type: System.TimeSpan
+      description: The fixed amount of time that is scaled by the Fibonacci sequence and added to the initial delay for each subsequent retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.
+    content.vb: Public Shared Function Fibonacci(timeout As TimeSpan, initialDelay As TimeSpan, delayStep As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Fibonacci*
+- uid: Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan)
+  id: Fibonacci(System.UInt32,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Fibonacci(uint, TimeSpan)
+  nameWithType: BackoffStrategies.Fibonacci(uint, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Fibonacci(uint, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Fibonacci
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 282
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: >-
+    Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified maximum
+
+    number of retry attempts.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt. It provides a balanced choice between
+
+    aggressive and cautious retry pacing, suitable for a wide range of scenarios.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Fibonacci(uint maxAttempts, TimeSpan initialDelay)
+    parameters:
+    - id: maxAttempts
+      type: System.UInt32
+      description: The maximum number of retry attempts.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.
+    content.vb: Public Shared Function Fibonacci(maxAttempts As UInteger, initialDelay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Fibonacci*
+  nameWithType.vb: BackoffStrategies.Fibonacci(UInteger, TimeSpan)
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Fibonacci(UInteger, System.TimeSpan)
+  name.vb: Fibonacci(UInteger, TimeSpan)
+- uid: Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan)
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan)
+  id: Fibonacci(System.TimeSpan,System.TimeSpan)
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Fibonacci(TimeSpan, TimeSpan)
+  nameWithType: BackoffStrategies.Fibonacci(TimeSpan, TimeSpan)
+  fullName: Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan, System.TimeSpan)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Fibonacci
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 298
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout.
+  remarks: >-
+    This strategy performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout. It provides
+
+    a balanced choice between aggressive and cautious retry pacing, suitable for a wide range of scenarios, while enforcing a maximum time limit for retrying.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Fibonacci(TimeSpan timeout, TimeSpan initialDelay)
+    parameters:
+    - id: timeout
+      type: System.TimeSpan
+      description: The maximum time to spend retrying.
+    - id: initialDelay
+      type: System.TimeSpan
+      description: The delay before the first retry attempt.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An <xref href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.
+    content.vb: Public Shared Function Fibonacci(timeout As TimeSpan, initialDelay As TimeSpan) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Fibonacci*
+- uid: Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
+  id: Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Dynamic(Func<HttpRequestErrorContext, IRetryStrategy>)
+  nameWithType: BackoffStrategies.Dynamic(Func<HttpRequestErrorContext, IRetryStrategy>)
+  fullName: Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy>)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Dynamic
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 314
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates an instance of <xref href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> with a dynamic strategy factory based on the context of a failed HTTP request.
+  remarks: >-
+    This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
+
+    encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Dynamic(Func<HttpRequestErrorContext, IRetryStrategy> strategyFactory)
+    parameters:
+    - id: strategyFactory
+      type: System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy}
+      description: A factory function that creates <xref href="Kampute.HttpClient.Interfaces.IRetryStrategy" data-throw-if-not-resolved="false"></xref> instances based on the failed HTTP request context.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An instance of <xref href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Shared Function Dynamic(strategyFactory As Func(Of HttpRequestErrorContext, IRetryStrategy)) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Dynamic*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">strategyFactory</code> is <code>null</code>.
+  nameWithType.vb: BackoffStrategies.Dynamic(Func(Of HttpRequestErrorContext, IRetryStrategy))
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy))
+  name.vb: Dynamic(Func(Of HttpRequestErrorContext, IRetryStrategy))
+- uid: Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
+  commentId: M:Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
+  id: Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
+  parent: Kampute.HttpClient.BackoffStrategies
+  langs:
+  - csharp
+  - vb
+  name: Dynamic(Func<HttpRequestErrorContext, IRetryScheduler>)
+  nameWithType: BackoffStrategies.Dynamic(Func<HttpRequestErrorContext, IRetryScheduler>)
+  fullName: Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler>)
+  type: Method
+  source:
+    remote:
+      path: src/Kampute.HttpClient/BackoffStrategies.cs
+      branch: master
+      repo: https://github.com/kampute/http-client
+    id: Dynamic
+    path: src/Kampute.HttpClient/BackoffStrategies.cs
+    startLine: 330
+  assemblies:
+  - Kampute.HttpClient
+  namespace: Kampute.HttpClient
+  summary: Creates an instance of <xref href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref> with a dynamic scheduler factory based on the context of a failed HTTP request.
+  remarks: >-
+    This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
+
+    encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
+  example: []
+  syntax:
+    content: public static IRetrySchedulerFactory Dynamic(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory)
+    parameters:
+    - id: schedulerFactory
+      type: System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler}
+      description: A factory function that creates <xref href="Kampute.HttpClient.Interfaces.IRetryScheduler" data-throw-if-not-resolved="false"></xref> instances based on the failed HTTP request context.
+    return:
+      type: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+      description: An instance of <xref href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Shared Function Dynamic(schedulerFactory As Func(Of HttpRequestErrorContext, IRetryScheduler)) As IRetrySchedulerFactory
+  overload: Kampute.HttpClient.BackoffStrategies.Dynamic*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">schedulerFactory</code> is <code>null</code>.
+  nameWithType.vb: BackoffStrategies.Dynamic(Func(Of HttpRequestErrorContext, IRetryScheduler))
+  fullName.vb: Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler))
+  name.vb: Dynamic(Func(Of HttpRequestErrorContext, IRetryScheduler))
+references:
+- uid: Kampute.HttpClient
+  commentId: N:Kampute.HttpClient
+  href: Kampute.html
+  name: Kampute.HttpClient
+  nameWithType: Kampute.HttpClient
+  fullName: Kampute.HttpClient
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+  commentId: T:Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html
+  name: IRetrySchedulerFactory
+  nameWithType: IRetrySchedulerFactory
+  fullName: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
+- uid: Kampute.HttpClient.BackoffStrategies.None*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.None
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_None
+  name: None
+  nameWithType: BackoffStrategies.None
+  fullName: Kampute.HttpClient.BackoffStrategies.None
+- uid: Kampute.HttpClient.Interfaces
+  commentId: N:Kampute.HttpClient.Interfaces
+  href: Kampute.html
+  name: Kampute.HttpClient.Interfaces
+  nameWithType: Kampute.HttpClient.Interfaces
+  fullName: Kampute.HttpClient.Interfaces
+  spec.csharp:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+  spec.vb:
+  - uid: Kampute
+    name: Kampute
+    href: Kampute.html
+  - name: .
+  - uid: Kampute.HttpClient
+    name: HttpClient
+    href: Kampute.HttpClient.html
+  - name: .
+  - uid: Kampute.HttpClient.Interfaces
+    name: Interfaces
+    href: Kampute.HttpClient.Interfaces.html
+- uid: Kampute.HttpClient.BackoffStrategies.Once*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.Once
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_Once_System_TimeSpan_
+  name: Once
+  nameWithType: BackoffStrategies.Once
+  fullName: Kampute.HttpClient.BackoffStrategies.Once
+- uid: System.TimeSpan
+  commentId: T:System.TimeSpan
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.timespan
+  name: TimeSpan
+  nameWithType: TimeSpan
+  fullName: System.TimeSpan
+- uid: System.DateTimeOffset
+  commentId: T:System.DateTimeOffset
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetimeoffset
+  name: DateTimeOffset
+  nameWithType: DateTimeOffset
+  fullName: System.DateTimeOffset
+- uid: Kampute.HttpClient.BackoffStrategies.Uniform*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.Uniform
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_Uniform_System_UInt32_System_TimeSpan_
+  name: Uniform
+  nameWithType: BackoffStrategies.Uniform
+  fullName: Kampute.HttpClient.BackoffStrategies.Uniform
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: Kampute.HttpClient.BackoffStrategies.Linear*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.Linear
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_Linear_System_UInt32_System_TimeSpan_System_TimeSpan_
+  name: Linear
+  nameWithType: BackoffStrategies.Linear
+  fullName: Kampute.HttpClient.BackoffStrategies.Linear
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception
+  name: ArgumentOutOfRangeException
+  nameWithType: ArgumentOutOfRangeException
+  fullName: System.ArgumentOutOfRangeException
+- uid: Kampute.HttpClient.BackoffStrategies.Exponential*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.Exponential
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_Exponential_System_UInt32_System_TimeSpan_System_Double_
+  name: Exponential
+  nameWithType: BackoffStrategies.Exponential
+  fullName: Kampute.HttpClient.BackoffStrategies.Exponential
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Kampute.HttpClient.BackoffStrategies.Fibonacci*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.Fibonacci
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_Fibonacci_System_UInt32_System_TimeSpan_System_TimeSpan_
+  name: Fibonacci
+  nameWithType: BackoffStrategies.Fibonacci
+  fullName: Kampute.HttpClient.BackoffStrategies.Fibonacci
+- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory
+  commentId: T:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory
+  href: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html
+  name: DynamicRetrySchedulerFactory
+  nameWithType: DynamicRetrySchedulerFactory
+  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory
+- uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryStrategy
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  name: IRetryStrategy
+  nameWithType: IRetryStrategy
+  fullName: Kampute.HttpClient.Interfaces.IRetryStrategy
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: Kampute.HttpClient.BackoffStrategies.Dynamic*
+  commentId: Overload:Kampute.HttpClient.BackoffStrategies.Dynamic
+  href: Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_Dynamic_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryStrategy__
+  name: Dynamic
+  nameWithType: BackoffStrategies.Dynamic
+  fullName: Kampute.HttpClient.BackoffStrategies.Dynamic
+- uid: System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy}
+  commentId: T:System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<HttpRequestErrorContext, IRetryStrategy>
+  nameWithType: Func<HttpRequestErrorContext, IRetryStrategy>
+  fullName: System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy>
+  nameWithType.vb: Func(Of HttpRequestErrorContext, IRetryStrategy)
+  fullName.vb: System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy)
+  name.vb: Func(Of HttpRequestErrorContext, IRetryStrategy)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: Kampute.HttpClient.HttpRequestErrorContext
+    name: HttpRequestErrorContext
+    href: Kampute.HttpClient.HttpRequestErrorContext.html
+  - name: ','
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Kampute.HttpClient.HttpRequestErrorContext
+    name: HttpRequestErrorContext
+    href: Kampute.HttpClient.HttpRequestErrorContext.html
+  - name: ','
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
+    name: IRetryStrategy
+    href: Kampute.HttpClient.Interfaces.IRetryStrategy.html
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Kampute.HttpClient.Interfaces.IRetryScheduler
+  commentId: T:Kampute.HttpClient.Interfaces.IRetryScheduler
+  parent: Kampute.HttpClient.Interfaces
+  href: Kampute.HttpClient.Interfaces.IRetryScheduler.html
+  name: IRetryScheduler
+  nameWithType: IRetryScheduler
+  fullName: Kampute.HttpClient.Interfaces.IRetryScheduler
+- uid: System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler}
+  commentId: T:System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<HttpRequestErrorContext, IRetryScheduler>
+  nameWithType: Func<HttpRequestErrorContext, IRetryScheduler>
+  fullName: System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler>
+  nameWithType.vb: Func(Of HttpRequestErrorContext, IRetryScheduler)
+  fullName.vb: System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler)
+  name.vb: Func(Of HttpRequestErrorContext, IRetryScheduler)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: Kampute.HttpClient.HttpRequestErrorContext
+    name: HttpRequestErrorContext
+    href: Kampute.HttpClient.HttpRequestErrorContext.html
+  - name: ','
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IRetryScheduler
+    name: IRetryScheduler
+    href: Kampute.HttpClient.Interfaces.IRetryScheduler.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Kampute.HttpClient.HttpRequestErrorContext
+    name: HttpRequestErrorContext
+    href: Kampute.HttpClient.HttpRequestErrorContext.html
+  - name: ','
+  - name: " "
+  - uid: Kampute.HttpClient.Interfaces.IRetryScheduler
+    name: IRetryScheduler
+    href: Kampute.HttpClient.Interfaces.IRetryScheduler.html
+  - name: )

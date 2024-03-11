@@ -44,8 +44,8 @@
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="index.html">
-            <img id="logo" class="svg" src="ICON.png" alt="Kampute.HttpClient">
-            Kampute.HttpClient
+            <img id="logo" class="svg" src="ICON.png" alt="Kampute.HttpClient .NET Library">
+            Kampute.HttpClient .NET Library
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -81,12 +81,13 @@
         </div>
 
         <article data-uid="">
-
-<p><a href="https://github.com/kampute/http-client/actions/workflows/main.yml"><img src="https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master" alt="Build, Test, and Document"></a></p>
 <h1 id="kamputehttpclient">Kampute.HttpClient</h1>
-<p><code>Kampute.HttpClient</code> is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native <code>HttpClient</code> capabilities.
-Tailored for developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide
-array of functionalities to address the complexities of web service consumption.</p>
+
+<p><a href="https://github.com/kampute/http-client/actions/workflows/main.yml"><img src="https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master" alt="Build and Test, and Document"></a></p>
+<p><code>Kampute.HttpClient</code> is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native <code>HttpClient</code> capabilities. Tailored for
+developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
+to address the complexities of web service consumption. <a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.html">Explore the API documentation</a> for
+detailed insights.</p>
 <h2 id="key-features">Key Features</h2>
 <ul>
 <li><p><strong>Shared HttpClient Instances:</strong>
@@ -126,7 +127,7 @@ Promotes fully asynchronous network operations with support for cancellation tok
 asynchronous programming practices in .NET.</p>
 </li>
 </ul>
-<h2 id="serialization-support">Serialization Support:</h2>
+<h2 id="serialization-support">Serialization Support</h2>
 <p>By default, <code>Kampute.HttpClient</code> does not include any content deserializer. To accommodate popular content types, the following extension packages are available:</p>
 <ul>
 <li><p><strong><a href="https://www.nuget.org/packages/Kampute.HttpClient.Json">Kampute.HttpClient.Json</a></strong>:
@@ -252,11 +253,15 @@ await client.PatchAsJsonAsync(&quot;https://api.example.com/resource&quot;, new 
 var newResource = new MyResource();
 await client.PostAsXmlAsync(&quot;https://api.example.com/resource&quot;, newResource);
 </code></pre>
+<h2 id="documentation">Documentation</h2>
+<p>Explore the <code>Kampute.HttpClient</code> library's <a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.html">API Documentation</a> for an in-depth understanding of its
+functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full
+potential.</p>
 <h2 id="contributing">Contributing</h2>
 <p>Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features, please open an issue
 first to discuss what you would like to change.</p>
 <h2 id="license">License</h2>
-<p><code>Kampute.HttpClient</code> is licensed under the terms of the MIT license. See the <a href="LICENSE">LICENSE</a> file for more details.</p>
+<p><code>Kampute.HttpClient</code> is licensed under the terms of the <a href="LICENSE">MIT</a> license.</p>
 
 </article>
 

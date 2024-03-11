@@ -1,4 +1,7 @@
 {
+  "sitemap": {
+    "baseUrl": "https://kampute.github.io/http-client/"
+  },
   "source_base_path": "/home/runner/work/http-client/http-client",
   "xrefmap": "xrefmap.yml",
   "files": [

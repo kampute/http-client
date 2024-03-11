@@ -6,6 +6,7 @@
 namespace Kampute.HttpClient
 {
     using System;
+    using System.Net.Http;
 
     /// <summary>
     /// The exception that is thrown when an invalid or unsupported content is encountered in an HTTP response.
@@ -40,5 +41,13 @@ namespace Kampute.HttpClient
             : base(message, innerException)
         {
         }
+
+        /// <summary>
+        /// Gets or sets the HTTP content associated with the exception.
+        /// </summary>
+        /// <value>
+        /// The HTTP content associated with the exception, if any.
+        /// </value>
+        public HttpContent? Content { get; set; }
     }
 }

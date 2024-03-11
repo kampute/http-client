@@ -629,7 +629,12 @@ namespace Kampute.HttpClient
                 return null;
 
             if (content.Headers.ContentType is null)
-                throw new HttpContentException("The content type of the response cannot be determined.");
+            {
+                throw new HttpContentException("The content type of the response could not be determined.")
+                {
+                    Content = content
+                };
+            }
 
             var deserializerError = default(Exception);
             foreach (var deserializer in _deserializers.For(content.Headers.ContentType.MediaType, objectType))
@@ -644,7 +649,10 @@ namespace Kampute.HttpClient
                 }
             }
 
-            throw new HttpContentException($"The content type '{content.Headers.ContentType.MediaType}' of the response cannot be converted into type '{objectType.Name}'.", deserializerError);
+            throw new HttpContentException($"The content type '{content.Headers.ContentType.MediaType}' could not be converted into type '{objectType.Name}'.", deserializerError)
+            {
+                Content = content
+            };
         }
 
         /// <summary>

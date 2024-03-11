@@ -1,90 +1,128 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-
   <head>
     <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <title>Class JitterStrategyModifier | Kampute.HttpClient </title>
-      <meta name="viewport" content="width=device-width">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class JitterStrategyModifier | Kampute.HttpClient ">
-    
-    <meta name="description" content="A retry strategy that adds random jitter to the delay durations provided by another retry strategy.">
-      <link rel="shortcut icon" href="../ICON.png">
-      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
-      <link rel="stylesheet" href="../styles/docfx.css">
-      <link rel="stylesheet" href="../styles/main.css">
-      <meta property="docfx:navrel" content="">
-      <meta property="docfx:tocrel" content="toc.html">
-    
-    
-    
+      
+      <meta name="description" content="A retry strategy that adds random jitter to the delay durations provided by another retry strategy.">
+      <link rel="icon" href="../ICON.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
   </head>
-  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+  <script type="module" src="./../public/docfx.min.js"></script>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../ICON.png" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
-              </form>
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../ICON.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
             </div>
           </div>
-        </nav>
+        </div>
+      </nav>
+    </header>
 
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
           </div>
         </div>
-      </header>
-      <div role="main" class="container body-content hide-when-search">
+      </div>
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier">
+
+        <article data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier">
 
 
 
-  <h1 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier" class="text-break">Class JitterStrategyModifier</h1>
-  <div class="markdown level0 summary"><p>A retry strategy that adds random jitter to the delay durations provided by another retry strategy.</p>
+  <h1 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier" class="text-break">
+Class JitterStrategyModifier  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a>.<a class="xref" href="Kampute.HttpClient.RetryManagement.html">RetryManagement</a>.<a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.html">Strategies</a>.<a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html">Modifiers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Kampute.HttpClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A retry strategy that adds random jitter to the delay durations provided by another retry strategy.</p>
 </div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">JitterStrategyModifier</span></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class JitterStrategyModifier : IRetryStrategy</code></pre>
   </div>
-  <div class="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">JitterStrategyModifier</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -103,220 +141,11 @@
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a>.<a class="xref" href="Kampute.HttpClient.RetryManagement.html">RetryManagement</a>.<a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.html">Strategies</a>.<a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html">Modifiers</a></h6>
-  <h6><strong>Assembly</strong>: Kampute.HttpClient.dll</h6>
-  <h5 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class JitterStrategyModifier : IRetryStrategy</code></pre>
-  </div>
-  <h5 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>Jitter is added to the delays to prevent thundering herd problems and to provide a more distributed set of retry attempts over time.
-This can be beneficial in high-load scenarios where many clients are retrying operations simultaneously.</p>
-</div>
-  <h3 id="constructors">Constructors
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.%23ctor(Kampute.HttpClient.Interfaces.IRetryStrategy%2CSystem.Double)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L29">View Source</a>
-  </span>
-  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.#ctor*"></a>
-  <h4 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)">JitterStrategyModifier(IRetryStrategy, double)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html">JitterStrategyModifier</a> class with a specified source retry strategy and jitter factor.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public JitterStrategyModifier(IRetryStrategy source, double jitterFactor)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></td>
-        <td><span class="parametername">source</span></td>
-        <td><p>The underlying retry strategy to which jitter will be added.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
-        <td><span class="parametername">jitterFactor</span></td>
-        <td><p>The factor to apply to the delay to introduce jitter, represented as a value between 0 and 1.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>The jitter factor allows fine-tuning of the randomness applied to the retry delay, enabling a balance between predictability and the
-benefits of desynchronization. It is a double value between 0 and 1 that determines the maximum proportion of the delay that can be
-adjusted randomly to introduce jitter. A value of 0 means no jitter, while 1 allows the delay to vary by up to ±100% of the base delay.</p>
-</div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
-        <td><p>Thrown if <code class="paramref">jitterFactor</code> is not between 0 and 1.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_JitterFactor.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.JitterFactor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L52">View Source</a>
-  </span>
-  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_JitterFactor_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.JitterFactor*"></a>
-  <h4 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_JitterFactor" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.JitterFactor">JitterFactor</h4>
-  <div class="markdown level1 summary"><p>Gets the factor to apply to the delay to introduce jitter.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public double JitterFactor { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
-        <td><p>The factor to apply to the delay to introduce jitter. It is a floating-point number between 0 and 1, inclusive.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_Source.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.Source%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L44">View Source</a>
-  </span>
-  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_Source_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.Source*"></a>
-  <h4 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_Source" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.Source">Source</h4>
-  <div class="markdown level1 summary"><p>Gets the underlying retry strategy to which jitter is added.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IRetryStrategy Source { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></td>
-        <td><p>The underlying <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a> to which jitter is added.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_TryGetRetryDelay_System_TimeSpan_System_UInt32_System_TimeSpan__.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.TryGetRetryDelay(System.TimeSpan%2CSystem.UInt32%2CSystem.TimeSpan%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L61">View Source</a>
-  </span>
-  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_TryGetRetryDelay_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.TryGetRetryDelay*"></a>
-  <h4 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_TryGetRetryDelay_System_TimeSpan_System_UInt32_System_TimeSpan__" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.TryGetRetryDelay(System.TimeSpan,System.UInt32,System.TimeSpan@)">TryGetRetryDelay(TimeSpan, uint, out TimeSpan)</h4>
-  <div class="markdown level1 summary"><p>Calculates the delay for the next retry attempt, adding random jitter based on the jitter factor to the delay provided by the underlying strategy.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
-        <td><span class="parametername">elapsed</span></td>
-        <td><p>The total time elapsed since the start of retry attempts.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
-        <td><span class="parametername">attempts</span></td>
-        <td><p>The number of retry attempts made so far.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
-        <td><span class="parametername">delay</span></td>
-        <td><p>When this method returns, contains the calculated delay for the next retry attempt. This parameter is passed uninitialized.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><p><code>true</code> if the underlying strategy indicates that a retry should be attempted; otherwise, <code>false</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a>
-  </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
       <a class="xref" href="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_">RetryStrategyExtensions.Jitter(IRetryStrategy, double)</a>
   </div>
@@ -332,47 +161,208 @@ adjusted randomly to introduce jitter. A value of 0 means no jitter, while 1 all
   <div>
       <a class="xref" href="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_">RetryStrategyExtensions.ToSchedulerFactory(IRetryStrategy)</a>
   </div>
+  </dd></dl>
+
+
+
+  <h2 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Jitter is added to the delays to prevent thundering herd problems and to provide a more distributed set of retry attempts over time.
+This can be beneficial in high-load scenarios where many clients are retrying operations simultaneously.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.#ctor*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)">
+  JitterStrategyModifier(IRetryStrategy, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html">JitterStrategyModifier</a> class with a specified source retry strategy and jitter factor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JitterStrategyModifier(IRetryStrategy source, double jitterFactor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
+    <dd><p>The underlying retry strategy to which jitter will be added.</p>
+</dd>
+    <dt><code>jitterFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>The factor to apply to the delay to introduce jitter, represented as a value between 0 and 1.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The jitter factor allows fine-tuning of the randomness applied to the retry delay, enabling a balance between predictability and the
+benefits of desynchronization. It is a double value between 0 and 1 that determines the maximum proportion of the delay that can be
+adjusted randomly to introduce jitter. A value of 0 means no jitter, while 1 allows the delay to vary by up to ±100% of the base delay.</p>
+</div>
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></dt>
+    <dd><p>Thrown if <code class="paramref">jitterFactor</code> is not between 0 and 1.</p>
+</dd>
+  </dl>
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_JitterFactor_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.JitterFactor*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_JitterFactor" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.JitterFactor">
+  JitterFactor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the factor to apply to the delay to introduce jitter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double JitterFactor { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>The factor to apply to the delay to introduce jitter. It is a floating-point number between 0 and 1, inclusive.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_Source_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.Source*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_Source" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.Source">
+  Source
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the underlying retry strategy to which jitter is added.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IRetryStrategy Source { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
+    <dd><p>The underlying <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a> to which jitter is added.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_TryGetRetryDelay_" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.TryGetRetryDelay*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier_TryGetRetryDelay_System_TimeSpan_System_UInt32_System_TimeSpan__" data-uid="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.TryGetRetryDelay(System.TimeSpan,System.UInt32,System.TimeSpan@)">
+  TryGetRetryDelay(TimeSpan, uint, out TimeSpan)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Calculates the delay for the next retry attempt, adding random jitter based on the jitter factor to the delay provided by the underlying strategy.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>elapsed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd><p>The total time elapsed since the start of retry attempts.</p>
+</dd>
+    <dt><code>attempts</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The number of retry attempts made so far.</p>
+</dd>
+    <dt><code>delay</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd><p>When this method returns, contains the calculated delay for the next retry attempt. This parameter is passed uninitialized.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if the underlying strategy indicates that a retry should be attempted; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                  <li>
-                    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_Strategies_Modifiers_JitterStrategyModifier.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/Strategies/Modifiers/JitterStrategyModifier.cs/#L13" class="contribution-link">View Source</a>
-                  </li>
-                </ul>
-              </div>
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
-                <div></div>
-              </nav>
-            </div>
-          </div>
-        </div>
+
+
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-      © 2024 Kampute
-      
-          </div>
-        </div>
-      </footer>
-    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          © 2024 Kampute
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

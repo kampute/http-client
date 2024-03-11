@@ -31,11 +31,11 @@
       },
       {
         "files": "ICON.png",
-        "dest": "."
+        "dest": "docs"
       },
       {
         "files": "LICENSE",
-        "dest": "."
+        "dest": "docs"
       }
     ],
     "globalMetadata": {

@@ -10,7 +10,7 @@
       seeking a versatile client for API integration in diverse .NET applications.
     </Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Company>Kampute</Company>
     <Copyright>Copyright (c) Kampute</Copyright>
     <LangVersion>latest</LangVersion>
@@ -22,6 +22,7 @@
     <PackageIcon>ICON.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>For detailed release notes, please visit https://github.com/kampute/http-client/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/kampute/http-client</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kampute/http-client.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

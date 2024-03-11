@@ -68,6 +68,11 @@ namespace Kampute.HttpClient
             public const string Bson = "application/bson";
 
             /// <summary>
+            /// Media type name for YAML data.
+            /// </summary>
+            public const string Yaml = "application/yaml";
+
+            /// <summary>
             /// Media type name for form URL encoded data.
             /// </summary>
             public const string FormUrlEncoded = "application/x-www-form-urlencoded";

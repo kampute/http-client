@@ -27,16 +27,21 @@
   "build": {
     "content": [
       {
-        "files": "**/*.{md,yml}"
+        "files": "**/*.yml"
+      },
+      {
+        "files": "README.md"
       }
     ],
     "globalMetadata": {
-      "_appTitle": "Kampute.HttpClient",
+      "_appName": "Kampute.HttpClient",
+      "_appTitle": "Kampute.HttpClient .NET Library",
       "_appFooter": "© 2024 Kampute",
       "_appFaviconPath": "ICON.png",
       "_appLogoPath": "ICON.png",
       "_disableContribution": true,
-      "_disableNavbar": true
+      "_disableNavbar": true,
+      "_disableNewTab": true
     },
     "sitemap": {
       "baseUrl": "https://kampute.github.io/http-client"

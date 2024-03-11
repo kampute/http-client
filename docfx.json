@@ -21,7 +21,7 @@
           }
         }
       ],
-      "dest": "api"
+      "dest": "docs"
     }
   ],
   "build": {
@@ -30,12 +30,19 @@
         "files": "**/*.{md,yml}"
       },
       {
-        "files": "README.md"
+        "files": "README.md",
+        "dest": "index.md"
+      },
+      {
+        "files": "ICON.png",
+        "dest": "kampute.png"
       }
     ],
     "globalMetadata": {
       "_appTitle": "Kampute.HttpClient",
-      "_appFooter": "© 2024 Kampute"
+      "_appFooter": "© 2024 Kampute",
+      "_appFaviconPath": "kampute.png",
+      "_appLogoPath": "kampute.png"
     },
     "template": [ "default" ],
     "dest": "docs"

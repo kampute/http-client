@@ -1,0 +1,1980 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class HttpRestClient | Kampute.HttpClient </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class HttpRestClient | Kampute.HttpClient ">
+    
+    <meta name="description" content="Facilitates HTTP communication with RESTful APIs by wrapping .">
+      <link rel="shortcut icon" href="../ICON.png">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../ICON.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Kampute.HttpClient.HttpRestClient">
+
+
+
+  <h1 id="Kampute_HttpClient_HttpRestClient" data-uid="Kampute.HttpClient.HttpRestClient" class="text-break">Class HttpRestClient</h1>
+  <div class="markdown level0 summary"><p>Facilitates HTTP communication with RESTful APIs by wrapping <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">HttpRestClient</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a></h6>
+  <h6><strong>Assembly</strong>: Kampute.HttpClient.dll</h6>
+  <h5 id="Kampute_HttpClient_HttpRestClient_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HttpRestClient : IDisposable, ICloneable</code></pre>
+  </div>
+  <h5 id="Kampute_HttpClient_HttpRestClient_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+<a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> simplifies interactions with RESTful APIs by abstracting the complexities of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>. It supports the 
+sharing of a single <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance across multiple <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instances, optimizing resource use and connection 
+management. This shared approach enhances performance, especially when concurrently accessing various services or API endpoints, by reusing HTTP 
+connections.
+</p>
+<p>
+It features a <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseDeserializers">ResponseDeserializers</a> collection for automatic HTTP response content deserialization into .NET objects. The client selects 
+the appropriate deserializer for the response's <code>Content-Type</code>, easing the integration with API responses.
+</p>
+<p>
+Backoff strategies are implemented through the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy">BackoffStrategy</a> property, providing a mechanism for handling transient failures and network 
+interruptions. These strategies dictate the logic for retrying requests after failures, including how long to wait between retries. By employing a
+proper backoff strategy, the client can avoid overwhelming the server or network, improving the chances of successful communication without compromising 
+resource utilization.
+</p>
+<p>
+Extensible error handling is achieved through the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers">ErrorHandlers</a> collection. Custom <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> implementations can 
+be employed to address specific HTTP errors, enabling tailored retry strategies and failure responses.
+</p>
+<p>
+The client enriches HTTP request and response handling with life-cycle events such as <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> and <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a>. 
+These events allow for request modification, response inspection, and logging, facilitating a high degree of interaction customization.
+</p>
+<p>
+Through its design, <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> aims to offer a balance between ease of use and flexibility, making it a suitable choice for developers 
+looking to interact with RESTful APIs in a .NET environment. Whether for simple API consumption or complex, high-load scenarios, it provides the tools 
+necessary to create efficient, reliable, and customizable HTTP communication solutions.
+</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient__ctor.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L95">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient__ctor_" data-uid="Kampute.HttpClient.HttpRestClient.#ctor*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient__ctor" data-uid="Kampute.HttpClient.HttpRestClient.#ctor">HttpRestClient()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> class with a default <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRestClient()</code></pre>
+  </div>
+  <h5 id="Kampute_HttpClient_HttpRestClient__ctor_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This constructor initializes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> with an internally shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance. 
+The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> is configured with an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclienthandler">HttpClientHandler</a> that enables automatic decompression of 
+GZip and Deflate encoded content.
+</p>
+<p>
+This default constructor is ideal for scenarios requiring a straightforward and ready-to-use REST client without the need 
+for extensive customization of the underlying HTTP client. It provides a convenient option for quick setup and immediate 
+use, particularly useful for standard API consumption where default configurations suffice.
+</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient__ctor_System_Net_Http_HttpClient_System_Boolean_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.%23ctor(System.Net.Http.HttpClient%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L124">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient__ctor_" data-uid="Kampute.HttpClient.HttpRestClient.#ctor*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient__ctor_System_Net_Http_HttpClient_System_Boolean_" data-uid="Kampute.HttpClient.HttpRestClient.#ctor(System.Net.Http.HttpClient,System.Boolean)">HttpRestClient(HttpClient, bool)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> class with the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRestClient(HttpClient httpClient, bool disposeClient = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a></td>
+        <td><span class="parametername">httpClient</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> to be used by the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">disposeClient</span></td>
+        <td><p>Specifies whether the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> should dispose of the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> when the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> is disposed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient__ctor_System_Net_Http_HttpClient_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This constructor allows the integration of a custom or shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance. Utilizing a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> can provide several 
+benefits, such as improved resource utilization and socket management, especially in high-load scenarios. Shared instances help in avoiding socket exhaustion and 
+can reduce overhead by reusing existing connections where possible.
+</p>
+<p>
+When <code class="paramref">disposeClient</code> is set to <code>true</code>, the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> takes responsibility for disposing of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>. This is suitable 
+when the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> is used exclusively by the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a>. However, if the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> is shared across different parts of the 
+application or by multiple instances of <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a>, it is recommended to set <code class="paramref">disposeClient</code> to <code>false</code>. This ensures that disposing of 
+one <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance does not inadvertently impact other components using the same <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.
+</p>
+<p>
+This constructor is particularly advantageous in scenarios requiring a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> with specific configurations, such as custom message handlers, specialized 
+timeout settings, or advanced authentication mechanisms. It provides the necessary flexibility to align the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> with existing infrastructure and 
+organizational policies.
+</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">httpClient</code> is <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_BackoffStrategy.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.BackoffStrategy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L224">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_BackoffStrategy_" data-uid="Kampute.HttpClient.HttpRestClient.BackoffStrategy*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_BackoffStrategy" data-uid="Kampute.HttpClient.HttpRestClient.BackoffStrategy">BackoffStrategy</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IRetrySchedulerFactory BackoffStrategy { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></td>
+        <td><p>The backoff strategy for handling transient connection failures during HTTP requests.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_BackoffStrategy_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines
+if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network
+issues or temporary server unavailability. The default is <a class="xref" href="Kampute.HttpClient.BackoffStrategies.html#Kampute_HttpClient_BackoffStrategies_None">None</a>.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_BaseAddress.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.BaseAddress%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L182">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_BaseAddress_" data-uid="Kampute.HttpClient.HttpRestClient.BaseAddress*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_BaseAddress" data-uid="Kampute.HttpClient.HttpRestClient.BaseAddress">BaseAddress</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the base address for HTTP requests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Uri? BaseAddress { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uri">Uri</a></td>
+        <td><p>The base address for HTTP requests.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_BaseAddress_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+If the provided base address does not end with a slash, one is automatically appended. The presence or absence of this trailing 
+slash is significant in how relative URLs are resolved. For instance, if the base address is <a href="http://example.com/api">http://example.com/api</a> (no trailing 
+slash) and the relative URL is "users", the resolved URL will be <a href="http://example.com/users">http://example.com/users</a>. Conversely, if the base address ends 
+with a slash, like <a href="http://example.com/api/">http://example.com/api/</a>, the resolved URL will be <a href="http://example.com/api/users">http://example.com/api/users</a>. This subtle 
+difference can be crucial in ensuring requests are routed correctly.
+</p>
+<p>
+It's also worth noting that a <code>null</code> value for the base address is acceptable and indicates that no base address is set. In such cases, 
+any HTTP request must use an absolute URL.
+</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_DefaultRequestHeaders.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.DefaultRequestHeaders%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L261">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_DefaultRequestHeaders_" data-uid="Kampute.HttpClient.HttpRestClient.DefaultRequestHeaders*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_DefaultRequestHeaders" data-uid="Kampute.HttpClient.HttpRestClient.DefaultRequestHeaders">DefaultRequestHeaders</h4>
+  <div class="markdown level1 summary"><p>Gets the headers which should be sent with each request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestHeaders DefaultRequestHeaders { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.httprequestheaders">HttpRequestHeaders</a></td>
+        <td><p>The headers which should be sent with each request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_ErrorHandlers.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.ErrorHandlers%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L240">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_ErrorHandlers_" data-uid="Kampute.HttpClient.HttpRestClient.ErrorHandlers*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_ErrorHandlers" data-uid="Kampute.HttpClient.HttpRestClient.ErrorHandlers">ErrorHandlers</h4>
+  <div class="markdown level1 summary"><p>Gets the mutable collection of HTTP error handlers used for handling error responses.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpErrorHandlerCollection ErrorHandlers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpErrorHandlerCollection.html">HttpErrorHandlerCollection</a></td>
+        <td><p>The mutable collection of HTTP error handlers used for handling error responses.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_ErrorHandlers_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property provides access to a collection of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instances that are used to handle
+HTTP error responses. The handlers in this collection are tried in order to handle errors.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_ResponseDeserializers.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.ResponseDeserializers%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L253">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_ResponseDeserializers_" data-uid="Kampute.HttpClient.HttpRestClient.ResponseDeserializers*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_ResponseDeserializers" data-uid="Kampute.HttpClient.HttpRestClient.ResponseDeserializers">ResponseDeserializers</h4>
+  <div class="markdown level1 summary"><p>Gets the mutable collection of HTTP content deserializers used for deserializing response content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpContentDeserializerCollection ResponseDeserializers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpContentDeserializerCollection.html">HttpContentDeserializerCollection</a></td>
+        <td><p>The mutable collection of HTTP content deserializers used for deserializing response content.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_ResponseDeserializers_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property provides access to a collection of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> instances that are used to
+deserialize the content of HTTP responses. The deserializers in this list are tried in order to deserialize the response
+content into .NET objects.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_ResponseErrorType.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.ResponseErrorType%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L206">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_ResponseErrorType_" data-uid="Kampute.HttpClient.HttpRestClient.ResponseErrorType*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_ResponseErrorType" data-uid="Kampute.HttpClient.HttpRestClient.ResponseErrorType">ResponseErrorType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a> used to deserialize the response body when the response status code indicates an error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Type? ResponseErrorType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a> used to deserialize the response body when the response status code indicates an error.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_ResponseErrorType_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This property specifies the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a> that the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> will use to deserialize the response content 
+in cases where the HTTP response indicates an error. 
+</p>
+<p>
+It is important to ensure that the custom type specified is compatible with the expected error response format and can be deserialized by the 
+content deserializers available to the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a>. Additionally, the type must implement the <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorResponse.html">IHttpErrorResponse</a>
+interface to be eligible as a value for this property.
+</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+        <td><p>Thrown if the specified type does not implement the <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorResponse.html">IHttpErrorResponse</a> interface.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync(System.Net.Http.HttpRequestException%2CSystem.Net.Http.HttpRequestMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L539">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_" data-uid="Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">BackoffAndDecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error
+handling strategies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;HttpErrorHandlerResult&gt; BackoffAndDecideOnRetryAsync(HttpRequestException error, HttpRequestMessage request, CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a> encapsulating details of the encountered error during the HTTP request execution.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that led to the failed response.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a>&gt;</td>
+        <td><p>A task that resolves to an <a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a>, indicating whether to retry the request or that the error is unrecoverable.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method assesses transient network issues, leveraging backoff strategies specified by <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy">BackoffStrategy</a>. It returns an
+<a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a> that guides the next steps, either to retry the request with potentially modified parameters or
+to handle the error as unrecoverable.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">error</code> or <code class="paramref">request</code> is <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy">BackoffStrategy</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_Clone.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.Clone%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L272">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_Clone_" data-uid="Kampute.HttpClient.HttpRestClient.Clone*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_Clone" data-uid="Kampute.HttpClient.HttpRestClient.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Creates a copy of the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><p>A new <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance that is a copy of the current instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_Clone_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method creates a new instance of <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> by copying the current instance's configuration,
+and reuses the underlying <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> without taking ownership. This means that disposing of the cloned
+instance will not dispose of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.CreateHttpRequest(System.Net.Http.HttpMethod%2CSystem.String%2CSystem.Type)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L672">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_" data-uid="Kampute.HttpClient.HttpRestClient.CreateHttpRequest*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type_" data-uid="Kampute.HttpClient.HttpRestClient.CreateHttpRequest(System.Net.Http.HttpMethod,System.String,System.Type)">CreateHttpRequest(HttpMethod, string, Type?)</h4>
+  <div class="markdown level1 summary"><p>Creates an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> with the specified method and URI.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual HttpRequestMessage CreateHttpRequest(HttpMethod method, string uri, Type? responseObjectType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></td>
+        <td><span class="parametername">method</span></td>
+        <td><p>The HTTP method to be used for the request, such as GET, POST, PUT, etc.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>The URI to which the request will be sent. Should be a valid, fully qualified URL.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">responseObjectType</span></td>
+        <td><p>The type of the object expected to be contained in the response.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> configured with the specified method and URI.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method constructs a new HTTP request message. It sets the method, URI, and headers based on the provided parameters.
+The <code>Accept</code> headers are configured to align with the media types supported by the content deserializers for the specified
+<code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <code>null</code>, all media types will be
+accepted.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseException_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseException%2CSystem.Net.Http.HttpRequestMessage%2CSystem.Net.Http.HttpResponseMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L497">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_" data-uid="Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseException_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseException,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">DecideOnRetryAsync(HttpResponseException, HttpRequestMessage, HttpResponseMessage, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously evaluates failed HTTP responses to decide the appropriate action based on the error context and predefined error
+handling strategies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;HttpErrorHandlerResult&gt; DecideOnRetryAsync(HttpResponseException error, HttpRequestMessage request, HttpResponseMessage response, CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>The <a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a> encapsulating details of the encountered error during the HTTP request execution.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that led to the failed response.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></td>
+        <td><span class="parametername">response</span></td>
+        <td><p>The received <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> indicating a failure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a>&gt;</td>
+        <td><p>A task that resolves to an <a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a>, indicating whether to retry the request or that the error is unrecoverable.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseException_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method assesses HTTP request failures, leveraging error handling strategies within <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers">ErrorHandlers</a>. It returns an <a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a>
+that guides the next steps, either to retry the request with potentially modified parameters or to handle the error as unrecoverable.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">error</code>, <code class="paramref">request</code> or <code class="paramref">response</code> is <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseException_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers">ErrorHandlers</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpContent%2CSystem.Type%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L623">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_" data-uid="Kampute.HttpClient.HttpRestClient.DeserializeContentAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)">DeserializeContentAsync(HttpContent, Type, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously deserializes the content of an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> object and converts it into an object of a specified type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task&lt;object?&gt; DeserializeContentAsync(HttpContent content, Type objectType, CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></td>
+        <td><span class="parametername">content</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> to be read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">objectType</span></td>
+        <td><p>The type of object to which the content is to be converted.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</td>
+        <td><p>A task representing the asynchronous operation, with the deserialized content as an object. Returns null if there is no content.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method uses configured content deserializers for content deserialization and supports custom content types. In case of deserialization
+failures, an <a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a> is thrown, which may contain an inner exception providing more details about the parsing error.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">objectType</code> is <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></td>
+        <td><p>Thrown if the content type is unknown, not supported, or if there is an error parsing the response body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseDeserializers">ResponseDeserializers</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_DispatchAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.DispatchAsync(System.Net.Http.HttpRequestMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L458">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_DispatchAsync_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_DispatchAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">DispatchAsync(HttpRequestMessage, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously dispatches an HTTP request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;HttpResponseMessage&gt; DispatchAsync(HttpRequestMessage request, CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> to send.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a>&gt;</td>
+        <td><p>A task that represents the asynchronous operation, with a result of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> received in response to the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DispatchAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method sends the provided HTTP request and returns the response if the status code indicates a success. For any error status codes, it fails fast by throwing
+an exception specific to the nature of the error. Additionally, the method incorporates pre-send and post-receive hooks for adding custom logic, such as modifying
+request headers or logging response details.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></td>
+        <td><p>Thrown if the response status code indicates a failure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a></td>
+        <td><p>Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></td>
+        <td><p>Thrown if the operation is canceled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.DispatchWithRetriesAsync(System.Net.Http.HttpRequestMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L417">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchWithRetriesAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchWithRetriesAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">DispatchWithRetriesAsync(HttpRequestMessage, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Asynchronously dispatches an HTTP request, with the possibility of retrying the request based on specific failure conditions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;HttpResponseMessage&gt; DispatchWithRetriesAsync(HttpRequestMessage request, CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> to send.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a>&gt;</td>
+        <td><p>A task that represents the asynchronous operation, with a result of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> received in response to the request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method is responsible for sending the HTTP request and optionally retrying it under specific failure conditions. The decision to retry a request is based
+on the nature of the failure, with potential consultation of external retry logic mechanisms.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">request</code> is <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></td>
+        <td><p>Thrown if the response status code indicates a failure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a></td>
+        <td><p>Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></td>
+        <td><p>Thrown if the operation is canceled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy">BackoffStrategy</a></div>
+      <div><a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers">ErrorHandlers</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_Dispose.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.Dispose%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L294">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_Dispose_" data-uid="Kampute.HttpClient.HttpRestClient.Dispose*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_Dispose" data-uid="Kampute.HttpClient.HttpRestClient.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> and optionally disposes of the managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.Dispose(System.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L700">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_Dispose_" data-uid="Kampute.HttpClient.HttpRestClient.Dispose*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_Dispose_System_Boolean_" data-uid="Kampute.HttpClient.HttpRestClient.Dispose(System.Boolean)">Dispose(bool)</h4>
+  <div class="markdown level1 summary"><p>Disposes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p>Indicates whether the method is called from a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a> method.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_FetchToStreamAsync_System_IO_Stream_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.FetchToStreamAsync(System.IO.Stream%2CSystem.Net.Http.HttpMethod%2CSystem.String%2CSystem.Net.Http.HttpContent%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L316">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_FetchToStreamAsync_" data-uid="Kampute.HttpClient.HttpRestClient.FetchToStreamAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_FetchToStreamAsync_System_IO_Stream_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.FetchToStreamAsync(System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">FetchToStreamAsync(Stream, HttpMethod, string, HttpContent?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Retrieves data from the specified URI and writes it to the provided stream asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;HttpContentHeaders?&gt; FetchToStreamAsync(Stream stream, HttpMethod method, string uri, HttpContent? payload = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream to write the downloaded data to. It must be writable.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></td>
+        <td><span class="parametername">method</span></td>
+        <td><p>The HTTP method to use for the request.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>The URI to which the request is sent.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></td>
+        <td><span class="parametername">payload</span></td>
+        <td><p>The HTTP request payload (optional).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the request (optional).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpcontentheaders">HttpContentHeaders</a>&gt;</td>
+        <td><p>A task that represents the asynchronous download operation. The task result contains the headers of the downloaded content.
+If the response contains no content, null is returned.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">stream</code>, <code class="paramref">method</code>, or <code class="paramref">uri</code> is <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></td>
+        <td><p>Thrown if the response status code indicates a failure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a></td>
+        <td><p>Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></td>
+        <td><p>Thrown if the operation is canceled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_Finalize.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.Finalize%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L133">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_Finalize_" data-uid="Kampute.HttpClient.HttpRestClient.Finalize*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_Finalize" data-uid="Kampute.HttpClient.HttpRestClient.Finalize">~HttpRestClient()</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ~HttpRestClient()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_System_Net_Http_HttpResponseMessage_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.OnAfterReceivingResponse(System.Net.Http.HttpResponseMessage)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L741">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_" data-uid="Kampute.HttpClient.HttpRestClient.OnAfterReceivingResponse*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_System_Net_Http_HttpResponseMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnAfterReceivingResponse(System.Net.Http.HttpResponseMessage)">OnAfterReceivingResponse(HttpResponseMessage)</h4>
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnAfterReceivingResponse(HttpResponseMessage response)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></td>
+        <td><span class="parametername">response</span></td>
+        <td><p>The HTTP response message that was received.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_System_Net_Http_HttpResponseMessage__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method is called to trigger the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a> event. This allows to react to the
+reception of an HTTP response. The method is invoked after a response is received from an HTTP request but
+before any processing is performed on the response.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_System_Net_Http_HttpRequestMessage_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.OnBeforeSendingRequest(System.Net.Http.HttpRequestMessage)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L727">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_" data-uid="Kampute.HttpClient.HttpRestClient.OnBeforeSendingRequest*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_System_Net_Http_HttpRequestMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnBeforeSendingRequest(System.Net.Http.HttpRequestMessage)">OnBeforeSendingRequest(HttpRequestMessage)</h4>
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnBeforeSendingRequest(HttpRequestMessage request)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>The HTTP request message that was created.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_System_Net_Http_HttpRequestMessage__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method is called to trigger the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> event. This allows for centralized
+handling of request modifications across various methods that send HTTP requests. The method is invoked
+before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> is sent.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_OnDisposing.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.OnDisposing%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L752">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_OnDisposing_" data-uid="Kampute.HttpClient.HttpRestClient.OnDisposing*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_OnDisposing" data-uid="Kampute.HttpClient.HttpRestClient.OnDisposing">OnDisposing()</h4>
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Disposing">Disposing</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnDisposing()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_SendAsync_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.SendAsync(System.Net.Http.HttpMethod%2CSystem.String%2CSystem.Net.Http.HttpContent%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L387">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_SendAsync_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_SendAsync_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">SendAsync(HttpMethod, string, HttpContent?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request with the specified method, URI, and payload, without processing the response body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;HttpResponseHeaders&gt; SendAsync(HttpMethod method, string uri, HttpContent? payload = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></td>
+        <td><span class="parametername">method</span></td>
+        <td><p>The HTTP method to use for the request.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>The URI to which the request is sent.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></td>
+        <td><span class="parametername">payload</span></td>
+        <td><p>The HTTP request payload (optional).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the request (optional).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpresponseheaders">HttpResponseHeaders</a>&gt;</td>
+        <td><p>A task that represents the asynchronous operation. The task result contains the headers of the response.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></td>
+        <td><p>Thrown if the response status code indicates a failure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a></td>
+        <td><p>Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></td>
+        <td><p>Thrown if the operation is canceled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_SendAsync__1_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.SendAsync%60%601(System.Net.Http.HttpMethod%2CSystem.String%2CSystem.Net.Http.HttpContent%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L360">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_SendAsync_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_SendAsync__1_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">SendAsync&lt;T&gt;(HttpMethod, string, HttpContent?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request with the specified method, URI, and payload, and returns the response body deserialized as the specified type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;T?&gt; SendAsync&lt;T&gt;(HttpMethod method, string uri, HttpContent? payload = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></td>
+        <td><span class="parametername">method</span></td>
+        <td><p>The HTTP method to use for the request.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>The URI to which the request is sent.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></td>
+        <td><span class="parametername">payload</span></td>
+        <td><p>The HTTP request payload (optional).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the request (optional).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
+        <td><p>A task that represents the asynchronous operation, with a result of the specified type. If the response contains no content, the default value
+for the type <code class="typeparamref">T</code> is returned.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the response object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <code>null</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></td>
+        <td><p>Thrown if the response status code indicates a failure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception">HttpRequestException</a></td>
+        <td><p>Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></td>
+        <td><p>Thrown if the content type of the response is either unknown or not supported.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></td>
+        <td><p>Thrown if the operation is canceled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_ToExceptionAsync_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.ToExceptionAsync(System.Net.Http.HttpResponseMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L583">View Source</a>
+  </span>
+  <a id="Kampute_HttpClient_HttpRestClient_ToExceptionAsync_" data-uid="Kampute.HttpClient.HttpRestClient.ToExceptionAsync*"></a>
+  <h4 id="Kampute_HttpClient_HttpRestClient_ToExceptionAsync_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.ToExceptionAsync(System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">ToExceptionAsync(HttpResponseMessage, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Converts an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> into an appropriate exception.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task&lt;HttpResponseException&gt; ToExceptionAsync(HttpResponseMessage response, CancellationToken cancellationToken)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></td>
+        <td><span class="parametername">response</span></td>
+        <td><p>The HTTP response message to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>A token for canceling the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a>&gt;</td>
+        <td><p>A task that represents the asynchronous operation. The task result contains an <a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a> object
+that represents the error extracted from the response.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_ToExceptionAsync_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method endeavors to deserialize the response content into a <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseErrorType">ResponseErrorType</a>, provided that the type is
+specified and implements the <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorResponse.html">IHttpErrorResponse</a> interface. Upon successful deserialization, the resulting data
+is transformed into an exception. If deserialization fails, a generic <a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a> is generated, incorporating
+the response's status code and a default error message.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">response</code> is <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_ToExceptionAsync_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseErrorType">ResponseErrorType</a></div>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_AfterReceivingResponse.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.AfterReceivingResponse%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L153">View Source</a>
+  </span>
+  <h4 id="Kampute_HttpClient_HttpRestClient_AfterReceivingResponse" data-uid="Kampute.HttpClient.HttpRestClient.AfterReceivingResponse">AfterReceivingResponse</h4>
+  <div class="markdown level1 summary"><p>Occurs when an HTTP response has been received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;HttpResponseMessageEventArgs&gt;? AfterReceivingResponse</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseMessageEventArgs.html">HttpResponseMessageEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_AfterReceivingResponse_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This event is raised after an HTTP response is received but before the response is processed further. It provides a way for subscribers to inspect the
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a>. This can be useful for logging response details, handling specific HTTP status codes, or modifying the response content
+or headers before they are processed by the rest of the application.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_BeforeSendingRequest.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.BeforeSendingRequest%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L143">View Source</a>
+  </span>
+  <h4 id="Kampute_HttpClient_HttpRestClient_BeforeSendingRequest" data-uid="Kampute.HttpClient.HttpRestClient.BeforeSendingRequest">BeforeSendingRequest</h4>
+  <div class="markdown level1 summary"><p>Occurs when a new HTTP request message is about to be sent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;HttpRequestMessageEventArgs&gt;? BeforeSendingRequest</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpRequestMessageEventArgs.html">HttpRequestMessageEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_BeforeSendingRequest_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This event provides an opportunity for subscribers to modify the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> before it is sent. Common modifications include adding
+custom headers, changing request properties, or logging request information. Modifications made to the request in this event are included in the outgoing
+HTTP request.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient_Disposing.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient.Disposing%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L161">View Source</a>
+  </span>
+  <h4 id="Kampute_HttpClient_HttpRestClient_Disposing" data-uid="Kampute.HttpClient.HttpRestClient.Disposing">Disposing</h4>
+  <div class="markdown level1 summary"><p>Occurs just before the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> is disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt;? Disposing</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Kampute_HttpClient_HttpRestClient_Disposing_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This event provides a way for subscribers to perform cleanup or other actions before the client is disposed.</p>
+</div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_AcceptXml_Kampute_HttpClient_HttpRestClient_System_Runtime_Serialization_DataContractSerializerSettings_">HttpRestClientXmlExtensions.AcceptXml(HttpRestClient, DataContractSerializerSettings?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_GetXmlSerializerSettings_Kampute_HttpClient_HttpRestClient_">HttpRestClientXmlExtensions.GetXmlSerializerSettings(HttpRestClient)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_PatchAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PatchAsXmlAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_PatchAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PatchAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_PostAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PostAsXmlAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_PostAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PostAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_PutAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PutAsXmlAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_PutAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PutAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_SendAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.SendAsXmlAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_SendAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.SendAsXmlAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html#Kampute_HttpClient_DataContract_HttpRestClientXmlExtensions_SetXmlSerializerSettings_Kampute_HttpClient_HttpRestClient_System_Runtime_Serialization_DataContractSerializerSettings_">HttpRestClientXmlExtensions.SetXmlSerializerSettings(HttpRestClient, DataContractSerializerSettings?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_DeleteAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_">HttpRestClientExtensions.DeleteAsync(HttpRestClient, string, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_DeleteAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_">HttpRestClientExtensions.DeleteAsync&lt;T&gt;(HttpRestClient, string, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_">HttpRestClientExtensions.GetAsync&lt;T&gt;(HttpRestClient, string, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PatchAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_">HttpRestClientExtensions.PatchAsync(HttpRestClient, string, HttpContent?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PatchAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_">HttpRestClientExtensions.PatchAsync&lt;T&gt;(HttpRestClient, string, HttpContent?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PostAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_">HttpRestClientExtensions.PostAsync(HttpRestClient, string, HttpContent?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PostAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_">HttpRestClientExtensions.PostAsync&lt;T&gt;(HttpRestClient, string, HttpContent?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PutAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_">HttpRestClientExtensions.PutAsync(HttpRestClient, string, HttpContent?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PutAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_">HttpRestClientExtensions.PutAsync&lt;T&gt;(HttpRestClient, string, HttpContent?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_PatchAsFormAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.PatchAsFormAsync(HttpRestClient, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_PatchAsFormAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.PatchAsFormAsync&lt;T&gt;(HttpRestClient, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_PostAsFormAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.PostAsFormAsync(HttpRestClient, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_PostAsFormAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.PostAsFormAsync&lt;T&gt;(HttpRestClient, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_PutAsFormAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.PutAsFormAsync(HttpRestClient, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_PutAsFormAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.PutAsFormAsync&lt;T&gt;(HttpRestClient, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_SendAsFormAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.SendAsFormAsync(HttpRestClient, HttpMethod, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRestClientFormExtensions.html#Kampute_HttpClient_HttpRestClientFormExtensions_SendAsFormAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___System_Threading_CancellationToken_">HttpRestClientFormExtensions.SendAsFormAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_AcceptJson_Kampute_HttpClient_HttpRestClient_System_Text_Json_JsonSerializerOptions_">HttpRestClientJsonExtensions.AcceptJson(HttpRestClient, JsonSerializerOptions?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_GetJsonSerializerOptions_Kampute_HttpClient_HttpRestClient_">HttpRestClientJsonExtensions.GetJsonSerializerOptions(HttpRestClient)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PatchAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PatchAsJsonAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PatchAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PatchAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PostAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PostAsJsonAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PostAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PostAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PutAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PutAsJsonAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PutAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PutAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_SendAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.SendAsJsonAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_SendAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.SendAsJsonAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_SetJsonSerializerOptions_Kampute_HttpClient_HttpRestClient_System_Text_Json_JsonSerializerOptions_">HttpRestClientJsonExtensions.SetJsonSerializerOptions(HttpRestClient, JsonSerializerOptions?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_AcceptJson_Kampute_HttpClient_HttpRestClient_Newtonsoft_Json_JsonSerializerSettings_">HttpRestClientJsonExtensions.AcceptJson(HttpRestClient, JsonSerializerSettings?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_GetJsonSerializerSettings_Kampute_HttpClient_HttpRestClient_">HttpRestClientJsonExtensions.GetJsonSerializerSettings(HttpRestClient)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PatchAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PatchAsJsonAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PatchAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PatchAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PostAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PostAsJsonAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PostAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PostAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PutAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PutAsJsonAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PutAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.PutAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_SendAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.SendAsJsonAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_SendAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientJsonExtensions.SendAsJsonAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html#Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_SetJsonSerializerSettings_Kampute_HttpClient_HttpRestClient_Newtonsoft_Json_JsonSerializerSettings_">HttpRestClientJsonExtensions.SetJsonSerializerSettings(HttpRestClient, JsonSerializerSettings?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_AcceptXml_Kampute_HttpClient_HttpRestClient_">HttpRestClientXmlExtensions.AcceptXml(HttpRestClient)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PatchAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PatchAsXmlAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PatchAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PatchAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PostAsXmlAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PostAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PutAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PutAsXmlAsync(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PutAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.PutAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_SendAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.SendAsXmlAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_SendAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_">HttpRestClientXmlExtensions.SendAsXmlAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, object, CancellationToken)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_HttpRestClient.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.HttpRestClient%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L51" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      © 2024 Kampute
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

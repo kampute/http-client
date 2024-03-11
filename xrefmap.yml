@@ -1122,6 +1122,19 @@ references:
   fullName.vb: Kampute.HttpClient.HttpContentException.New
   nameWithType: HttpContentException.HttpContentException
   nameWithType.vb: HttpContentException.New
+- uid: Kampute.HttpClient.HttpContentException.Content
+  name: Content
+  href: api/Kampute.HttpClient.HttpContentException.html#Kampute_HttpClient_HttpContentException_Content
+  commentId: P:Kampute.HttpClient.HttpContentException.Content
+  fullName: Kampute.HttpClient.HttpContentException.Content
+  nameWithType: HttpContentException.Content
+- uid: Kampute.HttpClient.HttpContentException.Content*
+  name: Content
+  href: api/Kampute.HttpClient.HttpContentException.html#Kampute_HttpClient_HttpContentException_Content_
+  commentId: Overload:Kampute.HttpClient.HttpContentException.Content
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpContentException.Content
+  nameWithType: HttpContentException.Content
 - uid: Kampute.HttpClient.HttpContentExtensions
   name: HttpContentExtensions
   href: api/Kampute.HttpClient.HttpContentExtensions.html
@@ -2937,6 +2950,12 @@ references:
   commentId: F:Kampute.HttpClient.MediaTypeNames.Application.Xml
   fullName: Kampute.HttpClient.MediaTypeNames.Application.Xml
   nameWithType: MediaTypeNames.Application.Xml
+- uid: Kampute.HttpClient.MediaTypeNames.Application.Yaml
+  name: Yaml
+  href: api/Kampute.HttpClient.MediaTypeNames.Application.html#Kampute_HttpClient_MediaTypeNames_Application_Yaml
+  commentId: F:Kampute.HttpClient.MediaTypeNames.Application.Yaml
+  fullName: Kampute.HttpClient.MediaTypeNames.Application.Yaml
+  nameWithType: MediaTypeNames.Application.Yaml
 - uid: Kampute.HttpClient.MediaTypeNames.Application.Zip
   name: Zip
   href: api/Kampute.HttpClient.MediaTypeNames.Application.html#Kampute_HttpClient_MediaTypeNames_Application_Zip

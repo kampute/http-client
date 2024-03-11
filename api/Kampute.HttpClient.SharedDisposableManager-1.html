@@ -128,7 +128,8 @@
   <h5 id="Kampute_HttpClient_SharedDisposableManager_1_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts
 of an application. It ensures that the resource remains alive as long as it is needed and is properly cleaned up afterwards. This pattern
-helps prevent resource leaks and promotes efficient resource usage.</p>
+helps prevent resource leaks and promotes efficient resource usage. Additionally, the implementation is thread-safe, making it suitable for
+use in multi-threaded environments where resources may be accessed concurrently.</p>
 </div>
   <h3 id="constructors">Constructors
 </h3>
@@ -137,7 +138,7 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_SharedDisposableManager_1__ctor_System_Func__0__.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.SharedDisposableManager%601.%23ctor(System.Func%7B%600%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L32">View Source</a>
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L33">View Source</a>
   </span>
   <a id="Kampute_HttpClient_SharedDisposableManager_1__ctor_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.#ctor*"></a>
   <h4 id="Kampute_HttpClient_SharedDisposableManager_1__ctor_System_Func__0__" data-uid="Kampute.HttpClient.SharedDisposableManager`1.#ctor(System.Func{`0})">SharedDisposableManager(Func&lt;T&gt;)</h4>
@@ -189,11 +190,11 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_SharedDisposableManager_1_Acquire.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.SharedDisposableManager%601.Acquire%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L42">View Source</a>
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L43">View Source</a>
   </span>
   <a id="Kampute_HttpClient_SharedDisposableManager_1_Acquire_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Acquire*"></a>
   <h4 id="Kampute_HttpClient_SharedDisposableManager_1_Acquire" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Acquire">Acquire()</h4>
-  <div class="markdown level1 summary"><p>Acquires an instance of the managed object, incrementing the reference count and creating the object if necessary.</p>
+  <div class="markdown level1 summary"><p>Acquires a reference to the managed object, creating the object if necessary.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -211,7 +212,7 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><span class="xref">T</span></td>
-        <td><p>The managed instance of the object.</p>
+        <td><p>A reference to the managed object.</p>
 </td>
       </tr>
     </tbody>
@@ -227,7 +228,7 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
-        <td><p>Thrown if the factory fails to create an instance.</p>
+        <td><p>Thrown if the factory fails to create an instance of type <code class="typeparamref">T</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -237,16 +238,16 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_SharedDisposableManager_1_Is__0_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.SharedDisposableManager%601.Is(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L85">View Source</a>
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L86">View Source</a>
   </span>
   <a id="Kampute_HttpClient_SharedDisposableManager_1_Is_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Is*"></a>
-  <h4 id="Kampute_HttpClient_SharedDisposableManager_1_Is__0_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Is(`0)">Is(T)</h4>
-  <div class="markdown level1 summary"><p>Determines whether the specified <code class="paramref">instance</code> is the one managed by this reference counter.</p>
+  <h4 id="Kampute_HttpClient_SharedDisposableManager_1_Is__0_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Is(`0)">Is(T?)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified <code class="paramref">obj</code> is the one managed by this <a class="xref" href="Kampute.HttpClient.SharedDisposableManager-1.html">SharedDisposableManager&lt;T&gt;</a> instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Is(T instance)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Is(T? obj)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -260,8 +261,8 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><span class="xref">T</span></td>
-        <td><span class="parametername">instance</span></td>
-        <td><p>The instance to check.</p>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object to check.</p>
 </td>
       </tr>
     </tbody>
@@ -277,7 +278,7 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><p><code>true</code> if <code class="paramref">instance</code> is the managed instance; otherwise, <code>false</code>.</p>
+        <td><p><code>true</code> if <code class="paramref">obj</code> is managed by this <a class="xref" href="Kampute.HttpClient.SharedDisposableManager-1.html">SharedDisposableManager&lt;T&gt;</a> instance; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -287,16 +288,16 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_SharedDisposableManager_1_Release__0_.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.SharedDisposableManager%601.Release(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L60">View Source</a>
+    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L61">View Source</a>
   </span>
   <a id="Kampute_HttpClient_SharedDisposableManager_1_Release_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Release*"></a>
   <h4 id="Kampute_HttpClient_SharedDisposableManager_1_Release__0_" data-uid="Kampute.HttpClient.SharedDisposableManager`1.Release(`0)">Release(T)</h4>
-  <div class="markdown level1 summary"><p>Releases a reference to the managed object, decrementing the reference count and disposing of the object if it reaches zero.</p>
+  <div class="markdown level1 summary"><p>Releases a reference to the managed object, disposing of the object if it is no longer in use.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Release(T instance)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Release(T obj)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -310,8 +311,8 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><span class="xref">T</span></td>
-        <td><span class="parametername">instance</span></td>
-        <td><p>The instance to release.</p>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The managed object to release.</p>
 </td>
       </tr>
     </tbody>
@@ -327,7 +328,7 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><p><code>true</code> if the object was disposed; otherwise, <code>false</code>.</p>
+        <td><p><code>true</code> if the object was no longer in use and disposed; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -343,12 +344,12 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>Thrown if <code class="paramref">instance</code> is <code>null</code>.</p>
+        <td><p>Thrown if <code class="paramref">obj</code> is <code>null</code>.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
-        <td><p>Thrown if <code class="paramref">instance</code> is not managed by this reference counter.</p>
+        <td><p>Thrown if <code class="paramref">obj</code> is not managed by this <a class="xref" href="Kampute.HttpClient.SharedDisposableManager-1.html">SharedDisposableManager&lt;T&gt;</a> instance.</p>
 </td>
       </tr>
     </tbody>
@@ -365,7 +366,7 @@ helps prevent resource leaks and promotes efficient resource usage.</p>
                     <a href="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_SharedDisposableManager_1.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.SharedDisposableManager%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L20" class="contribution-link">View Source</a>
+                    <a href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/SharedDisposableManager.cs/#L21" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

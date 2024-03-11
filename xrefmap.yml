@@ -4306,12 +4306,13 @@ references:
   nameWithType: SharedDisposableManager<T>.Acquire
   nameWithType.vb: SharedDisposableManager(Of T).Acquire
 - uid: Kampute.HttpClient.SharedDisposableManager`1.Is(`0)
-  name: Is(T)
+  name: Is(T?)
   href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Is__0_
   commentId: M:Kampute.HttpClient.SharedDisposableManager`1.Is(`0)
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Is(T)
+  name.vb: Is(T)
+  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Is(T?)
   fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Is(T)
-  nameWithType: SharedDisposableManager<T>.Is(T)
+  nameWithType: SharedDisposableManager<T>.Is(T?)
   nameWithType.vb: SharedDisposableManager(Of T).Is(T)
 - uid: Kampute.HttpClient.SharedDisposableManager`1.Is*
   name: Is

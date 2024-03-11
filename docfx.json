@@ -30,13 +30,12 @@
         "files": "**/*.{md,yml}"
       },
       {
-        "files": "README.md"
+        "files": "ICON.png",
+        "dest": "."
       },
       {
-        "files": "ICON.png"
-      },
-      {
-        "files": "LICENSE"
+        "files": "LICENSE",
+        "dest": "."
       }
     ],
     "globalMetadata": {
@@ -44,6 +43,9 @@
       "_appFooter": "© 2024 Kampute",
       "_appFaviconPath": "ICON.png",
       "_appLogoPath": "ICON.png"
+    },
+    "sitemap": {
+      "baseUrl": "https://kampute.github.io/http-client"
     },
     "template": [ "default" ],
     "dest": "docs"

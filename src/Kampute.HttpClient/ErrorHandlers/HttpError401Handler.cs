@@ -274,8 +274,8 @@ namespace Kampute.HttpClient.ErrorHandlers
         private class AuthenticationState : IDisposable
         {
             private readonly SemaphoreSlim _semaphore = new(1, 1);
-            private volatile bool _authenticating;
-            private volatile bool _authenticated;
+            private volatile bool _lastAutneticationResult = false;
+            private long _lastAuthenticationTime = 0;
 
             /// <summary>
             /// Gets or sets a value indicating whether the client was successfully authenticated on the last authentication attempt.
@@ -285,8 +285,8 @@ namespace Kampute.HttpClient.ErrorHandlers
             /// </value>
             public bool LastAuthenticationResult
             {
-                get => _authenticated;
-                set => _authenticated = value;
+                get => _lastAutneticationResult;
+                set => _lastAutneticationResult = value;
             }
 
             /// <summary>
@@ -302,9 +302,9 @@ namespace Kampute.HttpClient.ErrorHandlers
             /// </remarks>
             public async Task<bool> TryAcquireAsync(CancellationToken cancellationToken)
             {
-                _authenticating = true;
+                var authenticationTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 await _semaphore.WaitAsync(cancellationToken);
-                if (_authenticating)
+                if (Interlocked.Read(ref _lastAuthenticationTime) < authenticationTime)
                     return true;
 
                 _semaphore.Release();
@@ -320,7 +320,7 @@ namespace Kampute.HttpClient.ErrorHandlers
             /// </remarks>
             public void Release()
             {
-                _authenticating = false;
+                Interlocked.Exchange(ref _lastAuthenticationTime, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
                 _semaphore.Release();
             }
 

@@ -777,56 +777,6 @@
         }
       },
       "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "src/Kampute.HttpClient.DataContract/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "src/Kampute.HttpClient.DataContract/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "src/Kampute.HttpClient.Json/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "src/Kampute.HttpClient.Json/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "src/Kampute.HttpClient.NewtonsoftJson/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "src/Kampute.HttpClient.NewtonsoftJson/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "src/Kampute.HttpClient.Xml/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "src/Kampute.HttpClient.Xml/README.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "src/Kampute.HttpClient/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "src/Kampute.HttpClient/README.html"
-        }
-      },
-      "version": ""
     }
   ],
   "groups": [

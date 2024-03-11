@@ -1,10 +1,11 @@
-[![Build, Test, and Document](https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kampute/http-client/actions/workflows/main.yml)
-
 # Kampute.HttpClient
 
-`Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities.
-Tailored for developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide
-array of functionalities to address the complexities of web service consumption.
+[![Build and Test, and Document](https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kampute/http-client/actions/workflows/main.yml)
+
+`Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities. Tailored for
+developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
+to address the complexities of web service consumption. [Explore the API documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for
+detailed insights.
 
 ## Key Features
 
@@ -44,7 +45,7 @@ array of functionalities to address the complexities of web service consumption.
   Promotes fully asynchronous network operations with support for cancellation tokens, ensuring efficient management of long-running requests in line with modern
   asynchronous programming practices in .NET.
 
-## Serialization Support:
+## Serialization Support
 
 By default, `Kampute.HttpClient` does not include any content deserializer. To accommodate popular content types, the following extension packages are available:
 
@@ -195,6 +196,12 @@ var newResource = new MyResource();
 await client.PostAsXmlAsync("https://api.example.com/resource", newResource);
 ```
 
+## Documentation
+
+Explore the `Kampute.HttpClient` library's [API Documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for an in-depth understanding of its
+functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full
+potential.
+
 ## Contributing
 
 Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features, please open an issue
@@ -202,4 +209,4 @@ first to discuss what you would like to change.
 
 ## License
 
-`Kampute.HttpClient` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.
+`Kampute.HttpClient` is licensed under the terms of the [MIT](LICENSE) license.

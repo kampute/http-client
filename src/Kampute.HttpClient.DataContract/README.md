@@ -33,6 +33,11 @@ var payload = new MyPayload();
 var result = await client.PostAsXmlAsync<MyResult>("https://api.example.com/resource", payload);
 ```
 
+## Documentation
+
+For details on how to utilize the `Kampute.HttpClient.DataContract` extension, including class references, method signatures, and property
+descriptions, please refer to its [API Documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract.html).
+
 ## Contributing
 
 Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features,
@@ -40,4 +45,4 @@ please open an issue first to discuss what you would like to change.
 
 ## License
 
-`Kampute.HttpClient.DataContract` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.
+`Kampute.HttpClient.DataContract` is licensed under the terms of the [MIT](LICENSE) license.

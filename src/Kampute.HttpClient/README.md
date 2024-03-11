@@ -42,7 +42,7 @@ array of functionalities to address the complexities of web service consumption.
   Promotes fully asynchronous network operations with support for cancellation tokens, ensuring efficient management of long-running requests in line with modern
   asynchronous programming practices in .NET.
 
-## Serialization Support:
+## Serialization Support
 
 By default, `Kampute.HttpClient` does not include any content deserializer. To accommodate popular content types, the following extension packages are available:
 
@@ -192,6 +192,12 @@ await client.PatchAsJsonAsync("https://api.example.com/resource", new { name = "
 var newResource = new MyResource();
 await client.PostAsXmlAsync("https://api.example.com/resource", newResource);
 ```
+
+## Documentation
+
+Explore the `Kampute.HttpClient` library's [API Documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for an in-depth understanding of its
+functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full
+potential.
 
 ## Contributing
 

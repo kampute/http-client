@@ -21,6 +21,7 @@
     <PackageTags>http http-client restful rest-client rest-api web-api</PackageTags>
     <PackageIcon>ICON.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>For detailed release notes, please visit https://github.com/kampute/http-client/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/kampute/http-client</PackageProjectUrl>

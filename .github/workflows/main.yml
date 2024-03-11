@@ -40,6 +40,12 @@ jobs:
       run: |
         docfx/docfx docfx.json
 
+    - name: Prepare Docs for Deployment
+      run: |
+        mv ./docs/README.html ./docs/index.html
+        cp ICON.png ./docs/
+        cp LICENSE ./docs/
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'

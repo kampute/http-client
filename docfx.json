@@ -28,26 +28,20 @@
     "content": [
       {
         "files": "**/*.{md,yml}"
-      },
-      {
-        "files": "ICON.png",
-        "dest": "docs"
-      },
-      {
-        "files": "LICENSE",
-        "dest": "docs"
       }
     ],
     "globalMetadata": {
       "_appTitle": "Kampute.HttpClient",
       "_appFooter": "© 2024 Kampute",
       "_appFaviconPath": "ICON.png",
-      "_appLogoPath": "ICON.png"
+      "_appLogoPath": "ICON.png",
+      "_disableContribution": true,
+      "_disableNavbar": true
     },
     "sitemap": {
       "baseUrl": "https://kampute.github.io/http-client"
     },
-    "template": [ "default" ],
+    "template": [ "default", "modern" ],
     "dest": "docs"
   }
 }

@@ -3,16 +3,15 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Title>Kampute.HttpClient.DataContract</Title>
-    <Description>
-      This package is an extension package for Kampute.HttpClient, enhancing it to manage application/xml content types, 
-      using DataContractSerializer for serialization and deserialization of XML responses and payloads.
-    </Description>
+    <Description>This package is an extension package for Kampute.HttpClient, enhancing it to manage application/xml content types, using DataContractSerializer for serialization and deserialization of XML responses and payloads.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Company>Kampute</Company>
-    <Copyright>Copyright (c) Kampute</Copyright>
+    <Copyright>Copyright (c) 2024 Kampute</Copyright>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Kampute.HttpClient.DataContract</PackageId>
@@ -21,20 +20,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes>For detailed release notes, please visit https://github.com/kampute/http-client/releases</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/kampute/http-client</PackageProjectUrl>
+    <PackageProjectUrl>https://kampute.github.io/http-client/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kampute/http-client.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NoWarn>IDE0290</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="Exists('../../SigningKey.snk')">

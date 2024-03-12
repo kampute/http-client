@@ -664,10 +664,32 @@ namespace Kampute.HttpClient
         /// <returns>An <see cref="HttpRequestMessage"/> configured with the specified method and URI.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <remarks>
+        /// <para>
         /// This method constructs a new HTTP request message. It sets the method, URI, and headers based on the provided parameters. 
         /// The <c>Accept</c> headers are configured to align with the media types supported by the content deserializers for the specified 
-        /// <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, all media types will be
-        /// accepted.
+        /// <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, all media types will be accepted.
+        /// </para>
+        /// <para>
+        /// In addition, this method includes custom properties in the <see cref="HttpRequestMessage"/> to provide additional context and facilitate
+        /// easier tracking and processing of the request. These properties are detailed below:
+        /// <list type="bullet">
+        /// <item>
+        /// <term><see cref="HttpRequestMessagePropertyKeys.TransactionId"/></term>
+        /// <description>
+        /// A unique identifier (<see cref="Guid"/>) generated and assigned to each request, aiding in the request's tracking, debugging, and logging
+        /// processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
+        /// or when requests are retried due to transient failures.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><see cref="HttpRequestMessagePropertyKeys.ResponseObjectType"/></term>
+        /// <description>
+        /// Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
+        /// and support error recovery strategies.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </para>
         /// </remarks>
         protected virtual HttpRequestMessage CreateHttpRequest(HttpMethod method, string uri, Type? responseObjectType)
         {
@@ -687,6 +709,8 @@ namespace Kampute.HttpClient
 
             if (responseObjectType is null)
                 request.Headers.Accept.Add(AnyMediaType);
+            else
+                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
 
             request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
 

@@ -25,6 +25,12 @@ namespace Kampute.HttpClient
         public const string TransactionId = nameof(HttpRestClient) + "." + nameof(TransactionId);
 
         /// <summary>
+        /// A key used to store and identify the response object type property in an <see cref="HttpRequestMessage"/>.
+        /// This property identifies the type of expected .NET object in the response.
+        /// </summary>
+        public const string ResponseObjectType = nameof(HttpRestClient) + "." + nameof(ResponseObjectType);
+
+        /// <summary>
         /// A key used to store and identify the retry scheduler property in an <see cref="HttpRequestMessage"/>.
         /// This property holds the active scheduler associated with the request, if any, managing retry logic for transient failures.
         /// </summary>

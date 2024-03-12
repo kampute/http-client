@@ -29,6 +29,10 @@
         public void GetSupportedMediaTypes_ModelType_ReturnsCorrectMediaTypes()
         {
             var modelType = typeof(string);
+            var expectedMediaTypes = new[]
+            {
+                new MediaTypeWithQualityHeaderValue(Constants.TestMediaType, 1.0),
+            };
 
             var collection = new HttpContentDeserializerCollection
             {
@@ -37,7 +41,7 @@
 
             var result = collection.GetSupportedMediaTypes(modelType);
 
-            Assert.That(result, Is.EqualTo(new[] { new MediaTypeWithQualityHeaderValue(Constants.TestMediaType) }));
+            Assert.That(result, Is.EqualTo(expectedMediaTypes));
         }
 
         [Test]
@@ -47,13 +51,13 @@
             var errorType = typeof(object);
             var expectedMediaTypes = new[]
             {
-                new MediaTypeWithQualityHeaderValue(Constants.TestMediaType),
-                new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json),
+                new MediaTypeWithQualityHeaderValue(Constants.TestMediaType, 1.0),
+                new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json, 0.9),
             };
 
             var deserializerMock = new Mock<IHttpContentDeserializer>();
             deserializerMock.Setup(deserializer => deserializer.GetSupportedMediaTypes(It.IsAny<Type>()))
-                .Returns(new[] { MediaTypeNames.Application.Json });
+                .Returns((Type type) => type == typeof(string) ? Array.Empty<string>() : [MediaTypeNames.Application.Json]);
 
             var collection = new HttpContentDeserializerCollection
             {

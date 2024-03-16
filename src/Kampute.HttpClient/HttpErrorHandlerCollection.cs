@@ -73,10 +73,10 @@ namespace Kampute.HttpClient
             if (errorHandler == null)
                 throw new ArgumentNullException(nameof(errorHandler));
             if (_collection.Contains(errorHandler))
-                throw new ArgumentException("A duplicate error errorHandler cannot be added to the collection.", nameof(errorHandler));
+                throw new ArgumentException("A duplicate error handler cannot be added to the collection.", nameof(errorHandler));
 
             _collection.Add(errorHandler);
-            _cache.Clear();
+            UpdateCacheForErrorHandler(errorHandler);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Kampute.HttpClient
         {
             if (_collection.Remove(errorHandler))
             {
-                _cache.Clear();
+                UpdateCacheForErrorHandler(errorHandler);
                 return true;
             }
             return false;
@@ -110,6 +110,7 @@ namespace Kampute.HttpClient
         public void Clear()
         {
             _collection.Clear();
+            _cache.Clear();
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="array">The one-dimensional array that is the destination of the elements copied from the collection. The array must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
-        public void CopyTo(IHttpErrorHandler[] array, int arrayIndex)
+        void ICollection<IHttpErrorHandler>.CopyTo(IHttpErrorHandler[] array, int arrayIndex)
         {
             _collection.CopyTo(array, arrayIndex);
         }
@@ -138,6 +139,27 @@ namespace Kampute.HttpClient
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Updates the cache entries related to a specific <see cref="IHttpErrorHandler"/>.
+        /// </summary>
+        /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> for which the cache should be updated.</param>
+        /// <remarks>
+        /// This method removes the cache entries for HTTP status codes that the given <paramref name="errorHandler"/> can handle.
+        /// This ensures that the cache stays up-to-date when error handlers are added or removed from the collection.
+        /// </remarks>
+        private void UpdateCacheForErrorHandler(IHttpErrorHandler errorHandler)
+        {
+            if (_cache.Count == 0)
+                return;
+
+            var invalidatedCacheKeys = _cache.Keys.Where(errorHandler.CanHandle).ToList();
+            if (invalidatedCacheKeys.Count == 0)
+                return;
+
+            foreach (var statusCode in invalidatedCacheKeys)
+                _cache.TryRemove(statusCode, out _);
         }
     }
 }

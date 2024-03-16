@@ -3,18 +3,15 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Title>Kampute.HttpClient</Title>
-    <Description>
-      Kampute.HttpClient is a .NET library for streamlined RESTful API communication. It offers a highly customizable HttpRestClient class 
-      for efficient HTTP interactions, supporting advanced features like flexible serialization/deserialization, robust error handling, 
-      backoff strategies, and detailed request-response processing. Designed for both simplicity and extensibility, it's ideal for developers 
-      seeking a versatile client for API integration in diverse .NET applications.
-    </Description>
+    <Description>Kampute.HttpClient is a .NET library for streamlined RESTful API communication. It offers a highly customizable HttpRestClient class for efficient HTTP interactions, supporting advanced features like flexible serialization/deserialization, robust error handling, backoff strategies, and detailed request-response processing. Designed for both simplicity and extensibility, it's ideal for developers seeking a versatile client for API integration in diverse .NET applications.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Company>Kampute</Company>
-    <Copyright>Copyright (c) Kampute</Copyright>
+    <Copyright>Copyright (c) 2024 Kampute</Copyright>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Kampute.HttpClient</PackageId>
@@ -23,21 +20,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes>For detailed release notes, please visit https://github.com/kampute/http-client/releases</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/kampute/http-client</PackageProjectUrl>
+    <PackageProjectUrl>https://kampute.github.io/http-client/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kampute/http-client.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NoWarn>IDE0290</NoWarn>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-   </PropertyGroup>
 
   <PropertyGroup Condition="Exists('../../SigningKey.snk')">
     <SignAssembly >true</SignAssembly>

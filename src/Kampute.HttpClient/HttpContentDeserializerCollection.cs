@@ -19,19 +19,24 @@ namespace Kampute.HttpClient
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This collection provides capabilities for managing <see cref="IHttpContentDeserializer"/> instances, such as adding, 
-    /// removing, and selecting deserializers. It utilizes internal caches to optimize performance when retrieving deserializers 
-    /// for specific media types and model types, as well as when fetching supported media types for deserialization. 
+    /// This collection provides capabilities for managing <see cref="IHttpContentDeserializer"/> instances, including adding, removing,
+    /// and selecting deserializers based on media types and model types. It leverages internal caches to optimize performance for frequently
+    /// accessed deserializers, significantly enhancing efficiency in scenarios where media types and model types are repeatedly queried.
     /// </para>
     /// <para>
-    /// These caches are automatically invalidated and updated as deserializers are added or removed, ensuring efficient access 
-    /// patterns and reducing the overhead of frequently performed operations.
+    /// Caches within the collection are automatically invalidated and updated upon modification of the deserializer inventory, ensuring that access
+    /// patterns remain efficient and that overhead associated with dynamic updates is minimized.
+    /// </para>
+    /// <para>
+    /// The collection is designed to be flexible and adaptable, accommodating a wide range of models, media types, and server behaviors without
+    /// prior knowledge of specific implementations. It supports assigning quality factors to media types, prioritizing those that can deserialize
+    /// both model and error types (q=1.0) over those that solely support error types (q=0.9). This nuanced handling of media types facilitates
+    /// sophisticated content negotiation strategies, ensuring clients can effectively communicate preferences for both successful responses and
+    /// error scenarios.
     /// </para>
     /// </remarks>
     public sealed class HttpContentDeserializerCollection : ICollection<IHttpContentDeserializer>
     {
-        private static readonly ConcurrentDictionary<string, MediaTypeWithQualityHeaderValue> _mediaTypeHeaderValues = new();
-
         private readonly List<IHttpContentDeserializer> _collection = [];
         private readonly ConcurrentDictionary<string, ConcurrentDictionary<Type, IReadOnlyCollection<IHttpContentDeserializer>>> _deserializersCache = new();
         private readonly ConcurrentDictionary<Type, IReadOnlyCollection<MediaTypeWithQualityHeaderValue>> _mediaTypes1Cache = new();
@@ -78,11 +83,7 @@ namespace Kampute.HttpClient
         public IReadOnlyCollection<MediaTypeWithQualityHeaderValue> GetSupportedMediaTypes(Type? modelType)
         {
             return modelType is not null
-                ? _mediaTypes1Cache.GetOrAdd(modelType, _ => _collection
-                    .SelectMany(deserializer => deserializer.GetSupportedMediaTypes(modelType))
-                    .Distinct()
-                    .Select(MediaTypeHeaderValue)
-                    .ToArray())
+                ? _mediaTypes1Cache.GetOrAdd(modelType, CollectSupportedMediaTypes)
                 : Array.Empty<MediaTypeWithQualityHeaderValue>();
         }
 
@@ -92,6 +93,7 @@ namespace Kampute.HttpClient
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
         /// <param name="errorType">The type of the error for which to retrieve supported media types.</param>
         /// <returns>A read-only collection of <see cref="MediaTypeWithQualityHeaderValue"/> representing the supported media types for the specified types.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IReadOnlyCollection<MediaTypeWithQualityHeaderValue> GetSupportedMediaTypes(Type? modelType, Type? errorType)
         {
             if (errorType is null)
@@ -99,12 +101,7 @@ namespace Kampute.HttpClient
             if (modelType is null)
                 return GetSupportedMediaTypes(errorType);
 
-            return _mediaTypes2Cache.GetOrAdd((modelType, errorType), _ =>
-            {
-                var mediaTypes = new HashSet<MediaTypeWithQualityHeaderValue>(GetSupportedMediaTypes(modelType));
-                mediaTypes.UnionWith(GetSupportedMediaTypes(errorType));
-                return mediaTypes;
-            });
+            return _mediaTypes2Cache.GetOrAdd((modelType, errorType), key => CollectSupportedMediaTypes(key.Item1, key.Item2));
         }
 
         /// <summary>
@@ -167,6 +164,7 @@ namespace Kampute.HttpClient
         public void Clear()
         {
             _collection.Clear();
+            InvalidateCaches();
         }
 
         /// <summary>
@@ -174,7 +172,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="array">The one-dimensional array that is the destination of the elements copied from the collection. The array must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
-        public void CopyTo(IHttpContentDeserializer[] array, int arrayIndex)
+        void ICollection<IHttpContentDeserializer>.CopyTo(IHttpContentDeserializer[] array, int arrayIndex)
         {
             _collection.CopyTo(array, arrayIndex);
         }
@@ -208,19 +206,76 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Converts a media type string to a <see cref="MediaTypeWithQualityHeaderValue"/> instance.
+        /// Retrieves all supported media types for a specified model type from the collection of deserializers.
         /// </summary>
-        /// <param name="mediaType">The media type string to convert.</param>
-        /// <returns>A <see cref="MediaTypeWithQualityHeaderValue"/> instance corresponding to the specified media type string.</returns>
-        /// <remarks>
-        /// This method utilizes a concurrent dictionary to cache and reuse <see cref="MediaTypeWithQualityHeaderValue"/> instances based on media type 
-        /// strings. It ensures that for each unique media type string, only one <see cref="MediaTypeWithQualityHeaderValue"/> instance is created and 
-        /// returned, optimizing memory usage and improving performance by avoiding unnecessary allocations.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static MediaTypeWithQualityHeaderValue MediaTypeHeaderValue(string mediaType)
+        /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
+        /// <returns>A collection that represent the media types supported for deserializing the specified model type.</returns>
+        private HashSet<MediaTypeWithQualityHeaderValue> CollectSupportedMediaTypes(Type modelType)
         {
-            return _mediaTypeHeaderValues.GetOrAdd(mediaType, mt => new MediaTypeWithQualityHeaderValue(mt));
+            var mediaTypes = new HashSet<MediaTypeWithQualityHeaderValue>();
+
+            foreach (var deserializer in _collection)
+                foreach (var mediaType in deserializer.GetSupportedMediaTypes(modelType))
+                    mediaTypes.Add(MediaTypeHeaderValueStore.GetForModel(mediaType));
+
+            return mediaTypes;
         }
+
+        /// <summary>
+        /// Retrieves all supported media types for a specified model type and error type from the collection of deserializers.
+        /// </summary>
+        /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
+        /// <param name="errorType">The type of the error for which to retrieve supported media types.</param>
+        /// <returns>A collection representing the supported media types for the specified types.</returns>
+        private HashSet<MediaTypeWithQualityHeaderValue> CollectSupportedMediaTypes(Type modelType, Type errorType)
+        {
+            var mediaTypes = new HashSet<MediaTypeWithQualityHeaderValue>();
+
+            // Add media types supporting model
+            foreach (var headerValue in GetSupportedMediaTypes(modelType))
+                mediaTypes.Add(headerValue);
+
+            // Add media types supporting error
+            foreach (var headerValue in GetSupportedMediaTypes(errorType))
+                if (!mediaTypes.Contains(headerValue))
+                    mediaTypes.Add(MediaTypeHeaderValueStore.GetForError(headerValue.MediaType));
+
+            return mediaTypes;
+        }
+
+        #region Helpers
+
+        /// <summary>
+        /// Provides a store for cached instances of <see cref="MediaTypeWithQualityHeaderValue"/>.
+        /// </summary>
+        private static class MediaTypeHeaderValueStore
+        {
+            private static readonly ConcurrentDictionary<string, MediaTypeWithQualityHeaderValue> _modelStore = new();
+            private static readonly ConcurrentDictionary<string, MediaTypeWithQualityHeaderValue> _errorStore = new();
+
+            /// <summary>
+            /// Gets or adds a cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> with a quality factor of 1.0 for the specified media type.
+            /// </summary>
+            /// <param name="mediaType">The media type for which to get or add the cached instance.</param>
+            /// <returns>The cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> for the specified media type, with a quality factor of 1.0.</returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static MediaTypeWithQualityHeaderValue GetForModel(string mediaType)
+            {
+                return _modelStore.GetOrAdd(mediaType, mt => new MediaTypeWithQualityHeaderValue(mt, 1.0));
+            }
+
+            /// <summary>
+            /// Gets or adds a cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> with a quality factor of 0.9 for the specified media type.
+            /// </summary>
+            /// <param name="mediaType">The media type for which to get or add the cached instance.</param>
+            /// <returns>The cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> for the specified media type, with a quality factor of 0.9.</returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static MediaTypeWithQualityHeaderValue GetForError(string mediaType)
+            {
+                return _errorStore.GetOrAdd(mediaType, mt => new MediaTypeWithQualityHeaderValue(mt, 0.9));
+            }
+        }
+
+        #endregion
     }
 }

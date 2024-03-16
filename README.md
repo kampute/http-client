@@ -1,6 +1,7 @@
 # Kampute.HttpClient
 
-[![Build and Test, and Document](https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kampute/http-client/actions/workflows/main.yml)
+[![Release](https://img.shields.io/github/v/release/kampute/http-client)](https://github.com/kampute/http-client/releases/latest)
+[![Build](https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kampute/http-client/actions/workflows/main.yml)
 
 `Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities. Tailored for
 developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities

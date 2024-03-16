@@ -37,8 +37,6 @@ namespace Kampute.HttpClient
     /// </remarks>
     public sealed class HttpContentDeserializerCollection : ICollection<IHttpContentDeserializer>
     {
-        private static readonly ConcurrentDictionary<string, MediaTypeWithQualityHeaderValue> _mediaTypeHeaderValues = new();
-
         private readonly List<IHttpContentDeserializer> _collection = [];
         private readonly ConcurrentDictionary<string, ConcurrentDictionary<Type, IReadOnlyCollection<IHttpContentDeserializer>>> _deserializersCache = new();
         private readonly ConcurrentDictionary<Type, IReadOnlyCollection<MediaTypeWithQualityHeaderValue>> _mediaTypes1Cache = new();
@@ -174,7 +172,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="array">The one-dimensional array that is the destination of the elements copied from the collection. The array must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
-        public void CopyTo(IHttpContentDeserializer[] array, int arrayIndex)
+        void ICollection<IHttpContentDeserializer>.CopyTo(IHttpContentDeserializer[] array, int arrayIndex)
         {
             _collection.CopyTo(array, arrayIndex);
         }
@@ -215,14 +213,11 @@ namespace Kampute.HttpClient
         private HashSet<MediaTypeWithQualityHeaderValue> CollectSupportedMediaTypes(Type modelType)
         {
             var mediaTypes = new HashSet<MediaTypeWithQualityHeaderValue>();
+
             foreach (var deserializer in _collection)
-            {
                 foreach (var mediaType in deserializer.GetSupportedMediaTypes(modelType))
-                {
-                    var headerValue = _mediaTypeHeaderValues.GetOrAdd(mediaType, mt => new MediaTypeWithQualityHeaderValue(mt, 1.0));
-                    mediaTypes.Add(headerValue);
-                }
-            }
+                    mediaTypes.Add(MediaTypeHeaderValueStore.GetForModel(mediaType));
+
             return mediaTypes;
         }
 
@@ -243,9 +238,44 @@ namespace Kampute.HttpClient
             // Add media types supporting error
             foreach (var headerValue in GetSupportedMediaTypes(errorType))
                 if (!mediaTypes.Contains(headerValue))
-                    mediaTypes.Add(new MediaTypeWithQualityHeaderValue(headerValue.MediaType, 0.9));
+                    mediaTypes.Add(MediaTypeHeaderValueStore.GetForError(headerValue.MediaType));
 
             return mediaTypes;
         }
+
+        #region Helpers
+
+        /// <summary>
+        /// Provides a store for cached instances of <see cref="MediaTypeWithQualityHeaderValue"/>.
+        /// </summary>
+        private static class MediaTypeHeaderValueStore
+        {
+            private static readonly ConcurrentDictionary<string, MediaTypeWithQualityHeaderValue> _modelStore = new();
+            private static readonly ConcurrentDictionary<string, MediaTypeWithQualityHeaderValue> _errorStore = new();
+
+            /// <summary>
+            /// Gets or adds a cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> with a quality factor of 1.0 for the specified media type.
+            /// </summary>
+            /// <param name="mediaType">The media type for which to get or add the cached instance.</param>
+            /// <returns>The cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> for the specified media type, with a quality factor of 1.0.</returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static MediaTypeWithQualityHeaderValue GetForModel(string mediaType)
+            {
+                return _modelStore.GetOrAdd(mediaType, mt => new MediaTypeWithQualityHeaderValue(mt, 1.0));
+            }
+
+            /// <summary>
+            /// Gets or adds a cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> with a quality factor of 0.9 for the specified media type.
+            /// </summary>
+            /// <param name="mediaType">The media type for which to get or add the cached instance.</param>
+            /// <returns>The cached instance of <see cref="MediaTypeWithQualityHeaderValue"/> for the specified media type, with a quality factor of 0.9.</returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static MediaTypeWithQualityHeaderValue GetForError(string mediaType)
+            {
+                return _errorStore.GetOrAdd(mediaType, mt => new MediaTypeWithQualityHeaderValue(mt, 0.9));
+            }
+        }
+
+        #endregion
     }
 }

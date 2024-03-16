@@ -822,7 +822,7 @@ instance will not dispose of the <a class="xref" href="https://learn.microsoft.c
 
   <h3 id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type_" data-uid="Kampute.HttpClient.HttpRestClient.CreateHttpRequest(System.Net.Http.HttpMethod,System.String,System.Type)">
   CreateHttpRequest(HttpMethod, string, Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L672"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L694"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> with the specified method and URI.</p>
@@ -860,10 +860,23 @@ instance will not dispose of the <a class="xref" href="https://learn.microsoft.c
 
 
   <h4 class="section" id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>This method constructs a new HTTP request message. It sets the method, URI, and headers based on the provided parameters.
-The <code>Accept</code> headers are configured to align with the media types supported by the content deserializers for the specified
-<code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <code>null</code>, all media types will be
-accepted.</p>
+  <div class="markdown level1 remarks"><p>
+This method constructs a new HTTP request message. It sets the method, URI, and headers based on the provided parameters. 
+The <code>Accept</code> headers are configured to align with the media types supported by the content deserializers for the specified 
+<code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <code>null</code>, all media types will be accepted.
+</p>
+<p>
+In addition, this method includes custom properties in the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> to provide additional context and facilitate
+easier tracking and processing of the request. These properties are detailed below:
+<ul><li><span class="term"><a class="xref" href="Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_TransactionId">TransactionId</a></span>
+A unique identifier (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>) generated and assigned to each request, aiding in the request's tracking, debugging, and logging
+processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
+or when requests are retried due to transient failures.
+</li><li><span class="term"><a class="xref" href="Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_ResponseObjectType">ResponseObjectType</a></span>
+Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
+and support error recovery strategies.
+</li></ul>
+
 </div>
 
   <h4 class="section">Exceptions</h4>
@@ -1162,7 +1175,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_Dispose_System_Boolean_" data-uid="Kampute.HttpClient.HttpRestClient.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L700"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L724"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Disposes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance.</p>
@@ -1289,7 +1302,7 @@ If the response contains no content, null is returned.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_System_Net_Http_HttpResponseMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnAfterReceivingResponse(System.Net.Http.HttpResponseMessage)">
   OnAfterReceivingResponse(HttpResponseMessage)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L741"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L765"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a> event.</p>
@@ -1327,7 +1340,7 @@ before any processing is performed on the response.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_System_Net_Http_HttpRequestMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnBeforeSendingRequest(System.Net.Http.HttpRequestMessage)">
   OnBeforeSendingRequest(HttpRequestMessage)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L727"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L751"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> event.</p>
@@ -1365,7 +1378,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnDisposing" data-uid="Kampute.HttpClient.HttpRestClient.OnDisposing">
   OnDisposing()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L752"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L776"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Disposing">Disposing</a> event.</p>

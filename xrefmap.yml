@@ -967,22 +967,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpContentDeserializerCollection.Contains
   nameWithType: HttpContentDeserializerCollection.Contains
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
-  name: CopyTo(IHttpContentDeserializer[], int)
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_CopyTo_Kampute_HttpClient_Interfaces_IHttpContentDeserializer___System_Int32_
-  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[],System.Int32)
-  name.vb: CopyTo(IHttpContentDeserializer(), Integer)
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer[], int)
-  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpContentDeserializer(), Integer)
-  nameWithType: HttpContentDeserializerCollection.CopyTo(IHttpContentDeserializer[], int)
-  nameWithType.vb: HttpContentDeserializerCollection.CopyTo(IHttpContentDeserializer(), Integer)
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo*
-  name: CopyTo
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_CopyTo_
-  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.CopyTo
-  nameWithType: HttpContentDeserializerCollection.CopyTo
 - uid: Kampute.HttpClient.HttpContentDeserializerCollection.Count
   name: Count
   href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Count
@@ -1212,22 +1196,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpErrorHandlerCollection.Contains
   nameWithType: HttpErrorHandlerCollection.Contains
-- uid: Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpErrorHandler[],System.Int32)
-  name: CopyTo(IHttpErrorHandler[], int)
-  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_CopyTo_Kampute_HttpClient_Interfaces_IHttpErrorHandler___System_Int32_
-  commentId: M:Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpErrorHandler[],System.Int32)
-  name.vb: CopyTo(IHttpErrorHandler(), Integer)
-  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpErrorHandler[], int)
-  fullName.vb: Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo(Kampute.HttpClient.Interfaces.IHttpErrorHandler(), Integer)
-  nameWithType: HttpErrorHandlerCollection.CopyTo(IHttpErrorHandler[], int)
-  nameWithType.vb: HttpErrorHandlerCollection.CopyTo(IHttpErrorHandler(), Integer)
-- uid: Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo*
-  name: CopyTo
-  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_CopyTo_
-  commentId: Overload:Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.CopyTo
-  nameWithType: HttpErrorHandlerCollection.CopyTo
 - uid: Kampute.HttpClient.HttpErrorHandlerCollection.Count
   name: Count
   href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_Count
@@ -1550,6 +1518,12 @@ references:
   commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.CloneGeneration
   fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.CloneGeneration
   nameWithType: HttpRequestMessagePropertyKeys.CloneGeneration
+- uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys.ResponseObjectType
+  name: ResponseObjectType
+  href: api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_ResponseObjectType
+  commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.ResponseObjectType
+  fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.ResponseObjectType
+  nameWithType: HttpRequestMessagePropertyKeys.ResponseObjectType
 - uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys.RetryScheduler
   name: RetryScheduler
   href: api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_RetryScheduler

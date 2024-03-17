@@ -183,6 +183,7 @@
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(HttpMethod.Get));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
+                Assert.That(exception.ResponseObject, Is.EqualTo(errorDetails).UsingPropertiesComparer());
                 Assert.That(exception.Message, Is.EqualTo(errorDetails.Message));
             });
         }

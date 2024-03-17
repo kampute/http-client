@@ -66,12 +66,20 @@ namespace Kampute.HttpClient
         public IDictionary<string, string[]>? Errors { get; set; }
 
         /// <summary>
-        /// Gets or sets the response message associated with the exception.
+        /// Gets or sets the HTTP response message associated with the exception.
         /// </summary>
         /// <value>
-        /// The response message associated with the exception, which may include additional details about the error. Can be <c>null</c> if there is no response message.
+        /// The HTTP response message associated with the exception. Can be <c>null</c> if there is no HTTP response message.
         /// </value>
         public HttpResponseMessage? ResponseMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deserialized object from the HTTP response associated with the exception.
+        /// </summary>
+        /// <value>
+        /// The deserialized object from the HTTP response body. Can be <c>null</c> if the HTTP response is not deserialized.
+        /// </value>
+        public object? ResponseObject { get; set; }
 
         /// <summary>
         /// Creates and returns a string representation of the current exception.

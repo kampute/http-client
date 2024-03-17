@@ -11,6 +11,7 @@ namespace Kampute.HttpClient.DataContract
     using System.IO;
     using System.Linq;
     using System.Net.Http;
+    using System.Reflection;
     using System.Runtime.Serialization;
     using System.Text;
     using System.Threading;
@@ -34,7 +35,7 @@ namespace Kampute.HttpClient.DataContract
         /// Gets the collection of media types that this deserializer supports.
         /// </summary>
         /// <value>
-        /// The collection of media types that this deserializer supports.
+        /// The read-only collection of media types that this deserializer supports.
         /// </value>
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Xml];
 
@@ -42,21 +43,27 @@ namespace Kampute.HttpClient.DataContract
         /// Retrieves a collection of supported media types for a specific model type.
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
-        /// <returns>A read-only collection of strings representing the media types supported for the specified model type.</returns>
+        /// <returns>
+        /// The read-only collection of media types that this deserializer supports if the model type is not <c>null</c> and
+        /// is marked with a <see cref="DataContractAttribute"/>; otherwise, an empty collection.
+        /// </returns>
         public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
         {
-            return modelType is not null ? SupportedMediaTypes : Array.Empty<string>();
+            return modelType?.GetCustomAttribute<DataContractAttribute>() is not null ? SupportedMediaTypes : Array.Empty<string>();
         }
 
         /// <summary>
         /// Determines whether this deserializer can handle data of a specific content type and deserialize it into the specified model type.
         /// </summary>
         /// <param name="mediaType">The media type of the content.</param>
-        /// <param name="modelType">The type of the model to be deserialized.</param>
-        /// <returns><c>true</c> if this deserializer can handle the specified content type and model type; otherwise, <c>false</c>.</returns>
+        /// <param name="modelType">The target model type for deserialization.</param>
+        /// <returns>
+        /// <c>true</c> if the deserializer supports the media type and the model type is not <c>null</c> and is marked with
+        /// a <see cref="DataContractAttribute"/>; otherwise, <c>false</c>.
+        /// </returns>
         public bool CanDeserialize(string mediaType, Type? modelType)
         {
-            return modelType is not null && SupportedMediaTypes.Contains(mediaType);
+            return modelType?.GetCustomAttribute<DataContractAttribute>() is not null && SupportedMediaTypes.Contains(mediaType);
         }
 
         /// <summary>

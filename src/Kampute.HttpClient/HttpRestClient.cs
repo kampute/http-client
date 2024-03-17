@@ -6,6 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.HttpClient.Utilities;
     using System;
     using System.IO;
     using System.Net;
@@ -52,7 +53,7 @@ namespace Kampute.HttpClient
     {
         private static readonly MediaTypeWithQualityHeaderValue AnyMediaType = new("*/*", 0.1);
 
-        private static readonly SharedDisposableManager<HttpClient> _sharedHttpClient = new(() =>
+        private static readonly SharedDisposable<HttpClient> _sharedHttpClient = new(() =>
         {
             var messageHandler = new HttpClientHandler
             {

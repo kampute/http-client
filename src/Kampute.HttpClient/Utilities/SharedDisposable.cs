@@ -3,7 +3,7 @@
 // This file is part of the Kampute.HttpClient package and is released under the terms of the MIT license.
 // See the LICENSE file in the project root for the full license text.
 
-namespace Kampute.HttpClient
+namespace Kampute.HttpClient.Utilities
 {
     using System;
     using System.Runtime.CompilerServices;
@@ -18,22 +18,30 @@ namespace Kampute.HttpClient
     /// use in multi-threaded environments where resources may be accessed concurrently.
     /// </remarks>
     /// <typeparam name="T">The type of the disposable object. Must be a class that implements <see cref="IDisposable"/>.</typeparam>
-    public class SharedDisposableManager<T> where T : class, IDisposable
+    public sealed class SharedDisposable<T> where T : class, IDisposable
     {
-        private T? _instance;
-        private int _referenceCount = 0;
+        private volatile T? _instance;
+        private volatile int _referenceCount = 0;
         private readonly Func<T> _factory;
         private readonly object _lock = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SharedDisposableManager{T}"/> class with a factory function.
+        /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class with a factory function.
         /// </summary>
         /// <param name="factory">A function that creates an instance of the object <typeparamref name="T"/> when needed.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="factory"/> is <c>null</c>.</exception>
-        public SharedDisposableManager(Func<T> factory)
+        public SharedDisposable(Func<T> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
+
+        /// <summary>
+        /// Gets the current number of active references to the managed disposable object.
+        /// </summary>
+        /// <value>
+        /// The number of active references.
+        /// </value>
+        public int ReferenceCount => _referenceCount;
 
         /// <summary>
         /// Acquires a reference to the managed object, creating the object if necessary.
@@ -44,10 +52,14 @@ namespace Kampute.HttpClient
         {
             lock (_lock)
             {
-                if (_referenceCount++ == 0)
+                if (_referenceCount == 0)
                     _instance = _factory();
 
-                return _instance ?? throw new InvalidOperationException("The shared disposal manager factory failed.");
+                if (_instance is null)
+                    throw new InvalidOperationException("The shared disposal manager factory failed.");
+
+                ++_referenceCount;
+                return _instance;
             }
         }
 
@@ -57,7 +69,7 @@ namespace Kampute.HttpClient
         /// <param name="obj">The managed object to release.</param>
         /// <returns><c>true</c> if the object was no longer in use and disposed; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="obj"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="obj"/> is not managed by this <see cref="SharedDisposableManager{T}"/> instance.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="obj"/> is not managed by this <see cref="SharedDisposable{T}"/> instance.</exception>
         public bool Release(T obj)
         {
             if (obj is null)
@@ -70,7 +82,7 @@ namespace Kampute.HttpClient
 
                 if (--_referenceCount == 0)
                 {
-                    _instance?.Dispose();
+                    _instance.Dispose();
                     _instance = null;
                     return true;
                 }
@@ -79,10 +91,10 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Determines whether the specified <paramref name="obj"/> is the one managed by this <see cref="SharedDisposableManager{T}"/> instance.
+        /// Determines whether the specified <paramref name="obj"/> is the one managed by this <see cref="SharedDisposable{T}"/> instance.
         /// </summary>
         /// <param name="obj">The object to check.</param>
-        /// <returns><c>true</c> if <paramref name="obj"/> is managed by this <see cref="SharedDisposableManager{T}"/> instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if <paramref name="obj"/> is managed by this <see cref="SharedDisposable{T}"/> instance; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Is(T? obj) => obj is not null && ReferenceEquals(_instance, obj);
     }

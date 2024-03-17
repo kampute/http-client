@@ -1656,6 +1656,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpResponseException.ResponseMessage
   nameWithType: HttpResponseException.ResponseMessage
+- uid: Kampute.HttpClient.HttpResponseException.ResponseObject
+  name: ResponseObject
+  href: api/Kampute.HttpClient.HttpResponseException.html#Kampute_HttpClient_HttpResponseException_ResponseObject
+  commentId: P:Kampute.HttpClient.HttpResponseException.ResponseObject
+  fullName: Kampute.HttpClient.HttpResponseException.ResponseObject
+  nameWithType: HttpResponseException.ResponseObject
+- uid: Kampute.HttpClient.HttpResponseException.ResponseObject*
+  name: ResponseObject
+  href: api/Kampute.HttpClient.HttpResponseException.html#Kampute_HttpClient_HttpResponseException_ResponseObject_
+  commentId: Overload:Kampute.HttpClient.HttpResponseException.ResponseObject
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpResponseException.ResponseObject
+  nameWithType: HttpResponseException.ResponseObject
 - uid: Kampute.HttpClient.HttpResponseException.StatusCode
   name: StatusCode
   href: api/Kampute.HttpClient.HttpResponseException.html#Kampute_HttpClient_HttpResponseException_StatusCode
@@ -4234,86 +4247,206 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.TryGetRetryDelay
   nameWithType: UniformStrategy.TryGetRetryDelay
-- uid: Kampute.HttpClient.SharedDisposableManager`1
-  name: SharedDisposableManager<T>
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html
-  commentId: T:Kampute.HttpClient.SharedDisposableManager`1
-  name.vb: SharedDisposableManager(Of T)
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T)
-  nameWithType: SharedDisposableManager<T>
-  nameWithType.vb: SharedDisposableManager(Of T)
-- uid: Kampute.HttpClient.SharedDisposableManager`1.#ctor(System.Func{`0})
-  name: SharedDisposableManager(Func<T>)
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1__ctor_System_Func__0__
-  commentId: M:Kampute.HttpClient.SharedDisposableManager`1.#ctor(System.Func{`0})
-  name.vb: New(Func(Of T))
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.SharedDisposableManager(System.Func<T>)
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).New(System.Func(Of T))
-  nameWithType: SharedDisposableManager<T>.SharedDisposableManager(Func<T>)
-  nameWithType.vb: SharedDisposableManager(Of T).New(Func(Of T))
-- uid: Kampute.HttpClient.SharedDisposableManager`1.#ctor*
-  name: SharedDisposableManager
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1__ctor_
-  commentId: Overload:Kampute.HttpClient.SharedDisposableManager`1.#ctor
+- uid: Kampute.HttpClient.Utilities
+  name: Kampute.HttpClient.Utilities
+  href: api/Kampute.HttpClient.Utilities.html
+  commentId: N:Kampute.HttpClient.Utilities
+  fullName: Kampute.HttpClient.Utilities
+  nameWithType: Kampute.HttpClient.Utilities
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1
+  name: AsyncGuard<T>
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html
+  commentId: T:Kampute.HttpClient.Utilities.AsyncGuard`1
+  name.vb: AsyncGuard(Of T)
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T)
+  nameWithType: AsyncGuard<T>
+  nameWithType.vb: AsyncGuard(Of T)
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor(`0)
+  name: AsyncGuard(T?)
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1__ctor__0_
+  commentId: M:Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor(`0)
+  name.vb: New(T)
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.AsyncGuard(T?)
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).New(T)
+  nameWithType: AsyncGuard<T>.AsyncGuard(T?)
+  nameWithType.vb: AsyncGuard(Of T).New(T)
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor*
+  name: AsyncGuard
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1__ctor_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.SharedDisposableManager
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).New
-  nameWithType: SharedDisposableManager<T>.SharedDisposableManager
-  nameWithType.vb: SharedDisposableManager(Of T).New
-- uid: Kampute.HttpClient.SharedDisposableManager`1.Acquire
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.AsyncGuard
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).New
+  nameWithType: AsyncGuard<T>.AsyncGuard
+  nameWithType.vb: AsyncGuard(Of T).New
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose
+  name: Dispose()
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Dispose
+  commentId: M:Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Dispose()
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Dispose()
+  nameWithType: AsyncGuard<T>.Dispose()
+  nameWithType.vb: AsyncGuard(Of T).Dispose()
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose*
+  name: Dispose
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Dispose_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Dispose
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Dispose
+  nameWithType: AsyncGuard<T>.Dispose
+  nameWithType.vb: AsyncGuard(Of T).Dispose
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime
+  name: LastUpdateUnixTime
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_LastUpdateUnixTime
+  commentId: P:Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.LastUpdateUnixTime
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).LastUpdateUnixTime
+  nameWithType: AsyncGuard<T>.LastUpdateUnixTime
+  nameWithType.vb: AsyncGuard(Of T).LastUpdateUnixTime
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime*
+  name: LastUpdateUnixTime
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_LastUpdateUnixTime_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.LastUpdateUnixTime
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).LastUpdateUnixTime
+  nameWithType: AsyncGuard<T>.LastUpdateUnixTime
+  nameWithType.vb: AsyncGuard(Of T).LastUpdateUnixTime
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
+  name: TryUpdateAsync(Func<Task<T?>>, CancellationToken)
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
+  name.vb: TryUpdateAsync(Func(Of Task(Of T)), CancellationToken)
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.TryUpdateAsync(System.Func<System.Threading.Tasks.Task<T?>>, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).TryUpdateAsync(System.Func(Of System.Threading.Tasks.Task(Of T)), System.Threading.CancellationToken)
+  nameWithType: AsyncGuard<T>.TryUpdateAsync(Func<Task<T?>>, CancellationToken)
+  nameWithType.vb: AsyncGuard(Of T).TryUpdateAsync(Func(Of Task(Of T)), CancellationToken)
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync*
+  name: TryUpdateAsync
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.TryUpdateAsync
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).TryUpdateAsync
+  nameWithType: AsyncGuard<T>.TryUpdateAsync
+  nameWithType.vb: AsyncGuard(Of T).TryUpdateAsync
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Value
+  name: Value
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Value
+  commentId: P:Kampute.HttpClient.Utilities.AsyncGuard`1.Value
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Value
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Value
+  nameWithType: AsyncGuard<T>.Value
+  nameWithType.vb: AsyncGuard(Of T).Value
+- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Value*
+  name: Value
+  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Value_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.Value
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Value
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Value
+  nameWithType: AsyncGuard<T>.Value
+  nameWithType.vb: AsyncGuard(Of T).Value
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1
+  name: SharedDisposable<T>
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html
+  commentId: T:Kampute.HttpClient.Utilities.SharedDisposable`1
+  name.vb: SharedDisposable(Of T)
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T)
+  nameWithType: SharedDisposable<T>
+  nameWithType.vb: SharedDisposable(Of T)
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor(System.Func{`0})
+  name: SharedDisposable(Func<T>)
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1__ctor_System_Func__0__
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor(System.Func{`0})
+  name.vb: New(Func(Of T))
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.SharedDisposable(System.Func<T>)
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).New(System.Func(Of T))
+  nameWithType: SharedDisposable<T>.SharedDisposable(Func<T>)
+  nameWithType.vb: SharedDisposable(Of T).New(Func(Of T))
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor*
+  name: SharedDisposable
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1__ctor_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.SharedDisposable
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).New
+  nameWithType: SharedDisposable<T>.SharedDisposable
+  nameWithType.vb: SharedDisposable(Of T).New
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire
   name: Acquire()
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Acquire
-  commentId: M:Kampute.HttpClient.SharedDisposableManager`1.Acquire
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Acquire()
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Acquire()
-  nameWithType: SharedDisposableManager<T>.Acquire()
-  nameWithType.vb: SharedDisposableManager(Of T).Acquire()
-- uid: Kampute.HttpClient.SharedDisposableManager`1.Acquire*
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Acquire
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Acquire()
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Acquire()
+  nameWithType: SharedDisposable<T>.Acquire()
+  nameWithType.vb: SharedDisposable(Of T).Acquire()
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire*
   name: Acquire
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Acquire_
-  commentId: Overload:Kampute.HttpClient.SharedDisposableManager`1.Acquire
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Acquire_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire
   isSpec: "True"
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Acquire
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Acquire
-  nameWithType: SharedDisposableManager<T>.Acquire
-  nameWithType.vb: SharedDisposableManager(Of T).Acquire
-- uid: Kampute.HttpClient.SharedDisposableManager`1.Is(`0)
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Acquire
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Acquire
+  nameWithType: SharedDisposable<T>.Acquire
+  nameWithType.vb: SharedDisposable(Of T).Acquire
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Is(`0)
   name: Is(T?)
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Is__0_
-  commentId: M:Kampute.HttpClient.SharedDisposableManager`1.Is(`0)
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Is__0_
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Is(`0)
   name.vb: Is(T)
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Is(T?)
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Is(T)
-  nameWithType: SharedDisposableManager<T>.Is(T?)
-  nameWithType.vb: SharedDisposableManager(Of T).Is(T)
-- uid: Kampute.HttpClient.SharedDisposableManager`1.Is*
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Is(T?)
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Is(T)
+  nameWithType: SharedDisposable<T>.Is(T?)
+  nameWithType.vb: SharedDisposable(Of T).Is(T)
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Is*
   name: Is
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Is_
-  commentId: Overload:Kampute.HttpClient.SharedDisposableManager`1.Is
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Is_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Is
   isSpec: "True"
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Is
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Is
-  nameWithType: SharedDisposableManager<T>.Is
-  nameWithType.vb: SharedDisposableManager(Of T).Is
-- uid: Kampute.HttpClient.SharedDisposableManager`1.Release(`0)
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Is
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Is
+  nameWithType: SharedDisposable<T>.Is
+  nameWithType.vb: SharedDisposable(Of T).Is
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.ReferenceCount
+  name: ReferenceCount
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_ReferenceCount
+  commentId: P:Kampute.HttpClient.Utilities.SharedDisposable`1.ReferenceCount
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.ReferenceCount
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).ReferenceCount
+  nameWithType: SharedDisposable<T>.ReferenceCount
+  nameWithType.vb: SharedDisposable(Of T).ReferenceCount
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.ReferenceCount*
+  name: ReferenceCount
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_ReferenceCount_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.ReferenceCount
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.ReferenceCount
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).ReferenceCount
+  nameWithType: SharedDisposable<T>.ReferenceCount
+  nameWithType.vb: SharedDisposable(Of T).ReferenceCount
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Release(`0)
   name: Release(T)
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Release__0_
-  commentId: M:Kampute.HttpClient.SharedDisposableManager`1.Release(`0)
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Release(T)
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Release(T)
-  nameWithType: SharedDisposableManager<T>.Release(T)
-  nameWithType.vb: SharedDisposableManager(Of T).Release(T)
-- uid: Kampute.HttpClient.SharedDisposableManager`1.Release*
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Release__0_
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Release(`0)
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Release(T)
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Release(T)
+  nameWithType: SharedDisposable<T>.Release(T)
+  nameWithType.vb: SharedDisposable(Of T).Release(T)
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Release*
   name: Release
-  href: api/Kampute.HttpClient.SharedDisposableManager-1.html#Kampute_HttpClient_SharedDisposableManager_1_Release_
-  commentId: Overload:Kampute.HttpClient.SharedDisposableManager`1.Release
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Release_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Release
   isSpec: "True"
-  fullName: Kampute.HttpClient.SharedDisposableManager<T>.Release
-  fullName.vb: Kampute.HttpClient.SharedDisposableManager(Of T).Release
-  nameWithType: SharedDisposableManager<T>.Release
-  nameWithType.vb: SharedDisposableManager(Of T).Release
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Release
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Release
+  nameWithType: SharedDisposable<T>.Release
+  nameWithType.vb: SharedDisposable(Of T).Release
 - uid: Kampute.HttpClient.Xml
   name: Kampute.HttpClient.Xml
   href: api/Kampute.HttpClient.Xml.html

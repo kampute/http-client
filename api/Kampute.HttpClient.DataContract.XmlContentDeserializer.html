@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_DataContract_XmlContentDeserializer" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer" class="text-break">
-Class XmlContentDeserializer  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L23"><i class="bi bi-code-slash"></i></a>
+Class XmlContentDeserializer  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -156,7 +156,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_Settings" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.Settings">
   Settings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the XML deserialization settings.</p>
@@ -189,7 +189,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_SupportedMediaTypes" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes">
   SupportedMediaTypes
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the collection of media types that this deserializer supports.</p>
@@ -207,7 +207,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>The collection of media types that this deserializer supports.</p>
+    <dd><p>The read-only collection of media types that this deserializer supports.</p>
 </dd>
   </dl>
 
@@ -226,7 +226,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_CanDeserialize_System_String_System_Type_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(System.String,System.Type)">
   CanDeserialize(string, Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether this deserializer can handle data of a specific content type and deserialize it into the specified model type.</p>
@@ -243,14 +243,15 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
     <dd><p>The media type of the content.</p>
 </dd>
     <dt><code>modelType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-    <dd><p>The type of the model to be deserialized.</p>
+    <dd><p>The target model type for deserialization.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if this deserializer can handle the specified content type and model type; otherwise, <code>false</code>.</p>
+    <dd><p><code>true</code> if the deserializer supports the media type and the model type is not <code>null</code> and is marked with
+a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datacontractattribute">DataContractAttribute</a>; otherwise, <code>false</code>.</p>
 </dd>
   </dl>
 
@@ -268,7 +269,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)">
   DeserializeAsync(HttpContent, Type, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L77"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously reads an object from the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a>.</p>
@@ -319,7 +320,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_GetSupportedMediaTypes_System_Type_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)">
   GetSupportedMediaTypes(Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a collection of supported media types for a specific model type.</p>
@@ -340,7 +341,8 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>A read-only collection of strings representing the media types supported for the specified model type.</p>
+    <dd><p>The read-only collection of media types that this deserializer supports if the model type is not <code>null</code> and
+is marked with a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datacontractattribute">DataContractAttribute</a>; otherwise, an empty collection.</p>
 </dd>
   </dl>
 

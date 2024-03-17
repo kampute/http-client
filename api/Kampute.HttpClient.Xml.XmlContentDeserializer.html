@@ -174,7 +174,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>The collection of media types that this deserializer supports.</p>
+    <dd><p>The read-only collection of media types that this deserializer supports.</p>
 </dd>
   </dl>
 
@@ -210,14 +210,14 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
     <dd><p>The media type of the content.</p>
 </dd>
     <dt><code>modelType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-    <dd><p>The type of the model to be deserialized.</p>
+    <dd><p>The target model type for deserialization.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if this deserializer can handle the specified content type and model type; otherwise, <code>false</code>.</p>
+    <dd><p><code>true</code> if the deserializer supports the media type and the model type is not <code>null</code>; otherwise, <code>false</code>.</p>
 </dd>
   </dl>
 
@@ -307,7 +307,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>A read-only collection of strings representing the media types supported for the specified model type.</p>
+    <dd><p>The read-only collection of media types that this deserializer supports if model type is not <code>null</code>; otherwise, an empty collection.</p>
 </dd>
   </dl>
 

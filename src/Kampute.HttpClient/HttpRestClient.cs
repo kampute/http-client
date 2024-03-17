@@ -6,6 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.HttpClient.Utilities;
     using System;
     using System.IO;
     using System.Net;
@@ -52,7 +53,7 @@ namespace Kampute.HttpClient
     {
         private static readonly MediaTypeWithQualityHeaderValue AnyMediaType = new("*/*", 0.1);
 
-        private static readonly SharedDisposableManager<HttpClient> _sharedHttpClient = new(() =>
+        private static readonly SharedDisposable<HttpClient> _sharedHttpClient = new(() =>
         {
             var messageHandler = new HttpClientHandler
             {
@@ -191,23 +192,22 @@ namespace Kampute.HttpClient
         /// <value>
         /// The <see cref="Type"/> used to deserialize the response body when the response status code indicates an error.
         /// </value>
-        /// <exception cref="ArgumentException">Thrown if the specified type does not implement the <see cref="IHttpErrorResponse"/> interface.</exception>
         /// <remarks>
         /// <para>
-        /// This property specifies the <see cref="Type"/> that the <see cref="HttpRestClient"/> will use to deserialize the response content 
-        /// in cases where the HTTP response indicates an error. 
+        /// This property specifies the <see cref="Type"/> that the <see cref="HttpRestClient"/> will use to deserialize the response content in cases
+        /// where the HTTP response indicates an error. It is important to ensure that the custom type specified is compatible with the expected error
+        /// response format and can be deserialized by the content deserializers available to the <see cref="HttpRestClient"/>.
         /// </para>
         /// <para>
-        /// It is important to ensure that the custom type specified is compatible with the expected error response format and can be deserialized by the 
-        /// content deserializers available to the <see cref="HttpRestClient"/>. Additionally, the type must implement the <see cref="IHttpErrorResponse"/>
-        /// interface to be eligible as a value for this property.
+        /// When the specified type implements the <see cref="IHttpErrorResponse"/> interface, the deserialized object is utilized to construct a more
+        /// informative exception. This mechanism enables the integration of custom error handling strategies by leveraging structured error information
+        /// returned from the server.
         /// </para>
         /// </remarks>
         public Type? ResponseErrorType
         {
             get => _responseErrorType;
-            set => _responseErrorType = value is null || typeof(IHttpErrorResponse).IsAssignableFrom(value) ? value
-                : throw new ArgumentException($"The type must implement {nameof(IHttpErrorResponse)} to be used for {nameof(ResponseErrorType)}.", nameof(ResponseErrorType));
+            set => _responseErrorType = value;
         }
 
         /// <summary>
@@ -603,6 +603,7 @@ namespace Kampute.HttpClient
                 : new HttpResponseException(response.StatusCode, $"Request failed with status code {(int)response.StatusCode} {response.ReasonPhrase}.");
 
             exception.ResponseMessage = response;
+            exception.ResponseObject = responseObject;
             return exception;
         }
 

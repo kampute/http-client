@@ -7,6 +7,7 @@ namespace Kampute.HttpClient.ErrorHandlers
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.Interfaces;
+    using Kampute.HttpClient.Utilities;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace Kampute.HttpClient.ErrorHandlers
     {
         private const string AlreadyRetried = nameof(HttpError401Handler) + "." + nameof(AlreadyRetried);
 
-        private readonly ConcurrentDictionary<HttpRestClient, AuthenticationState> _authenticationStates = new();
+        private readonly ConcurrentDictionary<HttpRestClient, AsyncGuard<bool>> _authenticationStates = new();
         private readonly Func<HttpRestClient, IEnumerable<AuthenticationHeaderValue>, CancellationToken, Task<AuthenticationHeaderValue?>> _asyncAuthenticator;
 
         /// <summary>
@@ -174,38 +175,33 @@ namespace Kampute.HttpClient.ErrorHandlers
             var state = _authenticationStates.GetOrAdd(client, owner =>
             {
                 owner.Disposing += ClientDisposing;
-                return new AuthenticationState();
+                return new AsyncGuard<bool>(false);
             });
 
-            if (await state.TryAcquireAsync(cancellationToken).ConfigureAwait(false))
+            await state.TryUpdateAsync(async () =>
             {
-                state.LastAuthenticationResult = false;
-                try
-                {
-                    // To avoid deadlock, we use another client without this instance of UnauthorizedHttpErrorHandler.
-                    // This is necessary because invoking the OnAuthenticationChallenge delegate could potentially lead to a recursive situation
-                    // where an authentication request itself returns a 401 Unauthorized response. If the original client with the unauthorized error
-                    // handler is used for this authentication request, it could trigger the error handling mechanism again, leading to a deadlock
-                    // as the system waits indefinitely for the authentication process to complete. By cloning the client and removing this
-                    // UnauthorizedHttpErrorHandler from the list of error handlers, we ensure that authentication requests made within the delegate
-                    // do not re-enter the error handling process, thus preventing a deadlock situation. The helper client is a temporary
-                    // solution used solely for the purpose of authentication and is disposed of after use to ensure resource cleanup.
-                    using var helperClient = (HttpRestClient)client.Clone();
-                    helperClient.ErrorHandlers.Remove(this);
+                // To avoid deadlock, we use another client without this instance of UnauthorizedHttpErrorHandler.
+                // This is necessary because invoking the OnAuthenticationChallenge delegate could potentially lead to a recursive situation
+                // where an authentication request itself returns a 401 Unauthorized response. If the original client with the unauthorized error
+                // handler is used for this authentication request, it could trigger the error handling mechanism again, leading to a deadlock
+                // as the system waits indefinitely for the authentication process to complete. By cloning the client and removing this
+                // UnauthorizedHttpErrorHandler from the list of error handlers, we ensure that authentication requests made within the delegate
+                // do not re-enter the error handling process, thus preventing a deadlock situation. The helper client is a temporary
+                // solution used solely for the purpose of authentication and is disposed of after use to ensure resource cleanup.
+                using var helperClient = (HttpRestClient)client.Clone();
+                helperClient.ErrorHandlers.Remove(this);
 
-                    var authorization = await _asyncAuthenticator(helperClient, challenges, cancellationToken).ConfigureAwait(false);
-                    if (authorization is not null)
-                    {
-                        client.DefaultRequestHeaders.Authorization = authorization;
-                        state.LastAuthenticationResult = true;
-                    }
-                }
-                finally
+                var authorization = await _asyncAuthenticator(helperClient, challenges, cancellationToken).ConfigureAwait(false);
+                if (authorization is not null)
                 {
-                    state.Release();
+                    client.DefaultRequestHeaders.Authorization = authorization;
+                    return true;
                 }
-            }
-            return state.LastAuthenticationResult;
+                return false;
+
+            }, cancellationToken);
+
+            return state.Value;
         }
 
         /// <summary>
@@ -259,80 +255,5 @@ namespace Kampute.HttpClient.ErrorHandlers
         {
             _authenticationStates.TryRemove((HttpRestClient)sender, out _);
         }
-
-        #region Helper Class
-
-        /// <summary>
-        /// Represents the authentication state for an instance of <see cref="HttpRestClient"/>.
-        /// </summary>
-        /// <remarks>
-        /// This private class is designed to manage and encapsulate the state of authentication for a specific <see cref="HttpRestClient"/>.
-        /// It provides mechanisms to track whether authentication is currently being attempted , as well as whether the client has been 
-        /// successfully authenticated. It ensures that authentication attempts are synchronized, preventing concurrent authentication 
-        /// attempts on the same client instance which could lead to race conditions or other unintended behaviors.
-        /// </remarks>
-        private class AuthenticationState : IDisposable
-        {
-            private readonly SemaphoreSlim _semaphore = new(1, 1);
-            private volatile bool _lastAutneticationResult = false;
-            private long _lastAuthenticationTime = 0;
-
-            /// <summary>
-            /// Gets or sets a value indicating whether the client was successfully authenticated on the last authentication attempt.
-            /// </summary>
-            /// <value>
-            /// A <see cref="bool"/> value indicating whether the client was successfully authenticated on the last authentication attempt.
-            /// </value>
-            public bool LastAuthenticationResult
-            {
-                get => _lastAutneticationResult;
-                set => _lastAutneticationResult = value;
-            }
-
-            /// <summary>
-            /// Asynchronously attempts to acquire the authentication lock, indicating that an authentication process is starting.
-            /// </summary>
-            /// <param name="cancellationToken">A token for canceling the operation.</param>
-            /// <returns>A task that resolves to <c>true</c> if the lock was successfully acquired and authentication should proceed;
-            /// otherwise, <c>false</c> if another authentication process is already underway.</returns>
-            /// <remarks>
-            /// This method ensures that only one authentication process can be active at a time for a given client instance. If
-            /// the lock is successfully acquired, it indicates that no other authentication process is currently underway for this
-            /// client, and the caller can proceed with authentication.
-            /// </remarks>
-            public async Task<bool> TryAcquireAsync(CancellationToken cancellationToken)
-            {
-                var authenticationTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                await _semaphore.WaitAsync(cancellationToken);
-                if (Interlocked.Read(ref _lastAuthenticationTime) < authenticationTime)
-                    return true;
-
-                _semaphore.Release();
-                return false;
-            }
-
-            /// <summary>
-            /// Releases the authentication lock, indicating that the authentication process has completed.
-            /// </summary>
-            /// <remarks>
-            /// This method should be called when an authentication attempt has finished, regardless of its outcome. It signals
-            /// that the current authentication process is complete, allowing other authentication attempts to proceed.
-            /// </remarks>
-            public void Release()
-            {
-                Interlocked.Exchange(ref _lastAuthenticationTime, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
-                _semaphore.Release();
-            }
-
-            /// <summary>
-            /// Releases all resources used by the <see cref="AuthenticationState"/>.
-            /// </summary>
-            public void Dispose()
-            {
-                _semaphore.Dispose();
-            }
-        }
-
-        #endregion
     }
 }

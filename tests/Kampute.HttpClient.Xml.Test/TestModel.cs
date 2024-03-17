@@ -4,7 +4,6 @@
     using System.Net;
     using System.Text;
 
-    [Serializable]
     public class TestModel
     {
         public string? Name { get; set; }

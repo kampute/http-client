@@ -33,7 +33,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// Gets the collection of media types that this deserializer supports.
         /// </summary>
         /// <value>
-        /// The collection of media types that this deserializer supports.
+        /// The read-only collection of media types that this deserializer supports.
         /// </value>
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Json];
 
@@ -41,7 +41,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// Retrieves a collection of supported media types for a specific model type.
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
-        /// <returns>A read-only collection of strings representing the media types supported for the specified model type.</returns>
+        /// <returns>The read-only collection of media types that this deserializer supports if model type is not <c>null</c>; otherwise, an empty collection.</returns>
         public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
         {
             return modelType is not null ? SupportedMediaTypes : Array.Empty<string>();
@@ -52,7 +52,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// </summary>
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The type of the model to be deserialized.</param>
-        /// <returns><c>true</c> if this deserializer can handle the specified content type and model type; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the deserializer supports the media type and the model type is not <c>null</c>; otherwise, <c>false</c>.</returns>
         public bool CanDeserialize(string mediaType, Type? modelType)
         {
             return modelType is not null && SupportedMediaTypes.Contains(mediaType);

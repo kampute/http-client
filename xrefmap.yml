@@ -996,22 +996,47 @@ references:
   fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.Find(Of T)()
   nameWithType: HttpContentDeserializerCollection.Find<T>()
   nameWithType.vb: HttpContentDeserializerCollection.Find(Of T)()
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.For(System.String,System.Type)
-  name: For(string, Type)
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_For_System_String_System_Type_
-  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.For(System.String,System.Type)
-  name.vb: For(String, Type)
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.For(string, System.Type)
-  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.For(String, System.Type)
-  nameWithType: HttpContentDeserializerCollection.For(string, Type)
-  nameWithType.vb: HttpContentDeserializerCollection.For(String, Type)
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.For*
-  name: For
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_For_
-  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.For
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type)
+  name: GetAcceptableMediaTypes(Type?)
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetAcceptableMediaTypes_System_Type_
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type)
+  name.vb: GetAcceptableMediaTypes(Type)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type?)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type)
+  nameWithType: HttpContentDeserializerCollection.GetAcceptableMediaTypes(Type?)
+  nameWithType.vb: HttpContentDeserializerCollection.GetAcceptableMediaTypes(Type)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type,System.Type)
+  name: GetAcceptableMediaTypes(Type?, Type?)
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetAcceptableMediaTypes_System_Type_System_Type_
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type,System.Type)
+  name.vb: GetAcceptableMediaTypes(Type, Type)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type?, System.Type?)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type, System.Type)
+  nameWithType: HttpContentDeserializerCollection.GetAcceptableMediaTypes(Type?, Type?)
+  nameWithType.vb: HttpContentDeserializerCollection.GetAcceptableMediaTypes(Type, Type)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes*
+  name: GetAcceptableMediaTypes
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetAcceptableMediaTypes_
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes
   isSpec: "True"
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.For
-  nameWithType: HttpContentDeserializerCollection.For
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes
+  nameWithType: HttpContentDeserializerCollection.GetAcceptableMediaTypes
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor(System.String,System.Type)
+  name: GetDeserializerFor(string, Type)
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetDeserializerFor_System_String_System_Type_
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor(System.String,System.Type)
+  name.vb: GetDeserializerFor(String, Type)
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor(string, System.Type)
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor(String, System.Type)
+  nameWithType: HttpContentDeserializerCollection.GetDeserializerFor(string, Type)
+  nameWithType.vb: HttpContentDeserializerCollection.GetDeserializerFor(String, Type)
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor*
+  name: GetDeserializerFor
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetDeserializerFor_
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor
+  nameWithType: HttpContentDeserializerCollection.GetDeserializerFor
 - uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
   name: GetEnumerator()
   href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetEnumerator
@@ -1025,31 +1050,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator
   nameWithType: HttpContentDeserializerCollection.GetEnumerator
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
-  name: GetSupportedMediaTypes(Type?)
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetSupportedMediaTypes_System_Type_
-  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
-  name.vb: GetSupportedMediaTypes(Type)
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type?)
-  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type)
-  nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type?)
-  nameWithType.vb: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type)
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type,System.Type)
-  name: GetSupportedMediaTypes(Type?, Type?)
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetSupportedMediaTypes_System_Type_System_Type_
-  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type,System.Type)
-  name.vb: GetSupportedMediaTypes(Type, Type)
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type?, System.Type?)
-  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes(System.Type, System.Type)
-  nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type?, Type?)
-  nameWithType.vb: HttpContentDeserializerCollection.GetSupportedMediaTypes(Type, Type)
-- uid: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes*
-  name: GetSupportedMediaTypes
-  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_GetSupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.GetSupportedMediaTypes
-  nameWithType: HttpContentDeserializerCollection.GetSupportedMediaTypes
 - uid: Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
   name: Remove(IHttpContentDeserializer)
   href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_
@@ -1119,6 +1119,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpContentException.Content
   nameWithType: HttpContentException.Content
+- uid: Kampute.HttpClient.HttpContentException.ObjectType
+  name: ObjectType
+  href: api/Kampute.HttpClient.HttpContentException.html#Kampute_HttpClient_HttpContentException_ObjectType
+  commentId: P:Kampute.HttpClient.HttpContentException.ObjectType
+  fullName: Kampute.HttpClient.HttpContentException.ObjectType
+  nameWithType: HttpContentException.ObjectType
+- uid: Kampute.HttpClient.HttpContentException.ObjectType*
+  name: ObjectType
+  href: api/Kampute.HttpClient.HttpContentException.html#Kampute_HttpClient_HttpContentException_ObjectType_
+  commentId: Overload:Kampute.HttpClient.HttpContentException.ObjectType
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpContentException.ObjectType
+  nameWithType: HttpContentException.ObjectType
 - uid: Kampute.HttpClient.HttpContentExtensions
   name: HttpContentExtensions
   href: api/Kampute.HttpClient.HttpContentExtensions.html
@@ -1209,19 +1222,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpErrorHandlerCollection.Count
   nameWithType: HttpErrorHandlerCollection.Count
-- uid: Kampute.HttpClient.HttpErrorHandlerCollection.For(System.Net.HttpStatusCode)
-  name: For(HttpStatusCode)
-  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_For_System_Net_HttpStatusCode_
-  commentId: M:Kampute.HttpClient.HttpErrorHandlerCollection.For(System.Net.HttpStatusCode)
-  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.For(System.Net.HttpStatusCode)
-  nameWithType: HttpErrorHandlerCollection.For(HttpStatusCode)
-- uid: Kampute.HttpClient.HttpErrorHandlerCollection.For*
-  name: For
-  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_For_
-  commentId: Overload:Kampute.HttpClient.HttpErrorHandlerCollection.For
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.For
-  nameWithType: HttpErrorHandlerCollection.For
 - uid: Kampute.HttpClient.HttpErrorHandlerCollection.GetEnumerator
   name: GetEnumerator()
   href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_GetEnumerator
@@ -1235,6 +1235,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpErrorHandlerCollection.GetEnumerator
   nameWithType: HttpErrorHandlerCollection.GetEnumerator
+- uid: Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor(System.Net.HttpStatusCode)
+  name: GetHandlersFor(HttpStatusCode)
+  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_GetHandlersFor_System_Net_HttpStatusCode_
+  commentId: M:Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor(System.Net.HttpStatusCode)
+  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor(System.Net.HttpStatusCode)
+  nameWithType: HttpErrorHandlerCollection.GetHandlersFor(HttpStatusCode)
+- uid: Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor*
+  name: GetHandlersFor
+  href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_GetHandlersFor_
+  commentId: Overload:Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor
+  nameWithType: HttpErrorHandlerCollection.GetHandlersFor
 - uid: Kampute.HttpClient.HttpErrorHandlerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpErrorHandler)
   name: Remove(IHttpErrorHandler)
   href: api/Kampute.HttpClient.HttpErrorHandlerCollection.html#Kampute_HttpClient_HttpErrorHandlerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpErrorHandler_

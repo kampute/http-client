@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_HttpErrorHandlerCollection" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection" class="text-break">
-Class HttpErrorHandlerCollection  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L33"><i class="bi bi-code-slash"></i></a>
+Class HttpErrorHandlerCollection  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -149,17 +149,8 @@ Class HttpErrorHandlerCollection  <a class="header-action link-secondary" title=
 
 
   <h2 id="Kampute_HttpClient_HttpErrorHandlerCollection_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>
-This collection enables the management of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instances for handling HTTP errors, 
-with capabilities such as adding, removing, and querying error handlers based on HTTP status codes. It leverages 
-an internal caching mechanism to optimize the retrieval of error handlers for specific HTTP status codes. 
-</p>
-<p>
-This cache is dynamically updated to reflect changes in the collection, ensuring that queries for error handlers 
-are performed efficiently. The use of caching minimizes the need to repeatedly evaluate which handlers are applicable 
-for a given status code, thereby enhancing performance, especially in scenarios where error handling is a frequent 
-operation.
-</p>
+  <div class="markdown level0 remarks"><p>This collection enables the management of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instances for handling HTTP errors,
+with capabilities such as adding, removing, and querying error handlers based on HTTP status codes.</p>
 </div>
 
 
@@ -171,7 +162,7 @@ operation.
 
   <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_Count" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.Count">
   Count
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the number of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instances contained in the collection.</p>
@@ -208,7 +199,7 @@ operation.
 
   <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_Add_Kampute_HttpClient_Interfaces_IHttpErrorHandler_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.Add(Kampute.HttpClient.Interfaces.IHttpErrorHandler)">
   Add(IHttpErrorHandler)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> to the collection.</p>
@@ -250,7 +241,7 @@ operation.
 
   <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_Clear" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.Clear">
   Clear()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes all items from the collection.</p>
@@ -277,7 +268,7 @@ operation.
 
   <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_Contains_Kampute_HttpClient_Interfaces_IHttpErrorHandler_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.Contains(Kampute.HttpClient.Interfaces.IHttpErrorHandler)">
   Contains(IHttpErrorHandler)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L102"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether the collection contains a specific <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a>.</p>
@@ -312,50 +303,11 @@ operation.
 
 
 
-  <a id="Kampute_HttpClient_HttpErrorHandlerCollection_For_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.For*"></a>
-
-  <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_For_System_Net_HttpStatusCode_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.For(System.Net.HttpStatusCode)">
-  For(HttpStatusCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L59"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Retrieves all <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instances in the collection that support handling a specific HTTP status code.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;IHttpErrorHandler&gt; For(HttpStatusCode statusCode)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>statusCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.httpstatuscode">HttpStatusCode</a></dt>
-    <dd><p>The HTTP status code to query.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a>&gt;</dt>
-    <dd><p>A read-only collection of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> that can handle the specified status code.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
   <a id="Kampute_HttpClient_HttpErrorHandlerCollection_GetEnumerator_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.GetEnumerator*"></a>
 
   <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_GetEnumerator" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.GetEnumerator">
   GetEnumerator()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L110"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection.</p>
@@ -384,11 +336,50 @@ operation.
 
 
 
+  <a id="Kampute_HttpClient_HttpErrorHandlerCollection_GetHandlersFor_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor*"></a>
+
+  <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_GetHandlersFor_System_Net_HttpStatusCode_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.GetHandlersFor(System.Net.HttpStatusCode)">
+  GetHandlersFor(HttpStatusCode)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves all <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instances in the collection that support handling a specific HTTP status code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IHttpErrorHandler&gt; GetHandlersFor(HttpStatusCode statusCode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>statusCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.httpstatuscode">HttpStatusCode</a></dt>
+    <dd><p>The HTTP status code to query.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a>&gt;</dt>
+    <dd><p>An enumrable of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> that can handle the specified status code.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Kampute_HttpClient_HttpErrorHandlerCollection_Remove_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.Remove*"></a>
 
   <h3 id="Kampute_HttpClient_HttpErrorHandlerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpErrorHandler_" data-uid="Kampute.HttpClient.HttpErrorHandlerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpErrorHandler)">
   Remove(IHttpErrorHandler)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpErrorHandlerCollection.cs/#L73"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes the first occurrence of a specific <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> from the collection.</p>

@@ -37,7 +37,7 @@ namespace Kampute.HttpClient.Xml
         /// <returns>The read-only collection of media types that this deserializer supports if model type is not <c>null</c>; otherwise, an empty collection.</returns>
         public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
         {
-            return modelType is not null ? SupportedMediaTypes : Array.Empty<string>();
+            return modelType is not null ? SupportedMediaTypes : [];
         }
 
         /// <summary>

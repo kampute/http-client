@@ -49,7 +49,7 @@ namespace Kampute.HttpClient.DataContract
         /// </returns>
         public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
         {
-            return modelType?.GetCustomAttribute<DataContractAttribute>() is not null ? SupportedMediaTypes : Array.Empty<string>();
+            return modelType?.GetCustomAttribute<DataContractAttribute>() is not null ? SupportedMediaTypes : [];
         }
 
         /// <summary>

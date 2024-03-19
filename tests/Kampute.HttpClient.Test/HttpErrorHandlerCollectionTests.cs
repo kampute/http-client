@@ -10,7 +10,7 @@
     public class HttpErrorHandlerCollectionTests
     {
         [Test]
-        public void For_StatusCode_ReturnsCorrectErrorHandlers()
+        public void GetHandlersFor_StatusCode_ReturnsCorrectErrorHandlers()
         {
             var statusCode = HttpStatusCode.Unauthorized;
             var collection = new HttpErrorHandlerCollection();
@@ -21,7 +21,7 @@
                 collection.Add(errorHandlerMock.Object);
             }
 
-            var result = collection.For(statusCode);
+            var result = collection.GetHandlersFor(statusCode);
 
             Assert.That(result, Has.Exactly(3).Items);
         }
@@ -102,68 +102,6 @@
             collection.Clear();
 
             Assert.That(collection, Is.Empty);
-        }
-
-        [Test]
-        public void Add_UpdatesCacheCorrectly()
-        {
-            var statusCode = HttpStatusCode.Unauthorized;
-            var collection = new HttpErrorHandlerCollection();
-            var errorHandlerMock = new Mock<IHttpErrorHandler>();
-            errorHandlerMock.Setup(errorHandler => errorHandler.CanHandle(statusCode)).Returns(true);
-
-            collection.Add(errorHandlerMock.Object);
-
-            var handlers = collection.For(statusCode);
-            Assert.That(handlers, Has.Count.EqualTo(1));
-            Assert.That(handlers, Contains.Item(errorHandlerMock.Object));
-        }
-
-        [Test]
-        public void Remove_UpdatesCacheCorrectly()
-        {
-            var statusCode = HttpStatusCode.Unauthorized;
-            var collection = new HttpErrorHandlerCollection();
-            var errorHandlerMock = new Mock<IHttpErrorHandler>();
-            errorHandlerMock.Setup(errorHandler => errorHandler.CanHandle(statusCode)).Returns(true);
-            collection.Add(errorHandlerMock.Object);
-
-            collection.Remove(errorHandlerMock.Object);
-
-            var handlers = collection.For(statusCode);
-            Assert.That(handlers, Is.Empty);
-        }
-
-        [Test]
-        public void Clear_UpdatesCacheCorrectly()
-        {
-            var statusCode = HttpStatusCode.Unauthorized;
-            var collection = new HttpErrorHandlerCollection();
-            var errorHandlerMock = new Mock<IHttpErrorHandler>();
-            errorHandlerMock.Setup(errorHandler => errorHandler.CanHandle(statusCode)).Returns(true);
-
-            collection.Clear();
-
-            var handlers = collection.For(statusCode);
-            Assert.That(handlers, Is.Empty);
-        }
-
-        [Test]
-        public void CacheConsistencyAfterMultipleOperations()
-        {
-            var statusCode = HttpStatusCode.Unauthorized;
-            var collection = new HttpErrorHandlerCollection();
-            var errorHandlerMock1 = new Mock<IHttpErrorHandler>();
-            errorHandlerMock1.Setup(errorHandler => errorHandler.CanHandle(statusCode)).Returns(true);
-            var errorHandlerMock2 = new Mock<IHttpErrorHandler>();
-            errorHandlerMock2.Setup(errorHandler => errorHandler.CanHandle(statusCode)).Returns(false);
-
-            collection.Add(errorHandlerMock1.Object);
-            collection.Add(errorHandlerMock2.Object);
-            collection.Remove(errorHandlerMock1.Object);
-
-            var handlers = collection.For(statusCode);
-            Assert.That(handlers, Is.Empty);
         }
     }
 }

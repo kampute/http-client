@@ -49,5 +49,13 @@ namespace Kampute.HttpClient
         /// The HTTP content associated with the exception, if any.
         /// </value>
         public HttpContent? Content { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expected type for deserialization when the exception occurred.
+        /// </summary>
+        /// <value>
+        /// The type expected to be deserialized from the HTTP content, if any.
+        /// </value>
+        public Type? ObjectType { get; set; }
     }
 }

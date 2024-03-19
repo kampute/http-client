@@ -8,32 +8,20 @@ namespace Kampute.HttpClient
     using Kampute.HttpClient.Interfaces;
     using System;
     using System.Collections;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Represents a specialized collection of <see cref="IHttpErrorHandler"/> instances.
     /// </summary>
     /// <remarks>
-    /// <para>
     /// This collection enables the management of <see cref="IHttpErrorHandler"/> instances for handling HTTP errors, 
-    /// with capabilities such as adding, removing, and querying error handlers based on HTTP status codes. It leverages 
-    /// an internal caching mechanism to optimize the retrieval of error handlers for specific HTTP status codes. 
-    /// </para>
-    /// <para>
-    /// This cache is dynamically updated to reflect changes in the collection, ensuring that queries for error handlers 
-    /// are performed efficiently. The use of caching minimizes the need to repeatedly evaluate which handlers are applicable 
-    /// for a given status code, thereby enhancing performance, especially in scenarios where error handling is a frequent 
-    /// operation.
-    /// </para>
+    /// with capabilities such as adding, removing, and querying error handlers based on HTTP status codes. 
     /// </remarks>
     public sealed class HttpErrorHandlerCollection : ICollection<IHttpErrorHandler>
     {
         private readonly List<IHttpErrorHandler> _collection = [];
-        private readonly ConcurrentDictionary<HttpStatusCode, IReadOnlyCollection<IHttpErrorHandler>> _cache = new();
 
         /// <summary>
         /// Gets the number of <see cref="IHttpErrorHandler"/> instances contained in the collection.
@@ -55,11 +43,10 @@ namespace Kampute.HttpClient
         /// Retrieves all <see cref="IHttpErrorHandler"/> instances in the collection that support handling a specific HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to query.</param>
-        /// <returns>A read-only collection of <see cref="IHttpErrorHandler"/> that can handle the specified status code.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IReadOnlyCollection<IHttpErrorHandler> For(HttpStatusCode statusCode)
+        /// <returns>An enumrable of <see cref="IHttpErrorHandler"/> that can handle the specified status code.</returns>
+        public IEnumerable<IHttpErrorHandler> GetHandlersFor(HttpStatusCode statusCode)
         {
-            return _cache.GetOrAdd(statusCode, _ => _collection.Where(errorHandler => errorHandler.CanHandle(statusCode)).ToArray());
+            return _collection.Where(errorHandler => errorHandler.CanHandle(statusCode));
         }
 
         /// <summary>
@@ -70,13 +57,12 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentException">Thrown if <paramref name="errorHandler"/> is already present in the collection, as duplicates are not allowed.</exception>
         public void Add(IHttpErrorHandler errorHandler)
         {
-            if (errorHandler == null)
+            if (errorHandler is null)
                 throw new ArgumentNullException(nameof(errorHandler));
             if (_collection.Contains(errorHandler))
                 throw new ArgumentException("A duplicate error handler cannot be added to the collection.", nameof(errorHandler));
 
             _collection.Add(errorHandler);
-            UpdateCacheForErrorHandler(errorHandler);
         }
 
         /// <summary>
@@ -86,12 +72,7 @@ namespace Kampute.HttpClient
         /// <returns><c>true</c> if <paramref name="errorHandler"/> was successfully removed from the collection; otherwise, <c>false</c>.</returns>
         public bool Remove(IHttpErrorHandler errorHandler)
         {
-            if (_collection.Remove(errorHandler))
-            {
-                UpdateCacheForErrorHandler(errorHandler);
-                return true;
-            }
-            return false;
+            return _collection.Remove(errorHandler);
         }
 
         /// <summary>
@@ -110,7 +91,6 @@ namespace Kampute.HttpClient
         public void Clear()
         {
             _collection.Clear();
-            _cache.Clear();
         }
 
         /// <summary>
@@ -139,27 +119,6 @@ namespace Kampute.HttpClient
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        /// <summary>
-        /// Updates the cache entries related to a specific <see cref="IHttpErrorHandler"/>.
-        /// </summary>
-        /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> for which the cache should be updated.</param>
-        /// <remarks>
-        /// This method removes the cache entries for HTTP status codes that the given <paramref name="errorHandler"/> can handle.
-        /// This ensures that the cache stays up-to-date when error handlers are added or removed from the collection.
-        /// </remarks>
-        private void UpdateCacheForErrorHandler(IHttpErrorHandler errorHandler)
-        {
-            if (_cache.Count == 0)
-                return;
-
-            var invalidatedCacheKeys = _cache.Keys.Where(errorHandler.CanHandle).ToList();
-            if (invalidatedCacheKeys.Count == 0)
-                return;
-
-            foreach (var statusCode in invalidatedCacheKeys)
-                _cache.TryRemove(statusCode, out _);
         }
     }
 }

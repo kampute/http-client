@@ -52,31 +52,28 @@ namespace Kampute.HttpClient
     public class HttpRestClient : IDisposable, ICloneable
     {
         private static readonly MediaTypeWithQualityHeaderValue AnyMediaType = new("*/*", 0.1);
+        private static readonly SharedDisposable<HttpClient> SharedHttpClient = new(CreateDefaultHttpClient);
 
-        private static readonly SharedDisposable<HttpClient> _sharedHttpClient = new(() =>
+        private static HttpClient CreateDefaultHttpClient()
         {
             var messageHandler = new HttpClientHandler
             {
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             };
             return new HttpClient(messageHandler, disposeHandler: true);
-        });
-
-        private readonly HttpClient _httpClient;
-        private readonly bool _disposeClient;
-
-        private Uri? _baseAddress = null;
-        private Type? _responseErrorType = null;
-        private IRetrySchedulerFactory _backoffStrategy = BackoffStrategies.None;
-        private readonly HttpErrorHandlerCollection _errorHandlers = [];
-        private readonly HttpContentDeserializerCollection _deserializers = [];
-        private readonly HttpRequestHeaders _defaultRequestHeaders = CreateRequestHeaders();
+        }
 
         private static HttpRequestHeaders CreateRequestHeaders()
         {
             using var request = new HttpRequestMessage();
             return request.Headers;
         }
+
+        private readonly HttpClient _httpClient;
+        private readonly bool _disposeClient;
+
+        private Uri? _baseAddress = null;
+        private IRetrySchedulerFactory _backoffStrategy = BackoffStrategies.None;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpRestClient"/> class with a default <see cref="HttpClient"/>.
@@ -94,7 +91,7 @@ namespace Kampute.HttpClient
         /// </para>
         /// </remarks>
         public HttpRestClient()
-            : this(_sharedHttpClient.Acquire(), false)
+            : this(SharedHttpClient.Acquire(), false)
         {
         }
 
@@ -204,11 +201,7 @@ namespace Kampute.HttpClient
         /// returned from the server.
         /// </para>
         /// </remarks>
-        public Type? ResponseErrorType
-        {
-            get => _responseErrorType;
-            set => _responseErrorType = value;
-        }
+        public Type? ResponseErrorType { get; set; }
 
         /// <summary>
         /// Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.
@@ -237,7 +230,7 @@ namespace Kampute.HttpClient
         /// This property provides access to a collection of <see cref="IHttpErrorHandler"/> instances that are used to handle 
         /// HTTP error responses. The handlers in this collection are tried in order to handle errors.
         /// </remarks>
-        public HttpErrorHandlerCollection ErrorHandlers => _errorHandlers;
+        public HttpErrorHandlerCollection ErrorHandlers { get; } = [];
 
         /// <summary>
         /// Gets the mutable collection of HTTP content deserializers used for deserializing response content.
@@ -250,7 +243,7 @@ namespace Kampute.HttpClient
         /// deserialize the content of HTTP responses. The deserializers in this list are tried in order to deserialize the response 
         /// content into .NET objects.
         /// </remarks>
-        public HttpContentDeserializerCollection ResponseDeserializers => _deserializers;
+        public HttpContentDeserializerCollection ResponseDeserializers { get; } = [];
 
         /// <summary>
         ///  Gets the headers which should be sent with each request.
@@ -258,7 +251,7 @@ namespace Kampute.HttpClient
         /// <value>
         /// The headers which should be sent with each request.
         /// </value>
-        public HttpRequestHeaders DefaultRequestHeaders => _defaultRequestHeaders;
+        public HttpRequestHeaders DefaultRequestHeaders { get; } = CreateRequestHeaders();
 
         /// <summary>
         /// Creates a copy of the current <see cref="HttpRestClient"/> instance.
@@ -271,19 +264,19 @@ namespace Kampute.HttpClient
         /// </remarks>
         public object Clone()
         {
-            var clone = new HttpRestClient(_sharedHttpClient.Is(_httpClient) ? _sharedHttpClient.Acquire() : _httpClient, false)
+            var clone = new HttpRestClient(SharedHttpClient.Is(_httpClient) ? SharedHttpClient.Acquire() : _httpClient, false)
             {
                 _baseAddress = _baseAddress,
-                _responseErrorType = _responseErrorType,
                 _backoffStrategy = _backoffStrategy,
+                ResponseErrorType = ResponseErrorType,
             };
 
-            foreach (var errorHandler in _errorHandlers)
-                clone._errorHandlers.Add(errorHandler);
-            foreach (var deserializer in _deserializers)
-                clone._deserializers.Add(deserializer);
-            foreach (var header in _defaultRequestHeaders)
-                clone._defaultRequestHeaders.TryAddWithoutValidation(header.Key, header.Value);
+            foreach (var errorHandler in ErrorHandlers)
+                clone.ErrorHandlers.Add(errorHandler);
+            foreach (var deserializer in ResponseDeserializers)
+                clone.ResponseDeserializers.Add(deserializer);
+            foreach (var header in DefaultRequestHeaders)
+                clone.DefaultRequestHeaders.TryAddWithoutValidation(header.Key, header.Value);
 
             return clone;
         }
@@ -511,7 +504,7 @@ namespace Kampute.HttpClient
 
             var context = new HttpResponseErrorContext(this, request, response, error);
 
-            foreach (var errorHandler in _errorHandlers.For(response.StatusCode))
+            foreach (var errorHandler in ErrorHandlers.GetHandlersFor(response.StatusCode))
             {
                 var decision = await errorHandler.DecideOnRetryAsync(context, cancellationToken).ConfigureAwait(false);
                 if (decision.RequestToRetry is not null)
@@ -586,11 +579,11 @@ namespace Kampute.HttpClient
                 throw new ArgumentNullException(nameof(response));
 
             var responseObject = default(object);
-            if (_responseErrorType is not null)
+            if (ResponseErrorType is not null)
             {
                 try
                 {
-                    responseObject = await DeserializeContentAsync(response.Content, _responseErrorType, cancellationToken).ConfigureAwait(false);
+                    responseObject = await DeserializeContentAsync(response.Content, ResponseErrorType, cancellationToken).ConfigureAwait(false);
                 }
                 catch
                 {
@@ -630,30 +623,32 @@ namespace Kampute.HttpClient
                 return null;
 
             if (content.Headers.ContentType is null)
+                throw Error("The content type of the response is unknown.");
+
+            var deserializer = ResponseDeserializers.GetDeserializerFor(content.Headers.ContentType.MediaType, objectType)
+                ?? throw Error($"Unable to deserialize content of type '{content.Headers.ContentType.MediaType}' into '{objectType.Name}' due to the absence of a matching deserializer.");
+
+            try
             {
-                throw new HttpContentException("The content type of the response could not be determined.")
+                return await deserializer.DeserializeAsync(content, objectType, cancellationToken).ConfigureAwait(false);
+            }
+            catch (TaskCanceledException)
+            {
+                throw;
+            }
+            catch (Exception error)
+            {
+                throw Error($"Failed to deserialize the content of type '{content.Headers.ContentType.MediaType}' into '{objectType.Name}'. Check the inner exception for details.", error);
+            }
+
+            HttpContentException Error(string message, Exception? innerException = null)
+            {
+                return new HttpContentException(message, innerException)
                 {
-                    Content = content
+                    Content = content,
+                    ObjectType = objectType,
                 };
             }
-
-            var deserializerError = default(Exception);
-            foreach (var deserializer in _deserializers.For(content.Headers.ContentType.MediaType, objectType))
-            {
-                try
-                {
-                    return await deserializer.DeserializeAsync(content, objectType, cancellationToken).ConfigureAwait(false);
-                }
-                catch (Exception error)
-                {
-                    deserializerError = error;
-                }
-            }
-
-            throw new HttpContentException($"The content type '{content.Headers.ContentType.MediaType}' could not be converted into type '{objectType.Name}'.", deserializerError)
-            {
-                Content = content
-            };
         }
 
         /// <summary>
@@ -702,10 +697,10 @@ namespace Kampute.HttpClient
             var requestUri = _baseAddress is null ? new Uri(uri) : new Uri(_baseAddress, uri);
             var request = new HttpRequestMessage(method, requestUri);
 
-            foreach (var header in _defaultRequestHeaders)
+            foreach (var header in DefaultRequestHeaders)
                 request.Headers.TryAddWithoutValidation(header.Key, header.Value);
 
-            foreach (var mediaType in _deserializers.GetSupportedMediaTypes(responseObjectType, _responseErrorType))
+            foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
                 request.Headers.Accept.Add(mediaType);
 
             if (responseObjectType is null)
@@ -732,8 +727,8 @@ namespace Kampute.HttpClient
                 }
                 finally
                 {
-                    if (_sharedHttpClient.Is(_httpClient))
-                        _sharedHttpClient.Release(_httpClient);
+                    if (SharedHttpClient.Is(_httpClient))
+                        SharedHttpClient.Release(_httpClient);
                     else if (_disposeClient)
                         _httpClient.Dispose();
                 }

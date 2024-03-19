@@ -5,28 +5,27 @@
     using Moq;
     using NUnit.Framework;
     using System;
-    using System.Linq;
     using System.Net.Http.Headers;
 
     [TestFixture]
     public class HttpContentDeserializerCollectionTests
     {
         [Test]
-        public void For_MediaTypeAndModelType_ReturnsCorrectDeserializers()
+        public void GetDeserializerFor_MediaTypeAndModelType_ReturnsCorrectDeserializers()
         {
             var collection = new HttpContentDeserializerCollection
             {
                 new TestContentDeserializer()
             };
 
-            var result = collection.For(Constants.TestMediaType, typeof(string));
+            var result = collection.GetDeserializerFor(Constants.TestMediaType, typeof(string));
 
-            Assert.That(result, Has.Exactly(1).Items);
-            Assert.That(result.First(), Is.TypeOf<TestContentDeserializer>());
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.TypeOf<TestContentDeserializer>());
         }
 
         [Test]
-        public void GetSupportedMediaTypes_ModelType_ReturnsCorrectMediaTypes()
+        public void GetAcceptableMediaTypes_ModelType_ReturnsCorrectMediaTypeHeaderValues()
         {
             var modelType = typeof(string);
             var expectedMediaTypes = new[]
@@ -39,13 +38,13 @@
                 new TestContentDeserializer()
             };
 
-            var result = collection.GetSupportedMediaTypes(modelType);
+            var result = collection.GetAcceptableMediaTypes(modelType);
 
             Assert.That(result, Is.EqualTo(expectedMediaTypes));
         }
 
         [Test]
-        public void GetSupportedMediaTypes_ModelTypeAndErrorType_ReturnsCorrectMediaTypes()
+        public void GetAcceptableMediaTypes_ModelTypeAndErrorType_ReturnsCorrectMediaTypeHeaderValus()
         {
             var modelType = typeof(string);
             var errorType = typeof(object);
@@ -65,7 +64,7 @@
                 new TestContentDeserializer(),
             };
 
-            var result = collection.GetSupportedMediaTypes(modelType, errorType);
+            var result = collection.GetAcceptableMediaTypes(modelType, errorType);
 
             Assert.That(result, Is.EquivalentTo(expectedMediaTypes));
         }

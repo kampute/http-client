@@ -10,14 +10,11 @@
 
     internal class TestContentDeserializer : IHttpContentDeserializer
     {
-        public IReadOnlyCollection<string> SupportedMediaTypes { get; } = new[]
-        {
-            Constants.TestMediaType
-        };
+        public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [Constants.TestMediaType];
 
         public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
         {
-            return modelType is not null && CanParse(modelType) ? SupportedMediaTypes : Array.Empty<string>();
+            return modelType is not null && CanParse(modelType) ? SupportedMediaTypes : [];
         }
 
         public bool CanDeserialize(string mediaType, Type? modelType)

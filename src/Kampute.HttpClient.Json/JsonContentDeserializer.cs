@@ -43,7 +43,7 @@ namespace Kampute.HttpClient.Json
         /// <returns>The read-only collection of media types that this deserializer supports if model type is not <c>null</c>; otherwise, an empty collection.</returns>
         public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
         {
-            return modelType is not null ? SupportedMediaTypes : Array.Empty<string>();
+            return modelType is not null ? SupportedMediaTypes : [];
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <c>null</c>.</exception>
         public async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
         {
-            if (content == null)
+            if (content is null)
                 throw new ArgumentNullException(nameof(content));
-            if (modelType == null)
+            if (modelType is null)
                 throw new ArgumentNullException(nameof(modelType));
 
             var encoding = content.FindCharacterEncoding();

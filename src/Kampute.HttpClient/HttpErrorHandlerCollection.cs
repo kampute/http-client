@@ -57,7 +57,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentException">Thrown if <paramref name="errorHandler"/> is already present in the collection, as duplicates are not allowed.</exception>
         public void Add(IHttpErrorHandler errorHandler)
         {
-            if (errorHandler == null)
+            if (errorHandler is null)
                 throw new ArgumentNullException(nameof(errorHandler));
             if (_collection.Contains(errorHandler))
                 throw new ArgumentException("A duplicate error handler cannot be added to the collection.", nameof(errorHandler));

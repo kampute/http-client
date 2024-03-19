@@ -76,9 +76,9 @@ namespace Kampute.HttpClient.DataContract
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <c>null</c>.</exception>
         public async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
         {
-            if (content == null)
+            if (content is null)
                 throw new ArgumentNullException(nameof(content));
-            if (modelType == null)
+            if (modelType is null)
                 throw new ArgumentNullException(nameof(modelType));
 
             var encoding = content.FindCharacterEncoding() ?? Encoding.UTF8;

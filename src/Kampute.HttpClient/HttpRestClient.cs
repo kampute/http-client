@@ -511,7 +511,7 @@ namespace Kampute.HttpClient
 
             var context = new HttpResponseErrorContext(this, request, response, error);
 
-            foreach (var errorHandler in _errorHandlers.For(response.StatusCode))
+            foreach (var errorHandler in _errorHandlers.GetHandlersFor(response.StatusCode))
             {
                 var decision = await errorHandler.DecideOnRetryAsync(context, cancellationToken).ConfigureAwait(false);
                 if (decision.RequestToRetry is not null)

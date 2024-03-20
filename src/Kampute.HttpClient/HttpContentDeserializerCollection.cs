@@ -65,9 +65,6 @@ namespace Kampute.HttpClient
         /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <c>null</c> if none is found.</returns>
         public IHttpContentDeserializer? GetDeserializerFor(string mediaType, Type modelType)
         {
-            if (mediaType is null || modelType is null)
-                return null;
-
             foreach (var deserializer in _collection)
                 if (deserializer.CanDeserialize(mediaType, modelType))
                     return deserializer;

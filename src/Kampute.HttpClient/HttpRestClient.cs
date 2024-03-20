@@ -348,7 +348,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public async Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = null, CancellationToken cancellationToken = default)
         {
@@ -361,8 +361,7 @@ namespace Kampute.HttpClient
             request.Content = payload;
 
             using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
-            var content = await DeserializeContentAsync(response.Content, typeof(T), cancellationToken).ConfigureAwait(false);
-            return content is T value ? value : default;
+            return (T?)await DeserializeContentAsync(response, typeof(T), cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -579,13 +578,13 @@ namespace Kampute.HttpClient
                 throw new ArgumentNullException(nameof(response));
 
             var responseObject = default(object);
-            if (ResponseErrorType is not null)
+            if (ResponseErrorType is not null && response.Content is not null)
             {
                 try
                 {
-                    responseObject = await DeserializeContentAsync(response.Content, ResponseErrorType, cancellationToken).ConfigureAwait(false);
+                    responseObject = await DeserializeContentAsync(response, ResponseErrorType, cancellationToken).ConfigureAwait(false);
                 }
-                catch
+                catch (HttpContentException)
                 {
                     // Ignore errors
                 }
@@ -601,36 +600,38 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Asynchronously deserializes the content of an <see cref="HttpContent"/> object and converts it into an object of a specified type.
+        /// Asynchronously deserializes the body of an <see cref="HttpResponseMessage"/> and converts it into an object of a specified type.
         /// </summary>
-        /// <param name="content">The <see cref="HttpContent"/> to be read.</param>
-        /// <param name="objectType">The type of object to which the content is to be converted.</param>
+        /// <param name="response">The <see cref="HttpResponseMessage"/> to be read.</param>
+        /// <param name="objectType">The type of object to which the response body is to be converted.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
-        /// <returns>A task representing the asynchronous operation, with the deserialized content as an object. Returns null if there is no content.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="objectType"/> is <c>null</c>.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type is unknown, not supported, or if there is an error parsing the response body.</exception>
+        /// <returns>A task representing the asynchronous operation, with the deserialized response body as an object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> or <paramref name="objectType"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpContentException">Thrown when the response body is empty, the content type is unsupported, or parsing the response fails.</exception>
         /// <remarks>
         /// This method uses configured content deserializers for content deserialization and supports custom content types. In case of deserialization 
         /// failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about the parsing error. 
         /// </remarks>        
         /// <seealso cref="ResponseDeserializers"/>
-        protected async Task<object?> DeserializeContentAsync(HttpContent content, Type objectType, CancellationToken cancellationToken)
+        protected async Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
         {
+            if (response is null)
+                throw new ArgumentNullException(nameof(response));
             if (objectType is null)
                 throw new ArgumentNullException(nameof(objectType));
 
-            if (content is null || content.Headers.ContentLength == 0)
-                return null;
+            if (response.Content is null)
+                throw Error("The response body is empty.");
 
-            if (content.Headers.ContentType is null)
-                throw Error("The content type of the response is unknown.");
+            if (response.Content.Headers.ContentType is null)
+                throw Error("The content type of the response is missing.");
 
-            var deserializer = ResponseDeserializers.GetDeserializerFor(content.Headers.ContentType.MediaType, objectType)
-                ?? throw Error($"Unable to deserialize content of type '{content.Headers.ContentType.MediaType}' into '{objectType.Name}' due to the absence of a matching deserializer.");
+            var deserializer = ResponseDeserializers.GetDeserializerFor(response.Content.Headers.ContentType.MediaType, objectType)
+                ?? throw Error("Unable to deserialize response body due to the absence of a matching deserializer.");
 
             try
             {
-                return await deserializer.DeserializeAsync(content, objectType, cancellationToken).ConfigureAwait(false);
+                return await deserializer.DeserializeAsync(response.Content, objectType, cancellationToken).ConfigureAwait(false);
             }
             catch (TaskCanceledException)
             {
@@ -638,14 +639,14 @@ namespace Kampute.HttpClient
             }
             catch (Exception error)
             {
-                throw Error($"Failed to deserialize the content of type '{content.Headers.ContentType.MediaType}' into '{objectType.Name}'. Check the inner exception for details.", error);
+                throw Error("Failed to deserialize response body due to a parsing error. See inner exception for details.", error);
             }
 
             HttpContentException Error(string message, Exception? innerException = null)
             {
                 return new HttpContentException(message, innerException)
                 {
-                    Content = content,
+                    Content = response.Content,
                     ObjectType = objectType,
                 };
             }

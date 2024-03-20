@@ -35,7 +35,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task<T?> SendAsFormAsync<T>
         (
@@ -65,7 +65,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task<HttpResponseHeaders> SendAsFormAsync
         (
@@ -95,7 +95,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> PostAsFormAsync<T>
@@ -120,7 +120,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task PostAsFormAsync
@@ -146,7 +146,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> PutAsFormAsync<T>
@@ -171,7 +171,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task PutAsFormAsync
@@ -197,7 +197,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> PatchAsFormAsync<T>
@@ -222,7 +222,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task PatchAsFormAsync

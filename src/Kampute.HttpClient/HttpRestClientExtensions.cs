@@ -33,7 +33,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> GetAsync<T>(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
@@ -53,7 +53,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> PostAsync<T>(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
@@ -72,7 +72,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task PostAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
@@ -92,7 +92,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> PutAsync<T>(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
@@ -111,7 +111,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task PutAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
@@ -131,7 +131,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> PatchAsync<T>(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
@@ -150,7 +150,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task PatchAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
@@ -169,7 +169,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> DeleteAsync<T>(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
@@ -187,7 +187,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="HttpContentException">Thrown if the content type of the response is either unknown or not supported.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task DeleteAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)

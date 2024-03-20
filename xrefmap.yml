@@ -1132,6 +1132,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpContentException.ObjectType
   nameWithType: HttpContentException.ObjectType
+- uid: Kampute.HttpClient.HttpContentException.ToString
+  name: ToString()
+  href: api/Kampute.HttpClient.HttpContentException.html#Kampute_HttpClient_HttpContentException_ToString
+  commentId: M:Kampute.HttpClient.HttpContentException.ToString
+  fullName: Kampute.HttpClient.HttpContentException.ToString()
+  nameWithType: HttpContentException.ToString()
+- uid: Kampute.HttpClient.HttpContentException.ToString*
+  name: ToString
+  href: api/Kampute.HttpClient.HttpContentException.html#Kampute_HttpClient_HttpContentException_ToString_
+  commentId: Overload:Kampute.HttpClient.HttpContentException.ToString
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpContentException.ToString
+  nameWithType: HttpContentException.ToString
 - uid: Kampute.HttpClient.HttpContentExtensions
   name: HttpContentExtensions
   href: api/Kampute.HttpClient.HttpContentExtensions.html
@@ -1924,12 +1937,12 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpRestClient.DefaultRequestHeaders
   nameWithType: HttpRestClient.DefaultRequestHeaders
-- uid: Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
-  name: DeserializeContentAsync(HttpContent, Type, CancellationToken)
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
-  fullName: Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpContent, System.Type, System.Threading.CancellationToken)
-  nameWithType: HttpRestClient.DeserializeContentAsync(HttpContent, Type, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpResponseMessage,System.Type,System.Threading.CancellationToken)
+  name: DeserializeContentAsync(HttpResponseMessage, Type, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpResponseMessage_System_Type_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpResponseMessage,System.Type,System.Threading.CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpResponseMessage, System.Type, System.Threading.CancellationToken)
+  nameWithType: HttpRestClient.DeserializeContentAsync(HttpResponseMessage, Type, CancellationToken)
 - uid: Kampute.HttpClient.HttpRestClient.DeserializeContentAsync*
   name: DeserializeContentAsync
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_

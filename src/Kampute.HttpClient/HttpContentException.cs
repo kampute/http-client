@@ -7,6 +7,7 @@ namespace Kampute.HttpClient
 {
     using System;
     using System.Net.Http;
+    using System.Text;
 
     /// <summary>
     /// The exception that is thrown when an invalid or unsupported content is encountered in an HTTP response.
@@ -57,5 +58,30 @@ namespace Kampute.HttpClient
         /// The type expected to be deserialized from the HTTP content, if any.
         /// </value>
         public Type? ObjectType { get; set; }
+
+        /// <summary>
+        /// Creates and returns a string representation of the current exception.
+        /// </summary>
+        /// <returns>A string representation of the current exception.</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder(base.ToString());
+
+            if (Content is not null && Content.Headers.ContentType is not null)
+            {
+                sb.AppendLine();
+                sb.Append("Content Type: ");
+                sb.Append(Content.Headers.ContentType);
+            }
+
+            if (ObjectType is not null)
+            {
+                sb.AppendLine();
+                sb.Append("Expected Object Type: ");
+                sb.Append(ObjectType.Name);
+            }
+
+            return sb.ToString();
+        }
     }
 }

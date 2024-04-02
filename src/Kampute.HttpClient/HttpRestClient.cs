@@ -52,9 +52,10 @@ namespace Kampute.HttpClient
     public class HttpRestClient : IDisposable, ICloneable
     {
         private static readonly MediaTypeWithQualityHeaderValue AnyMediaType = new("*/*", 0.1);
-        private static readonly SharedDisposable<HttpClient> SharedHttpClient = new(CreateDefaultHttpClient);
+        private static readonly SharedDisposable<HttpClient> SharedHttpClient = new(CreateClient);
+        private static readonly Lazy<HttpContentHeaders> EmptyContentHeaders = new(CreateEmptyContentHeaders);
 
-        private static HttpClient CreateDefaultHttpClient()
+        private static HttpClient CreateClient()
         {
             var messageHandler = new HttpClientHandler
             {
@@ -67,6 +68,12 @@ namespace Kampute.HttpClient
         {
             using var request = new HttpRequestMessage();
             return request.Headers;
+        }
+
+        private static HttpContentHeaders CreateEmptyContentHeaders()
+        {
+            using var content = new ByteArrayContent([]);
+            return content.Headers;
         }
 
         private readonly HttpClient _httpClient;
@@ -299,22 +306,14 @@ namespace Kampute.HttpClient
         /// <param name="streamProvider">A function that returns a <see cref="Stream"/> based on the HTTP content headers.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains a <see cref="Stream"/> that represents the response content. If the response does
-        /// not contain content, returns <see cref="Stream.Null"/>.
+        /// A task that represents the asynchronous operation. The task result contains a <see cref="Stream"/> that represents the response content.
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/>, or <paramref name="streamProvider"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<Stream> DownloadAsync
-        (
-            HttpMethod method,
-            string uri,
-            HttpContent? payload,
-            Func<HttpContentHeaders, Stream> streamProvider,
-            CancellationToken cancellationToken = default
-        )
+        public async Task<Stream> DownloadAsync(HttpMethod method, string uri, HttpContent? payload, Func<HttpContentHeaders, Stream> streamProvider, CancellationToken cancellationToken = default)
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
@@ -327,12 +326,18 @@ namespace Kampute.HttpClient
             request.Content = payload;
 
             using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
-            if (response.Content is null || response.Content.Headers.ContentLength == 0)
-                return Stream.Null;
 
-            var stream = streamProvider(response.Content.Headers) ?? throw new InvalidOperationException("The stream provider must not return null.");
+            if (response.Content is null)
+                return GetStream(EmptyContentHeaders.Value);
+
+            var stream = GetStream(response.Content.Headers);
             await response.Content.CopyToAsync(stream).ConfigureAwait(false);
             return stream;
+
+            Stream GetStream(HttpContentHeaders contentHeaders)
+            {
+                return streamProvider(contentHeaders) ?? throw new InvalidOperationException("The stream provider must not return null.");
+            }
         }
 
         /// <summary>
@@ -577,7 +582,7 @@ namespace Kampute.HttpClient
                 throw new ArgumentNullException(nameof(response));
 
             var responseObject = default(object);
-            if (ResponseErrorType is not null && response.Content is not null)
+            if (ResponseErrorType is not null && response.Content is not null && response.Content.Headers.ContentLength != 0)
             {
                 try
                 {

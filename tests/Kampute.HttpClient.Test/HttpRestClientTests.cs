@@ -137,7 +137,7 @@
         }
 
         [Test]
-        public async Task DownlaodAsync_WhenResponseHasNoContent_ReturnsNullStream()
+        public async Task DownlaodAsync_WhenResponseHasNoContent_ReturnsEmptyStream()
         {
             var payload = "This is the request content";
 
@@ -154,7 +154,8 @@
 
             var resultStream = await _client.DownloadAsync(HttpMethod.Post, "/resource", new TestContent(payload), contentHeaders => new MemoryStream());
 
-            Assert.That(resultStream, Is.SameAs(Stream.Null));
+            Assert.That(resultStream, Is.Not.Null);
+            Assert.That(resultStream.Length, Is.Zero);
         }
 
         [Test]

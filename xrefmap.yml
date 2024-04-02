@@ -2004,6 +2004,22 @@ references:
   commentId: E:Kampute.HttpClient.HttpRestClient.Disposing
   fullName: Kampute.HttpClient.HttpRestClient.Disposing
   nameWithType: HttpRestClient.Disposing
+- uid: Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Func{System.Net.Http.Headers.HttpContentHeaders,System.IO.Stream},System.Threading.CancellationToken)
+  name: DownloadAsync(HttpMethod, string, HttpContent?, Func<HttpContentHeaders, Stream>, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DownloadAsync_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Func_System_Net_Http_Headers_HttpContentHeaders_System_IO_Stream__System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Func{System.Net.Http.Headers.HttpContentHeaders,System.IO.Stream},System.Threading.CancellationToken)
+  name.vb: DownloadAsync(HttpMethod, String, HttpContent, Func(Of HttpContentHeaders, Stream), CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod, string, System.Net.Http.HttpContent?, System.Func<System.Net.Http.Headers.HttpContentHeaders, System.IO.Stream>, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod, String, System.Net.Http.HttpContent, System.Func(Of System.Net.Http.Headers.HttpContentHeaders, System.IO.Stream), System.Threading.CancellationToken)
+  nameWithType: HttpRestClient.DownloadAsync(HttpMethod, string, HttpContent?, Func<HttpContentHeaders, Stream>, CancellationToken)
+  nameWithType.vb: HttpRestClient.DownloadAsync(HttpMethod, String, HttpContent, Func(Of HttpContentHeaders, Stream), CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClient.DownloadAsync*
+  name: DownloadAsync
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DownloadAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClient.DownloadAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClient.DownloadAsync
+  nameWithType: HttpRestClient.DownloadAsync
 - uid: Kampute.HttpClient.HttpRestClient.ErrorHandlers
   name: ErrorHandlers
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers
@@ -2017,22 +2033,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpRestClient.ErrorHandlers
   nameWithType: HttpRestClient.ErrorHandlers
-- uid: Kampute.HttpClient.HttpRestClient.FetchToStreamAsync(System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
-  name: FetchToStreamAsync(Stream, HttpMethod, string, HttpContent?, CancellationToken)
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_FetchToStreamAsync_System_IO_Stream_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.HttpRestClient.FetchToStreamAsync(System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
-  name.vb: FetchToStreamAsync(Stream, HttpMethod, String, HttpContent, CancellationToken)
-  fullName: Kampute.HttpClient.HttpRestClient.FetchToStreamAsync(System.IO.Stream, System.Net.Http.HttpMethod, string, System.Net.Http.HttpContent?, System.Threading.CancellationToken)
-  fullName.vb: Kampute.HttpClient.HttpRestClient.FetchToStreamAsync(System.IO.Stream, System.Net.Http.HttpMethod, String, System.Net.Http.HttpContent, System.Threading.CancellationToken)
-  nameWithType: HttpRestClient.FetchToStreamAsync(Stream, HttpMethod, string, HttpContent?, CancellationToken)
-  nameWithType.vb: HttpRestClient.FetchToStreamAsync(Stream, HttpMethod, String, HttpContent, CancellationToken)
-- uid: Kampute.HttpClient.HttpRestClient.FetchToStreamAsync*
-  name: FetchToStreamAsync
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_FetchToStreamAsync_
-  commentId: Overload:Kampute.HttpClient.HttpRestClient.FetchToStreamAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpRestClient.FetchToStreamAsync
-  nameWithType: HttpRestClient.FetchToStreamAsync
 - uid: Kampute.HttpClient.HttpRestClient.Finalize
   name: ~HttpRestClient()
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Finalize
@@ -2183,6 +2183,22 @@ references:
   fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.DeleteAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
   nameWithType: HttpRestClientExtensions.DeleteAsync<T>(HttpRestClient, string, CancellationToken)
   nameWithType.vb: HttpRestClientExtensions.DeleteAsync(Of T)(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient,System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
+  name: FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, string, HttpContent?, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_FetchToStreamAsync_Kampute_HttpClient_HttpRestClient_System_IO_Stream_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient,System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
+  name.vb: FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, String, HttpContent, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient, System.IO.Stream, System.Net.Http.HttpMethod, string, System.Net.Http.HttpContent?, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient, System.IO.Stream, System.Net.Http.HttpMethod, String, System.Net.Http.HttpContent, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, string, HttpContent?, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, String, HttpContent, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync*
+  name: FetchToStreamAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_FetchToStreamAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync
+  nameWithType: HttpRestClientExtensions.FetchToStreamAsync
 - uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsync*
   name: GetAsync
   href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsync_

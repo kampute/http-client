@@ -106,7 +106,7 @@
         }
 
         [Test]
-        public async Task FetchToStreamAsync_ReturnsContentHeaders()
+        public async Task DownlaodAsync_WhenResponseHasContent_ReturnsDownloadedStream()
         {
             var payload = "This is the request content";
             using var expectedStream = new MemoryStream([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -121,6 +121,7 @@
 
                 var content = new StreamContent(expectedStream);
                 content.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Octet);
+                content.Headers.ContentLength = expectedStream.Length;
 
                 return new HttpResponseMessage
                 {
@@ -129,16 +130,31 @@
                 };
             });
 
-            using var actualStream = new MemoryStream();
-            var contentHeaders = await _client.FetchToStreamAsync(actualStream, HttpMethod.Post, "/resource", new TestContent(payload));
+            var resultStream = await _client.DownloadAsync(HttpMethod.Post, "/resource", new TestContent(payload), contentHeaders => new MemoryStream()) as MemoryStream;
 
-            Assert.That(contentHeaders, Is.Not.Null);
-            Assert.Multiple(() =>
+            Assert.That(resultStream, Is.Not.Null);
+            Assert.That(resultStream.ToArray(), Is.EqualTo(expectedStream.ToArray()));
+        }
+
+        [Test]
+        public async Task DownlaodAsync_WhenResponseHasNoContent_ReturnsNullStream()
+        {
+            var payload = "This is the request content";
+
+            _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.That(contentHeaders.ContentType, Is.EqualTo(new MediaTypeHeaderValue(MediaTypeNames.Application.Octet)));
-                Assert.That(contentHeaders.ContentLength, Is.EqualTo(actualStream.Length));
-                Assert.That(actualStream.ToArray(), Is.EqualTo(expectedStream.ToArray()));
+                Assert.Multiple(() =>
+                {
+                    Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
+                    Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
+                });
+
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
             });
+
+            var resultStream = await _client.DownloadAsync(HttpMethod.Post, "/resource", new TestContent(payload), contentHeaders => new MemoryStream());
+
+            Assert.That(resultStream, Is.SameAs(Stream.Null));
         }
 
         [Test]

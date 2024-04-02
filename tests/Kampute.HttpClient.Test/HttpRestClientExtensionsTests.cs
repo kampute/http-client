@@ -5,8 +5,10 @@
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -14,12 +16,12 @@
     {
         private readonly TestContentDeserializer _testContentFormatter = new();
         private readonly Mock<HttpMessageHandler> _mockMessageHandler = new();
-        private HttpRestClient _restClient;
+        private HttpRestClient _client;
 
         private Uri AbsoluteUrl(string url)
         {
-            return _restClient.BaseAddress is not null
-                ? new Uri(_restClient.BaseAddress, url)
+            return _client.BaseAddress is not null
+                ? new Uri(_client.BaseAddress, url)
                 : new Uri(url);
         }
 
@@ -27,17 +29,17 @@
         public void Setup()
         {
             var httpClient = new HttpClient(_mockMessageHandler.Object, false);
-            _restClient = new HttpRestClient(httpClient)
+            _client = new HttpRestClient(httpClient)
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
-            _restClient.ResponseDeserializers.Add(_testContentFormatter);
+            _client.ResponseDeserializers.Add(_testContentFormatter);
         }
 
         [TearDown]
         public void Cleanup()
         {
-            _restClient.Dispose();
+            _client.Dispose();
         }
 
         [Test]
@@ -60,7 +62,7 @@
                 };
             });
 
-            var actualResult = await _restClient.GetAsync<string>("/resource");
+            var actualResult = await _client.GetAsync<string>("/resource");
 
             Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
@@ -87,7 +89,7 @@
                 };
             });
 
-            var actualResult = await _restClient.PostAsync<string>("/resource", new TestContent(payload));
+            var actualResult = await _client.PostAsync<string>("/resource", new TestContent(payload));
 
             Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
@@ -114,7 +116,7 @@
                 };
             });
 
-            var actualResult = await _restClient.PutAsync<string>("/resource", new TestContent(payload));
+            var actualResult = await _client.PutAsync<string>("/resource", new TestContent(payload));
 
             Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
@@ -141,7 +143,7 @@
                 };
             });
 
-            var actualResult = await _restClient.PatchAsync<string>("/resource", new TestContent(payload));
+            var actualResult = await _client.PatchAsync<string>("/resource", new TestContent(payload));
 
             Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
@@ -166,9 +168,45 @@
                 };
             });
 
-            var actualResult = await _restClient.DeleteAsync<string>("/resource");
+            var actualResult = await _client.DeleteAsync<string>("/resource");
 
             Assert.That(actualResult, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public async Task FetchToStreamAsync_LoadsStreamAndReturnsContentHeaders()
+        {
+            var payload = "This is the request content";
+            using var expectedStream = new MemoryStream([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
+                    Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
+                });
+
+                var content = new StreamContent(expectedStream);
+                content.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Octet);
+
+                return new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = content,
+                };
+            });
+
+            using var resultStream = new MemoryStream();
+            var contentHeaders = await _client.FetchToStreamAsync(resultStream, HttpMethod.Post, "/resource", new TestContent(payload));
+
+            Assert.That(contentHeaders, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(contentHeaders.ContentType, Is.EqualTo(new MediaTypeHeaderValue(MediaTypeNames.Application.Octet)));
+                Assert.That(contentHeaders.ContentLength, Is.EqualTo(resultStream.Length));
+                Assert.That(resultStream.ToArray(), Is.EqualTo(expectedStream.ToArray()));
+            });
         }
     }
 }

@@ -291,66 +291,65 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Retrieves data from the specified URI and writes it to the provided stream asynchronously.
+        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, returning the response content as a stream.
         /// </summary>
-        /// <param name="stream">The stream to write the downloaded data to. It must be writable.</param>
         /// <param name="method">The HTTP method to use for the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload (optional).</param>
+        /// <param name="payload">The HTTP request payload content.</param>
+        /// <param name="streamProvider">A function that returns a <see cref="Stream"/> based on the HTTP content headers.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>
-        /// A task that represents the asynchronous download operation. The task result contains the headers of the downloaded content. 
-        /// If the response contains no content, null is returned.
+        /// A task that represents the asynchronous operation. The task result contains a <see cref="Stream"/> that represents the response content. If the response does
+        /// not contain content, returns <see cref="Stream.Null"/>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="stream"/>, <paramref name="method"/>, or <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/>, or <paramref name="streamProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<HttpContentHeaders?> FetchToStreamAsync
+        public async Task<Stream> DownloadAsync
         (
-            Stream stream,
             HttpMethod method,
             string uri,
-            HttpContent? payload = null,
+            HttpContent? payload,
+            Func<HttpContentHeaders, Stream> streamProvider,
             CancellationToken cancellationToken = default
         )
         {
-            if (stream is null)
-                throw new ArgumentNullException(nameof(stream));
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
             if (uri is null)
                 throw new ArgumentNullException(nameof(uri));
+            if (streamProvider is null)
+                throw new ArgumentNullException(nameof(streamProvider));
 
             using var request = CreateHttpRequest(method, uri, null);
             request.Content = payload;
 
             using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
-            if (response.Content is null)
-                return null;
+            if (response.Content is null || response.Content.Headers.ContentLength == 0)
+                return Stream.Null;
 
+            var stream = streamProvider(response.Content.Headers) ?? throw new InvalidOperationException("The stream provider must not return null.");
             await response.Content.CopyToAsync(stream).ConfigureAwait(false);
-            return response.Content.Headers;
+            return stream;
         }
 
         /// <summary>
-        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, and returns the response body deserialized as the specified type. 
+        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, returning response body deserialized as the specified type. 
         /// </summary>
         /// <typeparam name="T">The type of the response object.</typeparam>
         /// <param name="method">The HTTP method to use for the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload (optional).</param>
+        /// <param name="payload">The HTTP request payload content (optional).</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation, with a result of the specified type. If the response contains no content, the default value 
-        /// for the type <typeparamref name="T"/> is returned.
-        /// </returns>
+        /// <returns>A task that represents the asynchronous operation, with a result of the specified type.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = null, CancellationToken cancellationToken = default)
+        public async Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
@@ -369,14 +368,14 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="method">The HTTP method to use for the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload (optional).</param>
+        /// <param name="payload">The HTTP request payload content (optional).</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the headers of the response.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<HttpResponseHeaders> SendAsync(HttpMethod method, string uri, HttpContent? payload = null, CancellationToken cancellationToken = default)
+        public async Task<HttpResponseHeaders> SendAsync(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
@@ -620,7 +619,7 @@ namespace Kampute.HttpClient
             if (objectType is null)
                 throw new ArgumentNullException(nameof(objectType));
 
-            if (response.Content is null)
+            if (response.Content is null || response.Content.Headers.ContentLength == 0)
                 throw Error("The response body is empty.");
 
             if (response.Content.Headers.ContentType is null)

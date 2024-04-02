@@ -6,7 +6,9 @@
 namespace Kampute.HttpClient
 {
     using System;
+    using System.IO;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
@@ -38,7 +40,7 @@ namespace Kampute.HttpClient
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> GetAsync<T>(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync<T>(HttpVerb.Get, uri, null, cancellationToken);
+            return client.SendAsync<T>(HttpVerb.Get, uri, default, cancellationToken);
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace Kampute.HttpClient
         /// <typeparam name="T">The type of the response object.</typeparam>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
@@ -66,7 +68,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
@@ -86,7 +88,7 @@ namespace Kampute.HttpClient
         /// <typeparam name="T">The type of the response object.</typeparam>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
@@ -105,7 +107,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
@@ -125,7 +127,7 @@ namespace Kampute.HttpClient
         /// <typeparam name="T">The type of the response object.</typeparam>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
@@ -144,7 +146,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
@@ -174,7 +176,7 @@ namespace Kampute.HttpClient
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T?> DeleteAsync<T>(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync<T>(HttpVerb.Delete, uri, null, cancellationToken);
+            return client.SendAsync<T>(HttpVerb.Delete, uri, default, cancellationToken);
         }
 
         /// <summary>
@@ -192,7 +194,46 @@ namespace Kampute.HttpClient
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task DeleteAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync(HttpVerb.Delete, uri, null, cancellationToken);
+            return client.SendAsync(HttpVerb.Delete, uri, default, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves data from the specified URI and writes it to the provided stream asynchronously.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="stream">The stream to write the downloaded data to. It must be writable.</param>
+        /// <param name="method">The HTTP method to use for the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="payload">The HTTP request payload content (optional).</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>
+        /// A task that represents the asynchronous download operation. The task result contains the headers of the downloaded content. 
+        /// If the response contains no content, <c>null</c> is returned.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="stream"/>, <paramref name="method"/>, or <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<HttpContentHeaders?> FetchToStreamAsync
+        (
+            this HttpRestClient client,
+            Stream stream,
+            HttpMethod method,
+            string uri,
+            HttpContent? payload = default,
+            CancellationToken cancellationToken = default
+        )
+        {
+            if (stream is null)
+                throw new ArgumentNullException(nameof(stream));
+
+            var contentHeaders = default(HttpContentHeaders);
+            await client.DownloadAsync(method, uri, payload, headers =>
+            {
+                contentHeaders = headers;
+                return stream;
+            }, cancellationToken);
+            return contentHeaders;
         }
     }
 }

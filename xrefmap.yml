@@ -239,6 +239,221 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.BackoffStrategies.Uniform
   nameWithType: BackoffStrategies.Uniform
+- uid: Kampute.HttpClient.Content.Abstracts
+  name: Kampute.HttpClient.Content.Abstracts
+  href: api/Kampute.HttpClient.Content.Abstracts.html
+  commentId: N:Kampute.HttpClient.Content.Abstracts
+  fullName: Kampute.HttpClient.Content.Abstracts
+  nameWithType: Kampute.HttpClient.Content.Abstracts
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator
+  name: HttpContentDecorator
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html
+  commentId: T:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator
+  nameWithType: HttpContentDecorator
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.#ctor(System.Net.Http.HttpContent)
+  name: HttpContentDecorator(HttpContent)
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html#Kampute_HttpClient_Content_Abstracts_HttpContentDecorator__ctor_System_Net_Http_HttpContent_
+  commentId: M:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.#ctor(System.Net.Http.HttpContent)
+  name.vb: New(HttpContent)
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.HttpContentDecorator(System.Net.Http.HttpContent)
+  fullName.vb: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.New(System.Net.Http.HttpContent)
+  nameWithType: HttpContentDecorator.HttpContentDecorator(HttpContent)
+  nameWithType.vb: HttpContentDecorator.New(HttpContent)
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.#ctor*
+  name: HttpContentDecorator
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html#Kampute_HttpClient_Content_Abstracts_HttpContentDecorator__ctor_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.HttpContentDecorator
+  fullName.vb: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.New
+  nameWithType: HttpContentDecorator.HttpContentDecorator
+  nameWithType.vb: HttpContentDecorator.New
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html#Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_Dispose_System_Boolean_
+  commentId: M:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose(bool)
+  fullName.vb: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose(Boolean)
+  nameWithType: HttpContentDecorator.Dispose(bool)
+  nameWithType.vb: HttpContentDecorator.Dispose(Boolean)
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose*
+  name: Dispose
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html#Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_Dispose_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose
+  nameWithType: HttpContentDecorator.Dispose
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent
+  name: OriginalContent
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html#Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_OriginalContent
+  commentId: P:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent
+  nameWithType: HttpContentDecorator.OriginalContent
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent*
+  name: OriginalContent
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html#Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_OriginalContent_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent
+  nameWithType: HttpContentDecorator.OriginalContent
+- uid: Kampute.HttpClient.Content.Compression
+  name: Kampute.HttpClient.Content.Compression
+  href: api/Kampute.HttpClient.Content.Compression.html
+  commentId: N:Kampute.HttpClient.Content.Compression
+  fullName: Kampute.HttpClient.Content.Compression
+  nameWithType: Kampute.HttpClient.Content.Compression
+- uid: Kampute.HttpClient.Content.Compression.Abstracts
+  name: Kampute.HttpClient.Content.Compression.Abstracts
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.html
+  commentId: N:Kampute.HttpClient.Content.Compression.Abstracts
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts
+  nameWithType: Kampute.HttpClient.Content.Compression.Abstracts
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent
+  name: CompressedContent
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html
+  commentId: T:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent
+  nameWithType: CompressedContent
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.#ctor(System.Net.Http.HttpContent,System.String)
+  name: CompressedContent(HttpContent, string)
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent__ctor_System_Net_Http_HttpContent_System_String_
+  commentId: M:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.#ctor(System.Net.Http.HttpContent,System.String)
+  name.vb: New(HttpContent, String)
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressedContent(System.Net.Http.HttpContent, string)
+  fullName.vb: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.New(System.Net.Http.HttpContent, String)
+  nameWithType: CompressedContent.CompressedContent(HttpContent, string)
+  nameWithType.vb: CompressedContent.New(HttpContent, String)
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.#ctor*
+  name: CompressedContent
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent__ctor_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressedContent
+  fullName.vb: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.New
+  nameWithType: CompressedContent.CompressedContent
+  nameWithType.vb: CompressedContent.New
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)
+  name: SerializeToStreamAsync(Stream, TransportContext)
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_SerializeToStreamAsync_System_IO_Stream_System_Net_TransportContext_
+  commentId: M:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync(System.IO.Stream, System.Net.TransportContext)
+  nameWithType: CompressedContent.SerializeToStreamAsync(Stream, TransportContext)
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync*
+  name: SerializeToStreamAsync
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_SerializeToStreamAsync_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync
+  nameWithType: CompressedContent.SerializeToStreamAsync
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength(System.Int64@)
+  name: TryComputeLength(out long)
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_TryComputeLength_System_Int64__
+  commentId: M:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength(System.Int64@)
+  name.vb: TryComputeLength(Long)
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength(out long)
+  fullName.vb: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength(Long)
+  nameWithType: CompressedContent.TryComputeLength(out long)
+  nameWithType.vb: CompressedContent.TryComputeLength(Long)
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength*
+  name: TryComputeLength
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_TryComputeLength_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength
+  nameWithType: CompressedContent.TryComputeLength
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  name: WrapWithCompressionStream(Stream)
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_WrapWithCompressionStream_System_IO_Stream_
+  commentId: M:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  nameWithType: CompressedContent.WrapWithCompressionStream(Stream)
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream*
+  name: WrapWithCompressionStream
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_WrapWithCompressionStream_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream
+  nameWithType: CompressedContent.WrapWithCompressionStream
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent
+  name: DeflateCompressedContent
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html
+  commentId: T:Kampute.HttpClient.Content.Compression.DeflateCompressedContent
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent
+  nameWithType: DeflateCompressedContent
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.#ctor(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  name: DeflateCompressedContent(HttpContent, CompressionLevel)
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent__ctor_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_
+  commentId: M:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.#ctor(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  name.vb: New(HttpContent, CompressionLevel)
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.DeflateCompressedContent(System.Net.Http.HttpContent, System.IO.Compression.CompressionLevel)
+  fullName.vb: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.New(System.Net.Http.HttpContent, System.IO.Compression.CompressionLevel)
+  nameWithType: DeflateCompressedContent.DeflateCompressedContent(HttpContent, CompressionLevel)
+  nameWithType.vb: DeflateCompressedContent.New(HttpContent, CompressionLevel)
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.#ctor*
+  name: DeflateCompressedContent
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent__ctor_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.DeflateCompressedContent
+  fullName.vb: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.New
+  nameWithType: DeflateCompressedContent.DeflateCompressedContent
+  nameWithType.vb: DeflateCompressedContent.New
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  name: WrapWithCompressionStream(Stream)
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent_WrapWithCompressionStream_System_IO_Stream_
+  commentId: M:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  nameWithType: DeflateCompressedContent.WrapWithCompressionStream(Stream)
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream*
+  name: WrapWithCompressionStream
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent_WrapWithCompressionStream_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream
+  nameWithType: DeflateCompressedContent.WrapWithCompressionStream
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent
+  name: GzipCompressedContent
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html
+  commentId: T:Kampute.HttpClient.Content.Compression.GzipCompressedContent
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent
+  nameWithType: GzipCompressedContent
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.#ctor(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  name: GzipCompressedContent(HttpContent, CompressionLevel)
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent__ctor_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_
+  commentId: M:Kampute.HttpClient.Content.Compression.GzipCompressedContent.#ctor(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  name.vb: New(HttpContent, CompressionLevel)
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.GzipCompressedContent(System.Net.Http.HttpContent, System.IO.Compression.CompressionLevel)
+  fullName.vb: Kampute.HttpClient.Content.Compression.GzipCompressedContent.New(System.Net.Http.HttpContent, System.IO.Compression.CompressionLevel)
+  nameWithType: GzipCompressedContent.GzipCompressedContent(HttpContent, CompressionLevel)
+  nameWithType.vb: GzipCompressedContent.New(HttpContent, CompressionLevel)
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.#ctor*
+  name: GzipCompressedContent
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent__ctor_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.GzipCompressedContent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.GzipCompressedContent
+  fullName.vb: Kampute.HttpClient.Content.Compression.GzipCompressedContent.New
+  nameWithType: GzipCompressedContent.GzipCompressedContent
+  nameWithType.vb: GzipCompressedContent.New
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  name: WrapWithCompressionStream(Stream)
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent_WrapWithCompressionStream_System_IO_Stream_
+  commentId: M:Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream(System.IO.Stream)
+  nameWithType: GzipCompressedContent.WrapWithCompressionStream(Stream)
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream*
+  name: WrapWithCompressionStream
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent_WrapWithCompressionStream_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream
+  nameWithType: GzipCompressedContent.WrapWithCompressionStream
 - uid: Kampute.HttpClient.DataContract
   name: Kampute.HttpClient.DataContract
   href: api/Kampute.HttpClient.DataContract.html
@@ -1151,6 +1366,32 @@ references:
   commentId: T:Kampute.HttpClient.HttpContentExtensions
   fullName: Kampute.HttpClient.HttpContentExtensions
   nameWithType: HttpContentExtensions
+- uid: Kampute.HttpClient.HttpContentExtensions.AsDeflate(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  name: AsDeflate(HttpContent, CompressionLevel)
+  href: api/Kampute.HttpClient.HttpContentExtensions.html#Kampute_HttpClient_HttpContentExtensions_AsDeflate_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_
+  commentId: M:Kampute.HttpClient.HttpContentExtensions.AsDeflate(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  fullName: Kampute.HttpClient.HttpContentExtensions.AsDeflate(System.Net.Http.HttpContent, System.IO.Compression.CompressionLevel)
+  nameWithType: HttpContentExtensions.AsDeflate(HttpContent, CompressionLevel)
+- uid: Kampute.HttpClient.HttpContentExtensions.AsDeflate*
+  name: AsDeflate
+  href: api/Kampute.HttpClient.HttpContentExtensions.html#Kampute_HttpClient_HttpContentExtensions_AsDeflate_
+  commentId: Overload:Kampute.HttpClient.HttpContentExtensions.AsDeflate
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpContentExtensions.AsDeflate
+  nameWithType: HttpContentExtensions.AsDeflate
+- uid: Kampute.HttpClient.HttpContentExtensions.AsGzip(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  name: AsGzip(HttpContent, CompressionLevel)
+  href: api/Kampute.HttpClient.HttpContentExtensions.html#Kampute_HttpClient_HttpContentExtensions_AsGzip_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_
+  commentId: M:Kampute.HttpClient.HttpContentExtensions.AsGzip(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)
+  fullName: Kampute.HttpClient.HttpContentExtensions.AsGzip(System.Net.Http.HttpContent, System.IO.Compression.CompressionLevel)
+  nameWithType: HttpContentExtensions.AsGzip(HttpContent, CompressionLevel)
+- uid: Kampute.HttpClient.HttpContentExtensions.AsGzip*
+  name: AsGzip
+  href: api/Kampute.HttpClient.HttpContentExtensions.html#Kampute_HttpClient_HttpContentExtensions_AsGzip_
+  commentId: Overload:Kampute.HttpClient.HttpContentExtensions.AsGzip
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpContentExtensions.AsGzip
+  nameWithType: HttpContentExtensions.AsGzip
 - uid: Kampute.HttpClient.HttpContentExtensions.FindCharacterEncoding(System.Net.Http.HttpContent)
   name: FindCharacterEncoding(HttpContent)
   href: api/Kampute.HttpClient.HttpContentExtensions.html#Kampute_HttpClient_HttpContentExtensions_FindCharacterEncoding_System_Net_Http_HttpContent_

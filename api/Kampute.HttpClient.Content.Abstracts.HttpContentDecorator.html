@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class XmlContent | Kampute.HttpClient .NET Library </title>
+      <title>Class HttpContentDecorator | Kampute.HttpClient .NET Library </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class XmlContent | Kampute.HttpClient .NET Library ">
+      <meta name="title" content="Class HttpContentDecorator | Kampute.HttpClient .NET Library ">
       
-      <meta name="description" content="Represents HTTP content based on XML serialized from an object.">
+      <meta name="description" content="Serves as a base class for decorating  instances.">
       <link rel="icon" href="../ICON.png">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       
       <meta name="docfx:disablenewtab" content="true">
       
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_Xml_XmlContent.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.Xml.XmlContent%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_Content_Abstracts_HttpContentDecorator.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.Content.Abstracts.HttpContentDecorator%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,25 +80,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Kampute.HttpClient.Xml.XmlContent">
+        <article data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator">
 
 
 
-  <h1 id="Kampute_HttpClient_Xml_XmlContent" data-uid="Kampute.HttpClient.Xml.XmlContent" class="text-break">
-Class XmlContent  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/XmlContent.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator" class="text-break">
+Class HttpContentDecorator  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Abstracts/HttpContentDecorator.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a>.<a class="xref" href="Kampute.HttpClient.Xml.html">Xml</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Kampute.HttpClient.Xml.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a>.<a class="xref" href="Kampute.HttpClient.Content.html">Content</a>.<a class="xref" href="Kampute.HttpClient.Content.Abstracts.html">Abstracts</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Kampute.HttpClient.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Represents HTTP content based on XML serialized from an object.</p>
+  <div class="markdown summary"><p>Serves as a base class for decorating <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> instances.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class XmlContent : HttpContent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class HttpContentDecorator : HttpContent, IDisposable</code></pre>
   </div>
 
 
@@ -109,7 +109,7 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></div>
-      <div><span class="xref">XmlContent</span></div>
+      <div><span class="xref">HttpContentDecorator</span></div>
     </dd>
   </dl>
 
@@ -120,6 +120,12 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
     </dd>
   </dl>
 
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html">CompressedContent</a></div>
+    </dd>
+  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -129,6 +135,9 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-net-transportcontext)">HttpContent.CopyToAsync(Stream, TransportContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.createcontentreadstreamasync">HttpContent.CreateContentReadStreamAsync()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.dispose#system-net-http-httpcontent-dispose">HttpContent.Dispose()</a>
@@ -149,6 +158,12 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstringasync">HttpContent.ReadAsStringAsync()</a>
     </div>
     <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.serializetostreamasync">HttpContent.SerializeToStreamAsync(Stream, TransportContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.trycomputelength">HttpContent.TryComputeLength(out long)</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.headers">HttpContent.Headers</a>
     </div>
     <div>
@@ -162,6 +177,9 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
@@ -190,31 +208,34 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h2 id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>This class provides common functionality such as copying headers from the original content and managing the lifecycle of the wrapped content.</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="Kampute_HttpClient_Xml_XmlContent__ctor_" data-uid="Kampute.HttpClient.Xml.XmlContent.#ctor*"></a>
+  <a id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator__ctor_" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.#ctor*"></a>
 
-  <h3 id="Kampute_HttpClient_Xml_XmlContent__ctor_System_Object_" data-uid="Kampute.HttpClient.Xml.XmlContent.#ctor(System.Object)">
-  XmlContent(object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/XmlContent.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator__ctor_System_Net_Http_HttpContent_" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.#ctor(System.Net.Http.HttpContent)">
+  HttpContentDecorator(HttpContent)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Abstracts/HttpContentDecorator.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Xml.XmlContent.html">XmlContent</a> class using a specified content object with UTF-8 encoding.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html">HttpContentDecorator</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public XmlContent(object payload)</code></pre>
+    <pre><code class="lang-csharp hljs">protected HttpContentDecorator(HttpContent content)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>payload</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd><p>The object to be serialized into XML format.</p>
+    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
+    <dd><p>The HTTP content to decorate. This content will be disposed when this decorator instance is disposed.</p>
 </dd>
   </dl>
 
@@ -229,49 +250,7 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">payload</code> is <code>null</code>.</p>
-</dd>
-  </dl>
-
-
-
-  <a id="Kampute_HttpClient_Xml_XmlContent__ctor_" data-uid="Kampute.HttpClient.Xml.XmlContent.#ctor*"></a>
-
-  <h3 id="Kampute_HttpClient_Xml_XmlContent__ctor_System_Object_System_Text_Encoding_" data-uid="Kampute.HttpClient.Xml.XmlContent.#ctor(System.Object,System.Text.Encoding)">
-  XmlContent(object, Encoding)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/XmlContent.cs/#L44"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Xml.XmlContent.html">XmlContent</a> class using a specified content object and encoding.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public XmlContent(object content, Encoding encoding)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd><p>The object to be serialized into XML format.</p>
-</dd>
-    <dt><code>encoding</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></dt>
-    <dd><p>The character encoding to use for the serialized XML content.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">content</code> or <code class="paramref">encoding</code> is <code>null</code>.</p>
+    <dd><p>Thrown when <code class="paramref">content</code> is <code>null</code>.</p>
 </dd>
   </dl>
 
@@ -281,19 +260,19 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
 </h2>
 
 
-  <a id="Kampute_HttpClient_Xml_XmlContent_Encoding_" data-uid="Kampute.HttpClient.Xml.XmlContent.Encoding*"></a>
+  <a id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_OriginalContent_" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent*"></a>
 
-  <h3 id="Kampute_HttpClient_Xml_XmlContent_Encoding" data-uid="Kampute.HttpClient.Xml.XmlContent.Encoding">
-  Encoding
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/XmlContent.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_OriginalContent" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent">
+  OriginalContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Abstracts/HttpContentDecorator.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the character encoding of the serialized XML content.</p>
+  <div class="markdown level1 summary"><p>Gets the original HTTP content that this instance decorates.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Encoding Encoding { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">protected HttpContent OriginalContent { get; }</code></pre>
   </div>
 
 
@@ -302,9 +281,8 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></dt>
-    <dd><p>The character encoding of the serialized XML content.</p>
-</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
+    <dd></dd>
   </dl>
 
 
@@ -318,69 +296,28 @@ Class XmlContent  <a class="header-action link-secondary" title="View source" hr
 </h2>
 
 
-  <a id="Kampute_HttpClient_Xml_XmlContent_SerializeToStreamAsync_" data-uid="Kampute.HttpClient.Xml.XmlContent.SerializeToStreamAsync*"></a>
+  <a id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_Dispose_" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose*"></a>
 
-  <h3 id="Kampute_HttpClient_Xml_XmlContent_SerializeToStreamAsync_System_IO_Stream_System_Net_TransportContext_" data-uid="Kampute.HttpClient.Xml.XmlContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
-  SerializeToStreamAsync(Stream, TransportContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/XmlContent.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Content_Abstracts_HttpContentDecorator_Dispose_System_Boolean_" data-uid="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Abstracts/HttpContentDecorator.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> and optionally disposes of the managed resources.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
-    <dd></dd>
-    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.transportcontext">TransportContext</a></dt>
-    <dd></dd>
+    <dt><code>disposing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
+</dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Kampute_HttpClient_Xml_XmlContent_TryComputeLength_" data-uid="Kampute.HttpClient.Xml.XmlContent.TryComputeLength*"></a>
-
-  <h3 id="Kampute_HttpClient_Xml_XmlContent_TryComputeLength_System_Int64__" data-uid="Kampute.HttpClient.Xml.XmlContent.TryComputeLength(System.Int64@)">
-  TryComputeLength(out long)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/XmlContent.cs/#L80"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override bool TryComputeLength(out long length)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>length</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
 
 
 

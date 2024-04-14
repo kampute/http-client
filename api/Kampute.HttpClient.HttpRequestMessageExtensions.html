@@ -185,8 +185,8 @@ Class HttpRequestMessageExtensions  <a class="header-action link-secondary" titl
 
 
   <h4 class="section" id="Kampute_HttpClient_HttpRequestMessageExtensions_CanClone_System_Net_Http_HttpRequestMessage__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>This is a quick check to prevent cloning of requests that contain one-time-use or stream-based content, which could lead to
-unexpected behaviors such as empty request bodies.</p>
+  <div class="markdown level1 remarks"><p>This is a quick check to prevent cloning of requests that contain one-time-use content, which could lead to unexpected behaviors
+such as empty request bodies or <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a>.</p>
 </div>
 
 
@@ -235,7 +235,7 @@ the original request's <a class="xref" href="https://learn.microsoft.com/dotnet/
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
-    <dd><p>Thrown if the request contains stream-based content that cannot be reused.</p>
+    <dd><p>Thrown if the request contains a content that cannot be reused.</p>
 </dd>
   </dl>
 

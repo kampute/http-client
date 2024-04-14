@@ -2,469 +2,511 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kampute.github.io/http-client/README.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.AuthSchemes.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.BackoffStrategies.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Abstracts.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Compression.Abstracts.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Content.Compression.html</loc>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract.HttpRestClientXmlExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract.XmlContent.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.DictionaryExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.Abstracts.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ErrorHandlers.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.ExceptionExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpContentDeserializerCollection.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpContentException.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpContentExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpErrorHandlerCollection.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpErrorHandlerResult.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRequestErrorContext.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRequestMessageCloneManager.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRequestMessageEventArgs.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRequestMessageExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpResponseErrorContext.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpResponseException.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpResponseHeadersExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpResponseMessageEventArgs.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRestClient.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRestClientExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpRestClientFormExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.HttpVerb.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.IHttpErrorHandler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.IRetryScheduler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.IRetryStrategy.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Interfaces.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Json.JsonContent.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Json.JsonContentDeserializer.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Json.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.MediaTypeNames.Application.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.MediaTypeNames.Audio.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.MediaTypeNames.Image.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.MediaTypeNames.Text.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.MediaTypeNames.Video.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.MediaTypeNames.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.JsonContent.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.RetryScheduler.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.ExponentialStrategy.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.FibonacciStrategy.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.LinearStrategy.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.Modifiers.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.NoneStrategy.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.UniformStrategy.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.Strategies.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.RetryManagement.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Utilities.AsyncGuard-1.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Utilities.SharedDisposable-1.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Utilities.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml.XmlContent.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml.XmlContentDeserializer.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kampute.github.io/http-client/api/Kampute.HttpClient.html</loc>
-    <lastmod>2024-04-02T12:38:00+00:00</lastmod>
+    <lastmod>2024-04-14T02:25:34+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>

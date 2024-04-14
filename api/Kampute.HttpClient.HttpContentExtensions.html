@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_HttpContentExtensions" data-uid="Kampute.HttpClient.HttpContentExtensions" class="text-break">
-Class HttpContentExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L16"><i class="bi bi-code-slash"></i></a>
+Class HttpContentExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -149,11 +149,95 @@ Class HttpContentExtensions  <a class="header-action link-secondary" title="View
 </h2>
 
 
+  <a id="Kampute_HttpClient_HttpContentExtensions_AsDeflate_" data-uid="Kampute.HttpClient.HttpContentExtensions.AsDeflate*"></a>
+
+  <h3 id="Kampute_HttpClient_HttpContentExtensions_AsDeflate_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_" data-uid="Kampute.HttpClient.HttpContentExtensions.AsDeflate(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)">
+  AsDeflate(HttpContent, CompressionLevel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compresses the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> using the Deflate compression algorithm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeflateCompressedContent AsDeflate(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>httpContent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
+    <dd><p>The HTTP content to compress.</p>
+</dd>
+    <dt><code>compressionLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.compression.compressionlevel">CompressionLevel</a></dt>
+    <dd><p>The level of compression that indicates whether to emphasize speed or compression efficiency.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html">DeflateCompressedContent</a></dt>
+    <dd><p>A new instance of <a class="xref" href="Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html">DeflateCompressedContent</a> that wraps the original HTTP content with Deflate compression.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_HttpContentExtensions_AsGzip_" data-uid="Kampute.HttpClient.HttpContentExtensions.AsGzip*"></a>
+
+  <h3 id="Kampute_HttpClient_HttpContentExtensions_AsGzip_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_" data-uid="Kampute.HttpClient.HttpContentExtensions.AsGzip(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)">
+  AsGzip(HttpContent, CompressionLevel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compresses the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> using the GZIP compression algorithm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static GzipCompressedContent AsGzip(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>httpContent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
+    <dd><p>The HTTP content to compress.</p>
+</dd>
+    <dt><code>compressionLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.compression.compressionlevel">CompressionLevel</a></dt>
+    <dd><p>The level of compression that indicates whether to emphasize speed or compression efficiency.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Kampute.HttpClient.Content.Compression.GzipCompressedContent.html">GzipCompressedContent</a></dt>
+    <dd><p>A new instance of <a class="xref" href="Kampute.HttpClient.Content.Compression.GzipCompressedContent.html">GzipCompressedContent</a> that wraps the original HTTP content with GZIP compression.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Kampute_HttpClient_HttpContentExtensions_FindCharacterEncoding_" data-uid="Kampute.HttpClient.HttpContentExtensions.FindCharacterEncoding*"></a>
 
   <h3 id="Kampute_HttpClient_HttpContentExtensions_FindCharacterEncoding_System_Net_Http_HttpContent_" data-uid="Kampute.HttpClient.HttpContentExtensions.FindCharacterEncoding(System.Net.Http.HttpContent)">
   FindCharacterEncoding(HttpContent)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Attempts to find the character encoding from the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> headers.</p>
@@ -161,12 +245,12 @@ Class HttpContentExtensions  <a class="header-action link-secondary" title="View
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Encoding? FindCharacterEncoding(this HttpContent content)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Encoding? FindCharacterEncoding(this HttpContent httpContent)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
+    <dt><code>httpContent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> instance to extract the character encoding from.</p>
 </dd>
   </dl>
@@ -204,7 +288,7 @@ not supported by the system.</p>
 
   <h3 id="Kampute_HttpClient_HttpContentExtensions_IsReusable_System_Net_Http_HttpContent_" data-uid="Kampute.HttpClient.HttpContentExtensions.IsReusable(System.Net.Http.HttpContent)">
   IsReusable(HttpContent)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentExtensions.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> instance can be reused.</p>
@@ -212,12 +296,12 @@ not supported by the system.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsReusable(this HttpContent content)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool IsReusable(this HttpContent httpContent)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
+    <dt><code>httpContent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> instance to check for re-usability.</p>
 </dd>
   </dl>
@@ -225,7 +309,7 @@ not supported by the system.</p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the content is not of type <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.streamcontent">StreamContent</a> and thus considered reusable; otherwise, <code>false</code>.</p>
+    <dd><p><code>true</code> if the content is reusable; otherwise, <code>false</code>.</p>
 </dd>
   </dl>
 
@@ -236,8 +320,8 @@ not supported by the system.</p>
 
 
   <h4 class="section" id="Kampute_HttpClient_HttpContentExtensions_IsReusable_System_Net_Http_HttpContent__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Stream-based content (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.streamcontent">StreamContent</a>) is not reusable because the underlying stream can be consumed once. This method provides
-a quick check to determine if the content is not stream-based and thus potentially reusable across multiple requests or operations.</p>
+  <div class="markdown level1 remarks"><p>Reusability of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> is determined by its ability to provide its content multiple times without alteration.
+For example, content backed by a non-seekable stream is not reusable as the stream can be consumed only once.</p>
 </div>
 
 

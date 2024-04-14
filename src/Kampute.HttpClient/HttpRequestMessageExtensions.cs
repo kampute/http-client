@@ -19,7 +19,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to clone.</param>
         /// <returns>A new instance of <see cref="HttpRequestMessage"/> that is a clone of the original.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if the request contains stream-based content that cannot be reused.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the request contains a content that cannot be reused.</exception>
         /// <remarks>
         /// This method copies the provided <see cref="HttpRequestMessage"/>, including its headers, version, and properties. The method reuses 
         /// the original request's <see cref="HttpContent"/> in the cloned request. 
@@ -27,7 +27,7 @@ namespace Kampute.HttpClient
         public static HttpRequestMessage Clone(this HttpRequestMessage request)
         {
             if (!request.CanClone())
-                throw new InvalidOperationException("Cloning requests with stream-based content is not supported due to the risk of stream consumption.");
+                throw new InvalidOperationException("Cloning requests with non-reusable content is not supported due to the risk of stream consumption.");
 
             var clone = new HttpRequestMessage(request.Method, request.RequestUri)
             {
@@ -52,8 +52,8 @@ namespace Kampute.HttpClient
         /// <param name="request">The <see cref="HttpRequestMessage"/> to check.</param>
         /// <returns><c>true</c> if the request does not contain a content or the content is reusable; otherwise, <c>false</c>.</returns>
         /// <remarks>
-        /// This is a quick check to prevent cloning of requests that contain one-time-use or stream-based content, which could lead to 
-        /// unexpected behaviors such as empty request bodies.
+        /// This is a quick check to prevent cloning of requests that contain one-time-use content, which could lead to unexpected behaviors
+        /// such as empty request bodies or <see cref="InvalidOperationException"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CanClone(this HttpRequestMessage request)

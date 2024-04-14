@@ -21,7 +21,7 @@
 
         public string ToJsonString()
         {
-            return $"{{\"name\":{ToJson(Name)}}}";
+            return $"{{{ToJson(nameof(Name))}:{ToJson(Name)}}}";
 
             static string ToJson(string? value)
             {
@@ -50,8 +50,7 @@
 
         public static JsonSerializerOptions JsonOption { get; } = new()
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+            UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
         };
     }
 }

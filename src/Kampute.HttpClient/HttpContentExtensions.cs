@@ -5,7 +5,10 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Content.Abstracts;
+    using Kampute.HttpClient.Content.Compression;
     using System;
+    using System.IO.Compression;
     using System.Net.Http;
     using System.Runtime.CompilerServices;
     using System.Text;
@@ -18,7 +21,7 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Attempts to find the character encoding from the <see cref="HttpContent"/> headers.
         /// </summary>
-        /// <param name="content">The <see cref="HttpContent"/> instance to extract the character encoding from.</param>
+        /// <param name="httpContent">The <see cref="HttpContent"/> instance to extract the character encoding from.</param>
         /// <returns>The <see cref="Encoding"/> specified in the content's headers if the charset is recognized; otherwise, <c>null</c>.</returns>
         /// <exception cref="ArgumentException">Thrown if the charset specified in the content's headers is not recognized.</exception>
         /// <remarks>
@@ -28,24 +31,54 @@ namespace Kampute.HttpClient
         /// not supported by the system.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Encoding? FindCharacterEncoding(this HttpContent content)
+        public static Encoding? FindCharacterEncoding(this HttpContent httpContent)
         {
-            return content.Headers.ContentType?.CharSet is string charSet ? Encoding.GetEncoding(charSet) : null;
+            return httpContent.Headers.ContentType?.CharSet is string charSet ? Encoding.GetEncoding(charSet) : null;
         }
 
         /// <summary>
         /// Determines whether the <see cref="HttpContent"/> instance can be reused.
         /// </summary>
-        /// <param name="content">The <see cref="HttpContent"/> instance to check for re-usability.</param>
-        /// <returns><c>true</c> if the content is not of type <see cref="StreamContent"/> and thus considered reusable; otherwise, <c>false</c>.</returns>
+        /// <param name="httpContent">The <see cref="HttpContent"/> instance to check for re-usability.</param>
+        /// <returns><c>true</c> if the content is reusable; otherwise, <c>false</c>.</returns>
         /// <remarks>
-        /// Stream-based content (<see cref="StreamContent"/>) is not reusable because the underlying stream can be consumed once. This method provides 
-        /// a quick check to determine if the content is not stream-based and thus potentially reusable across multiple requests or operations.
+        /// Reusability of <see cref="HttpContent"/> is determined by its ability to provide its content multiple times without alteration.
+        /// For example, content backed by a non-seekable stream is not reusable as the stream can be consumed only once.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsReusable(this HttpContent content)
+        public static bool IsReusable(this HttpContent httpContent)
         {
-            return content is not StreamContent;
+            return httpContent switch
+            {
+                null => true,
+                HttpContentDecorator decorator => decorator.OriginalContent.IsReusable(),
+                StreamContent streamContent => streamContent.Headers.ContentLength.HasValue,
+                _ => true,
+            };
+        }
+
+        /// <summary>
+        /// Compresses the <see cref="HttpContent"/> using the GZIP compression algorithm.
+        /// </summary>
+        /// <param name="httpContent">The HTTP content to compress.</param>
+        /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
+        /// <returns>A new instance of <see cref="GzipCompressedContent"/> that wraps the original HTTP content with GZIP compression.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static GzipCompressedContent AsGzip(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
+        {
+            return new GzipCompressedContent(httpContent, compressionLevel);
+        }
+
+        /// <summary>
+        /// Compresses the <see cref="HttpContent"/> using the Deflate compression algorithm.
+        /// </summary>
+        /// <param name="httpContent">The HTTP content to compress.</param>
+        /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
+        /// <returns>A new instance of <see cref="DeflateCompressedContent"/> that wraps the original HTTP content with Deflate compression.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static DeflateCompressedContent AsDeflate(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
+        {
+            return new DeflateCompressedContent(httpContent, compressionLevel);
         }
     }
 }

@@ -8,8 +8,14 @@
     [TestFixture]
     public class HttpRequestMessageExtensionsTests
     {
+        private class NonSeekableMemoryStream : MemoryStream
+        {
+            public override bool CanSeek => false;
+            public override long Seek(long offset, SeekOrigin loc) => throw new NotSupportedException();
+        }
+
         [Test]
-        public void Clone_WithNonStreamContent_CreatesCopy()
+        public void Clone_WithReusableContent_CreatesCopy()
         {
             using var originalRequest = new HttpRequestMessage(HttpMethod.Get, "http://test.com")
             {
@@ -33,18 +39,18 @@
         }
 
         [Test]
-        public void Clone_WithStreamContent_ThrowsInvalidOperationException()
+        public void Clone_WithNonReusableContent_ThrowsInvalidOperationException()
         {
-            using var requestWithStreamContent = new HttpRequestMessage
+            using var request = new HttpRequestMessage
             {
-                Content = new StreamContent(new MemoryStream())
+                Content = new StreamContent(new NonSeekableMemoryStream())
             };
 
-            Assert.That(requestWithStreamContent.Clone, Throws.InstanceOf<InvalidOperationException>());
+            Assert.That(request.Clone, Throws.InstanceOf<InvalidOperationException>());
         }
 
         [Test]
-        public void IsClonable_WithNonStreamContent_ReturnsTrue()
+        public void IsClonable_WithNoContent_ReturnsTrue()
         {
             var request = new HttpRequestMessage();
 
@@ -52,11 +58,22 @@
         }
 
         [Test]
-        public void IsClonable_WithStreamContent_ReturnsFalse()
+        public void IsClonable_WithReusableContent_ReturnsTrue()
         {
             using var request = new HttpRequestMessage
             {
                 Content = new StreamContent(new MemoryStream())
+            };
+
+            Assert.That(request.CanClone(), Is.True);
+        }
+
+        [Test]
+        public void IsClonable_WithNonReusableContent_ReturnsFalse()
+        {
+            using var request = new HttpRequestMessage
+            {
+                Content = new StreamContent(new NonSeekableMemoryStream())
             };
 
             Assert.That(request.CanClone(), Is.False);

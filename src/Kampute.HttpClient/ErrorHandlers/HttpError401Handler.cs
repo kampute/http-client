@@ -233,7 +233,7 @@ namespace Kampute.HttpClient.ErrorHandlers
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
-            if (ctx.Request.Properties.ContainsKey(AlreadyRetried) || !ctx.Request.CanClone())
+            if (ctx.Request.Properties.ContainsKey(AlreadyRetried))
                 return HttpErrorHandlerResult.NoRetry;
 
             if (!await TrySolveAuthenticationChallengeAsync(ctx.Client, ctx.Response.Headers.WwwAuthenticate, cancellationToken).ConfigureAwait(false))

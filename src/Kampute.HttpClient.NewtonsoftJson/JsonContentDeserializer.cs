@@ -22,7 +22,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
     public sealed class JsonContentDeserializer : IHttpContentDeserializer
     {
         /// <summary>
-        /// Gets or sets the deserialization settings.
+        /// Gets or sets the JSON deserialization settings.
         /// </summary>
         /// <value>
         /// The JSON deserialization settings, if any.

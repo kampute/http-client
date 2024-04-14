@@ -1,6 +1,6 @@
-﻿namespace Kampute.HttpClient.Test.Compression
+﻿namespace Kampute.HttpClient.Test.Content.Compression
 {
-    using Kampute.HttpClient.Compression;
+    using Kampute.HttpClient.Content.Compression;
     using NUnit.Framework;
     using System.IO;
     using System.IO.Compression;

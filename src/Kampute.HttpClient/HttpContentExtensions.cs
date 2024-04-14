@@ -5,7 +5,7 @@
 
 namespace Kampute.HttpClient
 {
-    using Kampute.HttpClient.Compression;
+    using Kampute.HttpClient.Content.Compression;
     using System;
     using System.IO.Compression;
     using System.Net.Http;
@@ -33,21 +33,6 @@ namespace Kampute.HttpClient
         public static Encoding? FindCharacterEncoding(this HttpContent httpContent)
         {
             return httpContent.Headers.ContentType?.CharSet is string charSet ? Encoding.GetEncoding(charSet) : null;
-        }
-
-        /// <summary>
-        /// Determines whether the <see cref="HttpContent"/> instance can be reused.
-        /// </summary>
-        /// <param name="httpContent">The <see cref="HttpContent"/> instance to check for re-usability.</param>
-        /// <returns><c>true</c> if the content is not of type <see cref="StreamContent"/> and thus considered reusable; otherwise, <c>false</c>.</returns>
-        /// <remarks>
-        /// Stream-based content (<see cref="StreamContent"/>) is not reusable because the underlying stream can be consumed once. This method provides 
-        /// a quick check to determine if the content is not stream-based and thus potentially reusable across multiple requests or operations.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsReusable(this HttpContent httpContent)
-        {
-            return httpContent is not StreamContent;
         }
 
         /// <summary>

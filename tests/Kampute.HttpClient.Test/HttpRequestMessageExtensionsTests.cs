@@ -2,14 +2,13 @@
 {
     using NUnit.Framework;
     using System;
-    using System.IO;
     using System.Net.Http;
 
     [TestFixture]
     public class HttpRequestMessageExtensionsTests
     {
         [Test]
-        public void Clone_WithNonStreamContent_CreatesCopy()
+        public void Clone_CreatesCopy()
         {
             using var originalRequest = new HttpRequestMessage(HttpMethod.Get, "http://test.com")
             {
@@ -30,36 +29,6 @@
                 Assert.That(clonedRequest.Content, Is.SameAs(originalRequest.Content));
                 Assert.That(clonedRequest.GetCloneGeneration(), Is.EqualTo(1));
             });
-        }
-
-        [Test]
-        public void Clone_WithStreamContent_ThrowsInvalidOperationException()
-        {
-            using var requestWithStreamContent = new HttpRequestMessage
-            {
-                Content = new StreamContent(new MemoryStream())
-            };
-
-            Assert.That(requestWithStreamContent.Clone, Throws.InstanceOf<InvalidOperationException>());
-        }
-
-        [Test]
-        public void IsClonable_WithNonStreamContent_ReturnsTrue()
-        {
-            var request = new HttpRequestMessage();
-
-            Assert.That(request.CanClone(), Is.True);
-        }
-
-        [Test]
-        public void IsClonable_WithStreamContent_ReturnsFalse()
-        {
-            using var request = new HttpRequestMessage
-            {
-                Content = new StreamContent(new MemoryStream())
-            };
-
-            Assert.That(request.CanClone(), Is.False);
         }
 
         [Test]

@@ -544,9 +544,6 @@ namespace Kampute.HttpClient
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            if (!request.CanClone())
-                return HttpErrorHandlerResult.NoRetry;
-
             var scheduler = request.Properties.GetOrAdd(HttpRequestMessagePropertyKeys.RetryScheduler, _ =>
             {
                 var ctx = new HttpRequestErrorContext(this, request, error);

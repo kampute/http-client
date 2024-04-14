@@ -1,10 +1,10 @@
-﻿namespace Kampute.HttpClient.Compression
+﻿namespace Kampute.HttpClient.Content.Compression
 {
+    using Kampute.HttpClient.Content.Compression.Abstracts;
     using System;
     using System.IO;
     using System.IO.Compression;
     using System.Net.Http;
-    using Kampute.HttpClient.Compression.Abstracts;
 
     /// <summary>
     /// Provides an HTTP content encapsulation that compresses the underlying content using the GZIP compression algorithm.
@@ -20,7 +20,7 @@
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <c>null</c>.</exception>
         public GzipCompressedContent(HttpContent content, CompressionLevel compressionLevel)
-            : base("gzip", content)
+            : base(content, "gzip")
         {
             _compressionLevel = compressionLevel;
         }

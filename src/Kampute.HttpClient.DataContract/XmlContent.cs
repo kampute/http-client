@@ -87,7 +87,7 @@ namespace Kampute.HttpClient.DataContract
         /// <inheritdoc/>
         protected override bool TryComputeLength(out long length)
         {
-            length = default;
+            length = -1;
             return false;
         }
     }

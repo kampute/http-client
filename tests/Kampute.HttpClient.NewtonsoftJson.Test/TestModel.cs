@@ -1,7 +1,6 @@
 ﻿namespace Kampute.HttpClient.NewtonsoftJson.Test
 {
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
     using System;
     using System.Text.RegularExpressions;
 
@@ -21,7 +20,7 @@
 
         public string ToJsonString()
         {
-            return $"{{\"name\":{ToJson(Name)}}}";
+            return $"{{{ToJson(nameof(Name))}:{ToJson(Name)}}}";
 
             static string ToJson(string? value)
             {
@@ -50,7 +49,7 @@
 
         public static JsonSerializerSettings JsonSettings { get; } = new()
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Include,
             MissingMemberHandling = MissingMemberHandling.Error,
         };
     }

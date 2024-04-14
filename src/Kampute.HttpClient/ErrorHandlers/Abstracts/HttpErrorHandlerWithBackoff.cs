@@ -47,6 +47,9 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
+            if (!ctx.Request.CanClone())
+                return HttpErrorHandlerResult.NoRetry;
+
             var scheduler = ctx.Request.Properties.GetOrAdd(HttpRequestMessagePropertyKeys.RetryScheduler, _ => DetermineBackoffStrategy(ctx).CreateScheduler(ctx));
             if (!await scheduler.WaitAsync(cancellationToken).ConfigureAwait(false))
                 return HttpErrorHandlerResult.NoRetry;

@@ -2,13 +2,20 @@
 {
     using NUnit.Framework;
     using System;
+    using System.IO;
     using System.Net.Http;
 
     [TestFixture]
     public class HttpRequestMessageExtensionsTests
     {
+        private class NonSeekableMemoryStream : MemoryStream
+        {
+            public override bool CanSeek => false;
+            public override long Seek(long offset, SeekOrigin loc) => throw new NotSupportedException();
+        }
+
         [Test]
-        public void Clone_CreatesCopy()
+        public void Clone_WithReusableContent_CreatesCopy()
         {
             using var originalRequest = new HttpRequestMessage(HttpMethod.Get, "http://test.com")
             {
@@ -29,6 +36,47 @@
                 Assert.That(clonedRequest.Content, Is.SameAs(originalRequest.Content));
                 Assert.That(clonedRequest.GetCloneGeneration(), Is.EqualTo(1));
             });
+        }
+
+        [Test]
+        public void Clone_WithNonReusableContent_ThrowsInvalidOperationException()
+        {
+            using var request = new HttpRequestMessage
+            {
+                Content = new StreamContent(new NonSeekableMemoryStream())
+            };
+
+            Assert.That(request.Clone, Throws.InstanceOf<InvalidOperationException>());
+        }
+
+        [Test]
+        public void IsClonable_WithNoContent_ReturnsTrue()
+        {
+            var request = new HttpRequestMessage();
+
+            Assert.That(request.CanClone(), Is.True);
+        }
+
+        [Test]
+        public void IsClonable_WithReusableContent_ReturnsTrue()
+        {
+            using var request = new HttpRequestMessage
+            {
+                Content = new StreamContent(new MemoryStream())
+            };
+
+            Assert.That(request.CanClone(), Is.True);
+        }
+
+        [Test]
+        public void IsClonable_WithNonReusableContent_ReturnsFalse()
+        {
+            using var request = new HttpRequestMessage
+            {
+                Content = new StreamContent(new NonSeekableMemoryStream())
+            };
+
+            Assert.That(request.CanClone(), Is.False);
         }
 
         [Test]

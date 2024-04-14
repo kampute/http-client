@@ -5,6 +5,7 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Content.Abstracts;
     using Kampute.HttpClient.Content.Compression;
     using System;
     using System.IO.Compression;
@@ -36,11 +37,33 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
+        /// Determines whether the <see cref="HttpContent"/> instance can be reused.
+        /// </summary>
+        /// <param name="httpContent">The <see cref="HttpContent"/> instance to check for re-usability.</param>
+        /// <returns><c>true</c> if the content is reusable; otherwise, <c>false</c>.</returns>
+        /// <remarks>
+        /// Reusability of <see cref="HttpContent"/> is determined by its ability to provide its content multiple times without alteration.
+        /// For example, content backed by a non-seekable stream is not reusable as the stream can be consumed only once.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsReusable(this HttpContent httpContent)
+        {
+            return httpContent switch
+            {
+                null => true,
+                HttpContentDecorator decorator => decorator.OriginalContent.IsReusable(),
+                StreamContent streamContent => streamContent.Headers.ContentLength.HasValue,
+                _ => true,
+            };
+        }
+
+        /// <summary>
         /// Compresses the <see cref="HttpContent"/> using the GZIP compression algorithm.
         /// </summary>
         /// <param name="httpContent">The HTTP content to compress.</param>
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
         /// <returns>A new instance of <see cref="GzipCompressedContent"/> that wraps the original HTTP content with GZIP compression.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GzipCompressedContent AsGzip(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             return new GzipCompressedContent(httpContent, compressionLevel);
@@ -52,6 +75,7 @@ namespace Kampute.HttpClient
         /// <param name="httpContent">The HTTP content to compress.</param>
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
         /// <returns>A new instance of <see cref="DeflateCompressedContent"/> that wraps the original HTTP content with Deflate compression.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DeflateCompressedContent AsDeflate(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             return new DeflateCompressedContent(httpContent, compressionLevel);

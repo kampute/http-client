@@ -1,5 +1,6 @@
 ﻿namespace Kampute.HttpClient.Test
 {
+    using Kampute.HttpClient.Compression;
     using NUnit.Framework;
     using System;
     using System.IO;
@@ -57,6 +58,24 @@
             var result = content.IsReusable();
 
             Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void AsGzip_ReturnsGzipCompressedContent()
+        {
+            using var content = new StringContent("Test content");
+            using var compressedContent = content.AsGzip();
+
+            Assert.That(compressedContent, Is.InstanceOf<GzipCompressedContent>());
+        }
+
+        [Test]
+        public void AsDeflate_ReturnsDeflateCompressedContent()
+        {
+            using var content = new StringContent("Test content");
+            using var compressedContent = content.AsDeflate();
+
+            Assert.That(compressedContent, Is.InstanceOf<DeflateCompressedContent>());
         }
     }
 }

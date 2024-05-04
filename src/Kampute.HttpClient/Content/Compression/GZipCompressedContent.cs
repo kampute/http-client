@@ -28,11 +28,11 @@
         /// <summary>
         /// Wraps the provided base stream with a GZIP compression stream.
         /// </summary>
-        /// <param name="baseStream">The original stream to wrap with a GZIP compression stream.</param>
-        /// <returns>A <see cref="Stream"/> that applies GZIP compression to the data written to the <paramref name="baseStream"/>.</returns>
-        protected override Stream WrapWithCompressionStream(Stream baseStream)
+        /// <param name="stream">The original stream to wrap with a GZIP compression stream.</param>
+        /// <returns>A <see cref="Stream"/> that applies GZIP compression to the data written to the <paramref name="stream"/>.</returns>
+        protected override Stream CompressStream(Stream stream)
         {
-            return new GZipStream(baseStream, _compressionLevel, leaveOpen: true);
+            return new GZipStream(stream, _compressionLevel, leaveOpen: true);
         }
     }
 }

@@ -17,14 +17,14 @@ namespace Kampute.HttpClient.RetryManagement
     /// across an application. It uses a designated retry strategy to configure each scheduler it creates, ensuring that all
     /// schedulers have a uniform approach to handling retry attempts.
     /// </remarks>
-    public class RetrySchedulerFactory : IRetrySchedulerFactory
+    public class BackoffStrategy : IHttpBackoffProvider
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RetrySchedulerFactory"/> class with a specified retry strategy.
+        /// Initializes a new instance of the <see cref="BackoffStrategy"/> class with a specified retry strategy.
         /// </summary>
         /// <param name="strategy">The retry strategy to be used by schedulers created by this factory.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategy"/> is <c>null</c>.</exception>
-        public RetrySchedulerFactory(IRetryStrategy strategy)
+        public BackoffStrategy(IRetryStrategy strategy)
         {
             Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
         }
@@ -41,6 +41,6 @@ namespace Kampute.HttpClient.RetryManagement
         public virtual IRetryScheduler CreateScheduler() => new RetryScheduler(Strategy);
 
         /// <inheritdoc/>
-        IRetryScheduler IRetrySchedulerFactory.CreateScheduler(HttpRequestErrorContext ctx) => CreateScheduler();
+        IRetryScheduler IHttpBackoffProvider.CreateScheduler(HttpRequestErrorContext ctx) => CreateScheduler();
     }
 }

@@ -13,7 +13,7 @@ namespace Kampute.HttpClient.RetryManagement
     /// </summary>
     /// <remarks>
     /// <para>
-    /// The <see cref="DynamicRetrySchedulerFactory"/> class leverages a factory function to instantiate <see cref="IRetryScheduler"/> objects, enabling
+    /// The <see cref="DynamicBackoffStrategy"/> class leverages a factory function to instantiate <see cref="IRetryScheduler"/> objects, enabling
     /// the selection of specific retry strategies tailored to the conditions observed during the execution of HTTP requests. The decision-making
     /// process utilizes detailed context provided by <see cref="HttpRequestErrorContext"/>, which includes information about the HTTP client,
     /// the request, and any encountered exceptions.
@@ -24,28 +24,28 @@ namespace Kampute.HttpClient.RetryManagement
     /// different retry behaviors for optimizing overall system performance and reliability.
     /// </para>
     /// </remarks>
-    public class DynamicRetrySchedulerFactory : IRetrySchedulerFactory
+    public class DynamicBackoffStrategy : IHttpBackoffProvider
     {
         private readonly Func<HttpRequestErrorContext, IRetryScheduler> _schedulerFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicRetrySchedulerFactory"/> with a scheduler factory function.
+        /// Initializes a new instance of the <see cref="DynamicBackoffStrategy"/> with a scheduler factory function.
         /// </summary>
         /// <param name="schedulerFactory">A factory function that produces <see cref="IRetryScheduler"/> instances, allowing for dynamic
         /// selection of retry strategies based on the detailed context of failed HTTP requests.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="schedulerFactory"/> is <c>null</c>.</exception>
-        public DynamicRetrySchedulerFactory(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory)
+        public DynamicBackoffStrategy(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory)
         {
             _schedulerFactory = schedulerFactory ?? throw new ArgumentNullException(nameof(schedulerFactory));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicRetrySchedulerFactory"/> with a strategy factory function.
+        /// Initializes a new instance of the <see cref="DynamicBackoffStrategy"/> with a strategy factory function.
         /// </summary>
         /// <param name="strategyFactory">A factory function that produces <see cref="IRetryStrategy"/> instances, allowing for dynamic
         /// selection of retry strategies based on the detailed context of failed HTTP requests.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategyFactory"/> is <c>null</c>.</exception>
-        public DynamicRetrySchedulerFactory(Func<HttpRequestErrorContext, IRetryStrategy> strategyFactory)
+        public DynamicBackoffStrategy(Func<HttpRequestErrorContext, IRetryStrategy> strategyFactory)
         {
             if (strategyFactory is null)
                 throw new ArgumentNullException(nameof(strategyFactory));

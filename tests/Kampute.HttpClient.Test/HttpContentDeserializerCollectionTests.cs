@@ -5,7 +5,6 @@
     using Moq;
     using NUnit.Framework;
     using System;
-    using System.Net.Http.Headers;
 
     [TestFixture]
     public class HttpContentDeserializerCollectionTests
@@ -30,7 +29,7 @@
             var modelType = typeof(string);
             var expectedMediaTypes = new[]
             {
-                new MediaTypeWithQualityHeaderValue(Constants.TestMediaType, 1.0),
+                Constants.TestMediaType,
             };
 
             var collection = new HttpContentDeserializerCollection
@@ -50,13 +49,13 @@
             var errorType = typeof(object);
             var expectedMediaTypes = new[]
             {
-                new MediaTypeWithQualityHeaderValue(Constants.TestMediaType, 1.0),
-                new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json, 0.9),
+                Constants.TestMediaType,
+                MediaTypeNames.Application.Json,
             };
 
             var deserializerMock = new Mock<IHttpContentDeserializer>();
             deserializerMock.Setup(deserializer => deserializer.GetSupportedMediaTypes(It.IsAny<Type>()))
-                .Returns((Type type) => type == typeof(string) ? Array.Empty<string>() : [MediaTypeNames.Application.Json]);
+                .Returns((Type type) => type == typeof(string) ? [] : [MediaTypeNames.Application.Json]);
 
             var collection = new HttpContentDeserializerCollection
             {

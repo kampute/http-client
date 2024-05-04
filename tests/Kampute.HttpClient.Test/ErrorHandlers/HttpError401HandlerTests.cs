@@ -36,164 +36,71 @@
         }
 
         [Test]
-        public async Task TryAuthenticateAsync_OnSuccess_UpdatesAuthorizationHeader()
+        public async Task On401Response_BySuccessfulAuthentication_AuthorizesRequests()
         {
-            var authScheme = AuthSchemes.Bearer;
-            var authParameter = "Testing";
-            var authToken = "Token";
-
-            using var unauthorizeHandler = new HttpError401Handler((_, challenges, _) =>
-            {
-                var authorization = challenges
-                    .Where(x => x.Scheme == authScheme)
-                    .Select(x => new AuthenticationHeaderValue(x.Scheme, authToken))
-                    .FirstOrDefault();
-                return Task.FromResult(authorization);
-            });
-
-            _client.ErrorHandlers.Add(unauthorizeHandler);
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue($"Old-{authScheme}", $"Old-{authToken}");
-
-            var authenticated = await unauthorizeHandler.TryAuthenticateAsync(_client, authScheme, authParameter);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(authenticated, Is.True);
-                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Not.Null);
-                Assert.Multiple(() =>
-                {
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Scheme, Is.EqualTo(authScheme));
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Parameter, Is.EqualTo(authToken));
-                });
-            });
-        }
-
-        [Test]
-        public async Task TryAuthenticateAsync_OnFailure_DoesNotUpdateAuthorizationHeader()
-        {
-            var authScheme = AuthSchemes.Bearer;
-            var authToken = "Token";
-
-            using var unauthorizeHandler = new HttpError401Handler((_, _, _) => Task.FromResult<AuthenticationHeaderValue?>(null));
-
-            _client.ErrorHandlers.Add(unauthorizeHandler);
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(authScheme, authToken);
-
-            var authenticated = await unauthorizeHandler.TryAuthenticateAsync(_client, authScheme);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(authenticated, Is.False);
-                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Not.Null);
-                Assert.Multiple(() =>
-                {
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Scheme, Is.EqualTo(authScheme));
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Parameter, Is.EqualTo(authToken));
-                });
-            });
-        }
-
-        [Test]
-        public async Task TryAuthenticateAsync_ForConcurrentCalls_InvokesDelegateOnlyOnce()
-        {
-            var authScheme = AuthSchemes.Bearer;
-            var authToken = "Token";
-
-            var numberOfCalls = 32;
-            var numberOfInvokes = 0;
-            var allAuthenticationsInitiated = new TaskCompletionSource<bool>();
-
-            using var unauthorizeHandler = new HttpError401Handler(async (_, challenges, _) =>
-            {
-                Interlocked.Increment(ref numberOfInvokes);
-
-                await allAuthenticationsInitiated.Task;
-
-                return challenges
-                    .Where(x => x.Scheme == authScheme)
-                    .Select(x => new AuthenticationHeaderValue(x.Scheme, authToken))
-                    .FirstOrDefault();
-            });
-
-            _client.ErrorHandlers.Add(unauthorizeHandler);
-
-            var callCount = 0;
-            var calls = Enumerable
-                .Range(1, numberOfCalls)
-                .Select(_ => Task.Run(async () =>
-                {
-                    Interlocked.Increment(ref callCount);
-                    return await unauthorizeHandler.TryAuthenticateAsync(_client, authScheme);
-                }))
-                .ToArray();
-
-            while (Interlocked.CompareExchange(ref callCount, callCount, numberOfCalls) != numberOfCalls)
-                await Task.Delay(10);
-
-            await Task.Run(() => allAuthenticationsInitiated.TrySetResult(true));
-
-            var results = await Task.WhenAll(calls);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(numberOfInvokes, Is.EqualTo(1));
-                Assert.That(results, Is.All.True);
-                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Not.Null);
-                Assert.Multiple(() =>
-                {
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Scheme, Is.EqualTo(authScheme));
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Parameter, Is.EqualTo(authToken));
-                });
-            });
-        }
-
-        [Test]
-        public async Task On401Response_InvokesDelegate()
-        {
-            var wwwAuthenticate = new AuthenticationHeaderValue(AuthSchemes.ApiKey, "Provide an API Key");
-            var ApiKey = "Key";
+            var scheme = AuthSchemes.ApiKey;
+            var apiKey = "Key";
 
             var numberOfInvokes = 0;
-            var numberOfRequests = 0;
+            var numberOfResponses = 0;
+            var numberOfRequests = 100;
 
-            using var unauthorizeHandler = new HttpError401Handler((_, challenges, _) =>
+            using var unauthorizeHandler = new HttpError401Handler((_, _) =>
             {
                 Interlocked.Increment(ref numberOfInvokes);
-
-                var authorization = challenges
-                    .Where(x => x == wwwAuthenticate)
-                    .Select(x => new AuthenticationHeaderValue(x.Scheme, ApiKey))
-                    .FirstOrDefault();
-                return Task.FromResult(authorization);
+                var authorization = new AuthenticationHeaderValue(scheme, apiKey);
+                return Task.FromResult<AuthenticationHeaderValue?>(authorization);
             });
 
             _client.ErrorHandlers.Add(unauthorizeHandler);
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Interlocked.Increment(ref numberOfRequests);
+                Interlocked.Increment(ref numberOfResponses);
 
                 if (_client.DefaultRequestHeaders.Authorization is not null)
                     return new HttpResponseMessage(HttpStatusCode.OK);
 
-                var response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-                response.Headers.WwwAuthenticate.Add(wwwAuthenticate);
-                return response;
+                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             });
 
-            await _client.SendAsync(HttpMethod.Get, "/protected/resource");
+            var tasks = Enumerable.Range(1, numberOfRequests).Select(i => _client.SendAsync(HttpMethod.Get, $"/protected/resource{i}"));
+            await Task.WhenAll(tasks);
 
             Assert.Multiple(() =>
             {
-                Assert.That(numberOfRequests, Is.EqualTo(2));
                 Assert.That(numberOfInvokes, Is.EqualTo(1));
+                Assert.That(numberOfResponses, Is.EqualTo(numberOfRequests + 1));
                 Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Not.Null);
                 Assert.Multiple(() =>
                 {
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Scheme, Is.EqualTo(wwwAuthenticate.Scheme));
-                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Parameter, Is.EqualTo(ApiKey));
+                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Scheme, Is.EqualTo(scheme));
+                    Assert.That(_client.DefaultRequestHeaders.Authorization?.Parameter, Is.EqualTo(apiKey));
                 });
             });
+        }
+
+        [Test]
+        public async Task On401Response_ByFailedAuthentication_ThrowsUnauthorizedHttpError()
+        {
+            using var unauthorizeHandler = new HttpError401Handler((ctx, ct) => ctx.Client.SendAsync<AuthenticationHeaderValue?>(HttpMethod.Get, "/authenticate", null, ct));
+
+            _client.ErrorHandlers.Add(unauthorizeHandler);
+
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.Unauthorized));
+
+            var caughtException = default(HttpResponseException);
+            try
+            {
+                await _client.SendAsync(HttpMethod.Get, "/protected/resource");
+            }
+            catch (HttpResponseException ex)
+            {
+                caughtException = ex;
+            }
+
+            Assert.That(caughtException, Is.Not.Null);
+            Assert.That(caughtException.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
     }
 }

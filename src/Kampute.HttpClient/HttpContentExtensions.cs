@@ -10,7 +10,6 @@ namespace Kampute.HttpClient
     using System;
     using System.IO.Compression;
     using System.Net.Http;
-    using System.Runtime.CompilerServices;
     using System.Text;
 
     /// <summary>
@@ -30,7 +29,6 @@ namespace Kampute.HttpClient
         /// indicating that the encoding could not be determined. An <see cref="ArgumentException"/> is thrown if the charset is specified but 
         /// not supported by the system.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Encoding? FindCharacterEncoding(this HttpContent httpContent)
         {
             return httpContent.Headers.ContentType?.CharSet is string charSet ? Encoding.GetEncoding(charSet) : null;
@@ -45,7 +43,6 @@ namespace Kampute.HttpClient
         /// Reusability of <see cref="HttpContent"/> is determined by its ability to provide its content multiple times without alteration.
         /// For example, content backed by a non-seekable stream is not reusable as the stream can be consumed only once.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsReusable(this HttpContent httpContent)
         {
             return httpContent switch
@@ -63,7 +60,6 @@ namespace Kampute.HttpClient
         /// <param name="httpContent">The HTTP content to compress.</param>
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
         /// <returns>A new instance of <see cref="GzipCompressedContent"/> that wraps the original HTTP content with GZIP compression.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GzipCompressedContent AsGzip(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             return new GzipCompressedContent(httpContent, compressionLevel);
@@ -75,7 +71,6 @@ namespace Kampute.HttpClient
         /// <param name="httpContent">The HTTP content to compress.</param>
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
         /// <returns>A new instance of <see cref="DeflateCompressedContent"/> that wraps the original HTTP content with Deflate compression.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DeflateCompressedContent AsDeflate(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             return new DeflateCompressedContent(httpContent, compressionLevel);

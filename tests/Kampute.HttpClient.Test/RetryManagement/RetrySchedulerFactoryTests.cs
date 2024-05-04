@@ -12,7 +12,7 @@
         public void CreatesSchedulerWithCorrectStrategy()
         {
             var mockRetryStrategy = new Mock<IRetryStrategy>();
-            var factory = new RetrySchedulerFactory(mockRetryStrategy.Object);
+            var factory = new BackoffStrategy(mockRetryStrategy.Object);
 
             var scheduler = factory.CreateScheduler() as RetryScheduler;
 

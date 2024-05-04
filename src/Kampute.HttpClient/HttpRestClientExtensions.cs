@@ -5,11 +5,11 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Content;
     using System;
     using System.IO;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -25,6 +25,42 @@ namespace Kampute.HttpClient
     public static class HttpRestClientExtensions
     {
         /// <summary>
+        /// Sends an asynchronous HEAD request to the specified URI and returns the response headers.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>A task representing the asynchronous operation, returning the response headers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<HttpResponseHeaders> HeadAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
+        {
+            using var response = await client.SendAsync(HttpVerb.Head, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            return response.Headers;
+        }
+
+        /// <summary>
+        /// Sends an asynchronous OPTIONS request to the specified URI and returns the response headers.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>A task representing the asynchronous operation, returning the response headers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<HttpResponseHeaders> OptionsAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
+        {
+            using var response = await client.SendAsync(HttpVerb.Options, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            return response.Headers;
+        }
+
+        /// <summary>
         /// Sends an asynchronous GET request to the specified URI and returns the response body deserialized as the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the response object.</typeparam>
@@ -36,11 +72,90 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> GetAsync<T>(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync<T>(HttpVerb.Get, uri, default, cancellationToken);
+            return client.SendAsync<T>(HttpVerb.Get, uri, payload: null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends an asynchronous GET request to the specified URI and returns the response body as an array of bytes.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>A task representing the asynchronous operation, returning an array of bytes.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<byte[]> GetAsByteArrayAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
+        {
+            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            return response.Content is not null ? await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false) : [];
+        }
+
+        /// <summary>
+        /// Sends an asynchronous GET request to the specified URI and returns the response body as a string.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>A task representing the asynchronous operation, returning a string.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<string> GetAsStringAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
+        {
+            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            return response.Content is not null ? await response.Content.ReadAsStringAsync().ConfigureAwait(false) : string.Empty;
+        }
+
+        /// <summary>
+        /// Sends an asynchronous GET request to the specified URI and returns the response body as a <see cref="Stream"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>A task that represents the asynchronous operation, returning a <see cref="Stream"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<Stream> GetAsStreamAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
+        {
+            var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            if (response.Content is not null)
+            {
+                // The response is intentionally not disposed to avoid disposal of the underlying stream.
+                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+
+            response.Dispose();
+            return Stream.Null;
+        }
+
+        /// <summary>
+        /// Sends an asynchronous GET request to the specified URI and write the response body into the provided <see cref="Stream"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="stream">The <see cref="Stream"/> where the response body is written.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="stream"/> is <c>null</c>.</exception>
+        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
+        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task GetToStreamAsync(this HttpRestClient client, string uri, Stream stream, CancellationToken cancellationToken = default)
+        {
+            if (stream is null)
+                throw new ArgumentNullException(nameof(stream));
+
+            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            if (response.Content is not null)
+                await response.Content.CopyToAsync(stream).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -56,8 +171,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PostAsync<T>(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsync<T>(HttpVerb.Post, uri, payload, cancellationToken);
@@ -75,11 +189,10 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Task PostAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task PostAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync(HttpVerb.Post, uri, payload, cancellationToken);
+            using var _ = await client.SendAsync(HttpVerb.Post, uri, payload, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -95,8 +208,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PutAsync<T>(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsync<T>(HttpMethod.Put, uri, payload, cancellationToken);
@@ -114,11 +226,10 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Task PutAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task PutAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync(HttpVerb.Put, uri, payload, cancellationToken);
+            using var _ = await client.SendAsync(HttpVerb.Put, uri, payload, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -134,8 +245,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PatchAsync<T>(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsync<T>(HttpVerb.Patch, uri, payload, cancellationToken);
@@ -153,11 +263,10 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Task PatchAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task PatchAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync(HttpVerb.Patch, uri, payload, cancellationToken);
+            using var _ = await client.SendAsync(HttpVerb.Patch, uri, payload, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -172,11 +281,10 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> DeleteAsync<T>(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync<T>(HttpVerb.Delete, uri, default, cancellationToken);
+            return client.SendAsync<T>(HttpVerb.Delete, uri, payload: null, cancellationToken);
         }
 
         /// <summary>
@@ -190,50 +298,52 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Task DeleteAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task DeleteAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            return client.SendAsync(HttpVerb.Delete, uri, default, cancellationToken);
+            using var _ = await client.SendAsync(HttpVerb.Delete, uri, payload: null, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Retrieves data from the specified URI and writes it to the provided stream asynchronously.
+        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, returning the response content as a stream.
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
-        /// <param name="stream">The stream to write the downloaded data to. It must be writable.</param>
         /// <param name="method">The HTTP method to use for the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload content (optional).</param>
+        /// <param name="payload">The HTTP request payload content.</param>
+        /// <param name="streamProvider">A function that returns a <see cref="Stream"/> based on the HTTP content headers.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>
-        /// A task that represents the asynchronous download operation. The task result contains the headers of the downloaded content. 
-        /// If the response contains no content, <c>null</c> is returned.
+        /// A task that represents the asynchronous operation. The task result contains a <see cref="Stream"/> that represents the response content.
         /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="stream"/>, <paramref name="method"/>, or <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/>, or <paramref name="streamProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<HttpContentHeaders?> FetchToStreamAsync
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task<Stream> DownloadAsync
         (
             this HttpRestClient client,
-            Stream stream,
             HttpMethod method,
             string uri,
-            HttpContent? payload = default,
+            HttpContent? payload,
+            Func<HttpContentHeaders, Stream> streamProvider,
             CancellationToken cancellationToken = default
         )
         {
-            if (stream is null)
-                throw new ArgumentNullException(nameof(stream));
+            if (method is null)
+                throw new ArgumentNullException(nameof(method));
+            if (uri is null)
+                throw new ArgumentNullException(nameof(uri));
+            if (streamProvider is null)
+                throw new ArgumentNullException(nameof(streamProvider));
 
-            var contentHeaders = default(HttpContentHeaders);
-            await client.DownloadAsync(method, uri, payload, headers =>
-            {
-                contentHeaders = headers;
-                return stream;
-            }, cancellationToken);
-            return contentHeaders;
+            using var response = await client.SendAsync(method, uri, payload, cancellationToken).ConfigureAwait(false);
+            response.Content ??= new EmptyContent();
+
+            var stream = streamProvider(response.Content.Headers) ?? throw new InvalidOperationException("The stream provider must not return null.");
+            await response.Content.CopyToAsync(stream).ConfigureAwait(false);
+            return stream;
         }
     }
 }

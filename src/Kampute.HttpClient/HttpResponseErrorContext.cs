@@ -5,8 +5,11 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Interfaces;
     using System;
     using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents the context of an HTTP response error, providing information about the HTTP request, the client that sent the request, 
@@ -43,5 +46,20 @@ namespace Kampute.HttpClient
         /// The <see cref="HttpResponseException"/> containing details of the HTTP response error.
         /// </value>
         public new HttpResponseException Error => (HttpResponseException)base.Error;
+
+        /// <summary>
+        /// Schedules a retry for the failed HTTP request using a provided scheduler factory.
+        /// </summary>
+        /// <param name="schedulerFactory">A function that returns an <see cref="IRetryScheduler"/> for scheduling retry attempts based on the error context.</param>
+        /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+        /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="schedulerFactory"/> is <c>null</c>.</exception>
+        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(Func<HttpResponseErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
+        {
+            if (schedulerFactory is null)
+                throw new ArgumentNullException(nameof(schedulerFactory));
+
+            return base.ScheduleRetryAsync(_ => schedulerFactory(this), cancellationToken);
+        }
     }
 }

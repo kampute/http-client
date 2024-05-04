@@ -12,7 +12,7 @@
     {
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [Constants.TestMediaType];
 
-        public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
+        public IEnumerable<string> GetSupportedMediaTypes(Type? modelType)
         {
             return modelType is not null && CanParse(modelType) ? SupportedMediaTypes : [];
         }

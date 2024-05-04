@@ -3,6 +3,7 @@
     using Kampute.HttpClient.Utilities;
     using NUnit.Framework;
     using System;
+    using System.Threading;
 
     [TestFixture]
     public class SharedDisposableTests
@@ -15,79 +16,80 @@
         }
 
         [Test]
-        public void Acquire_WhenFirstCalled_CreatesObject()
+        public void SharedDisposable_CreatesResource_OnFirstReference()
         {
-            var sharedObj = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-            var obj = sharedObj.Acquire();
+            var factoryInvoked = 0;
+            var sharedDisposable = new SharedDisposable<TestDisposable>(() =>
+            {
+                ++factoryInvoked;
+                return new TestDisposable();
+            });
 
-            Assert.That(obj, Is.Not.Null);
+            using var reference1 = sharedDisposable.AcquireReference();
+            using var reference2 = sharedDisposable.AcquireReference();
+
             Assert.Multiple(() =>
             {
-                Assert.That(obj.IsDisposed, Is.False);
-                Assert.That(sharedObj.ReferenceCount, Is.EqualTo(1));
+                Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(2));
+                Assert.That(factoryInvoked, Is.EqualTo(1));
             });
         }
 
         [Test]
-        public void Release_WhenLastReferenceReleased_DisposesObject()
+        public void SharedDisposable_DisposesResource_OnLastRelease()
         {
-            var sharedObj = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-            var objRef1 = sharedObj.Acquire();
-            var objRef2 = sharedObj.Acquire();
+            var instance = new TestDisposable();
+            var sharedDisposable = new SharedDisposable<TestDisposable>(() => instance);
 
-            Assert.That(sharedObj.ReferenceCount, Is.EqualTo(2));
+            var reference1 = sharedDisposable.AcquireReference();
+            var reference2 = sharedDisposable.AcquireReference();
 
-            var disposed1 = sharedObj.Release(objRef1);
+            Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(2));
+
+            reference1.Dispose();
             Assert.Multiple(() =>
             {
-                Assert.That(disposed1, Is.False);
-                Assert.That(objRef1.IsDisposed, Is.False);
-                Assert.That(sharedObj.ReferenceCount, Is.EqualTo(1));
+                Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(1));
+                Assert.That(instance.IsDisposed, Is.False);
             });
 
-            var disposed2 = sharedObj.Release(objRef2);
+            reference2.Dispose();
             Assert.Multiple(() =>
             {
-                Assert.That(disposed2, Is.True);
-                Assert.That(objRef2.IsDisposed, Is.True);
-                Assert.That(sharedObj.ReferenceCount, Is.EqualTo(0));
+                Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(0));
+                Assert.That(instance.IsDisposed, Is.True);
             });
         }
 
         [Test]
-        public void Release_WhenObjectNotManaged_ThrowsArgumentException()
+        public void SharedDisposable_MaintainsCorrectReferenceCount_OnConcurrentAcquireAndDispose()
         {
-            var sharedObj = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-            var anotherObj = new TestDisposable(); // Not managed
+            int numberOfThreads = 100;
+            var threads = new Thread[numberOfThreads];
+            int createdCount = 0;
 
-            Assert.That(() => sharedObj.Release(anotherObj), Throws.TypeOf<ArgumentException>());
-        }
+            var sharedDisposable = new SharedDisposable<TestDisposable>(() => new TestDisposable());
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                threads[i] = new Thread(() =>
+                {
+                    using var reference = sharedDisposable.AcquireReference();
+                    Interlocked.Increment(ref createdCount);
+                    Thread.Sleep(10);
+                });
+            }
 
-        [Test]
-        public void Is_ForManagedObject_ReturnsTrue()
-        {
-            var sharedObj = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-            var obj = sharedObj.Acquire();
+            foreach (Thread thread in threads)
+                thread.Start();
 
-            Assert.That(sharedObj.Is(obj), Is.True);
-        }
+            foreach (Thread thread in threads)
+                thread.Join();
 
-        [Test]
-        public void Is_ForNonManagedObject_ReturnsFalse()
-        {
-            var sharedObj = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-            sharedObj.Acquire(); // Acquire but ignore the instance
-            var anotherObj = new TestDisposable(); // Not managed
-
-            Assert.That(sharedObj.Is(anotherObj), Is.False);
-        }
-
-        [Test]
-        public void Is_ForNull_ReturnsFalse()
-        {
-            var sharedObj = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-
-            Assert.That(sharedObj.Is(null), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(sharedDisposable.ReferenceCount, Is.Zero);
+                Assert.That(createdCount, Is.EqualTo(numberOfThreads));
+            });
         }
     }
 }

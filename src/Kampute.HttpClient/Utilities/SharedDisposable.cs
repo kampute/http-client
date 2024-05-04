@@ -6,22 +6,27 @@
 namespace Kampute.HttpClient.Utilities
 {
     using System;
-    using System.Runtime.CompilerServices;
+    using System.Threading;
 
     /// <summary>
     /// Manages shared access to a disposable resource, ensuring it is correctly disposed of when no longer in use.
     /// </summary>
+    /// <typeparam name="T">The type of the disposable object. Must be a class that implements <see cref="IDisposable"/>.</typeparam>
     /// <remarks>
+    /// <para>
     /// This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts 
     /// of an application. It ensures that the resource remains alive as long as it is needed and is properly cleaned up afterwards. This pattern
-    /// helps prevent resource leaks and promotes efficient resource usage. Additionally, the implementation is thread-safe, making it suitable for
-    /// use in multi-threaded environments where resources may be accessed concurrently.
+    /// helps prevent resource leaks and promotes efficient resource usage.
+    /// </para>
+    /// <para>
+    /// The implementation is thread-safe, making it suitable for use in multi-threaded environments where resources may be accessed concurrently.
+    /// The resource is created lazily, only when it is first requested, and is disposed of when the last reference is released.
+    /// </para>
     /// </remarks>
-    /// <typeparam name="T">The type of the disposable object. Must be a class that implements <see cref="IDisposable"/>.</typeparam>
     public sealed class SharedDisposable<T> where T : class, IDisposable
     {
-        private volatile T? _instance;
-        private volatile int _referenceCount = 0;
+        private T? _instance;
+        private int _referenceCount;
         private readonly Func<T> _factory;
         private readonly object _lock = new();
 
@@ -38,64 +43,92 @@ namespace Kampute.HttpClient.Utilities
         /// <summary>
         /// Gets the current number of active references to the managed disposable object.
         /// </summary>
-        /// <value>
-        /// The number of active references.
-        /// </value>
-        public int ReferenceCount => _referenceCount;
+        /// <value>The number of active references.</value>
+        public int ReferenceCount => Volatile.Read(ref _referenceCount);
 
         /// <summary>
-        /// Acquires a reference to the managed object, creating the object if necessary.
+        /// Creates a new reference to the shared disposable resource, increasing the reference count.
         /// </summary>
-        /// <returns>A reference to the managed object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if the factory fails to create an instance of type <typeparamref name="T"/>.</exception>
-        public T Acquire()
+        /// <returns>A new <see cref="Reference"/> instance.</returns>
+        public Reference AcquireReference() => new(this);
+
+        /// <summary>
+        /// Increases the reference count for the disposable resource. If it is the first reference, creates the resource using the factory method.
+        /// </summary>
+        /// <returns>The shared disposable resource instance.</returns>
+        private T IncReferenceCount()
         {
             lock (_lock)
             {
-                if (_referenceCount == 0)
+                if (++_referenceCount == 1)
                     _instance = _factory();
 
-                if (_instance is null)
-                    throw new InvalidOperationException("The shared disposal manager factory failed.");
-
-                ++_referenceCount;
-                return _instance;
+                return _instance ?? throw new InvalidOperationException("The shared disposal manager factory failed.");
             }
         }
 
         /// <summary>
-        /// Releases a reference to the managed object, disposing of the object if it is no longer in use.
+        /// Decreases the reference count for the disposable resource. If no more references exist, disposes of the resource.
         /// </summary>
-        /// <param name="obj">The managed object to release.</param>
-        /// <returns><c>true</c> if the object was no longer in use and disposed; otherwise, <c>false</c>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="obj"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="obj"/> is not managed by this <see cref="SharedDisposable{T}"/> instance.</exception>
-        public bool Release(T obj)
+        private void DecReferenceCount()
         {
-            if (obj is null)
-                throw new ArgumentNullException(nameof(obj));
-
             lock (_lock)
             {
-                if (!ReferenceEquals(_instance, obj))
-                    throw new ArgumentException("The object is not managed by this shared disposal manager.", nameof(obj));
-
-                if (--_referenceCount == 0)
+                if (_instance is not null && --_referenceCount == 0)
                 {
                     _instance.Dispose();
                     _instance = null;
-                    return true;
                 }
             }
-            return false;
         }
 
         /// <summary>
-        /// Determines whether the specified <paramref name="obj"/> is the one managed by this <see cref="SharedDisposable{T}"/> instance.
+        /// Represents a reference to the shared disposable resource.
         /// </summary>
-        /// <param name="obj">The object to check.</param>
-        /// <returns><c>true</c> if <paramref name="obj"/> is managed by this <see cref="SharedDisposable{T}"/> instance; otherwise, <c>false</c>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Is(T? obj) => obj is not null && ReferenceEquals(_instance, obj);
+        public sealed class Reference : IDisposable
+        {
+            private readonly SharedDisposable<T> _owner;
+            private T? _instance;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Reference"/> class, increasing the reference count of the resource.
+            /// </summary>
+            /// <param name="owner">The <see cref="SharedDisposable{T}"/> instance that owns this reference.</param>
+            internal Reference(SharedDisposable<T> owner)
+            {
+                _owner = owner;
+                _instance = _owner.IncReferenceCount();
+            }
+
+            /// <summary>
+            /// Gets the <see cref="SharedDisposable{T}"/> instance that owns this reference.
+            /// </summary>
+            public SharedDisposable<T> Owner => _owner;
+
+            /// <summary>
+            /// Gets the instance of the shared disposable resource.
+            /// </summary>
+            /// <value>The shared disposable resource instance.</value>
+            /// <exception cref="ObjectDisposedException">Thrown if the reference has been disposed.</exception>
+            public T Instance => _instance ?? throw new ObjectDisposedException(typeof(Reference).Name);
+
+            /// <summary>
+            /// Decreases the reference count and disposes the resource if it is no longer needed.
+            /// </summary>
+            public void Dispose()
+            {
+                if (_instance is not null)
+                {
+                    _instance = null;
+                    _owner.DecReferenceCount();
+                }
+            }
+
+            /// <summary>
+            /// Allows implicit conversion of the <see cref="Reference"/> to the shared resource type.
+            /// </summary>
+            /// <param name="reference">The reference instance.</param>
+            public static implicit operator T(Reference reference) => reference.Instance;
+        }
     }
 }

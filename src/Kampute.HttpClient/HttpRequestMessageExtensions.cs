@@ -7,7 +7,6 @@ namespace Kampute.HttpClient
 {
     using System;
     using System.Net.Http;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Provides extension methods for <see cref="HttpRequestMessage"/> to enhance functionality related to HTTP request processing.
@@ -55,7 +54,6 @@ namespace Kampute.HttpClient
         /// This is a quick check to prevent cloning of requests that contain one-time-use content, which could lead to unexpected behaviors
         /// such as empty request bodies or <see cref="InvalidOperationException"/>.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CanClone(this HttpRequestMessage request)
         {
             return request.Content is null || request.Content.IsReusable();
@@ -70,7 +68,6 @@ namespace Kampute.HttpClient
         /// A cloned request is one that has been created through the <see cref="Clone(HttpRequestMessage)"/> extension method.
         /// </remarks>
         /// <seealso cref="Clone(HttpRequestMessage)"/>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsCloned(this HttpRequestMessage request)
         {
             return request.Properties.ContainsKey(HttpRequestMessagePropertyKeys.CloneGeneration);
@@ -86,7 +83,6 @@ namespace Kampute.HttpClient
         /// will have a generation count of 0.
         /// </remarks>
         /// <seealso cref="Clone(HttpRequestMessage)"/>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetCloneGeneration(this HttpRequestMessage request)
         {
             return request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.CloneGeneration, out var cloneGeneration) ? (int)cloneGeneration : 0;

@@ -48,8 +48,8 @@ namespace Kampute.HttpClient.Interfaces
         /// Retrieves a collection of supported media types for a specific model type.
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
-        /// <returns>A read-only collection of strings representing the media types supported for the specified model type.</returns>
-        IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType);
+        /// <returns>An enumerable of strings representing the media types supported for the specified model type.</returns>
+        IEnumerable<string> GetSupportedMediaTypes(Type modelType);
 
         /// <summary>
         /// Determines whether this deserializer can handle data of a specific content type and deserialize it into the specified model type.
@@ -57,7 +57,7 @@ namespace Kampute.HttpClient.Interfaces
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The type of the model to be deserialized.</param>
         /// <returns><c>true</c> if this deserializer can handle the specified content type and model type; otherwise, <c>false</c>.</returns>
-        bool CanDeserialize(string mediaType, Type? modelType);
+        bool CanDeserialize(string mediaType, Type modelType);
 
         /// <summary>
         /// Asynchronously deserializes an object from the provided <see cref="HttpContent"/>.

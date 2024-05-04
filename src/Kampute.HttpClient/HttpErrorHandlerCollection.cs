@@ -60,7 +60,7 @@ namespace Kampute.HttpClient
             if (errorHandler is null)
                 throw new ArgumentNullException(nameof(errorHandler));
             if (_collection.Contains(errorHandler))
-                throw new ArgumentException("A duplicate error handler cannot be added to the collection.", nameof(errorHandler));
+                throw new ArgumentException("The specified error handler is already in the collection.", nameof(errorHandler));
 
             _collection.Add(errorHandler);
         }

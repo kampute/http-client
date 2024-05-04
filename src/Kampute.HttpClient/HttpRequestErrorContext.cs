@@ -5,8 +5,11 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Interfaces;
     using System;
     using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents the context of an HTTP request error, encapsulating details about the request, the error encountered, and the client that sent the request.
@@ -50,5 +53,30 @@ namespace Kampute.HttpClient
         /// The <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.
         /// </value>
         public HttpRequestException Error { get; }
+
+        /// <summary>
+        /// Schedules a retry for the failed HTTP request using a provided scheduler factory.
+        /// </summary>
+        /// <param name="schedulerFactory">A function that returns an <see cref="IRetryScheduler"/> for scheduling retry attempts based on the error context.</param>
+        /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+        /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="schedulerFactory"/> is <c>null</c>.</exception>
+        public async Task<HttpErrorHandlerResult> ScheduleRetryAsync(Func<HttpRequestErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
+        {
+            if (schedulerFactory is null)
+                throw new ArgumentNullException(nameof(schedulerFactory));
+
+            if (!Request.CanClone())
+                return HttpErrorHandlerResult.NoRetry;
+
+            if (!Request.Properties.ContainsKey(HttpRequestMessagePropertyKeys.RetryScheduler))
+                Request.Properties[HttpRequestMessagePropertyKeys.RetryScheduler] = schedulerFactory(this);
+
+            var scheduler = Request.Properties[HttpRequestMessagePropertyKeys.RetryScheduler] as IRetryScheduler;
+
+            return scheduler is not null && await scheduler.WaitAsync(cancellationToken).ConfigureAwait(false)
+                ? HttpErrorHandlerResult.Retry(Request.Clone())
+                : HttpErrorHandlerResult.NoRetry;
+        }
     }
 }

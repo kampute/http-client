@@ -8,8 +8,6 @@ namespace Kampute.HttpClient
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -36,8 +34,8 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<T?> SendAsFormAsync<T>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static Task<T?> SendAsFormAsync<T>
         (
             this HttpRestClient client,
             HttpMethod method,
@@ -49,8 +47,7 @@ namespace Kampute.HttpClient
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var content = new FormUrlEncodedContent(payload);
-            return await client.SendAsync<T>(method, uri, content, cancellationToken).ConfigureAwait(false);
+            return client.SendAsync<T>(method, uri, new FormUrlEncodedContent(payload), cancellationToken);
         }
 
         /// <summary>
@@ -61,13 +58,13 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="payload">The collection of key-value pairs to serialize as the URL-encoded HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
-        /// <returns>A task representing the asynchronous operation, returning headers of the response.</returns>
+        /// <returns>A task representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<HttpResponseHeaders> SendAsFormAsync
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static Task SendAsFormAsync
         (
             this HttpRestClient client,
             HttpMethod method,
@@ -79,8 +76,8 @@ namespace Kampute.HttpClient
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var content = new FormUrlEncodedContent(payload);
-            return await client.SendAsync(method, uri, content, cancellationToken).ConfigureAwait(false);
+            return client.SendAsync(method, uri, new FormUrlEncodedContent(payload), cancellationToken)
+                         .ContinueWith(task => task.Result.Dispose(), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
@@ -96,8 +93,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PostAsFormAsync<T>
         (
             this HttpRestClient client,
@@ -121,8 +117,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PostAsFormAsync
         (
             this HttpRestClient client,
@@ -147,8 +142,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PutAsFormAsync<T>
         (
             this HttpRestClient client,
@@ -172,8 +166,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PutAsFormAsync
         (
             this HttpRestClient client,
@@ -198,8 +191,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PatchAsFormAsync<T>
         (
             this HttpRestClient client,
@@ -223,8 +215,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PatchAsFormAsync
         (
             this HttpRestClient client,

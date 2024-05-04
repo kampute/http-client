@@ -26,7 +26,6 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="request">The original <see cref="HttpRequestMessage"/> to send.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public HttpRequestMessageCloneManager(HttpRequestMessage request)
         {
             _originalRequest = request ?? throw new ArgumentNullException(nameof(request));
@@ -39,11 +38,7 @@ namespace Kampute.HttpClient
         /// <value>
         /// The current <see cref="HttpRequestMessage"/> to send.
         /// </value>
-        public readonly HttpRequestMessage RequestToSend
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => _currentRequest;
-        }
+        public readonly HttpRequestMessage RequestToSend => _currentRequest;
 
         /// <summary>
         /// Attempts to apply a retry decision to the current request. If the decision includes a request to retry, updates the current request and 
@@ -64,7 +59,6 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Disposes of any cloned requests, releasing the managed resources.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public readonly void Dispose()
         {
             DisposeNonOriginalRequest();

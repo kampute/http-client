@@ -5,34 +5,29 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides a thread-safe mechanism for asynchronously updating a value of type <typeparamref name="T"/>.
+    /// Manages thread-safe, asynchronous updates to a value, ensuring efficiency by reducing unnecessary update operations.
     /// </summary>
-    /// <typeparam name="T">The type of the value to be updated. It is recommended that this type be immutable to ensure thread-safe operations.</typeparam>
+    /// <typeparam name="T">The type of the value to be managed, preferably immutable for thread safety.</typeparam>
     /// <remarks>
-    /// <para>
-    /// This class ensures that updates to the value are performed in a thread-safe manner and allows for updates to be deferred if
-    /// a more recent update request has been made. It is particularly useful in scenarios where values are being updated from multiple
-    /// sources or threads and you want to ensure consistency and prevent race conditions.
-    /// </para>
-    /// <para>
-    /// The value is updated using an asynchronous updater function provided by the caller, which can incorporate custom logic for
-    /// updating the value based on its current state and external criteria.
-    /// </para>
+    /// This class provides a mechanism to update a value asynchronously while ensuring that updates are serialized and efficient. It is designed to prevent multiple,
+    /// concurrent update operations from being processed if they are requested in quick succession. By employing a timing check before applying updates, the class ensures
+    /// that only necessary updates proceed when the value has not been recently updated, making it ideal for scenarios where collecting or calculating the updated value is
+    /// resource-intensive or costly.
     /// </remarks>
-    public sealed class AsyncGuard<T> : IDisposable
+    public sealed class AsyncUpdateThrottle<T> : IDisposable
     {
         private readonly SemaphoreSlim _semaphore = new(1, 1);
-        private VolatileWrapper _lastValue;
+        private VolatileWrapper _value;
         private long _lastUpdateTime;
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncGuard{T}"/> class with an initial value.
+        /// Initializes a new instance of the <see cref="AsyncUpdateThrottle{T}"/> class with an initial value.
         /// </summary>
         /// <param name="initialValue">The initial value of the type <typeparamref name="T"/>.</param>
-        public AsyncGuard(T? initialValue)
+        public AsyncUpdateThrottle(T? initialValue)
         {
-            _lastValue = new VolatileWrapper(initialValue);
-            _lastUpdateTime = 0;
+            _value = new VolatileWrapper(initialValue);
         }
 
         /// <summary>
@@ -40,25 +35,24 @@
         /// </summary>
         /// <value>
         /// The current value of type <typeparamref name="T"/>. This value is thread-safe to access and represents the most recent state
-        /// managed by the <see cref="AsyncGuard{T}"/>.
+        /// managed by the <see cref="AsyncUpdateThrottle{T}"/>.
         /// </value>
         public T? Value
         {
-            get => Volatile.Read(ref _lastValue).Value;
-            private set => Volatile.Write(ref _lastValue, new VolatileWrapper(value));
+            get => Volatile.Read(ref _value).Value;
+            private set => Volatile.Write(ref _value, new VolatileWrapper(value));
         }
 
         /// <summary>
-        /// Gets the Unix time stamp of the last successful update operation.
+        /// Gets the time of the last successful update operation.
         /// </summary>
         /// <value>
-        /// The Unix time stamp representing the point in time when the last successful update to the value was made, measured in milliseconds.
-        /// If no update has been applied, the value is zero.
+        /// The time when the last successful update to the value was made. If no update has been applied, the value is <see cref="DateTimeOffset.MinValue"/>.
         /// </value>
-        public long LastUpdateUnixTime
+        public DateTimeOffset LastUpdateTime
         {
-            get => Volatile.Read(ref _lastUpdateTime);
-            private set => Volatile.Write(ref _lastUpdateTime, value);
+            get => DateTimeOffset.FromUnixTimeMilliseconds(Volatile.Read(ref _lastUpdateTime));
+            private set => Volatile.Write(ref _lastUpdateTime, value.ToUnixTimeMilliseconds());
         }
 
         /// <summary>
@@ -68,7 +62,7 @@
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a boolean value that indicates whether the value was updated.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncUpdater"/> is <c>null</c>.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         /// <remarks>
         /// <para>
         /// This method allows for a thread-safe update of the value. The update will only be applied if no other update has been completed since
@@ -84,15 +78,15 @@
             if (asyncUpdater is null)
                 throw new ArgumentNullException(nameof(asyncUpdater));
 
-            var acquireTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var requestTime = DateTimeOffset.UtcNow;
             await _semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
-                if (LastUpdateUnixTime >= acquireTime)
-                    return false; // Already updated by another thread.
+                if (requestTime <= LastUpdateTime)
+                    return false; // The value is already up to date.
 
                 Value = await asyncUpdater().ConfigureAwait(false);
-                LastUpdateUnixTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                LastUpdateTime = DateTimeOffset.UtcNow;
                 return true;
             }
             finally
@@ -102,7 +96,7 @@
         }
 
         /// <summary>
-        /// Releases all resources used by the <see cref="AsyncGuard{T}"/>.
+        /// Releases all resources used by the <see cref="AsyncUpdateThrottle{T}"/>.
         /// </summary>
         public void Dispose()
         {

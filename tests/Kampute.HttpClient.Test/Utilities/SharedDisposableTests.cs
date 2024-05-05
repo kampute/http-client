@@ -16,7 +16,21 @@
         }
 
         [Test]
-        public void SharedDisposable_CreatesResource_OnFirstReference()
+        public void SharedDisposable_DefaultConstructor_CreatesResource_OnFirstReference()
+        {
+            var sharedDisposable = new SharedDisposable<TestDisposable>();
+
+            using var reference1 = sharedDisposable.AcquireReference();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(1));
+                Assert.That(reference1.Instance, Is.Not.Null);
+            });
+        }
+
+        [Test]
+        public void SharedDisposable_FactoryConstructor_CreatesResource_OnFirstReference()
         {
             var factoryInvoked = 0;
             var sharedDisposable = new SharedDisposable<TestDisposable>(() =>

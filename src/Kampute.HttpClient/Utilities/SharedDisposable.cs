@@ -27,8 +27,15 @@ namespace Kampute.HttpClient.Utilities
     {
         private T? _instance;
         private int _referenceCount;
-        private readonly Func<T> _factory;
+        private readonly Func<T>? _factory;
         private readonly object _lock = new();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class that uses the default constructor of <typeparamref name="T"/>.
+        /// </summary>
+        public SharedDisposable()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class with a factory function.
@@ -61,7 +68,7 @@ namespace Kampute.HttpClient.Utilities
             lock (_lock)
             {
                 if (++_referenceCount == 1)
-                    _instance = _factory();
+                    _instance = _factory is not null ? _factory() : (T)Activator.CreateInstance(typeof(T));
 
                 return _instance ?? throw new InvalidOperationException("The shared disposal manager factory failed.");
             }

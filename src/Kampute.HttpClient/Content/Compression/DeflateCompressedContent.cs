@@ -28,11 +28,11 @@
         /// <summary>
         /// Wraps the provided base stream with a Deflate compression stream.
         /// </summary>
-        /// <param name="baseStream">The original stream to wrap with a Deflate compression stream.</param>
-        /// <returns>A <see cref="Stream"/> that applies Deflate compression to the data written to the <paramref name="baseStream"/>.</returns>
-        protected override Stream WrapWithCompressionStream(Stream baseStream)
+        /// <param name="stream">The original stream to wrap with a Deflate compression stream.</param>
+        /// <returns>A <see cref="Stream"/> that applies Deflate compression to the data written to the <paramref name="stream"/>.</returns>
+        protected override Stream CompressStream(Stream stream)
         {
-            return new DeflateStream(baseStream, _compressionLevel, leaveOpen: true);
+            return new DeflateStream(stream, _compressionLevel, leaveOpen: true);
         }
     }
 }

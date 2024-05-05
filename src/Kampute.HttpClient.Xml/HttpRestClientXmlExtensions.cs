@@ -7,8 +7,6 @@ namespace Kampute.HttpClient.Xml
 {
     using System;
     using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -56,8 +54,8 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<T?> SendAsXmlAsync<T>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static Task<T?> SendAsXmlAsync<T>
         (
             this HttpRestClient client,
             HttpMethod method,
@@ -69,8 +67,7 @@ namespace Kampute.HttpClient.Xml
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var content = new XmlContent(payload);
-            return await client.SendAsync<T>(method, uri, content, cancellationToken).ConfigureAwait(false);
+            return client.SendAsync<T>(method, uri, new XmlContent(payload), cancellationToken);
         }
 
         /// <summary>
@@ -81,13 +78,13 @@ namespace Kampute.HttpClient.Xml
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
-        /// <returns>A task representing the asynchronous operation, returning headers of the response.</returns>
+        /// <returns>A task representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<HttpResponseHeaders> SendAsXmlAsync
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task SendAsXmlAsync
         (
             this HttpRestClient client,
             HttpMethod method,
@@ -99,8 +96,7 @@ namespace Kampute.HttpClient.Xml
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var content = new XmlContent(payload);
-            return await client.SendAsync(method, uri, content, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(method, uri, new XmlContent(payload), cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -116,8 +112,7 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PostAsXmlAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsXmlAsync<T>(HttpVerb.Post, uri, payload, cancellationToken);
@@ -135,8 +130,7 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PostAsXmlAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsXmlAsync(HttpVerb.Post, uri, payload, cancellationToken);
@@ -155,8 +149,7 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PutAsXmlAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsXmlAsync<T>(HttpVerb.Put, uri, payload, cancellationToken);
@@ -174,8 +167,7 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PutAsXmlAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsXmlAsync(HttpVerb.Put, uri, payload, cancellationToken);
@@ -194,8 +186,7 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PatchAsXmlAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsXmlAsync<T>(HttpVerb.Patch, uri, payload, cancellationToken);
@@ -213,8 +204,7 @@ namespace Kampute.HttpClient.Xml
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PatchAsXmlAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsXmlAsync(HttpVerb.Patch, uri, payload, cancellationToken);

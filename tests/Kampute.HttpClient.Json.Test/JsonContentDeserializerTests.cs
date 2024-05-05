@@ -9,23 +9,13 @@
     public class JsonContentDeserializerTests
     {
         [Test]
-        public void GetSupportedMediaTypes_ForNonNullModelType_ReturnsCorrectMediaTypes()
+        public void GetSupportedMediaTypes_ReturnsCorrectMediaTypes()
         {
             var deserializer = new JsonContentDeserializer();
 
             var supportedMediaTypes = deserializer.GetSupportedMediaTypes(typeof(TestModel));
 
             Assert.That(supportedMediaTypes, Contains.Item(MediaTypeNames.Application.Json));
-        }
-
-        [Test]
-        public void GetSupportedMediaTypes_ForNullModelType_ReturnsEmpty()
-        {
-            var deserializer = new JsonContentDeserializer();
-
-            var supportedMediaTypes = deserializer.GetSupportedMediaTypes(null);
-
-            Assert.That(supportedMediaTypes, Is.Empty);
         }
 
         [Test]
@@ -44,16 +34,6 @@
             var deserializer = new JsonContentDeserializer();
 
             var canDeserialize = deserializer.CanDeserialize(MediaTypeNames.Application.Xml, typeof(TestModel));
-
-            Assert.That(canDeserialize, Is.False);
-        }
-
-        [Test]
-        public void CanDeserialize_ForNullModelType_ReturnsFalse()
-        {
-            var deserializer = new JsonContentDeserializer();
-
-            var canDeserialize = deserializer.CanDeserialize(MediaTypeNames.Application.Json, null);
 
             Assert.That(canDeserialize, Is.False);
         }

@@ -5,12 +5,12 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class AsyncGuardTests
+    public class AsyncUpdateThrottleTests
     {
         [Test]
         public void Constructor_SetsInitialValue()
         {
-            using var synchronizer = new AsyncGuard<int>(1);
+            using var synchronizer = new AsyncUpdateThrottle<int>(1);
 
             Assert.That(synchronizer.Value, Is.EqualTo(1));
         }
@@ -18,7 +18,7 @@
         [Test]
         public async Task TryUpdateAsync_UpdatesValue()
         {
-            using var synchronizer = new AsyncGuard<int>(1);
+            using var synchronizer = new AsyncUpdateThrottle<int>(1);
 
             var updateResult = await synchronizer.TryUpdateAsync(() => Task.FromResult(42));
 
@@ -32,7 +32,7 @@
         [Test]
         public async Task TryUpdateAsync_DoesNotUpdateIfAnotherUpdateHasCompleted()
         {
-            var synchronizer = new AsyncGuard<int>(1);
+            var synchronizer = new AsyncUpdateThrottle<int>(1);
 
             var results = await Task.WhenAll
             (
@@ -43,7 +43,7 @@
                 }),
                 synchronizer.TryUpdateAsync(async () =>
                 {
-                    await Task.Delay(0);
+                    await Task.Delay(10);
                     return 3;
                 })
             );

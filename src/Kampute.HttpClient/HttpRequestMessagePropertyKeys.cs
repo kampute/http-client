@@ -5,6 +5,7 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Interfaces;
     using System.Net.Http;
 
     /// <summary>
@@ -13,27 +14,41 @@ namespace Kampute.HttpClient
     public static class HttpRequestMessagePropertyKeys
     {
         /// <summary>
-        /// A key used to store and identify the clone generation property in an <see cref="HttpRequestMessage"/>.
-        /// This property tracks how many times the request has been cloned.
+        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that tracks
+        /// how many times the request has been cloned.
         /// </summary>
         public const string CloneGeneration = nameof(HttpRestClient) + "." + nameof(CloneGeneration);
 
         /// <summary>
-        /// A key used to store and identify the transaction identifier property in an <see cref="HttpRequestMessage"/>.
-        /// This property identifies the request and its clones.
+        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that identifies
+        /// the request and its clones.
         /// </summary>
         public const string TransactionId = nameof(HttpRestClient) + "." + nameof(TransactionId);
 
         /// <summary>
-        /// A key used to store and identify the response object type property in an <see cref="HttpRequestMessage"/>.
-        /// This property identifies the type of expected .NET object in the response.
+        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that identifies
+        /// the type of expected .NET object in the response.
         /// </summary>
         public const string ResponseObjectType = nameof(HttpRestClient) + "." + nameof(ResponseObjectType);
 
         /// <summary>
-        /// A key used to store and identify the retry scheduler property in an <see cref="HttpRequestMessage"/>.
-        /// This property holds the active scheduler associated with the request, if any, managing retry logic for transient failures.
+        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that references
+        /// the <see cref="IRetryScheduler"/> instance associated with the request which is responsible for scheduling
+        /// the retry logic for transient failures.
         /// </summary>
         public const string RetryScheduler = nameof(HttpRestClient) + "." + nameof(RetryScheduler);
+
+        /// <summary>
+        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that references
+        /// the <see cref="IHttpErrorHandler"/> instance associated with the request, which is responsible for processing
+        /// and potentially recovering from errors in the response.
+        /// </summary>
+        public const string ErrorHandler = nameof(HttpRestClient) + "." + nameof(ErrorHandler);
+
+        /// <summary>
+        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that indicates
+        /// '401 Unauthorized' errors should not be automatically handled.
+        /// </summary>
+        public const string SkipUnauthorizedHandling = nameof(HttpRestClient) + "." + nameof(SkipUnauthorizedHandling);
     }
 }

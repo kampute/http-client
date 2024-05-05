@@ -5,7 +5,7 @@
 
 namespace Kampute.HttpClient.DataContract
 {
-    using Kampute.HttpClient.Interfaces;
+    using Kampute.HttpClient.Content.Abstracts;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -21,8 +21,16 @@ namespace Kampute.HttpClient.DataContract
     /// <summary>
     /// Provides functionality for deserializing XML content from HTTP responses into objects.
     /// </summary>
-    public sealed class XmlContentDeserializer : IHttpContentDeserializer
+    public sealed class XmlContentDeserializer : HttpContentDeserializer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmlContentDeserializer"/> class.
+        /// </summary>
+        public XmlContentDeserializer()
+            : base(MediaTypeNames.Application.Xml)
+        {
+        }
+
         /// <summary>
         /// Gets or sets the XML deserialization settings.
         /// </summary>
@@ -32,14 +40,6 @@ namespace Kampute.HttpClient.DataContract
         public DataContractSerializerSettings? Settings { get; set; }
 
         /// <summary>
-        /// Gets the collection of media types that this deserializer supports.
-        /// </summary>
-        /// <value>
-        /// The read-only collection of media types that this deserializer supports.
-        /// </value>
-        public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [MediaTypeNames.Application.Xml];
-
-        /// <summary>
         /// Retrieves a collection of supported media types for a specific model type.
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
@@ -47,7 +47,7 @@ namespace Kampute.HttpClient.DataContract
         /// The read-only collection of media types that this deserializer supports if the model type is not <c>null</c> and
         /// is marked with a <see cref="DataContractAttribute"/>; otherwise, an empty collection.
         /// </returns>
-        public IReadOnlyCollection<string> GetSupportedMediaTypes(Type? modelType)
+        public override IEnumerable<string> GetSupportedMediaTypes(Type modelType)
         {
             return modelType?.GetCustomAttribute<DataContractAttribute>() is not null ? SupportedMediaTypes : [];
         }
@@ -61,7 +61,7 @@ namespace Kampute.HttpClient.DataContract
         /// <c>true</c> if the deserializer supports the media type and the model type is not <c>null</c> and is marked with
         /// a <see cref="DataContractAttribute"/>; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDeserialize(string mediaType, Type? modelType)
+        public override bool CanDeserialize(string mediaType, Type modelType)
         {
             return modelType?.GetCustomAttribute<DataContractAttribute>() is not null && SupportedMediaTypes.Contains(mediaType);
         }
@@ -74,7 +74,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="cancellationToken">A token for canceling the read operation (optional).</param>
         /// <returns>A task representing the asynchronous read operation, containing the deserialized object.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <c>null</c>.</exception>
-        public async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
+        public override async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
         {
             if (content is null)
                 throw new ArgumentNullException(nameof(content));

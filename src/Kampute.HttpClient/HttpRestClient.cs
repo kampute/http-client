@@ -8,7 +8,7 @@ namespace Kampute.HttpClient
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.Utilities;
     using System;
-    using System.IO;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -49,57 +49,47 @@ namespace Kampute.HttpClient
     /// necessary to create efficient, reliable, and customizable HTTP communication solutions.
     /// </para>
     /// </remarks>
-    public class HttpRestClient : IDisposable, ICloneable
+    public class HttpRestClient : IDisposable
     {
-        private static readonly MediaTypeWithQualityHeaderValue AnyMediaType = new("*/*", 0.1);
-        private static readonly SharedDisposable<HttpClient> SharedHttpClient = new(CreateClient);
-        private static readonly Lazy<HttpContentHeaders> EmptyContentHeaders = new(CreateEmptyContentHeaders);
-
-        private static HttpClient CreateClient()
-        {
-            var messageHandler = new HttpClientHandler
-            {
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-            };
-            return new HttpClient(messageHandler, disposeHandler: true);
-        }
-
         private static HttpRequestHeaders CreateRequestHeaders()
         {
             using var request = new HttpRequestMessage();
             return request.Headers;
         }
 
-        private static HttpContentHeaders CreateEmptyContentHeaders()
-        {
-            using var content = new ByteArrayContent([]);
-            return content.Headers;
-        }
-
         private readonly HttpClient _httpClient;
-        private readonly bool _disposeClient;
+        private readonly IDisposable? _disposable;
 
-        private Uri? _baseAddress = null;
-        private IRetrySchedulerFactory _backoffStrategy = BackoffStrategies.None;
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, string>>> _scopedHeaders = new(LazyThreadSafetyMode.ExecutionAndPublication);
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, object>>> _scopedProperties = new(LazyThreadSafetyMode.ExecutionAndPublication);
+
+        private IHttpBackoffProvider _backoffStrategy = BackoffStrategies.None;
+        private Uri? _baseAddress;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpRestClient"/> class with a default <see cref="HttpClient"/>.
+        /// Initializes a new instance of the <see cref="HttpRestClient"/> class.
         /// </summary>
         /// <remarks>
-        /// <para>
-        /// This constructor initializes the <see cref="HttpRestClient"/> with an internally shared <see cref="HttpClient"/> instance. 
-        /// The <see cref="HttpClient"/> is configured with an <see cref="HttpClientHandler"/> that enables automatic decompression of 
-        /// GZip and Deflate encoded content.
-        /// </para>
-        /// <para>
-        /// This default constructor is ideal for scenarios requiring a straightforward and ready-to-use REST client without the need 
-        /// for extensive customization of the underlying HTTP client. It provides a convenient option for quick setup and immediate 
-        /// use, particularly useful for standard API consumption where default configurations suffice.
-        /// </para>
+        /// This constructor initializes the <see cref="HttpRestClient"/> with a shared <see cref="HttpClient"/> instance provided
+        /// by <see cref="SharedHttpClient"/> class.
         /// </remarks>
         public HttpRestClient()
-            : this(SharedHttpClient.Acquire(), false)
+            : this(SharedHttpClient.AcquireReference())
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpRestClient"/> class using a shared <see cref="HttpClient"/>.
+        /// </summary>
+        /// <param name="httpClientReference">A <see cref="SharedDisposable{T}.Reference"/> to the shared <see cref="HttpClient"/> instance.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <c>null</c>.</exception>
+        public HttpRestClient(SharedDisposable<HttpClient>.Reference httpClientReference)
+        {
+            if (httpClientReference is null)
+                throw new ArgumentNullException(nameof(httpClientReference));
+
+            _httpClient = httpClientReference.Instance;
+            _disposable = httpClientReference;
         }
 
         /// <summary>
@@ -107,29 +97,12 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="httpClient">The <see cref="HttpClient"/> to be used by the <see cref="HttpRestClient"/>.</param>
         /// <param name="disposeClient">Specifies whether the <see cref="HttpRestClient"/> should dispose of the provided <see cref="HttpClient"/> when the <see cref="HttpRestClient"/> is disposed.</param>
-        /// <remarks>
-        /// <para>
-        /// This constructor allows the integration of a custom or shared <see cref="HttpClient"/> instance. Utilizing a shared <see cref="HttpClient"/> can provide several 
-        /// benefits, such as improved resource utilization and socket management, especially in high-load scenarios. Shared instances help in avoiding socket exhaustion and 
-        /// can reduce overhead by reusing existing connections where possible.
-        /// </para>
-        /// <para>
-        /// When <paramref name="disposeClient"/> is set to <c>true</c>, the <see cref="HttpRestClient"/> takes responsibility for disposing of the <see cref="HttpClient"/>. This is suitable 
-        /// when the <see cref="HttpClient"/> is used exclusively by the <see cref="HttpRestClient"/>. However, if the <see cref="HttpClient"/> is shared across different parts of the 
-        /// application or by multiple instances of <see cref="HttpRestClient"/>, it is recommended to set <paramref name="disposeClient"/> to <c>false</c>. This ensures that disposing of 
-        /// one <see cref="HttpRestClient"/> instance does not inadvertently impact other components using the same <see cref="HttpClient"/>.
-        /// </para>
-        /// <para>
-        /// This constructor is particularly advantageous in scenarios requiring a <see cref="HttpClient"/> with specific configurations, such as custom message handlers, specialized 
-        /// timeout settings, or advanced authentication mechanisms. It provides the necessary flexibility to align the <see cref="HttpRestClient"/> with existing infrastructure and 
-        /// organizational policies.
-        /// </para>
-        /// </remarks>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClient"/> is <c>null</c>.</exception>
         public HttpRestClient(HttpClient httpClient, bool disposeClient = true)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _disposeClient = disposeClient;
+            if (disposeClient)
+                _disposable = httpClient;
         }
 
         /// <summary>
@@ -191,6 +164,23 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
+        /// Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.
+        /// </summary>
+        /// <value>
+        /// The backoff strategy for handling transient connection failures during HTTP requests.
+        /// </value>
+        /// <remarks>
+        /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines 
+        /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network 
+        /// issues or temporary server unavailability. The default is <see cref="BackoffStrategies.None"/>.
+        /// </remarks>
+        public IHttpBackoffProvider BackoffStrategy
+        {
+            get => _backoffStrategy;
+            set => _backoffStrategy = value ?? BackoffStrategies.None;
+        }
+
+        /// <summary>
         /// Gets or sets the <see cref="Type"/> used to deserialize the response body when the response status code indicates an error.
         /// </summary>
         /// <value>
@@ -209,23 +199,6 @@ namespace Kampute.HttpClient
         /// </para>
         /// </remarks>
         public Type? ResponseErrorType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.
-        /// </summary>
-        /// <value>
-        /// The backoff strategy for handling transient connection failures during HTTP requests.
-        /// </value>
-        /// <remarks>
-        /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines 
-        /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network 
-        /// issues or temporary server unavailability. The default is <see cref="BackoffStrategies.None"/>.
-        /// </remarks>
-        public IRetrySchedulerFactory BackoffStrategy
-        {
-            get => _backoffStrategy;
-            set => _backoffStrategy = value ?? BackoffStrategies.None;
-        }
 
         /// <summary>
         /// Gets the mutable collection of HTTP error handlers used for handling error responses.
@@ -261,34 +234,6 @@ namespace Kampute.HttpClient
         public HttpRequestHeaders DefaultRequestHeaders { get; } = CreateRequestHeaders();
 
         /// <summary>
-        /// Creates a copy of the current <see cref="HttpRestClient"/> instance.
-        /// </summary>
-        /// <returns>A new <see cref="HttpRestClient"/> instance that is a copy of the current instance.</returns>
-        /// <remarks>
-        /// This method creates a new instance of <see cref="HttpRestClient"/> by copying the current instance's configuration, 
-        /// and reuses the underlying <see cref="HttpClient"/> without taking ownership. This means that disposing of the cloned 
-        /// instance will not dispose of the <see cref="HttpClient"/>.
-        /// </remarks>
-        public object Clone()
-        {
-            var clone = new HttpRestClient(SharedHttpClient.Is(_httpClient) ? SharedHttpClient.Acquire() : _httpClient, false)
-            {
-                _baseAddress = _baseAddress,
-                _backoffStrategy = _backoffStrategy,
-                ResponseErrorType = ResponseErrorType,
-            };
-
-            foreach (var errorHandler in ErrorHandlers)
-                clone.ErrorHandlers.Add(errorHandler);
-            foreach (var deserializer in ResponseDeserializers)
-                clone.ResponseDeserializers.Add(deserializer);
-            foreach (var header in DefaultRequestHeaders)
-                clone.DefaultRequestHeaders.TryAddWithoutValidation(header.Key, header.Value);
-
-            return clone;
-        }
-
-        /// <summary>
         /// Releases the unmanaged resources used by the <see cref="HttpRestClient"/> and optionally disposes of the managed resources.
         /// </summary>
         public void Dispose()
@@ -298,46 +243,45 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, returning the response content as a stream.
+        /// Begins a new scope with the specified properties.
         /// </summary>
-        /// <param name="method">The HTTP method to use for the request.</param>
-        /// <param name="uri">The URI to which the request is sent.</param>
-        /// <param name="payload">The HTTP request payload content.</param>
-        /// <param name="streamProvider">A function that returns a <see cref="Stream"/> based on the HTTP content headers.</param>
-        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains a <see cref="Stream"/> that represents the response content.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/>, or <paramref name="streamProvider"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <c>null</c>.</exception>
-        /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
-        /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<Stream> DownloadAsync(HttpMethod method, string uri, HttpContent? payload, Func<HttpContentHeaders, Stream> streamProvider, CancellationToken cancellationToken = default)
+        /// <param name="properties">The properties to include in the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and remove the associated properties.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="properties"/> is <c>null</c>.</exception>
+        /// <remarks>
+        /// <para>
+        /// The scope created by this method will be associated with the current <see cref="HttpRestClient"/> instance. The properties within the scope will
+        /// be included in the properties of all subsequent HTTP requests made by this client until the scope is disposed.
+        /// </para>
+        /// <para>
+        /// By using a scope, you can ensure that all related requests carry the same contextual information, which can be critical for tracing, logging,
+        /// and maintaining state across asynchronous operations or across different components of an application.
+        /// </para>
+        /// </remarks>
+        public virtual IDisposable BeginPropertyScope(IEnumerable<KeyValuePair<string, object>> properties)
         {
-            if (method is null)
-                throw new ArgumentNullException(nameof(method));
-            if (uri is null)
-                throw new ArgumentNullException(nameof(uri));
-            if (streamProvider is null)
-                throw new ArgumentNullException(nameof(streamProvider));
+            if (properties is null)
+                throw new ArgumentNullException(nameof(properties));
 
-            using var request = CreateHttpRequest(method, uri, null);
-            request.Content = payload;
+            return _scopedProperties.Value.BeginScope(properties);
+        }
 
-            using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
+        /// <summary>
+        /// Begins a new scope with the specified HTTP headers.
+        /// </summary>
+        /// <param name="httpHeaders">The HTTP headers to include in the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and remove the associated HTTP headers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpHeaders"/> is <c>null</c>.</exception>
+        /// <remarks>
+        /// The scope created by this method will be associated with the current <see cref="HttpRestClient"/> instance. The HTTP headers within the scope will
+        /// be included in the HTTP headers of all subsequent HTTP requests made by this client until the scope is disposed.
+        /// </remarks>
+        public virtual IDisposable BeginHeaderScope(IEnumerable<KeyValuePair<string, string>> httpHeaders)
+        {
+            if (httpHeaders is null)
+                throw new ArgumentNullException(nameof(httpHeaders));
 
-            if (response.Content is null)
-                return GetStream(EmptyContentHeaders.Value);
-
-            var stream = GetStream(response.Content.Headers);
-            await response.Content.CopyToAsync(stream).ConfigureAwait(false);
-            return stream;
-
-            Stream GetStream(HttpContentHeaders contentHeaders)
-            {
-                return streamProvider(contentHeaders) ?? throw new InvalidOperationException("The stream provider must not return null.");
-            }
+            return _scopedHeaders.Value.BeginScope(httpHeaders);
         }
 
         /// <summary>
@@ -353,8 +297,8 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public virtual async Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
@@ -375,42 +319,41 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="payload">The HTTP request payload content (optional).</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the headers of the response.</returns>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the response.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public async Task<HttpResponseHeaders> SendAsync(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public virtual async Task<HttpResponseMessage> SendAsync(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
             if (uri is null)
                 throw new ArgumentNullException(nameof(uri));
 
-            using var request = CreateHttpRequest(method, uri, null);
+            using var request = CreateHttpRequest(method, uri, responseObjectType: null);
             request.Content = payload;
 
-            using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
-            return response.Headers;
+            return await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Asynchronously dispatches an HTTP request, with the possibility of retrying the request based on specific failure conditions.
+        /// Sends an asynchronous HTTP request, with the possibility of retrying the request based on specific failure conditions.
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
-        /// <param name="cancellationToken">A token for canceling the request.</param>
+        /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         /// <remarks>
         /// This method is responsible for sending the HTTP request and optionally retrying it under specific failure conditions. The decision to retry a request is based 
         /// on the nature of the failure, with potential consultation of external retry logic mechanisms.
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
         /// <seealso cref="ErrorHandlers"/>
-        protected virtual async Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected virtual async Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
@@ -430,10 +373,11 @@ namespace Kampute.HttpClient
                 }
                 catch (HttpRequestException networkError) when (networkError.IsTransientNetworkError())
                 {
-                    var decision = await BackoffAndDecideOnRetryAsync(networkError, cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
+                    var decision = await DecideOnRetryAsync(networkError, cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
                     if (!cloneManager.TryApplyDecision(decision))
                         throw;
                 }
+                cancellationToken.ThrowIfCancellationRequested();
             }
         }
 
@@ -445,7 +389,7 @@ namespace Kampute.HttpClient
         /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         /// <remarks>
         /// This method sends the provided HTTP request and returns the response if the status code indicates a success. For any error status codes, it fails fast by throwing 
         /// an exception specific to the nature of the error. Additionally, the method incorporates pre-send and post-receive hooks for adding custom logic, such as modifying 
@@ -473,6 +417,32 @@ namespace Kampute.HttpClient
                 response.Dispose();
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error 
+        /// handling strategies. 
+        /// </summary>
+        /// <param name="error">The <see cref="HttpRequestException"/> encapsulating details of the encountered error during the HTTP request execution.</param>
+        /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/> or <paramref name="request"/> is <c>null</c>.</exception>
+        /// <remarks>
+        /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an 
+        /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or 
+        /// to handle the error as unrecoverable.
+        /// </remarks>
+        /// <seealso cref="BackoffStrategy"/>
+        protected virtual Task<HttpErrorHandlerResult> DecideOnRetryAsync
+        (
+            HttpRequestException error,
+            HttpRequestMessage request,
+            CancellationToken cancellationToken
+        )
+        {
+            var ctx = new HttpRequestErrorContext(this, request, error);
+            return ctx.ScheduleRetryAsync(BackoffStrategy.CreateScheduler, cancellationToken);
         }
 
         /// <summary>
@@ -511,50 +481,11 @@ namespace Kampute.HttpClient
             {
                 var decision = await errorHandler.DecideOnRetryAsync(context, cancellationToken).ConfigureAwait(false);
                 if (decision.RequestToRetry is not null)
+                {
+                    decision.RequestToRetry.Properties[HttpRequestMessagePropertyKeys.ErrorHandler] = errorHandler;
                     return decision;
+                }
             }
-
-            return HttpErrorHandlerResult.NoRetry;
-        }
-
-        /// <summary>
-        /// Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error 
-        /// handling strategies. 
-        /// </summary>
-        /// <param name="error">The <see cref="HttpRequestException"/> encapsulating details of the encountered error during the HTTP request execution.</param>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
-        /// <param name="cancellationToken">A token for canceling the operation.</param>
-        /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/> or <paramref name="request"/> is <c>null</c>.</exception>
-        /// <remarks>
-        /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an 
-        /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or 
-        /// to handle the error as unrecoverable.
-        /// </remarks>
-        /// <seealso cref="BackoffStrategy"/>
-        protected virtual async Task<HttpErrorHandlerResult> BackoffAndDecideOnRetryAsync
-        (
-            HttpRequestException error,
-            HttpRequestMessage request,
-            CancellationToken cancellationToken
-        )
-        {
-            if (error is null)
-                throw new ArgumentNullException(nameof(error));
-            if (request is null)
-                throw new ArgumentNullException(nameof(request));
-
-            if (!request.CanClone())
-                return HttpErrorHandlerResult.NoRetry;
-
-            var scheduler = request.Properties.GetOrAdd(HttpRequestMessagePropertyKeys.RetryScheduler, _ =>
-            {
-                var ctx = new HttpRequestErrorContext(this, request, error);
-                return _backoffStrategy.CreateScheduler(ctx);
-            });
-
-            if (await scheduler.WaitAsync(cancellationToken).ConfigureAwait(false))
-                return HttpErrorHandlerResult.Retry(request.Clone());
 
             return HttpErrorHandlerResult.NoRetry;
         }
@@ -576,7 +507,7 @@ namespace Kampute.HttpClient
         /// the response's status code and a default error message.
         /// </remarks>
         /// <seealso cref="ResponseErrorType"/>
-        protected async Task<HttpResponseException> ToExceptionAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+        protected virtual async Task<HttpResponseException> ToExceptionAsync(HttpResponseMessage response, CancellationToken cancellationToken)
         {
             if (response is null)
                 throw new ArgumentNullException(nameof(response));
@@ -617,7 +548,7 @@ namespace Kampute.HttpClient
         /// failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about the parsing error. 
         /// </remarks>        
         /// <seealso cref="ResponseDeserializers"/>
-        protected async Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
+        protected virtual async Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
         {
             if (response is null)
                 throw new ArgumentNullException(nameof(response));
@@ -637,7 +568,7 @@ namespace Kampute.HttpClient
             {
                 return await deserializer.DeserializeAsync(response.Content, objectType, cancellationToken).ConfigureAwait(false);
             }
-            catch (TaskCanceledException)
+            catch (OperationCanceledException)
             {
                 throw;
             }
@@ -666,29 +597,38 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <remarks>
         /// <para>
-        /// This method constructs a new HTTP request message. It sets the method, URI, and headers based on the provided parameters. 
-        /// The <c>Accept</c> headers are configured to align with the media types supported by the content deserializers for the specified 
-        /// <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, all media types will be accepted.
+        /// This method constructs a new HTTP request message by setting the HTTP method and URI. It prepares the request for transmission by
+        /// configuring both the headers and custom properties appropriate for the given context and operation.
         /// </para>
         /// <para>
-        /// In addition, this method includes custom properties in the <see cref="HttpRequestMessage"/> to provide additional context and facilitate
-        /// easier tracking and processing of the request. These properties are detailed below:
+        /// Headers are added or adjusted from both the default headers provided by the <see cref="DefaultRequestHeaders"/> property and any scoped
+        /// headers that are active at the time of this request’s creation. Scoped headers are prioritized over default headers in case of key conflicts
+        /// to ensure that context-specific modifications are respected.
+        /// </para>
+        /// <para>
+        /// If the underlying HTTP client's default request headers, the headers provided by the <see cref="DefaultRequestHeaders"/> property, or any scoped
+        /// headers do not already include an <c>Accept</c> header, it is added to align with the media types supported by the content deserializers appropriate for
+        /// the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, it defaults to accepting all media types.
+        /// </para>
+        /// <para>
+        /// This method also includes scoped properties in the HTTP request message to provide additional context and facilitate easier tracking and processing
+        /// of the request. In addition to the scoped properties, the following properties are added:
         /// <list type="bullet">
-        /// <item>
-        /// <term><see cref="HttpRequestMessagePropertyKeys.TransactionId"/></term>
-        /// <description>
-        /// A unique identifier (<see cref="Guid"/>) generated and assigned to each request, aiding in the request's tracking, debugging, and logging
-        /// processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
-        /// or when requests are retried due to transient failures.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term><see cref="HttpRequestMessagePropertyKeys.ResponseObjectType"/></term>
-        /// <description>
-        /// Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
-        /// and support error recovery strategies.
-        /// </description>
-        /// </item>
+        ///   <item>
+        ///     <term><see cref="HttpRequestMessagePropertyKeys.TransactionId"/></term>
+        ///     <description>
+        ///     A unique identifier (<see cref="Guid"/>) generated and assigned to each request, aiding in the request's tracking, debugging, and logging
+        ///     processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
+        ///     or when requests are retried due to transient failures.
+        ///     </description>
+        ///   </item>
+        ///   <item>
+        ///     <term><see cref="HttpRequestMessagePropertyKeys.ResponseObjectType"/></term>
+        ///     <description>
+        ///     Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
+        ///     and support error recovery strategies.
+        ///     </description>
+        ///   </item>
         /// </list>
         /// </para>
         /// </remarks>
@@ -701,21 +641,46 @@ namespace Kampute.HttpClient
 
             var requestUri = _baseAddress is null ? new Uri(uri) : new Uri(_baseAddress, uri);
             var request = new HttpRequestMessage(method, requestUri);
-
-            foreach (var header in DefaultRequestHeaders)
-                request.Headers.TryAddWithoutValidation(header.Key, header.Value);
-
-            foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
-                request.Headers.Accept.Add(mediaType);
-
-            if (responseObjectType is null)
-                request.Headers.Accept.Add(AnyMediaType);
-            else
-                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
-
-            request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
-
+            AddRequestHeaders();
+            AddRequestProperties();
             return request;
+
+            void AddRequestHeaders()
+            {
+                foreach (var header in DefaultRequestHeaders)
+                    request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+
+                if (_scopedHeaders.IsValueCreated)
+                {
+                    foreach (var header in _scopedHeaders.Value)
+                    {
+                        request.Headers.Remove(header.Key);
+                        request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                    }
+                }
+
+                if
+                (
+                    !_httpClient.DefaultRequestHeaders.Contains(nameof(HttpRequestHeader.Accept)) &&
+                    !request.Headers.Contains(nameof(HttpRequestHeader.Accept))
+                )
+                {
+                    foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
+                        request.Headers.Accept.Add(MediaTypeHeaderValueStore.Get(mediaType));
+                }
+            }
+
+            void AddRequestProperties()
+            {
+                if (_scopedProperties.IsValueCreated)
+                {
+                    foreach (var property in _scopedProperties.Value)
+                        request.Properties[property.Key] = property.Value;
+                }
+
+                request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
+                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
+            }
         }
 
         /// <summary>
@@ -732,10 +697,7 @@ namespace Kampute.HttpClient
                 }
                 finally
                 {
-                    if (SharedHttpClient.Is(_httpClient))
-                        SharedHttpClient.Release(_httpClient);
-                    else if (_disposeClient)
-                        _httpClient.Dispose();
+                    _disposable?.Dispose();
                 }
             }
         }

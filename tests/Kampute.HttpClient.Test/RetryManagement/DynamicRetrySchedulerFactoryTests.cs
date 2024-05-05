@@ -11,7 +11,7 @@
     {
         private static HttpRequestErrorContext MockHttpRequestErrorContext()
         {
-            var mockClient = new Mock<HttpRestClient>();
+            var mockClient = new Mock<HttpRestClient>(new HttpClient(), true);
             var mockRequest = new Mock<HttpRequestMessage>();
             var mockError = new Mock<HttpRequestException>();
 
@@ -22,7 +22,7 @@
         public void CreateScheduler_UsingStrategyFactory_ReturnsCorrectScheduler()
         {
             var mockRetryStrategy = new Mock<IRetryStrategy>();
-            var factory = new DynamicRetrySchedulerFactory(ctx => mockRetryStrategy.Object);
+            var factory = new DynamicBackoffStrategy(ctx => mockRetryStrategy.Object);
             var context = MockHttpRequestErrorContext();
 
             var scheduler = factory.CreateScheduler(context) as RetryScheduler;
@@ -35,7 +35,7 @@
         public void CreateScheduler_UsingSchedulerFactory_ReturnsCorrectScheduler()
         {
             var mockRetryScheduler = new Mock<IRetryScheduler>();
-            var factory = new DynamicRetrySchedulerFactory(ctx => mockRetryScheduler.Object);
+            var factory = new DynamicBackoffStrategy(ctx => mockRetryScheduler.Object);
             var context = MockHttpRequestErrorContext();
 
             var scheduler = factory.CreateScheduler(context);

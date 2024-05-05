@@ -80,7 +80,7 @@
         }
 
         [Test]
-        public void WaitAsync_WhenCanceled_ThrowsTaskCanceledException()
+        public void WaitAsync_WhenCanceled_ThrowsOperationCanceledException()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.Cancel();
@@ -89,7 +89,7 @@
             mockStrategy.Setup(s => s.TryGetRetryDelay(It.IsAny<TimeSpan>(), It.IsAny<uint>(), out It.Ref<TimeSpan>.IsAny)).Returns(true);
             var scheduler = new RetryScheduler(mockStrategy.Object);
 
-            Assert.ThrowsAsync<TaskCanceledException>(() => scheduler.WaitAsync(cancellationTokenSource.Token));
+            Assert.ThrowsAsync<OperationCanceledException>(() => scheduler.WaitAsync(cancellationTokenSource.Token));
         }
 
         [Test]

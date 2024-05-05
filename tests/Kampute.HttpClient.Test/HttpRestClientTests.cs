@@ -6,7 +6,7 @@
     using Moq;
     using NUnit.Framework;
     using System;
-    using System.IO;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -18,6 +18,8 @@
     [TestFixture]
     public class HttpRestClientTests
     {
+        private static readonly HttpMethod TestHttpMethod = new("TEST");
+
         private readonly TestContentDeserializer _testContentFormatter = new();
         private readonly Mock<HttpMessageHandler> _mockMessageHandler = new();
         private HttpRestClient _client;
@@ -44,7 +46,7 @@
         }
 
         [Test]
-        public async Task DefaultRequestHeaders_AreCopiedToOutgoingRequestHeaders()
+        public async Task DefaultRequestHeaders_AreCopiedToRequestHeaders()
         {
             var testerAgent = new ProductInfoHeaderValue("Tester", "1.0");
             _client.DefaultRequestHeaders.UserAgent.Add(testerAgent);
@@ -55,17 +57,17 @@
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             });
 
-            await _client.SendAsync(HttpMethod.Options, "/resource");
+            await _client.SendAsync(TestHttpMethod, "/resource");
         }
 
         [Test]
-        public async Task SendAsync_NonGeneric_ReturnsResponseHeaders()
+        public async Task SendAsync_NonGeneric_ReturnsResponse()
         {
             _mockMessageHandler.MockHttpResponse(request =>
             {
                 Assert.Multiple(() =>
                 {
-                    Assert.That(request.Method, Is.EqualTo(HttpMethod.Head));
+                    Assert.That(request.Method, Is.EqualTo(TestHttpMethod));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 });
 
@@ -74,14 +76,14 @@
                 return response;
             });
 
-            var responseHeaders = await _client.SendAsync(HttpMethod.Head, "/resource");
+            var response = await _client.SendAsync(TestHttpMethod, "/resource");
 
-            Assert.That(responseHeaders, Is.Not.Null);
-            Assert.That(responseHeaders.GetValues("X-Test"), Contains.Item("Testing"));
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Headers.GetValues("X-Test"), Contains.Item("Testing"));
         }
 
         [Test]
-        public async Task SendAsync_Generic_ReturnsResponseObject()
+        public async Task SendAsync_Generic_ReturnsResponseAsObject()
         {
             var expectedResult = "This is the response content";
 
@@ -89,7 +91,7 @@
             {
                 Assert.Multiple(() =>
                 {
-                    Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
+                    Assert.That(request.Method, Is.EqualTo(TestHttpMethod));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 });
 
@@ -100,62 +102,9 @@
                 };
             });
 
-            var result = await _client.SendAsync<string>(HttpMethod.Get, "/resource");
+            var result = await _client.SendAsync<string>(TestHttpMethod, "/resource");
 
             Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        public async Task DownlaodAsync_WhenResponseHasContent_ReturnsDownloadedStream()
-        {
-            var payload = "This is the request content";
-            using var expectedStream = new MemoryStream([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-
-            _mockMessageHandler.MockHttpResponse(request =>
-            {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
-                    Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
-
-                var content = new StreamContent(expectedStream);
-                content.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Octet);
-                content.Headers.ContentLength = expectedStream.Length;
-
-                return new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = content,
-                };
-            });
-
-            var resultStream = await _client.DownloadAsync(HttpMethod.Post, "/resource", new TestContent(payload), contentHeaders => new MemoryStream()) as MemoryStream;
-
-            Assert.That(resultStream, Is.Not.Null);
-            Assert.That(resultStream.ToArray(), Is.EqualTo(expectedStream.ToArray()));
-        }
-
-        [Test]
-        public async Task DownlaodAsync_WhenResponseHasNoContent_ReturnsEmptyStream()
-        {
-            var payload = "This is the request content";
-
-            _mockMessageHandler.MockHttpResponse(request =>
-            {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
-                    Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
-
-                return new HttpResponseMessage(HttpStatusCode.NoContent);
-            });
-
-            var resultStream = await _client.DownloadAsync(HttpMethod.Post, "/resource", new TestContent(payload), contentHeaders => new MemoryStream());
-
-            Assert.That(resultStream, Is.Not.Null);
-            Assert.That(resultStream.Length, Is.Zero);
         }
 
         [Test]
@@ -164,7 +113,7 @@
             using var responseContent = new StringContent("A,B", Encoding.UTF8, MediaTypeNames.Text.Csv);
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.OK, responseContent);
 
-            Assert.ThrowsAsync<HttpContentException>(async () => await _client.SendAsync<string[][]>(HttpMethod.Get, "/resource"));
+            Assert.ThrowsAsync<HttpContentException>(async () => await _client.SendAsync<string[][]>(TestHttpMethod, "/resource"));
         }
 
         [Test]
@@ -173,13 +122,13 @@
             var errorDetails = new TestErrorResponse("You didn't provide the required data!");
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.BadRequest, new TestContent(errorDetails));
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(HttpMethod.Get, "/resource"));
+            var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception, Is.Not.Null);
             Assert.Multiple(() =>
             {
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-                Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(HttpMethod.Get));
+                Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(TestHttpMethod));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 Assert.That(exception.Message, Is.Not.EqualTo(errorDetails.Message));
             });
@@ -192,13 +141,13 @@
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.BadRequest, new TestContent(errorDetails));
 
             _client.ResponseErrorType = typeof(TestErrorResponse);
-            var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(HttpMethod.Get, "/resource"));
+            var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception, Is.Not.Null);
             Assert.Multiple(() =>
             {
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-                Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(HttpMethod.Get));
+                Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(TestHttpMethod));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 Assert.That(exception.ResponseObject, Is.EqualTo(errorDetails).UsingPropertiesComparer());
                 Assert.That(exception.Message, Is.EqualTo(errorDetails.Message));
@@ -218,7 +167,7 @@
                     if (!ctx.Request.IsCloned())
                     {
                         var newRequest = ctx.Request.Clone();
-                        newRequest.Method = HttpMethod.Patch;
+                        newRequest.Method = TestHttpMethod;
                         return HttpErrorHandlerResult.Retry(newRequest);
                     }
                     return HttpErrorHandlerResult.NoRetry;
@@ -229,29 +178,22 @@
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                attempts++;
+                ++attempts;
 
                 Assert.That(request.Content, Is.Not.Null);
                 Assert.That(request.Content.ReadAsStringAsync().Result, Is.EqualTo("test"));
 
-                if (request.Method == HttpMethod.Patch)
-                {
-                    return new HttpResponseMessage
-                    {
-                        StatusCode = HttpStatusCode.OK,
-                        Content = new TestContent(expectedResult),
-                    };
-                }
-
-                if (request.Method == HttpMethod.Put)
-                {
+                if (request.Method != TestHttpMethod)
                     return new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
-                }
 
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                return new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new TestContent(expectedResult),
+                };
             });
 
-            var result = await _client.SendAsync<string>(HttpMethod.Put, "/resource", new StringContent("test"));
+            var result = await _client.SendAsync<string>(HttpMethod.Get, "/resource", new StringContent("test"));
 
             Assert.Multiple(() =>
             {
@@ -265,7 +207,7 @@
         {
             var maxRetries = 2;
 
-            var mockBackoffStrategy = new Mock<IRetrySchedulerFactory>();
+            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
             var mockRetryScheduler = new Mock<IRetryScheduler>();
 
             var retries = 0;
@@ -288,10 +230,65 @@
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });
 
-            await _client.SendAsync(HttpMethod.Post, "/test", new StringContent("test"));
+            await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
 
             mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+        }
+
+        [Test]
+        public async Task BeginPropertyScope_AddsPropertiesToRequest()
+        {
+            var customPropName = "PROP_NAME";
+            var customPropValue = "PROP_VALUE";
+
+            var sent = false;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                var propExists = request.Options.TryGetValue(new HttpRequestOptionsKey<string>(customPropName), out var propValue);
+                Assert.Multiple(() =>
+                {
+                    Assert.That(propExists, Is.True);
+                    Assert.That(propValue, Is.EqualTo(customPropValue));
+                });
+
+                sent = true;
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            using var scope = _client.BeginPropertyScope(new Dictionary<string, object>
+            {
+                [customPropName] = customPropValue
+            });
+
+            using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+
+            Assert.That(sent, Is.True);
+        }
+
+        [Test]
+        public async Task BeginHeaderScope_AddsHeadersToRequest()
+        {
+            var customHeaderName = "HEADER_NAME";
+            var customHeaderValue = "HEADER_VALUE";
+
+            var sent = false;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Assert.That(request.Headers.GetValues(customHeaderName), Is.EquivalentTo(new[] { customHeaderValue }));
+
+                sent = true;
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            using var scope = _client.BeginHeaderScope(new Dictionary<string, string>
+            {
+                [customHeaderName] = customHeaderValue
+            });
+
+            using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+
+            Assert.That(sent, Is.True);
         }
     }
 }

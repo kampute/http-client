@@ -5,10 +5,11 @@
 
 namespace Kampute.HttpClient.ErrorHandlers
 {
-    using Kampute.HttpClient.ErrorHandlers.Abstracts;
     using Kampute.HttpClient.Interfaces;
     using System;
     using System.Net;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Handles '503 Service Unavailable' HTTP responses by attempting to back off and retry the request according to a specified or 
@@ -23,14 +24,14 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
     /// <seealso cref="HttpRestClient.BackoffStrategy"/>
-    public class HttpError503Handler : HttpErrorHandlerWithBackoff
+    public class HttpError503Handler : IHttpErrorHandler
     {
         /// <summary>
         /// A delegate that allows customization of the backoff strategy when a '503 Service Unavailable' response is received.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If this delegate is set and returns an <see cref="IRetrySchedulerFactory"/>, the returned strategy is used for the retry operation. 
+        /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation. 
         /// If it is not set, or returns <c>null</c>, the handler will defer to the <c>Retry-After</c> header in the response or the 
         /// client's default backoff strategy.
         /// </para>
@@ -51,7 +52,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </list>
         /// </para>
         /// </remarks>
-        public Func<HttpResponseErrorContext, DateTimeOffset?, IRetrySchedulerFactory?>? OnBackoffStrategy { get; set; }
+        public Func<HttpResponseErrorContext, DateTimeOffset?, IHttpBackoffProvider?>? OnBackoffStrategy { get; set; }
 
         /// <summary>
         /// Determines whether this handler can process the specified HTTP status code.
@@ -61,27 +62,34 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <remarks>
         /// This implementation specifically handles the HTTP '503 Service Unavailable' status code.
         /// </remarks>
-        public override bool CanHandle(HttpStatusCode statusCode) => statusCode == HttpStatusCode.ServiceUnavailable;
+        public virtual bool CanHandle(HttpStatusCode statusCode) => statusCode == HttpStatusCode.ServiceUnavailable;
 
         /// <summary>
-        /// Determines the backoff strategy to use based on the error context.
+        /// Creates a scheduler for retrying the failed request based on the error context.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
-        /// <returns>An <see cref="IRetrySchedulerFactory"/> that defines the backoff strategy.</returns>
+        /// <returns>An <see cref="IRetryScheduler"/> that schedules the retry attempts.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <c>null</c>.</exception>
         /// <remarks>
         /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not 
         /// provided or returns <c>null</c>, and a <c>Retry-After</c> header is present, the value of this header is used to create a retry 
         /// delay. If neither condition is met, the client's default backoff strategy is utilized.
         /// </remarks>
-        protected override IRetrySchedulerFactory DetermineBackoffStrategy(HttpResponseErrorContext ctx)
+        protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)
         {
+            if (ctx is null)
+                throw new ArgumentNullException(nameof(ctx));
+
             ctx.Response.Headers.TryExtractRetryAfterTime(out var retryAfter);
 
-            var strategy = OnBackoffStrategy?.Invoke(ctx, retryAfter);
-            if (strategy is not null)
-                return strategy;
+            var strategy = OnBackoffStrategy?.Invoke(ctx, retryAfter) ?? (retryAfter.HasValue ? BackoffStrategies.Once(retryAfter.Value) : ctx.Client.BackoffStrategy);
+            return strategy.CreateScheduler(ctx);
+        }
 
-            return retryAfter.HasValue ? BackoffStrategies.Once(retryAfter.Value) : ctx.Client.BackoffStrategy;
+        /// <inheritdoc/>
+        Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
+        {
+            return ctx.ScheduleRetryAsync(CreateScheduler, cancellationToken);
         }
     }
 }

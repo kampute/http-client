@@ -49,15 +49,15 @@ namespace Kampute.HttpClient.RetryManagement
         /// </summary>
         /// <param name="cancellationToken">A token that can be used to cancel the wait operation.</param>
         /// <returns>A task that resolves to <c>true</c> if a retry should be attempted; otherwise, <c>false</c>.</returns>
-        /// <exception cref="TaskCanceledException">Thrown if the wait operation is canceled.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the wait operation is canceled.</exception>
         public virtual async Task<bool> WaitAsync(CancellationToken cancellationToken)
         {
             if (Strategy.TryGetRetryDelay(Elapsed, Attempts, out var delay))
             {
-                if (delay < TimeSpan.Zero)
-                    delay = TimeSpan.Zero;
-
-                await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
+                if (delay > TimeSpan.Zero)
+                    await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
+                else
+                    cancellationToken.ThrowIfCancellationRequested();
 
                 ReadyNextAttempt();
                 return true;

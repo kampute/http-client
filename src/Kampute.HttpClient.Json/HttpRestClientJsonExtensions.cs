@@ -8,8 +8,6 @@ namespace Kampute.HttpClient.Json
     using System;
     using System.Collections.Concurrent;
     using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Runtime.CompilerServices;
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
@@ -52,7 +50,6 @@ namespace Kampute.HttpClient.Json
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to query.</param>
         /// <returns>The <see cref="JsonSerializerOptions"/> if set; otherwise, <c>null</c>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static JsonSerializerOptions? GetJsonSerializerOptions(this HttpRestClient client)
         {
             serializerOptions.TryGetValue(client, out var options);
@@ -95,8 +92,8 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<T?> SendAsJsonAsync<T>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static Task<T?> SendAsJsonAsync<T>
         (
             this HttpRestClient client,
             HttpMethod method,
@@ -108,8 +105,8 @@ namespace Kampute.HttpClient.Json
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var content = new JsonContent(payload) { Options = client.GetJsonSerializerOptions() };
-            return await client.SendAsync<T>(method, uri, content, cancellationToken).ConfigureAwait(false);
+            var jsonContent = new JsonContent(payload) { Options = client.GetJsonSerializerOptions() };
+            return client.SendAsync<T>(method, uri, jsonContent, cancellationToken);
         }
 
         /// <summary>
@@ -120,13 +117,13 @@ namespace Kampute.HttpClient.Json
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="payload">The object to serialize as the JSON-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
-        /// <returns>A task representing the asynchronous operation, returning headers of the response.</returns>
+        /// <returns>A task representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public static async Task<HttpResponseHeaders> SendAsJsonAsync
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        public static async Task SendAsJsonAsync
         (
             this HttpRestClient client,
             HttpMethod method,
@@ -138,8 +135,8 @@ namespace Kampute.HttpClient.Json
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var content = new JsonContent(payload) { Options = client.GetJsonSerializerOptions() };
-            return await client.SendAsync(method, uri, content, cancellationToken).ConfigureAwait(false);
+            var jsonContent = new JsonContent(payload) { Options = client.GetJsonSerializerOptions() };
+            using var _ = await client.SendAsync(method, uri, jsonContent, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -155,8 +152,7 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PostAsJsonAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsJsonAsync<T>(HttpVerb.Post, uri, payload, cancellationToken);
@@ -174,8 +170,7 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PostAsJsonAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsJsonAsync(HttpVerb.Post, uri, payload, cancellationToken);
@@ -194,8 +189,7 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PutAsJsonAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsJsonAsync<T>(HttpVerb.Put, uri, payload, cancellationToken);
@@ -213,8 +207,7 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PutAsJsonAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsJsonAsync(HttpVerb.Put, uri, payload, cancellationToken);
@@ -233,8 +226,7 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task<T?> PatchAsJsonAsync<T>(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsJsonAsync<T>(HttpVerb.Patch, uri, payload, cancellationToken);
@@ -252,8 +244,7 @@ namespace Kampute.HttpClient.Json
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
-        /// <exception cref="TaskCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static Task PatchAsJsonAsync(this HttpRestClient client, string uri, object payload, CancellationToken cancellationToken = default)
         {
             return client.SendAsJsonAsync(HttpVerb.Patch, uri, payload, cancellationToken);

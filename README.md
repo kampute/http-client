@@ -5,8 +5,9 @@
 
 `Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities. Tailored for
 developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
-to address the complexities of web service consumption. [Explore the API documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for
-detailed insights.
+to address the complexities of web service consumption.
+
+[Explore the API documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for detailed insights.
 
 ## Key Features
 
@@ -17,6 +18,11 @@ detailed insights.
 - **Flexible HttpClient Configuration:**
   Allows the integration of custom or shared `HttpClient` instances, complete with configurations for message handlers, timeouts, and advanced authentication
   mechanisms to fit specific application needs.
+
+- **Dynamic Request Customization:**
+  Offers the capability to define headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global configuration.
+  Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration errors during
+  runtime.
 
 - **Custom Error Handling and Exception Management:**
   Converts HTTP response errors into detailed, meaningful exceptions, streamlining the process of interpreting API-specific errors with the aid of a customizable
@@ -102,6 +108,39 @@ client.AcceptJson();
 // into the specified MyModel type.
 var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 ```
+
+### Scoped Request Headers
+
+In addition to setting default request headers that apply to all requests, you can also define headers for a specific set of requests using a scope. This allows
+temporary changes to headers that override the default settings within a defined context, which can be essential for handling varying endpoint requirements or
+testing scenarios.
+
+The example below demonstrates how to temporarily override the `Accept` header for a series of requests, ensuring that all requests within the scope explicitly
+request a specific media type.
+
+```csharp
+using Kampute.HttpClient;
+
+// Create a new instance of the HttpRestClient.
+using var client = new HttpRestClient();
+
+// Begin a scoped block where the 'Accept' header is set to 'text/csv'.
+// All HTTP requests within this using block will include this 'Accept' header.
+using (client.BeginHeaderScope(new Dictionary<string, string> { ["Accept"] = MediaTypeNames.Text.Csv }))
+{
+    // Perform a GET request to retrieve data as CSV. The 'Accept' header for this request
+    // will be 'text/csv', as specified by the scoped header.
+    await client.GetAsStringAsync("https://api.example.com/resource/1/csv");
+
+    // Perform another GET request within the same scope. The 'Accept' header remains
+    // consistent with the scoped setting, ensuring both requests expect CSV responses.
+    await client.GetAsStringAsync("https://api.example.com/resource/2/csv");
+}
+```
+
+In addition to headers, it is also possible to scope request properties. This feature is particularly useful in scenarios where you need to maintain state or
+context-specific information temporarily during a series of HTTP operations. Scoped properties are managed similarly to scoped headers, enabling developers to
+define temporary data attached to requests that are automatically cleared once the scope is exited. 
 
 ### Custom Retry Strategies
 
@@ -210,4 +249,4 @@ first to discuss what you would like to change.
 
 ## License
 
-`Kampute.HttpClient` is licensed under the terms of the [MIT](LICENSE) license.
+`Kampute.HttpClient` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.

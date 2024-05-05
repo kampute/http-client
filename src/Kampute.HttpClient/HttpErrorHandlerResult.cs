@@ -7,7 +7,6 @@ namespace Kampute.HttpClient
 {
     using System;
     using System.Net.Http;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Represents the outcome of an HTTP error handling attempt by a specific handler, indicating whether it determines a failed request 
@@ -26,7 +25,6 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="requestToRetry">The <see cref="HttpRequestMessage"/> to use for retrying the failed request.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <c>null</c>.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private HttpErrorHandlerResult(HttpRequestMessage requestToRetry)
         {
             RequestToRetry = requestToRetry ?? throw new ArgumentNullException(nameof(requestToRetry));
@@ -47,7 +45,6 @@ namespace Kampute.HttpClient
         /// <param name="requestToRetry">The request to use for the retry.</param>
         /// <returns>An <see cref="HttpErrorHandlerResult"/> indicating the request should be retried with the provided <see cref="HttpRequestMessage"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <c>null</c>.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HttpErrorHandlerResult Retry(HttpRequestMessage requestToRetry) => new(requestToRetry);
 
         /// <summary>

@@ -31,9 +31,9 @@
         /// <summary>
         /// When overridden in a derived class, returns a stream that wraps the provided base stream with a compression layer.
         /// </summary>
-        /// <param name="baseStream">The original stream to wrap with a compression stream.</param>
-        /// <returns>A <see cref="Stream"/> that compresses the content as it is written to the <paramref name="baseStream"/>.</returns>
-        protected abstract Stream WrapWithCompressionStream(Stream baseStream);
+        /// <param name="stream">The original stream to wrap with a compression stream.</param>
+        /// <returns>A <see cref="Stream"/> that compresses the content as it is written to the <paramref name="stream"/>.</returns>
+        protected abstract Stream CompressStream(Stream stream);
 
         /// <summary>
         /// Serializes the HTTP content to a stream as an asynchronous operation.
@@ -43,7 +43,7 @@
         /// <returns>The task object representing the asynchronous operation.</returns>
         protected sealed override async Task SerializeToStreamAsync(Stream stream, TransportContext context)
         {
-            using var compressionStream = WrapWithCompressionStream(stream);
+            using var compressionStream = CompressStream(stream);
             await OriginalContent.CopyToAsync(compressionStream);
         }
 

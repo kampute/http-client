@@ -287,7 +287,7 @@ namespace Kampute.HttpClient
             using var request = CreateHttpRequest(method, uri, typeof(T));
             request.Content = payload;
 
-            using var response = await SendAsync(request, cancellationToken).ConfigureAwait(false);
+            using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
             return (T?)await DeserializeContentAsync(response, typeof(T), cancellationToken).ConfigureAwait(false);
         }
 
@@ -313,7 +313,7 @@ namespace Kampute.HttpClient
             using var request = CreateHttpRequest(method, uri, responseObjectType: null);
             request.Content = payload;
 
-            return await SendAsync(request, cancellationToken).ConfigureAwait(false);
+            return await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -332,7 +332,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
         /// <seealso cref="ErrorHandlers"/>
-        public virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
+        protected virtual async Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));

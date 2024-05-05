@@ -46,7 +46,7 @@
         }
 
         [Test]
-        public async Task SendAsync_CopiesDefaultHeadersToRequestHeaders()
+        public async Task DefaultRequestHeaders_AreCopiedToRequestHeaders()
         {
             var testerAgent = new ProductInfoHeaderValue("Tester", "1.0");
             _client.DefaultRequestHeaders.UserAgent.Add(testerAgent);

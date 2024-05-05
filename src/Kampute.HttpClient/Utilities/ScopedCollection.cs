@@ -74,13 +74,13 @@
         /// starting from the current active scope and moving outward to the parent scopes. This order ensures that actions are performed
         /// on items starting from the most specific (innermost) to the most general (outermost) context.
         /// </remarks>
-        public void Traverse(Action<T> action)
+        public virtual void Traverse(Action<T> action)
         {
             if (action is null)
                 throw new ArgumentNullException(nameof(action));
 
             for (var scope = _activeScope.Value; scope is not null; scope = scope.Parent)
-                foreach (var item in scope)
+                foreach (var item in scope.Items)
                     action(item);
         }
 
@@ -88,7 +88,7 @@
         /// Returns an enumerator that iterates through the collection of items in the current context.
         /// </summary>
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-        public IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             return GetEnumerable().GetEnumerator();
 
@@ -98,9 +98,9 @@
                 if (scope is null)
                     return [];
 
-                var enumerable = scope.AsEnumerable();
+                var enumerable = scope.Items.AsEnumerable();
                 for (var parent = scope.Parent; parent is not null; parent = parent.Parent)
-                    enumerable = parent.AsEnumerable().Concat(enumerable);
+                    enumerable = parent.Items.AsEnumerable().Concat(enumerable);
 
                 return enumerable;
             }
@@ -113,12 +113,10 @@
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
-        /// Represents a scope containing items used to enhance data management within a specific context.
+        /// Represents a scope containing items within a specific context.
         /// </summary>
-        public sealed class Scope : IEnumerable<T>, IDisposable
+        public sealed class Scope : IDisposable
         {
-            private readonly IEnumerable<T> _items;
-
             /// <summary>
             /// Initializes a new instance of the <see cref="Scope"/> class, linking it to its owner and parent scope with specified items.
             /// </summary>
@@ -129,12 +127,7 @@
             {
                 Owner = owner;
                 Parent = parent;
-                _items = items switch
-                {
-                    IReadOnlyCollection<T> readOnlyCollection => readOnlyCollection,
-                    ICollection<T> collection => collection,
-                    _ => items.ToList(),
-                };
+                Items = items is IReadOnlyCollection<T> readOnlyCollection ? readOnlyCollection : items.ToList();
             }
 
             /// <summary>
@@ -150,16 +143,10 @@
             public Scope? Parent { get; }
 
             /// <summary>
-            /// Returns an enumerator that iterates through the collection of items in the scope.
+            /// Gets the read-only collection of items in this scope.
             /// </summary>
-            /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-            public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
-
-            /// <summary>
-            /// Returns an enumerator that iterates through the collection.
-            /// </summary>
-            /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            /// <value>The read-only collection of items in this scope.</value>
+            public IReadOnlyCollection<T> Items { get; }
 
             /// <summary>
             /// Disposes this scope, effectively removing it from the active context.

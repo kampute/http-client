@@ -9,6 +9,7 @@ namespace Kampute.HttpClient
     using Kampute.HttpClient.Utilities;
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading;
@@ -257,8 +258,11 @@ namespace Kampute.HttpClient
         /// and maintaining state across asynchronous operations or across different components of an application.
         /// </para>
         /// </remarks>
-        public virtual IDisposable BeginPropertyScope(IReadOnlyDictionary<string, object> properties)
+        public virtual IDisposable BeginPropertyScope(IEnumerable<KeyValuePair<string, object>> properties)
         {
+            if (properties is null)
+                throw new ArgumentNullException(nameof(properties));
+
             return _scopedProperties.Value.BeginScope(properties);
         }
 
@@ -272,8 +276,11 @@ namespace Kampute.HttpClient
         /// The scope created by this method will be associated with the current <see cref="HttpRestClient"/> instance. The HTTP headers within the scope will
         /// be included in the HTTP headers of all subsequent HTTP requests made by this client until the scope is disposed.
         /// </remarks>
-        public virtual IDisposable BeginHeaderScope(IReadOnlyDictionary<string, string> httpHeaders)
+        public virtual IDisposable BeginHeaderScope(IEnumerable<KeyValuePair<string, string>> httpHeaders)
         {
+            if (httpHeaders is null)
+                throw new ArgumentNullException(nameof(httpHeaders));
+
             return _scopedHeaders.Value.BeginScope(httpHeaders);
         }
 
@@ -652,7 +659,11 @@ namespace Kampute.HttpClient
                     }
                 }
 
-                if (_httpClient.DefaultRequestHeaders.Accept.Count == 0 && request.Headers.Accept.Count == 0)
+                if
+                (
+                    !_httpClient.DefaultRequestHeaders.Contains(nameof(HttpRequestHeader.Accept)) &&
+                    !request.Headers.Contains(nameof(HttpRequestHeader.Accept))
+                )
                 {
                     foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
                         request.Headers.Accept.Add(MediaTypeHeaderValueStore.Get(mediaType));

@@ -66,18 +66,15 @@ namespace Kampute.HttpClient
         private Uri? _baseAddress;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpRestClient"/> class using a shared <see cref="HttpClient"/>.
+        /// Initializes a new instance of the <see cref="HttpRestClient"/> class.
         /// </summary>
-        /// <param name="sharedHttpClient">A <see cref="SharedDisposable{T}"/> that provides managed access to a shared <see cref="HttpClient"/> instance.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="sharedHttpClient"/> is <c>null</c>.</exception>
-        public HttpRestClient(SharedDisposable<HttpClient> sharedHttpClient)
+        /// <remarks>
+        /// This constructor initializes the <see cref="HttpRestClient"/> with a shared <see cref="HttpClient"/> instance provided
+        /// by <see cref="SharedHttpClient"/> class.
+        /// </remarks>
+        public HttpRestClient()
+            : this(SharedHttpClient.AcquireReference())
         {
-            if (sharedHttpClient is null)
-                throw new ArgumentNullException(nameof(sharedHttpClient));
-
-            var reference = sharedHttpClient.AcquireReference();
-            _httpClient = reference.Instance;
-            _disposable = reference;
         }
 
         /// <summary>

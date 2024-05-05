@@ -60,8 +60,8 @@ namespace Kampute.HttpClient
         private readonly HttpClient _httpClient;
         private readonly IDisposable? _disposable;
 
-        private readonly Lazy<ScopedCollection<KeyValuePair<string, string>>> _scopedHeaders = new();
-        private readonly Lazy<ScopedCollection<KeyValuePair<string, object>>> _scopedProperties = new();
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, string>>> _scopedHeaders = new(LazyThreadSafetyMode.ExecutionAndPublication);
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, object>>> _scopedProperties = new(LazyThreadSafetyMode.ExecutionAndPublication);
 
         private IHttpBackoffProvider _backoffStrategy = BackoffStrategies.None;
         private Uri? _baseAddress;

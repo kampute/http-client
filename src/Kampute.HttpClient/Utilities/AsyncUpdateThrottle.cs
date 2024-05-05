@@ -20,9 +20,16 @@
         private VolatileWrapper _value;
         private long _lastUpdateTime;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AsyncUpdateThrottle{T}"/> class with a default value.
+        /// </summary>
+        public AsyncUpdateThrottle()
+            : this(default)
+        {
+        }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncUpdateThrottle{T}"/> class with an initial value.
+        /// Initializes a new instance of the <see cref="AsyncUpdateThrottle{T}"/> class with a specified value.
         /// </summary>
         /// <param name="initialValue">The initial value of the type <typeparamref name="T"/>.</param>
         public AsyncUpdateThrottle(T? initialValue)
@@ -116,10 +123,7 @@
             /// Initializes a new instance of the <see cref="VolatileWrapper"/> class.
             /// </summary>
             /// <param name="value">The initial value.</param>
-            public VolatileWrapper(T? value)
-            {
-                Value = value;
-            }
+            public VolatileWrapper(T? value) => Value = value;
 
             /// <summary>
             /// Gets the value stored in the wrapper.

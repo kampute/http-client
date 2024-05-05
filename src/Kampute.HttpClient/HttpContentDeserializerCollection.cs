@@ -77,8 +77,18 @@ namespace Kampute.HttpClient
         /// Retrieves all supported media types for a specified model type from the collection of deserializers.
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
-        /// <returns>A read-only collection of strings that represent the media types supported for deserializing the specified model type.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <returns>An enumerable of strings that represent the media types supported for deserializing the specified model type.</returns>
+        /// <remarks>
+        /// <para>
+        /// This method determines the supported media types for deserializing content based on the given model type.
+        /// </para>
+        /// <para>
+        /// If the model type is <c>null</c>, this method returns a collection containing only <c>"*/*"</c>, signifying that all media types are acceptable.
+        /// </para>
+        /// <para>
+        /// For non-null model types, the method aggregates media types supported by the registered deserializers for that specific model type.
+        /// </para>
+        /// </remarks>
         public IEnumerable<string> GetAcceptableMediaTypes(Type? modelType)
         {
             if (modelType is null)
@@ -97,7 +107,25 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
         /// <param name="errorType">The type of the error for which to retrieve supported media types.</param>
-        /// <returns>A read-only collection of strings representing the supported media types for the specified types.</returns>
+        /// <returns>An enumerable of strings representing the supported media types for the specified types.</returns>
+        /// <remarks>
+        /// <para>
+        /// This method determines the supported media types for deserializing content based on the given <paramref name="modelType"/> and <paramref name="errorType"/>.
+        /// </para>
+        /// <para>
+        /// If both <paramref name="modelType"/> and <paramref name="errorType"/> are provided, it aggregates and returns the media types that support deserializing either type.
+        /// </para>
+        /// <para>
+        /// If only <paramref name="modelType"/> is provided and <paramref name="errorType"/> is <c>null</c>, the result includes media types exclusively supporting the <paramref name="modelType"/>.
+        /// </para>
+        /// <para>
+        /// Conversely, if <paramref name="modelType"/> is <c>null</c> and <paramref name="errorType"/> is provided, the result includes media types supporting the <paramref name="errorType"/>,
+        /// augmented by <c>"*/*"</c> to indicate that all media types are acceptable for the <paramref name="modelType"/>.
+        /// </para>
+        /// <para>
+        /// If both parameters are <c>null</c>, the method defaults to returning <c>"*/*"</c> only, implying general acceptability of any media type.
+        /// </para>
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<string> GetAcceptableMediaTypes(Type? modelType, Type? errorType)
         {

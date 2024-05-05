@@ -121,7 +121,7 @@ using var client = new HttpRestClient();
 
 // Begin a scoped block where the 'Accept' header is set to 'text/csv'.
 // All HTTP requests within this using block will include this 'Accept' header.
-using (client.BeginHeaderScope(new Dictionary<string, string> { ["Accept"] = new[] { MediaTypeNames.Text.Csv } }))
+using (client.BeginHeaderScope(new Dictionary<string, string> { ["Accept"] = MediaTypeNames.Text.Csv }))
 {
     // Perform a GET request to retrieve data as CSV. The 'Accept' header for this request
     // will be 'text/csv', as specified by the scoped header.

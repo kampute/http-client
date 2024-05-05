@@ -58,10 +58,12 @@ namespace Kampute.HttpClient
 
         private readonly HttpClient _httpClient;
         private readonly IDisposable? _disposable;
-        private readonly PropertyContext _scopedProperties = new();
+
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, string>>> _scopedHeaders = new();
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, object>>> _scopedProperties = new();
+
         private IHttpBackoffProvider _backoffStrategy = BackoffStrategies.None;
         private Uri? _baseAddress;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpRestClient"/> class using a shared <see cref="HttpClient"/>.
@@ -258,9 +260,24 @@ namespace Kampute.HttpClient
         /// and maintaining state across asynchronous operations or across different components of an application.
         /// </para>
         /// </remarks>
-        public virtual IDisposable BeginScope(IReadOnlyDictionary<string, object> properties)
+        public virtual IDisposable BeginPropertyScope(IReadOnlyDictionary<string, object> properties)
         {
-            return _scopedProperties.BeginScope(properties);
+            return _scopedProperties.Value.BeginScope(properties);
+        }
+
+        /// <summary>
+        /// Begins a new scope with the specified HTTP headers.
+        /// </summary>
+        /// <param name="httpHeaders">The HTTP headers to include in the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and remove the associated HTTP headers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpHeaders"/> is <c>null</c>.</exception>
+        /// <remarks>
+        /// The scope created by this method will be associated with the current <see cref="HttpRestClient"/> instance. The HTTP headers within the scope will
+        /// be included in the HTTP headers of all subsequent HTTP requests made by this client until the scope is disposed.
+        /// </remarks>
+        public virtual IDisposable BeginHeaderScope(IReadOnlyDictionary<string, string> httpHeaders)
+        {
+            return _scopedHeaders.Value.BeginScope(httpHeaders);
         }
 
         /// <summary>
@@ -576,29 +593,38 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
         /// <remarks>
         /// <para>
-        /// This method constructs a new HTTP request message. It sets the method, URI, and headers based on the provided parameters. 
-        /// The <c>Accept</c> headers are configured to align with the media types supported by the content deserializers for the specified 
-        /// <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, all media types will be accepted.
+        /// This method constructs a new HTTP request message by setting the HTTP method and URI. It prepares the request for transmission by
+        /// configuring both the headers and custom properties appropriate for the given context and operation.
         /// </para>
         /// <para>
-        /// In addition, this method includes custom properties in the <see cref="HttpRequestMessage"/> to provide additional context and facilitate
-        /// easier tracking and processing of the request. These properties are detailed below:
+        /// Headers are added or adjusted from both the default headers provided by the <see cref="DefaultRequestHeaders"/> property and any scoped
+        /// headers that are active at the time of this request’s creation. Scoped headers are prioritized over default headers in case of key conflicts
+        /// to ensure that context-specific modifications are respected.
+        /// </para>
+        /// <para>
+        /// If the underlying HTTP client's default request headers, the headers provided by the <see cref="DefaultRequestHeaders"/> property, or any scoped
+        /// headers do not already include an <c>Accept</c> header, it is added to align with the media types supported by the content deserializers appropriate for
+        /// the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, it defaults to accepting all media types.
+        /// </para>
+        /// <para>
+        /// This method also includes scoped properties in the HTTP request message to provide additional context and facilitate easier tracking and processing
+        /// of the request. In addition to the scoped properties, the following properties are added:
         /// <list type="bullet">
-        /// <item>
-        /// <term><see cref="HttpRequestMessagePropertyKeys.TransactionId"/></term>
-        /// <description>
-        /// A unique identifier (<see cref="Guid"/>) generated and assigned to each request, aiding in the request's tracking, debugging, and logging
-        /// processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
-        /// or when requests are retried due to transient failures.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term><see cref="HttpRequestMessagePropertyKeys.ResponseObjectType"/></term>
-        /// <description>
-        /// Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
-        /// and support error recovery strategies.
-        /// </description>
-        /// </item>
+        ///   <item>
+        ///     <term><see cref="HttpRequestMessagePropertyKeys.TransactionId"/></term>
+        ///     <description>
+        ///     A unique identifier (<see cref="Guid"/>) generated and assigned to each request, aiding in the request's tracking, debugging, and logging
+        ///     processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
+        ///     or when requests are retried due to transient failures.
+        ///     </description>
+        ///   </item>
+        ///   <item>
+        ///     <term><see cref="HttpRequestMessagePropertyKeys.ResponseObjectType"/></term>
+        ///     <description>
+        ///     Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
+        ///     and support error recovery strategies.
+        ///     </description>
+        ///   </item>
         /// </list>
         /// </para>
         /// </remarks>
@@ -611,18 +637,42 @@ namespace Kampute.HttpClient
 
             var requestUri = _baseAddress is null ? new Uri(uri) : new Uri(_baseAddress, uri);
             var request = new HttpRequestMessage(method, requestUri);
-
-            foreach (var header in DefaultRequestHeaders)
-                request.Headers.TryAddWithoutValidation(header.Key, header.Value);
-
-            foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
-                request.Headers.Accept.Add(MediaTypeHeaderValueStore.Get(mediaType));
-
-            request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
-            request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
-            _scopedProperties.MergeInto(request.Properties);
-
+            AddRequestHeaders();
+            AddRequestProperties();
             return request;
+
+            void AddRequestHeaders()
+            {
+                foreach (var header in DefaultRequestHeaders)
+                    request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+
+                if (_scopedHeaders.IsValueCreated)
+                {
+                    foreach (var header in _scopedHeaders.Value)
+                    {
+                        request.Headers.Remove(header.Key);
+                        request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                    }
+                }
+
+                if (_httpClient.DefaultRequestHeaders.Accept.Count == 0 && request.Headers.Accept.Count == 0)
+                {
+                    foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
+                        request.Headers.Accept.Add(MediaTypeHeaderValueStore.Get(mediaType));
+                }
+            }
+
+            void AddRequestProperties()
+            {
+                if (_scopedProperties.IsValueCreated)
+                {
+                    foreach (var property in _scopedProperties.Value)
+                        request.Properties[property.Key] = property.Value;
+                }
+
+                request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
+                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
+            }
         }
 
         /// <summary>

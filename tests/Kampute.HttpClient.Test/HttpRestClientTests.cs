@@ -6,6 +6,7 @@
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -233,6 +234,61 @@
 
             mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+        }
+
+        [Test]
+        public async Task BeginPropertyScope_AddsPropertiesToRequest()
+        {
+            var customPropName = "PROP_NAME";
+            var customPropValue = "PROP_VALUE";
+
+            var sent = false;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                var propExists = request.Options.TryGetValue(new HttpRequestOptionsKey<string>(customPropName), out var propValue);
+                Assert.Multiple(() =>
+                {
+                    Assert.That(propExists, Is.True);
+                    Assert.That(propValue, Is.EqualTo(customPropValue));
+                });
+
+                sent = true;
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            using var scope = _client.BeginPropertyScope(new Dictionary<string, object>
+            {
+                [customPropName] = customPropValue
+            });
+
+            using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+
+            Assert.That(sent, Is.True);
+        }
+
+        [Test]
+        public async Task BeginHeaderScope_AddsHeadersToRequest()
+        {
+            var customHeaderName = "HEADER_NAME";
+            var customHeaderValue = "HEADER_VALUE";
+
+            var sent = false;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Assert.That(request.Headers.GetValues(customHeaderName), Is.EquivalentTo(new[] { customHeaderValue }));
+
+                sent = true;
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            using var scope = _client.BeginHeaderScope(new Dictionary<string, string>
+            {
+                [customHeaderName] = customHeaderValue
+            });
+
+            using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+
+            Assert.That(sent, Is.True);
         }
     }
 }

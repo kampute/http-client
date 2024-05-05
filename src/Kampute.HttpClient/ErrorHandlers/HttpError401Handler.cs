@@ -98,7 +98,7 @@ namespace Kampute.HttpClient.ErrorHandlers
 
             await _lastAuthorization.TryUpdateAsync(async () =>
             {
-                using (ctx.Client.BeginScope(new Dictionary<string, object> { [HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true }))
+                using (ctx.Client.BeginPropertyScope(new Dictionary<string, object> { [HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true }))
                 {
                     return await _asyncAuthenticator(ctx, cancellationToken).ConfigureAwait(false);
                 }

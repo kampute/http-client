@@ -14,6 +14,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <PackageId>Kampute.HttpClient</PackageId>
     <PackageTags>http http-client restful rest-client rest-api web-api</PackageTags>
     <PackageIcon>ICON.png</PackageIcon>

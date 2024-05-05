@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler" class="text-break">
-Class HttpError429Handler  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class HttpError429Handler  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,7 +99,7 @@ default backoff strategy.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class HttpError429Handler : HttpErrorHandlerWithBackoff, IHttpErrorHandler</code></pre>
+    <pre><code class="lang-csharp hljs">public class HttpError429Handler : IHttpErrorHandler</code></pre>
   </div>
 
 
@@ -109,7 +109,6 @@ default backoff strategy.</p>
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html">HttpErrorHandlerWithBackoff</a></div>
       <div><span class="xref">HttpError429Handler</span></div>
     </dd>
   </dl>
@@ -125,9 +124,6 @@ default backoff strategy.</p>
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_BackoffAndDecideOnRetryAsync_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_">HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync(HttpResponseErrorContext, CancellationToken)</a>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -170,7 +166,7 @@ used to determine the backoff duration. If the header is not present, no retries
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_OnBackoffStrategy" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.OnBackoffStrategy">
   OnBackoffStrategy
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A delegate that allows customization of the backoff strategy when a 429 Too Many Requests' response is received.</p>
@@ -178,7 +174,7 @@ used to determine the backoff duration. If the header is not present, no retries
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Func&lt;HttpResponseErrorContext, DateTimeOffset?, IRetrySchedulerFactory?&gt;? OnBackoffStrategy { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Func&lt;HttpResponseErrorContext, DateTimeOffset?, IHttpBackoffProvider?&gt;? OnBackoffStrategy { get; set; }</code></pre>
   </div>
 
 
@@ -187,7 +183,7 @@ used to determine the backoff duration. If the header is not present, no retries
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>?, <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>?, <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -196,7 +192,7 @@ used to determine the backoff duration. If the header is not present, no retries
 
   <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_OnBackoffStrategy_remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
-If this delegate is set and returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a>, the returned strategy is used for the retry operation. 
+If this delegate is set and returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a>, the returned strategy is used for the retry operation. 
 If it is not set, or returns <code>null</code>, the handler will defer to the <code>Retry-After</code> header in the response.
 </p>
 <p>
@@ -219,7 +215,7 @@ server does not specify a reset time, the value will be <code>null</code>.</li><
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CanHandle_System_Net_HttpStatusCode_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CanHandle(System.Net.HttpStatusCode)">
   CanHandle(HttpStatusCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L62"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether this handler can process the specified HTTP status code.</p>
@@ -227,7 +223,7 @@ server does not specify a reset time, the value will be <code>null</code>.</li><
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanHandle(HttpStatusCode statusCode)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanHandle(HttpStatusCode statusCode)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -257,19 +253,19 @@ server does not specify a reset time, the value will be <code>null</code>.</li><
 
 
 
-  <a id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_DetermineBackoffStrategy_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy*"></a>
+  <a id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CreateScheduler_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler*"></a>
 
-  <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)">
-  DetermineBackoffStrategy(HttpResponseErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)">
+  CreateScheduler(HttpResponseErrorContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError429Handler.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Determines the backoff strategy to use based on the error context.</p>
+  <div class="markdown level1 summary"><p>Creates a scheduler for retrying the failed request based on the error context.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override IRetrySchedulerFactory DetermineBackoffStrategy(HttpResponseErrorContext ctx)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -281,8 +277,8 @@ server does not specify a reset time, the value will be <code>null</code>.</li><
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines the backoff strategy.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a> that schedules the retry attempts.</p>
 </dd>
   </dl>
 
@@ -292,12 +288,18 @@ server does not specify a reset time, the value will be <code>null</code>.</li><
 
 
 
-  <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext__remarks">Remarks</h4>
+  <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>This method first attempts to use the <a class="xref" href="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_OnBackoffStrategy">OnBackoffStrategy</a> delegate to obtain a retry strategy. If the delegate is not
 provided or returns <code>null</code>, and a rate limit reset header is present, the value of this header is used to create a retry delay.
 If neither condition is met, no retries will be attempted.</p>
 </div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if <code class="paramref">ctx</code> is <code>null</code>.</p>
+</dd>
+  </dl>
 
 
 

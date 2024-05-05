@@ -239,6 +239,12 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.BackoffStrategies.Uniform
   nameWithType: BackoffStrategies.Uniform
+- uid: Kampute.HttpClient.Content
+  name: Kampute.HttpClient.Content
+  href: api/Kampute.HttpClient.Content.html
+  commentId: N:Kampute.HttpClient.Content
+  fullName: Kampute.HttpClient.Content
+  nameWithType: Kampute.HttpClient.Content
 - uid: Kampute.HttpClient.Content.Abstracts
   name: Kampute.HttpClient.Content.Abstracts
   href: api/Kampute.HttpClient.Content.Abstracts.html
@@ -299,6 +305,86 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.OriginalContent
   nameWithType: HttpContentDecorator.OriginalContent
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer
+  name: HttpContentDeserializer
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html
+  commentId: T:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer
+  nameWithType: HttpContentDeserializer
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.#ctor(System.String[])
+  name: HttpContentDeserializer(params string[])
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer__ctor_System_String___
+  commentId: M:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.#ctor(System.String[])
+  name.vb: New(ParamArray String())
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.HttpContentDeserializer(params string[])
+  fullName.vb: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.New(ParamArray String())
+  nameWithType: HttpContentDeserializer.HttpContentDeserializer(params string[])
+  nameWithType.vb: HttpContentDeserializer.New(ParamArray String())
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.#ctor*
+  name: HttpContentDeserializer
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer__ctor_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.HttpContentDeserializer
+  fullName.vb: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.New
+  nameWithType: HttpContentDeserializer.HttpContentDeserializer
+  nameWithType.vb: HttpContentDeserializer.New
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  name: CanDeserialize(string, Type)
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_CanDeserialize_System_String_System_Type_
+  commentId: M:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize(System.String,System.Type)
+  name.vb: CanDeserialize(String, Type)
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize(string, System.Type)
+  fullName.vb: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize(String, System.Type)
+  nameWithType: HttpContentDeserializer.CanDeserialize(string, Type)
+  nameWithType.vb: HttpContentDeserializer.CanDeserialize(String, Type)
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize*
+  name: CanDeserialize
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_CanDeserialize_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.CanDeserialize
+  nameWithType: HttpContentDeserializer.CanDeserialize
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  name: DeserializeAsync(HttpContent, Type, CancellationToken)
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent, System.Type, System.Threading.CancellationToken)
+  nameWithType: HttpContentDeserializer.DeserializeAsync(HttpContent, Type, CancellationToken)
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.DeserializeAsync*
+  name: DeserializeAsync
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_DeserializeAsync_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.DeserializeAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.DeserializeAsync
+  nameWithType: HttpContentDeserializer.DeserializeAsync
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  name: GetSupportedMediaTypes(Type)
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_GetSupportedMediaTypes_System_Type_
+  commentId: M:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  nameWithType: HttpContentDeserializer.GetSupportedMediaTypes(Type)
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.GetSupportedMediaTypes*
+  name: GetSupportedMediaTypes
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_GetSupportedMediaTypes_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.GetSupportedMediaTypes
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.GetSupportedMediaTypes
+  nameWithType: HttpContentDeserializer.GetSupportedMediaTypes
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.SupportedMediaTypes
+  name: SupportedMediaTypes
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_SupportedMediaTypes
+  commentId: P:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.SupportedMediaTypes
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.SupportedMediaTypes
+  nameWithType: HttpContentDeserializer.SupportedMediaTypes
+- uid: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.SupportedMediaTypes*
+  name: SupportedMediaTypes
+  href: api/Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_SupportedMediaTypes_
+  commentId: Overload:Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.SupportedMediaTypes
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.SupportedMediaTypes
+  nameWithType: HttpContentDeserializer.SupportedMediaTypes
 - uid: Kampute.HttpClient.Content.Compression
   name: Kampute.HttpClient.Content.Compression
   href: api/Kampute.HttpClient.Content.Compression.html
@@ -336,6 +422,19 @@ references:
   fullName.vb: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.New
   nameWithType: CompressedContent.CompressedContent
   nameWithType.vb: CompressedContent.New
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressStream(System.IO.Stream)
+  name: CompressStream(Stream)
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_CompressStream_System_IO_Stream_
+  commentId: M:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressStream(System.IO.Stream)
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressStream(System.IO.Stream)
+  nameWithType: CompressedContent.CompressStream(Stream)
+- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressStream*
+  name: CompressStream
+  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_CompressStream_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressStream
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.CompressStream
+  nameWithType: CompressedContent.CompressStream
 - uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)
   name: SerializeToStreamAsync(Stream, TransportContext)
   href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_SerializeToStreamAsync_System_IO_Stream_System_Net_TransportContext_
@@ -365,19 +464,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.TryComputeLength
   nameWithType: CompressedContent.TryComputeLength
-- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  name: WrapWithCompressionStream(Stream)
-  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_WrapWithCompressionStream_System_IO_Stream_
-  commentId: M:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  nameWithType: CompressedContent.WrapWithCompressionStream(Stream)
-- uid: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream*
-  name: WrapWithCompressionStream
-  href: api/Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html#Kampute_HttpClient_Content_Compression_Abstracts_CompressedContent_WrapWithCompressionStream_
-  commentId: Overload:Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream
-  isSpec: "True"
-  fullName: Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.WrapWithCompressionStream
-  nameWithType: CompressedContent.WrapWithCompressionStream
 - uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent
   name: DeflateCompressedContent
   href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html
@@ -403,19 +489,19 @@ references:
   fullName.vb: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.New
   nameWithType: DeflateCompressedContent.DeflateCompressedContent
   nameWithType.vb: DeflateCompressedContent.New
-- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  name: WrapWithCompressionStream(Stream)
-  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent_WrapWithCompressionStream_System_IO_Stream_
-  commentId: M:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  nameWithType: DeflateCompressedContent.WrapWithCompressionStream(Stream)
-- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream*
-  name: WrapWithCompressionStream
-  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent_WrapWithCompressionStream_
-  commentId: Overload:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream(System.IO.Stream)
+  name: CompressStream(Stream)
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent_CompressStream_System_IO_Stream_
+  commentId: M:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream(System.IO.Stream)
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream(System.IO.Stream)
+  nameWithType: DeflateCompressedContent.CompressStream(Stream)
+- uid: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream*
+  name: CompressStream
+  href: api/Kampute.HttpClient.Content.Compression.DeflateCompressedContent.html#Kampute_HttpClient_Content_Compression_DeflateCompressedContent_CompressStream_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream
   isSpec: "True"
-  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream
-  nameWithType: DeflateCompressedContent.WrapWithCompressionStream
+  fullName: Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream
+  nameWithType: DeflateCompressedContent.CompressStream
 - uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent
   name: GzipCompressedContent
   href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html
@@ -441,19 +527,54 @@ references:
   fullName.vb: Kampute.HttpClient.Content.Compression.GzipCompressedContent.New
   nameWithType: GzipCompressedContent.GzipCompressedContent
   nameWithType.vb: GzipCompressedContent.New
-- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  name: WrapWithCompressionStream(Stream)
-  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent_WrapWithCompressionStream_System_IO_Stream_
-  commentId: M:Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream(System.IO.Stream)
-  nameWithType: GzipCompressedContent.WrapWithCompressionStream(Stream)
-- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream*
-  name: WrapWithCompressionStream
-  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent_WrapWithCompressionStream_
-  commentId: Overload:Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream(System.IO.Stream)
+  name: CompressStream(Stream)
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent_CompressStream_System_IO_Stream_
+  commentId: M:Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream(System.IO.Stream)
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream(System.IO.Stream)
+  nameWithType: GzipCompressedContent.CompressStream(Stream)
+- uid: Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream*
+  name: CompressStream
+  href: api/Kampute.HttpClient.Content.Compression.GzipCompressedContent.html#Kampute_HttpClient_Content_Compression_GzipCompressedContent_CompressStream_
+  commentId: Overload:Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream
   isSpec: "True"
-  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.WrapWithCompressionStream
-  nameWithType: GzipCompressedContent.WrapWithCompressionStream
+  fullName: Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream
+  nameWithType: GzipCompressedContent.CompressStream
+- uid: Kampute.HttpClient.Content.EmptyContent
+  name: EmptyContent
+  href: api/Kampute.HttpClient.Content.EmptyContent.html
+  commentId: T:Kampute.HttpClient.Content.EmptyContent
+  fullName: Kampute.HttpClient.Content.EmptyContent
+  nameWithType: EmptyContent
+- uid: Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)
+  name: SerializeToStreamAsync(Stream, TransportContext)
+  href: api/Kampute.HttpClient.Content.EmptyContent.html#Kampute_HttpClient_Content_EmptyContent_SerializeToStreamAsync_System_IO_Stream_System_Net_TransportContext_
+  commentId: M:Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)
+  fullName: Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync(System.IO.Stream, System.Net.TransportContext)
+  nameWithType: EmptyContent.SerializeToStreamAsync(Stream, TransportContext)
+- uid: Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync*
+  name: SerializeToStreamAsync
+  href: api/Kampute.HttpClient.Content.EmptyContent.html#Kampute_HttpClient_Content_EmptyContent_SerializeToStreamAsync_
+  commentId: Overload:Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync
+  nameWithType: EmptyContent.SerializeToStreamAsync
+- uid: Kampute.HttpClient.Content.EmptyContent.TryComputeLength(System.Int64@)
+  name: TryComputeLength(out long)
+  href: api/Kampute.HttpClient.Content.EmptyContent.html#Kampute_HttpClient_Content_EmptyContent_TryComputeLength_System_Int64__
+  commentId: M:Kampute.HttpClient.Content.EmptyContent.TryComputeLength(System.Int64@)
+  name.vb: TryComputeLength(Long)
+  fullName: Kampute.HttpClient.Content.EmptyContent.TryComputeLength(out long)
+  fullName.vb: Kampute.HttpClient.Content.EmptyContent.TryComputeLength(Long)
+  nameWithType: EmptyContent.TryComputeLength(out long)
+  nameWithType.vb: EmptyContent.TryComputeLength(Long)
+- uid: Kampute.HttpClient.Content.EmptyContent.TryComputeLength*
+  name: TryComputeLength
+  href: api/Kampute.HttpClient.Content.EmptyContent.html#Kampute_HttpClient_Content_EmptyContent_TryComputeLength_
+  commentId: Overload:Kampute.HttpClient.Content.EmptyContent.TryComputeLength
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Content.EmptyContent.TryComputeLength
+  nameWithType: EmptyContent.TryComputeLength
 - uid: Kampute.HttpClient.DataContract
   name: Kampute.HttpClient.DataContract
   href: api/Kampute.HttpClient.DataContract.html
@@ -706,14 +827,33 @@ references:
   commentId: T:Kampute.HttpClient.DataContract.XmlContentDeserializer
   fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer
   nameWithType: XmlContentDeserializer
+- uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.#ctor
+  name: XmlContentDeserializer()
+  href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer__ctor
+  commentId: M:Kampute.HttpClient.DataContract.XmlContentDeserializer.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.XmlContentDeserializer()
+  fullName.vb: Kampute.HttpClient.DataContract.XmlContentDeserializer.New()
+  nameWithType: XmlContentDeserializer.XmlContentDeserializer()
+  nameWithType.vb: XmlContentDeserializer.New()
+- uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.#ctor*
+  name: XmlContentDeserializer
+  href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer__ctor_
+  commentId: Overload:Kampute.HttpClient.DataContract.XmlContentDeserializer.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.XmlContentDeserializer
+  fullName.vb: Kampute.HttpClient.DataContract.XmlContentDeserializer.New
+  nameWithType: XmlContentDeserializer.XmlContentDeserializer
+  nameWithType.vb: XmlContentDeserializer.New
 - uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(System.String,System.Type)
-  name: CanDeserialize(string, Type?)
+  name: CanDeserialize(string, Type)
   href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer_CanDeserialize_System_String_System_Type_
   commentId: M:Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(System.String,System.Type)
   name.vb: CanDeserialize(String, Type)
-  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(string, System.Type?)
+  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(string, System.Type)
   fullName.vb: Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(String, System.Type)
-  nameWithType: XmlContentDeserializer.CanDeserialize(string, Type?)
+  nameWithType: XmlContentDeserializer.CanDeserialize(string, Type)
   nameWithType.vb: XmlContentDeserializer.CanDeserialize(String, Type)
 - uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize*
   name: CanDeserialize
@@ -736,14 +876,11 @@ references:
   fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.DeserializeAsync
   nameWithType: XmlContentDeserializer.DeserializeAsync
 - uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name: GetSupportedMediaTypes(Type?)
+  name: GetSupportedMediaTypes(Type)
   href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer_GetSupportedMediaTypes_System_Type_
   commentId: M:Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name.vb: GetSupportedMediaTypes(Type)
-  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type?)
-  fullName.vb: Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
-  nameWithType: XmlContentDeserializer.GetSupportedMediaTypes(Type?)
-  nameWithType.vb: XmlContentDeserializer.GetSupportedMediaTypes(Type)
+  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
+  nameWithType: XmlContentDeserializer.GetSupportedMediaTypes(Type)
 - uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes*
   name: GetSupportedMediaTypes
   href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer_GetSupportedMediaTypes_
@@ -764,114 +901,12 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.Settings
   nameWithType: XmlContentDeserializer.Settings
-- uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer_SupportedMediaTypes
-  commentId: P:Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes
-  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes
-  nameWithType: XmlContentDeserializer.SupportedMediaTypes
-- uid: Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes*
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.DataContract.XmlContentDeserializer.html#Kampute_HttpClient_DataContract_XmlContentDeserializer_SupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes
-  nameWithType: XmlContentDeserializer.SupportedMediaTypes
-- uid: Kampute.HttpClient.DictionaryExtensions
-  name: DictionaryExtensions
-  href: api/Kampute.HttpClient.DictionaryExtensions.html
-  commentId: T:Kampute.HttpClient.DictionaryExtensions
-  fullName: Kampute.HttpClient.DictionaryExtensions
-  nameWithType: DictionaryExtensions
-- uid: Kampute.HttpClient.DictionaryExtensions.GetOrAdd*
-  name: GetOrAdd
-  href: api/Kampute.HttpClient.DictionaryExtensions.html#Kampute_HttpClient_DictionaryExtensions_GetOrAdd_
-  commentId: Overload:Kampute.HttpClient.DictionaryExtensions.GetOrAdd
-  isSpec: "True"
-  fullName: Kampute.HttpClient.DictionaryExtensions.GetOrAdd
-  nameWithType: DictionaryExtensions.GetOrAdd
-- uid: Kampute.HttpClient.DictionaryExtensions.GetOrAdd``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Func{System.String,``0})
-  name: GetOrAdd<T>(IDictionary<string, object?>, string, Func<string, T>)
-  href: api/Kampute.HttpClient.DictionaryExtensions.html#Kampute_HttpClient_DictionaryExtensions_GetOrAdd__1_System_Collections_Generic_IDictionary_System_String_System_Object__System_String_System_Func_System_String___0__
-  commentId: M:Kampute.HttpClient.DictionaryExtensions.GetOrAdd``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Func{System.String,``0})
-  name.vb: GetOrAdd(Of T)(IDictionary(Of String, Object), String, Func(Of String, T))
-  fullName: Kampute.HttpClient.DictionaryExtensions.GetOrAdd<T>(System.Collections.Generic.IDictionary<string, object?>, string, System.Func<string, T>)
-  fullName.vb: Kampute.HttpClient.DictionaryExtensions.GetOrAdd(Of T)(System.Collections.Generic.IDictionary(Of String, Object), String, System.Func(Of String, T))
-  nameWithType: DictionaryExtensions.GetOrAdd<T>(IDictionary<string, object?>, string, Func<string, T>)
-  nameWithType.vb: DictionaryExtensions.GetOrAdd(Of T)(IDictionary(Of String, Object), String, Func(Of String, T))
-- uid: Kampute.HttpClient.DictionaryExtensions.TryGetValue*
-  name: TryGetValue
-  href: api/Kampute.HttpClient.DictionaryExtensions.html#Kampute_HttpClient_DictionaryExtensions_TryGetValue_
-  commentId: Overload:Kampute.HttpClient.DictionaryExtensions.TryGetValue
-  isSpec: "True"
-  fullName: Kampute.HttpClient.DictionaryExtensions.TryGetValue
-  nameWithType: DictionaryExtensions.TryGetValue
-- uid: Kampute.HttpClient.DictionaryExtensions.TryGetValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0@)
-  name: TryGetValue<T>(IDictionary<string, object?>, string, out T?)
-  href: api/Kampute.HttpClient.DictionaryExtensions.html#Kampute_HttpClient_DictionaryExtensions_TryGetValue__1_System_Collections_Generic_IDictionary_System_String_System_Object__System_String___0__
-  commentId: M:Kampute.HttpClient.DictionaryExtensions.TryGetValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0@)
-  name.vb: TryGetValue(Of T)(IDictionary(Of String, Object), String, T)
-  fullName: Kampute.HttpClient.DictionaryExtensions.TryGetValue<T>(System.Collections.Generic.IDictionary<string, object?>, string, out T?)
-  fullName.vb: Kampute.HttpClient.DictionaryExtensions.TryGetValue(Of T)(System.Collections.Generic.IDictionary(Of String, Object), String, T)
-  nameWithType: DictionaryExtensions.TryGetValue<T>(IDictionary<string, object?>, string, out T?)
-  nameWithType.vb: DictionaryExtensions.TryGetValue(Of T)(IDictionary(Of String, Object), String, T)
 - uid: Kampute.HttpClient.ErrorHandlers
   name: Kampute.HttpClient.ErrorHandlers
   href: api/Kampute.HttpClient.ErrorHandlers.html
   commentId: N:Kampute.HttpClient.ErrorHandlers
   fullName: Kampute.HttpClient.ErrorHandlers
   nameWithType: Kampute.HttpClient.ErrorHandlers
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts
-  name: Kampute.HttpClient.ErrorHandlers.Abstracts
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.html
-  commentId: N:Kampute.HttpClient.ErrorHandlers.Abstracts
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts
-  nameWithType: Kampute.HttpClient.ErrorHandlers.Abstracts
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff
-  name: HttpErrorHandlerWithBackoff
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html
-  commentId: T:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff
-  nameWithType: HttpErrorHandlerWithBackoff
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)
-  name: BackoffAndDecideOnRetryAsync(HttpResponseErrorContext, CancellationToken)
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_BackoffAndDecideOnRetryAsync_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync(Kampute.HttpClient.HttpResponseErrorContext, System.Threading.CancellationToken)
-  nameWithType: HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync(HttpResponseErrorContext, CancellationToken)
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync*
-  name: BackoffAndDecideOnRetryAsync
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_BackoffAndDecideOnRetryAsync_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync
-  nameWithType: HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.CanHandle(System.Net.HttpStatusCode)
-  name: CanHandle(HttpStatusCode)
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_CanHandle_System_Net_HttpStatusCode_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.CanHandle(System.Net.HttpStatusCode)
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.CanHandle(System.Net.HttpStatusCode)
-  nameWithType: HttpErrorHandlerWithBackoff.CanHandle(HttpStatusCode)
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.CanHandle*
-  name: CanHandle
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_CanHandle_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.CanHandle
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.CanHandle
-  nameWithType: HttpErrorHandlerWithBackoff.CanHandle
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  name: DetermineBackoffStrategy(HttpResponseErrorContext)
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  nameWithType: HttpErrorHandlerWithBackoff.DetermineBackoffStrategy(HttpResponseErrorContext)
-- uid: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.DetermineBackoffStrategy*
-  name: DetermineBackoffStrategy
-  href: api/Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_DetermineBackoffStrategy_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.DetermineBackoffStrategy
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.DetermineBackoffStrategy
-  nameWithType: HttpErrorHandlerWithBackoff.DetermineBackoffStrategy
 - uid: Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler
   name: DynamicHttpErrorHandler
   href: api/Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html
@@ -929,15 +964,15 @@ references:
   commentId: T:Kampute.HttpClient.ErrorHandlers.HttpError401Handler
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler
   nameWithType: HttpError401Handler
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRestClient,System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue},System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
-  name: HttpError401Handler(Func<HttpRestClient, IEnumerable<AuthenticationHeaderValue>, CancellationToken, Task<AuthenticationHeaderValue?>>)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_System_Func_Kampute_HttpClient_HttpRestClient_System_Collections_Generic_IEnumerable_System_Net_Http_Headers_AuthenticationHeaderValue__System_Threading_CancellationToken_System_Threading_Tasks_Task_System_Net_Http_Headers_AuthenticationHeaderValue___
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRestClient,System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue},System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
-  name.vb: New(Func(Of HttpRestClient, IEnumerable(Of AuthenticationHeaderValue), CancellationToken, Task(Of AuthenticationHeaderValue)))
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.HttpError401Handler(System.Func<Kampute.HttpClient.HttpRestClient, System.Collections.Generic.IEnumerable<System.Net.Http.Headers.AuthenticationHeaderValue>, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Net.Http.Headers.AuthenticationHeaderValue?>>)
-  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.New(System.Func(Of Kampute.HttpClient.HttpRestClient, System.Collections.Generic.IEnumerable(Of System.Net.Http.Headers.AuthenticationHeaderValue), System.Threading.CancellationToken, System.Threading.Tasks.Task(Of System.Net.Http.Headers.AuthenticationHeaderValue)))
-  nameWithType: HttpError401Handler.HttpError401Handler(Func<HttpRestClient, IEnumerable<AuthenticationHeaderValue>, CancellationToken, Task<AuthenticationHeaderValue?>>)
-  nameWithType.vb: HttpError401Handler.New(Func(Of HttpRestClient, IEnumerable(Of AuthenticationHeaderValue), CancellationToken, Task(Of AuthenticationHeaderValue)))
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
+  name: HttpError401Handler(Func<HttpRequestErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>>)
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_System_Threading_CancellationToken_System_Threading_Tasks_Task_System_Net_Http_Headers_AuthenticationHeaderValue___
+  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
+  name.vb: New(Func(Of HttpRequestErrorContext, CancellationToken, Task(Of AuthenticationHeaderValue)))
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.HttpError401Handler(System.Func<Kampute.HttpClient.HttpRequestErrorContext, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Net.Http.Headers.AuthenticationHeaderValue?>>)
+  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.New(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, System.Threading.CancellationToken, System.Threading.Tasks.Task(Of System.Net.Http.Headers.AuthenticationHeaderValue)))
+  nameWithType: HttpError401Handler.HttpError401Handler(Func<HttpRequestErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>>)
+  nameWithType.vb: HttpError401Handler.New(Func(Of HttpRequestErrorContext, CancellationToken, Task(Of AuthenticationHeaderValue)))
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor*
   name: HttpError401Handler
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_
@@ -948,6 +983,19 @@ references:
   fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.New
   nameWithType: HttpError401Handler.HttpError401Handler
   nameWithType.vb: HttpError401Handler.New
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)
+  name: AuthenticateAsync(HttpResponseErrorContext, CancellationToken)
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_AuthenticateAsync_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync(Kampute.HttpClient.HttpResponseErrorContext, System.Threading.CancellationToken)
+  nameWithType: HttpError401Handler.AuthenticateAsync(HttpResponseErrorContext, CancellationToken)
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync*
+  name: AuthenticateAsync
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_AuthenticateAsync_
+  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync
+  nameWithType: HttpError401Handler.AuthenticateAsync
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.CanHandle(System.Net.HttpStatusCode)
   name: CanHandle(HttpStatusCode)
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_CanHandle_System_Net_HttpStatusCode_
@@ -961,34 +1009,12 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.CanHandle
   nameWithType: HttpError401Handler.CanHandle
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)
-  name: DecideOnRetryAsync(HttpResponseErrorContext, CancellationToken)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseErrorContext, System.Threading.CancellationToken)
-  nameWithType: HttpError401Handler.DecideOnRetryAsync(HttpResponseErrorContext, CancellationToken)
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.DecideOnRetryAsync*
-  name: DecideOnRetryAsync
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_DecideOnRetryAsync_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.DecideOnRetryAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.DecideOnRetryAsync
-  nameWithType: HttpError401Handler.DecideOnRetryAsync
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose
   name: Dispose()
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_Dispose
   commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose()
   nameWithType: HttpError401Handler.Dispose()
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose(System.Boolean)
-  name: Dispose(bool)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_Dispose_System_Boolean_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose(System.Boolean)
-  name.vb: Dispose(Boolean)
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose(bool)
-  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose(Boolean)
-  nameWithType: HttpError401Handler.Dispose(bool)
-  nameWithType.vb: HttpError401Handler.Dispose(Boolean)
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose*
   name: Dispose
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_Dispose_
@@ -996,38 +1022,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose
   nameWithType: HttpError401Handler.Dispose
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync(Kampute.HttpClient.HttpRestClient,System.String,System.String)
-  name: TryAuthenticateAsync(HttpRestClient, string, string?)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_TryAuthenticateAsync_Kampute_HttpClient_HttpRestClient_System_String_System_String_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync(Kampute.HttpClient.HttpRestClient,System.String,System.String)
-  name.vb: TryAuthenticateAsync(HttpRestClient, String, String)
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync(Kampute.HttpClient.HttpRestClient, string, string?)
-  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync(Kampute.HttpClient.HttpRestClient, String, String)
-  nameWithType: HttpError401Handler.TryAuthenticateAsync(HttpRestClient, string, string?)
-  nameWithType.vb: HttpError401Handler.TryAuthenticateAsync(HttpRestClient, String, String)
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync*
-  name: TryAuthenticateAsync
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_TryAuthenticateAsync_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TryAuthenticateAsync
-  nameWithType: HttpError401Handler.TryAuthenticateAsync
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync(Kampute.HttpClient.HttpRestClient,System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue},System.Threading.CancellationToken)
-  name: TrySolveAuthenticationChallengeAsync(HttpRestClient, IEnumerable<AuthenticationHeaderValue>, CancellationToken)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_TrySolveAuthenticationChallengeAsync_Kampute_HttpClient_HttpRestClient_System_Collections_Generic_IEnumerable_System_Net_Http_Headers_AuthenticationHeaderValue__System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync(Kampute.HttpClient.HttpRestClient,System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue},System.Threading.CancellationToken)
-  name.vb: TrySolveAuthenticationChallengeAsync(HttpRestClient, IEnumerable(Of AuthenticationHeaderValue), CancellationToken)
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync(Kampute.HttpClient.HttpRestClient, System.Collections.Generic.IEnumerable<System.Net.Http.Headers.AuthenticationHeaderValue>, System.Threading.CancellationToken)
-  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync(Kampute.HttpClient.HttpRestClient, System.Collections.Generic.IEnumerable(Of System.Net.Http.Headers.AuthenticationHeaderValue), System.Threading.CancellationToken)
-  nameWithType: HttpError401Handler.TrySolveAuthenticationChallengeAsync(HttpRestClient, IEnumerable<AuthenticationHeaderValue>, CancellationToken)
-  nameWithType.vb: HttpError401Handler.TrySolveAuthenticationChallengeAsync(HttpRestClient, IEnumerable(Of AuthenticationHeaderValue), CancellationToken)
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync*
-  name: TrySolveAuthenticationChallengeAsync
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler_TrySolveAuthenticationChallengeAsync_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.TrySolveAuthenticationChallengeAsync
-  nameWithType: HttpError401Handler.TrySolveAuthenticationChallengeAsync
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler
   name: HttpError429Handler
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html
@@ -1047,19 +1041,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CanHandle
   nameWithType: HttpError429Handler.CanHandle
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  name: DetermineBackoffStrategy(HttpResponseErrorContext)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  nameWithType: HttpError429Handler.DetermineBackoffStrategy(HttpResponseErrorContext)
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy*
-  name: DetermineBackoffStrategy
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_DetermineBackoffStrategy_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)
+  name: CreateScheduler(HttpResponseErrorContext)
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext_
+  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)
+  nameWithType: HttpError429Handler.CreateScheduler(HttpResponseErrorContext)
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler*
+  name: CreateScheduler
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CreateScheduler_
+  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler
   isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.DetermineBackoffStrategy
-  nameWithType: HttpError429Handler.DetermineBackoffStrategy
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.CreateScheduler
+  nameWithType: HttpError429Handler.CreateScheduler
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError429Handler.OnBackoffStrategy
   name: OnBackoffStrategy
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_OnBackoffStrategy
@@ -1092,19 +1086,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CanHandle
   nameWithType: HttpError503Handler.CanHandle
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  name: DetermineBackoffStrategy(HttpResponseErrorContext)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext_
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)
-  nameWithType: HttpError503Handler.DetermineBackoffStrategy(HttpResponseErrorContext)
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy*
-  name: DetermineBackoffStrategy
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_DetermineBackoffStrategy_
-  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)
+  name: CreateScheduler(HttpResponseErrorContext)
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext_
+  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)
+  nameWithType: HttpError503Handler.CreateScheduler(HttpResponseErrorContext)
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler*
+  name: CreateScheduler
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_
+  commentId: Overload:Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler
   isSpec: "True"
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy
-  nameWithType: HttpError503Handler.DetermineBackoffStrategy
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler
+  nameWithType: HttpError503Handler.CreateScheduler
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.OnBackoffStrategy
   name: OnBackoffStrategy
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy
@@ -1118,25 +1112,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError503Handler.OnBackoffStrategy
   nameWithType: HttpError503Handler.OnBackoffStrategy
-- uid: Kampute.HttpClient.ExceptionExtensions
-  name: ExceptionExtensions
-  href: api/Kampute.HttpClient.ExceptionExtensions.html
-  commentId: T:Kampute.HttpClient.ExceptionExtensions
-  fullName: Kampute.HttpClient.ExceptionExtensions
-  nameWithType: ExceptionExtensions
-- uid: Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError(System.Exception)
-  name: IsTransientNetworkError(Exception)
-  href: api/Kampute.HttpClient.ExceptionExtensions.html#Kampute_HttpClient_ExceptionExtensions_IsTransientNetworkError_System_Exception_
-  commentId: M:Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError(System.Exception)
-  fullName: Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError(System.Exception)
-  nameWithType: ExceptionExtensions.IsTransientNetworkError(Exception)
-- uid: Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError*
-  name: IsTransientNetworkError
-  href: api/Kampute.HttpClient.ExceptionExtensions.html#Kampute_HttpClient_ExceptionExtensions_IsTransientNetworkError_
-  commentId: Overload:Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError
-  isSpec: "True"
-  fullName: Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError
-  nameWithType: ExceptionExtensions.IsTransientNetworkError
 - uid: Kampute.HttpClient.HttpContentDeserializerCollection
   name: HttpContentDeserializerCollection
   href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html
@@ -1610,6 +1585,22 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpRequestErrorContext.Request
   nameWithType: HttpRequestErrorContext.Request
+- uid: Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler},System.Threading.CancellationToken)
+  name: ScheduleRetryAsync(Func<HttpRequestErrorContext, IRetryScheduler?>, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRequestErrorContext.html#Kampute_HttpClient_HttpRequestErrorContext_ScheduleRetryAsync_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler},System.Threading.CancellationToken)
+  name.vb: ScheduleRetryAsync(Func(Of HttpRequestErrorContext, IRetryScheduler), CancellationToken)
+  fullName: Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler?>, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler), System.Threading.CancellationToken)
+  nameWithType: HttpRequestErrorContext.ScheduleRetryAsync(Func<HttpRequestErrorContext, IRetryScheduler?>, CancellationToken)
+  nameWithType.vb: HttpRequestErrorContext.ScheduleRetryAsync(Func(Of HttpRequestErrorContext, IRetryScheduler), CancellationToken)
+- uid: Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync*
+  name: ScheduleRetryAsync
+  href: api/Kampute.HttpClient.HttpRequestErrorContext.html#Kampute_HttpClient_HttpRequestErrorContext_ScheduleRetryAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestErrorContext.ScheduleRetryAsync
+  nameWithType: HttpRequestErrorContext.ScheduleRetryAsync
 - uid: Kampute.HttpClient.HttpRequestMessageCloneManager
   name: HttpRequestMessageCloneManager
   href: api/Kampute.HttpClient.HttpRequestMessageCloneManager.html
@@ -1785,6 +1776,12 @@ references:
   commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.CloneGeneration
   fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.CloneGeneration
   nameWithType: HttpRequestMessagePropertyKeys.CloneGeneration
+- uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys.ErrorHandler
+  name: ErrorHandler
+  href: api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_ErrorHandler
+  commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.ErrorHandler
+  fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.ErrorHandler
+  nameWithType: HttpRequestMessagePropertyKeys.ErrorHandler
 - uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys.ResponseObjectType
   name: ResponseObjectType
   href: api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_ResponseObjectType
@@ -1797,6 +1794,12 @@ references:
   commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.RetryScheduler
   fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.RetryScheduler
   nameWithType: HttpRequestMessagePropertyKeys.RetryScheduler
+- uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling
+  name: SkipUnauthorizedHandling
+  href: api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_SkipUnauthorizedHandling
+  commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling
+  fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling
+  nameWithType: HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling
 - uid: Kampute.HttpClient.HttpRequestMessagePropertyKeys.TransactionId
   name: TransactionId
   href: api/Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_TransactionId
@@ -1854,6 +1857,22 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.HttpResponseErrorContext.Response
   nameWithType: HttpResponseErrorContext.Response
+- uid: Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync(System.Func{Kampute.HttpClient.HttpResponseErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler},System.Threading.CancellationToken)
+  name: ScheduleRetryAsync(Func<HttpResponseErrorContext, IRetryScheduler?>, CancellationToken)
+  href: api/Kampute.HttpClient.HttpResponseErrorContext.html#Kampute_HttpClient_HttpResponseErrorContext_ScheduleRetryAsync_System_Func_Kampute_HttpClient_HttpResponseErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync(System.Func{Kampute.HttpClient.HttpResponseErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler},System.Threading.CancellationToken)
+  name.vb: ScheduleRetryAsync(Func(Of HttpResponseErrorContext, IRetryScheduler), CancellationToken)
+  fullName: Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync(System.Func<Kampute.HttpClient.HttpResponseErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler?>, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync(System.Func(Of Kampute.HttpClient.HttpResponseErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler), System.Threading.CancellationToken)
+  nameWithType: HttpResponseErrorContext.ScheduleRetryAsync(Func<HttpResponseErrorContext, IRetryScheduler?>, CancellationToken)
+  nameWithType.vb: HttpResponseErrorContext.ScheduleRetryAsync(Func(Of HttpResponseErrorContext, IRetryScheduler), CancellationToken)
+- uid: Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync*
+  name: ScheduleRetryAsync
+  href: api/Kampute.HttpClient.HttpResponseErrorContext.html#Kampute_HttpClient_HttpResponseErrorContext_ScheduleRetryAsync_
+  commentId: Overload:Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync
+  nameWithType: HttpResponseErrorContext.ScheduleRetryAsync
 - uid: Kampute.HttpClient.HttpResponseException
   name: HttpResponseException
   href: api/Kampute.HttpClient.HttpResponseException.html
@@ -2053,6 +2072,15 @@ references:
   fullName.vb: Kampute.HttpClient.HttpRestClient.New()
   nameWithType: HttpRestClient.HttpRestClient()
   nameWithType.vb: HttpRestClient.New()
+- uid: Kampute.HttpClient.HttpRestClient.#ctor(Kampute.HttpClient.Utilities.SharedDisposable{System.Net.Http.HttpClient}.Reference)
+  name: HttpRestClient(Reference)
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient__ctor_Kampute_HttpClient_Utilities_SharedDisposable_System_Net_Http_HttpClient__Reference_
+  commentId: M:Kampute.HttpClient.HttpRestClient.#ctor(Kampute.HttpClient.Utilities.SharedDisposable{System.Net.Http.HttpClient}.Reference)
+  name.vb: New(Reference)
+  fullName: Kampute.HttpClient.HttpRestClient.HttpRestClient(Kampute.HttpClient.Utilities.SharedDisposable<System.Net.Http.HttpClient>.Reference)
+  fullName.vb: Kampute.HttpClient.HttpRestClient.New(Kampute.HttpClient.Utilities.SharedDisposable(Of System.Net.Http.HttpClient).Reference)
+  nameWithType: HttpRestClient.HttpRestClient(SharedDisposable<HttpClient>.Reference)
+  nameWithType.vb: HttpRestClient.New(SharedDisposable(Of HttpClient).Reference)
 - uid: Kampute.HttpClient.HttpRestClient.#ctor(System.Net.Http.HttpClient,System.Boolean)
   name: HttpRestClient(HttpClient, bool)
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient__ctor_System_Net_Http_HttpClient_System_Boolean_
@@ -2078,19 +2106,6 @@ references:
   commentId: E:Kampute.HttpClient.HttpRestClient.AfterReceivingResponse
   fullName: Kampute.HttpClient.HttpRestClient.AfterReceivingResponse
   nameWithType: HttpRestClient.AfterReceivingResponse
-- uid: Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)
-  name: BackoffAndDecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)
-  fullName: Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync(System.Net.Http.HttpRequestException, System.Net.Http.HttpRequestMessage, System.Threading.CancellationToken)
-  nameWithType: HttpRestClient.BackoffAndDecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)
-- uid: Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync*
-  name: BackoffAndDecideOnRetryAsync
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffAndDecideOnRetryAsync_
-  commentId: Overload:Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpRestClient.BackoffAndDecideOnRetryAsync
-  nameWithType: HttpRestClient.BackoffAndDecideOnRetryAsync
 - uid: Kampute.HttpClient.HttpRestClient.BackoffStrategy
   name: BackoffStrategy
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy
@@ -2123,19 +2138,38 @@ references:
   commentId: E:Kampute.HttpClient.HttpRestClient.BeforeSendingRequest
   fullName: Kampute.HttpClient.HttpRestClient.BeforeSendingRequest
   nameWithType: HttpRestClient.BeforeSendingRequest
-- uid: Kampute.HttpClient.HttpRestClient.Clone
-  name: Clone()
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Clone
-  commentId: M:Kampute.HttpClient.HttpRestClient.Clone
-  fullName: Kampute.HttpClient.HttpRestClient.Clone()
-  nameWithType: HttpRestClient.Clone()
-- uid: Kampute.HttpClient.HttpRestClient.Clone*
-  name: Clone
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Clone_
-  commentId: Overload:Kampute.HttpClient.HttpRestClient.Clone
+- uid: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
+  name: BeginHeaderScope(IEnumerable<KeyValuePair<string, string>>)
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeginHeaderScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___
+  commentId: M:Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
+  name.vb: BeginHeaderScope(IEnumerable(Of KeyValuePair(Of String, String)))
+  fullName: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string>>)
+  fullName.vb: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, String)))
+  nameWithType: HttpRestClient.BeginHeaderScope(IEnumerable<KeyValuePair<string, string>>)
+  nameWithType.vb: HttpRestClient.BeginHeaderScope(IEnumerable(Of KeyValuePair(Of String, String)))
+- uid: Kampute.HttpClient.HttpRestClient.BeginHeaderScope*
+  name: BeginHeaderScope
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeginHeaderScope_
+  commentId: Overload:Kampute.HttpClient.HttpRestClient.BeginHeaderScope
   isSpec: "True"
-  fullName: Kampute.HttpClient.HttpRestClient.Clone
-  nameWithType: HttpRestClient.Clone
+  fullName: Kampute.HttpClient.HttpRestClient.BeginHeaderScope
+  nameWithType: HttpRestClient.BeginHeaderScope
+- uid: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})
+  name: BeginPropertyScope(IEnumerable<KeyValuePair<string, object>>)
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeginPropertyScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_Object___
+  commentId: M:Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})
+  name.vb: BeginPropertyScope(IEnumerable(Of KeyValuePair(Of String, Object)))
+  fullName: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>>)
+  fullName.vb: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, Object)))
+  nameWithType: HttpRestClient.BeginPropertyScope(IEnumerable<KeyValuePair<string, object>>)
+  nameWithType.vb: HttpRestClient.BeginPropertyScope(IEnumerable(Of KeyValuePair(Of String, Object)))
+- uid: Kampute.HttpClient.HttpRestClient.BeginPropertyScope*
+  name: BeginPropertyScope
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeginPropertyScope_
+  commentId: Overload:Kampute.HttpClient.HttpRestClient.BeginPropertyScope
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClient.BeginPropertyScope
+  nameWithType: HttpRestClient.BeginPropertyScope
 - uid: Kampute.HttpClient.HttpRestClient.CreateHttpRequest(System.Net.Http.HttpMethod,System.String,System.Type)
   name: CreateHttpRequest(HttpMethod, string, Type?)
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type_
@@ -2158,6 +2192,12 @@ references:
   commentId: M:Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseException,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)
   fullName: Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseException, System.Net.Http.HttpRequestMessage, System.Net.Http.HttpResponseMessage, System.Threading.CancellationToken)
   nameWithType: HttpRestClient.DecideOnRetryAsync(HttpResponseException, HttpRequestMessage, HttpResponseMessage, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)
+  name: DecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(System.Net.Http.HttpRequestException, System.Net.Http.HttpRequestMessage, System.Threading.CancellationToken)
+  nameWithType: HttpRestClient.DecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)
 - uid: Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync*
   name: DecideOnRetryAsync
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_
@@ -2245,22 +2285,6 @@ references:
   commentId: E:Kampute.HttpClient.HttpRestClient.Disposing
   fullName: Kampute.HttpClient.HttpRestClient.Disposing
   nameWithType: HttpRestClient.Disposing
-- uid: Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Func{System.Net.Http.Headers.HttpContentHeaders,System.IO.Stream},System.Threading.CancellationToken)
-  name: DownloadAsync(HttpMethod, string, HttpContent?, Func<HttpContentHeaders, Stream>, CancellationToken)
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DownloadAsync_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Func_System_Net_Http_Headers_HttpContentHeaders_System_IO_Stream__System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Func{System.Net.Http.Headers.HttpContentHeaders,System.IO.Stream},System.Threading.CancellationToken)
-  name.vb: DownloadAsync(HttpMethod, String, HttpContent, Func(Of HttpContentHeaders, Stream), CancellationToken)
-  fullName: Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod, string, System.Net.Http.HttpContent?, System.Func<System.Net.Http.Headers.HttpContentHeaders, System.IO.Stream>, System.Threading.CancellationToken)
-  fullName.vb: Kampute.HttpClient.HttpRestClient.DownloadAsync(System.Net.Http.HttpMethod, String, System.Net.Http.HttpContent, System.Func(Of System.Net.Http.Headers.HttpContentHeaders, System.IO.Stream), System.Threading.CancellationToken)
-  nameWithType: HttpRestClient.DownloadAsync(HttpMethod, string, HttpContent?, Func<HttpContentHeaders, Stream>, CancellationToken)
-  nameWithType.vb: HttpRestClient.DownloadAsync(HttpMethod, String, HttpContent, Func(Of HttpContentHeaders, Stream), CancellationToken)
-- uid: Kampute.HttpClient.HttpRestClient.DownloadAsync*
-  name: DownloadAsync
-  href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DownloadAsync_
-  commentId: Overload:Kampute.HttpClient.HttpRestClient.DownloadAsync
-  isSpec: "True"
-  fullName: Kampute.HttpClient.HttpRestClient.DownloadAsync
-  nameWithType: HttpRestClient.DownloadAsync
 - uid: Kampute.HttpClient.HttpRestClient.ErrorHandlers
   name: ErrorHandlers
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers
@@ -2424,22 +2448,70 @@ references:
   fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.DeleteAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
   nameWithType: HttpRestClientExtensions.DeleteAsync<T>(HttpRestClient, string, CancellationToken)
   nameWithType.vb: HttpRestClientExtensions.DeleteAsync(Of T)(HttpRestClient, String, CancellationToken)
-- uid: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient,System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
-  name: FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, string, HttpContent?, CancellationToken)
-  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_FetchToStreamAsync_Kampute_HttpClient_HttpRestClient_System_IO_Stream_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient,System.IO.Stream,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
-  name.vb: FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, String, HttpContent, CancellationToken)
-  fullName: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient, System.IO.Stream, System.Net.Http.HttpMethod, string, System.Net.Http.HttpContent?, System.Threading.CancellationToken)
-  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync(Kampute.HttpClient.HttpRestClient, System.IO.Stream, System.Net.Http.HttpMethod, String, System.Net.Http.HttpContent, System.Threading.CancellationToken)
-  nameWithType: HttpRestClientExtensions.FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, string, HttpContent?, CancellationToken)
-  nameWithType.vb: HttpRestClientExtensions.FetchToStreamAsync(HttpRestClient, Stream, HttpMethod, String, HttpContent, CancellationToken)
-- uid: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync*
-  name: FetchToStreamAsync
-  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_FetchToStreamAsync_
-  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync
+- uid: Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Func{System.Net.Http.Headers.HttpContentHeaders,System.IO.Stream},System.Threading.CancellationToken)
+  name: DownloadAsync(HttpRestClient, HttpMethod, string, HttpContent?, Func<HttpContentHeaders, Stream>, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_DownloadAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Func_System_Net_Http_Headers_HttpContentHeaders_System_IO_Stream__System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Func{System.Net.Http.Headers.HttpContentHeaders,System.IO.Stream},System.Threading.CancellationToken)
+  name.vb: DownloadAsync(HttpRestClient, HttpMethod, String, HttpContent, Func(Of HttpContentHeaders, Stream), CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync(Kampute.HttpClient.HttpRestClient, System.Net.Http.HttpMethod, string, System.Net.Http.HttpContent?, System.Func<System.Net.Http.Headers.HttpContentHeaders, System.IO.Stream>, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync(Kampute.HttpClient.HttpRestClient, System.Net.Http.HttpMethod, String, System.Net.Http.HttpContent, System.Func(Of System.Net.Http.Headers.HttpContentHeaders, System.IO.Stream), System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.DownloadAsync(HttpRestClient, HttpMethod, string, HttpContent?, Func<HttpContentHeaders, Stream>, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.DownloadAsync(HttpRestClient, HttpMethod, String, HttpContent, Func(Of HttpContentHeaders, Stream), CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync*
+  name: DownloadAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_DownloadAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync
   isSpec: "True"
-  fullName: Kampute.HttpClient.HttpRestClientExtensions.FetchToStreamAsync
-  nameWithType: HttpRestClientExtensions.FetchToStreamAsync
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.DownloadAsync
+  nameWithType: HttpRestClientExtensions.DownloadAsync
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name: GetAsByteArrayAsync(HttpRestClient, string, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsByteArrayAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name.vb: GetAsByteArrayAsync(HttpRestClient, String, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync(Kampute.HttpClient.HttpRestClient, string, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.GetAsByteArrayAsync(HttpRestClient, string, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.GetAsByteArrayAsync(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync*
+  name: GetAsByteArrayAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsByteArrayAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetAsByteArrayAsync
+  nameWithType: HttpRestClientExtensions.GetAsByteArrayAsync
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name: GetAsStreamAsync(HttpRestClient, string, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsStreamAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name.vb: GetAsStreamAsync(HttpRestClient, String, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync(Kampute.HttpClient.HttpRestClient, string, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.GetAsStreamAsync(HttpRestClient, string, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.GetAsStreamAsync(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync*
+  name: GetAsStreamAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsStreamAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetAsStreamAsync
+  nameWithType: HttpRestClientExtensions.GetAsStreamAsync
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name: GetAsStringAsync(HttpRestClient, string, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsStringAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name.vb: GetAsStringAsync(HttpRestClient, String, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync(Kampute.HttpClient.HttpRestClient, string, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.GetAsStringAsync(HttpRestClient, string, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.GetAsStringAsync(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync*
+  name: GetAsStringAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsStringAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetAsStringAsync
+  nameWithType: HttpRestClientExtensions.GetAsStringAsync
 - uid: Kampute.HttpClient.HttpRestClientExtensions.GetAsync*
   name: GetAsync
   href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetAsync_
@@ -2456,6 +2528,54 @@ references:
   fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.GetAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
   nameWithType: HttpRestClientExtensions.GetAsync<T>(HttpRestClient, string, CancellationToken)
   nameWithType.vb: HttpRestClientExtensions.GetAsync(Of T)(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync(Kampute.HttpClient.HttpRestClient,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name: GetToStreamAsync(HttpRestClient, string, Stream, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetToStreamAsync_Kampute_HttpClient_HttpRestClient_System_String_System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync(Kampute.HttpClient.HttpRestClient,System.String,System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: GetToStreamAsync(HttpRestClient, String, Stream, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync(Kampute.HttpClient.HttpRestClient, string, System.IO.Stream, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync(Kampute.HttpClient.HttpRestClient, String, System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.GetToStreamAsync(HttpRestClient, string, Stream, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.GetToStreamAsync(HttpRestClient, String, Stream, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync*
+  name: GetToStreamAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_GetToStreamAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.GetToStreamAsync
+  nameWithType: HttpRestClientExtensions.GetToStreamAsync
+- uid: Kampute.HttpClient.HttpRestClientExtensions.HeadAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name: HeadAsync(HttpRestClient, string, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_HeadAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.HeadAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name.vb: HeadAsync(HttpRestClient, String, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.HeadAsync(Kampute.HttpClient.HttpRestClient, string, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.HeadAsync(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.HeadAsync(HttpRestClient, string, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.HeadAsync(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.HeadAsync*
+  name: HeadAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_HeadAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.HeadAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.HeadAsync
+  nameWithType: HttpRestClientExtensions.HeadAsync
+- uid: Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name: OptionsAsync(HttpRestClient, string, CancellationToken)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_OptionsAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Threading.CancellationToken)
+  name.vb: OptionsAsync(HttpRestClient, String, CancellationToken)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync(Kampute.HttpClient.HttpRestClient, string, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync(Kampute.HttpClient.HttpRestClient, String, System.Threading.CancellationToken)
+  nameWithType: HttpRestClientExtensions.OptionsAsync(HttpRestClient, string, CancellationToken)
+  nameWithType.vb: HttpRestClientExtensions.OptionsAsync(HttpRestClient, String, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync*
+  name: OptionsAsync
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_OptionsAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.OptionsAsync
+  nameWithType: HttpRestClientExtensions.OptionsAsync
 - uid: Kampute.HttpClient.HttpRestClientExtensions.PatchAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)
   name: PatchAsync(HttpRestClient, string, HttpContent?, CancellationToken)
   href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_PatchAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_
@@ -2697,6 +2817,25 @@ references:
   commentId: N:Kampute.HttpClient.Interfaces
   fullName: Kampute.HttpClient.Interfaces
   nameWithType: Kampute.HttpClient.Interfaces
+- uid: Kampute.HttpClient.Interfaces.IHttpBackoffProvider
+  name: IHttpBackoffProvider
+  href: api/Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html
+  commentId: T:Kampute.HttpClient.Interfaces.IHttpBackoffProvider
+  fullName: Kampute.HttpClient.Interfaces.IHttpBackoffProvider
+  nameWithType: IHttpBackoffProvider
+- uid: Kampute.HttpClient.Interfaces.IHttpBackoffProvider.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
+  name: CreateScheduler(HttpRequestErrorContext)
+  href: api/Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html#Kampute_HttpClient_Interfaces_IHttpBackoffProvider_CreateScheduler_Kampute_HttpClient_HttpRequestErrorContext_
+  commentId: M:Kampute.HttpClient.Interfaces.IHttpBackoffProvider.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
+  fullName: Kampute.HttpClient.Interfaces.IHttpBackoffProvider.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
+  nameWithType: IHttpBackoffProvider.CreateScheduler(HttpRequestErrorContext)
+- uid: Kampute.HttpClient.Interfaces.IHttpBackoffProvider.CreateScheduler*
+  name: CreateScheduler
+  href: api/Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html#Kampute_HttpClient_Interfaces_IHttpBackoffProvider_CreateScheduler_
+  commentId: Overload:Kampute.HttpClient.Interfaces.IHttpBackoffProvider.CreateScheduler
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Interfaces.IHttpBackoffProvider.CreateScheduler
+  nameWithType: IHttpBackoffProvider.CreateScheduler
 - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
   name: IHttpContentDeserializer
   href: api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html
@@ -2704,13 +2843,13 @@ references:
   fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer
   nameWithType: IHttpContentDeserializer
 - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
-  name: CanDeserialize(string, Type?)
+  name: CanDeserialize(string, Type)
   href: api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_
   commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)
   name.vb: CanDeserialize(String, Type)
-  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(string, System.Type?)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(string, System.Type)
   fullName.vb: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(String, System.Type)
-  nameWithType: IHttpContentDeserializer.CanDeserialize(string, Type?)
+  nameWithType: IHttpContentDeserializer.CanDeserialize(string, Type)
   nameWithType.vb: IHttpContentDeserializer.CanDeserialize(String, Type)
 - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize*
   name: CanDeserialize
@@ -2733,14 +2872,11 @@ references:
   fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.DeserializeAsync
   nameWithType: IHttpContentDeserializer.DeserializeAsync
 - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name: GetSupportedMediaTypes(Type?)
+  name: GetSupportedMediaTypes(Type)
   href: api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_
   commentId: M:Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name.vb: GetSupportedMediaTypes(Type)
-  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type?)
-  fullName.vb: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
-  nameWithType: IHttpContentDeserializer.GetSupportedMediaTypes(Type?)
-  nameWithType.vb: IHttpContentDeserializer.GetSupportedMediaTypes(Type)
+  fullName: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)
+  nameWithType: IHttpContentDeserializer.GetSupportedMediaTypes(Type)
 - uid: Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes*
   name: GetSupportedMediaTypes
   href: api/Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_
@@ -2818,25 +2954,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Interfaces.IRetryScheduler.WaitAsync
   nameWithType: IRetryScheduler.WaitAsync
-- uid: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
-  name: IRetrySchedulerFactory
-  href: api/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html
-  commentId: T:Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
-  fullName: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory
-  nameWithType: IRetrySchedulerFactory
-- uid: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
-  name: CreateScheduler(HttpRequestErrorContext)
-  href: api/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html#Kampute_HttpClient_Interfaces_IRetrySchedulerFactory_CreateScheduler_Kampute_HttpClient_HttpRequestErrorContext_
-  commentId: M:Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
-  fullName: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
-  nameWithType: IRetrySchedulerFactory.CreateScheduler(HttpRequestErrorContext)
-- uid: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.CreateScheduler*
-  name: CreateScheduler
-  href: api/Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html#Kampute_HttpClient_Interfaces_IRetrySchedulerFactory_CreateScheduler_
-  commentId: Overload:Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.CreateScheduler
-  isSpec: "True"
-  fullName: Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.CreateScheduler
-  nameWithType: IRetrySchedulerFactory.CreateScheduler
 - uid: Kampute.HttpClient.Interfaces.IRetryStrategy
   name: IRetryStrategy
   href: api/Kampute.HttpClient.Interfaces.IRetryStrategy.html
@@ -3089,22 +3206,25 @@ references:
   commentId: T:Kampute.HttpClient.Json.JsonContentDeserializer
   fullName: Kampute.HttpClient.Json.JsonContentDeserializer
   nameWithType: JsonContentDeserializer
-- uid: Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize(System.String,System.Type)
-  name: CanDeserialize(string, Type?)
-  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_CanDeserialize_System_String_System_Type_
-  commentId: M:Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize(System.String,System.Type)
-  name.vb: CanDeserialize(String, Type)
-  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize(string, System.Type?)
-  fullName.vb: Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize(String, System.Type)
-  nameWithType: JsonContentDeserializer.CanDeserialize(string, Type?)
-  nameWithType.vb: JsonContentDeserializer.CanDeserialize(String, Type)
-- uid: Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize*
-  name: CanDeserialize
-  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_CanDeserialize_
-  commentId: Overload:Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize
+- uid: Kampute.HttpClient.Json.JsonContentDeserializer.#ctor
+  name: JsonContentDeserializer()
+  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer__ctor
+  commentId: M:Kampute.HttpClient.Json.JsonContentDeserializer.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.JsonContentDeserializer()
+  fullName.vb: Kampute.HttpClient.Json.JsonContentDeserializer.New()
+  nameWithType: JsonContentDeserializer.JsonContentDeserializer()
+  nameWithType.vb: JsonContentDeserializer.New()
+- uid: Kampute.HttpClient.Json.JsonContentDeserializer.#ctor*
+  name: JsonContentDeserializer
+  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer__ctor_
+  commentId: Overload:Kampute.HttpClient.Json.JsonContentDeserializer.#ctor
   isSpec: "True"
-  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.CanDeserialize
-  nameWithType: JsonContentDeserializer.CanDeserialize
+  name.vb: New
+  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.JsonContentDeserializer
+  fullName.vb: Kampute.HttpClient.Json.JsonContentDeserializer.New
+  nameWithType: JsonContentDeserializer.JsonContentDeserializer
+  nameWithType.vb: JsonContentDeserializer.New
 - uid: Kampute.HttpClient.Json.JsonContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
   name: DeserializeAsync(HttpContent, Type, CancellationToken)
   href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
@@ -3118,22 +3238,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Json.JsonContentDeserializer.DeserializeAsync
   nameWithType: JsonContentDeserializer.DeserializeAsync
-- uid: Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name: GetSupportedMediaTypes(Type?)
-  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_GetSupportedMediaTypes_System_Type_
-  commentId: M:Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name.vb: GetSupportedMediaTypes(Type)
-  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes(System.Type?)
-  fullName.vb: Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes(System.Type)
-  nameWithType: JsonContentDeserializer.GetSupportedMediaTypes(Type?)
-  nameWithType.vb: JsonContentDeserializer.GetSupportedMediaTypes(Type)
-- uid: Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes*
-  name: GetSupportedMediaTypes
-  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_GetSupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.GetSupportedMediaTypes
-  nameWithType: JsonContentDeserializer.GetSupportedMediaTypes
 - uid: Kampute.HttpClient.Json.JsonContentDeserializer.Options
   name: Options
   href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_Options
@@ -3147,19 +3251,37 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Json.JsonContentDeserializer.Options
   nameWithType: JsonContentDeserializer.Options
-- uid: Kampute.HttpClient.Json.JsonContentDeserializer.SupportedMediaTypes
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_SupportedMediaTypes
-  commentId: P:Kampute.HttpClient.Json.JsonContentDeserializer.SupportedMediaTypes
-  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.SupportedMediaTypes
-  nameWithType: JsonContentDeserializer.SupportedMediaTypes
-- uid: Kampute.HttpClient.Json.JsonContentDeserializer.SupportedMediaTypes*
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.Json.JsonContentDeserializer.html#Kampute_HttpClient_Json_JsonContentDeserializer_SupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.Json.JsonContentDeserializer.SupportedMediaTypes
+- uid: Kampute.HttpClient.MediaTypeHeaderValueStore
+  name: MediaTypeHeaderValueStore
+  href: api/Kampute.HttpClient.MediaTypeHeaderValueStore.html
+  commentId: T:Kampute.HttpClient.MediaTypeHeaderValueStore
+  fullName: Kampute.HttpClient.MediaTypeHeaderValueStore
+  nameWithType: MediaTypeHeaderValueStore
+- uid: Kampute.HttpClient.MediaTypeHeaderValueStore.Get(System.String)
+  name: Get(string)
+  href: api/Kampute.HttpClient.MediaTypeHeaderValueStore.html#Kampute_HttpClient_MediaTypeHeaderValueStore_Get_System_String_
+  commentId: M:Kampute.HttpClient.MediaTypeHeaderValueStore.Get(System.String)
+  name.vb: Get(String)
+  fullName: Kampute.HttpClient.MediaTypeHeaderValueStore.Get(string)
+  fullName.vb: Kampute.HttpClient.MediaTypeHeaderValueStore.Get(String)
+  nameWithType: MediaTypeHeaderValueStore.Get(string)
+  nameWithType.vb: MediaTypeHeaderValueStore.Get(String)
+- uid: Kampute.HttpClient.MediaTypeHeaderValueStore.Get(System.String,System.Single)
+  name: Get(string, float)
+  href: api/Kampute.HttpClient.MediaTypeHeaderValueStore.html#Kampute_HttpClient_MediaTypeHeaderValueStore_Get_System_String_System_Single_
+  commentId: M:Kampute.HttpClient.MediaTypeHeaderValueStore.Get(System.String,System.Single)
+  name.vb: Get(String, Single)
+  fullName: Kampute.HttpClient.MediaTypeHeaderValueStore.Get(string, float)
+  fullName.vb: Kampute.HttpClient.MediaTypeHeaderValueStore.Get(String, Single)
+  nameWithType: MediaTypeHeaderValueStore.Get(string, float)
+  nameWithType.vb: MediaTypeHeaderValueStore.Get(String, Single)
+- uid: Kampute.HttpClient.MediaTypeHeaderValueStore.Get*
+  name: Get
+  href: api/Kampute.HttpClient.MediaTypeHeaderValueStore.html#Kampute_HttpClient_MediaTypeHeaderValueStore_Get_
+  commentId: Overload:Kampute.HttpClient.MediaTypeHeaderValueStore.Get
   isSpec: "True"
-  fullName: Kampute.HttpClient.Json.JsonContentDeserializer.SupportedMediaTypes
-  nameWithType: JsonContentDeserializer.SupportedMediaTypes
+  fullName: Kampute.HttpClient.MediaTypeHeaderValueStore.Get
+  nameWithType: MediaTypeHeaderValueStore.Get
 - uid: Kampute.HttpClient.MediaTypeNames
   name: MediaTypeNames
   href: api/Kampute.HttpClient.MediaTypeNames.html
@@ -3654,22 +3776,25 @@ references:
   commentId: T:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer
   fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer
   nameWithType: JsonContentDeserializer
-- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize(System.String,System.Type)
-  name: CanDeserialize(string, Type?)
-  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_CanDeserialize_System_String_System_Type_
-  commentId: M:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize(System.String,System.Type)
-  name.vb: CanDeserialize(String, Type)
-  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize(string, System.Type?)
-  fullName.vb: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize(String, System.Type)
-  nameWithType: JsonContentDeserializer.CanDeserialize(string, Type?)
-  nameWithType.vb: JsonContentDeserializer.CanDeserialize(String, Type)
-- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize*
-  name: CanDeserialize
-  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_CanDeserialize_
-  commentId: Overload:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize
+- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.#ctor
+  name: JsonContentDeserializer()
+  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer__ctor
+  commentId: M:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.JsonContentDeserializer()
+  fullName.vb: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.New()
+  nameWithType: JsonContentDeserializer.JsonContentDeserializer()
+  nameWithType.vb: JsonContentDeserializer.New()
+- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.#ctor*
+  name: JsonContentDeserializer
+  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer__ctor_
+  commentId: Overload:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.#ctor
   isSpec: "True"
-  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.CanDeserialize
-  nameWithType: JsonContentDeserializer.CanDeserialize
+  name.vb: New
+  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.JsonContentDeserializer
+  fullName.vb: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.New
+  nameWithType: JsonContentDeserializer.JsonContentDeserializer
+  nameWithType.vb: JsonContentDeserializer.New
 - uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
   name: DeserializeAsync(HttpContent, Type, CancellationToken)
   href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
@@ -3683,22 +3808,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.DeserializeAsync
   nameWithType: JsonContentDeserializer.DeserializeAsync
-- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name: GetSupportedMediaTypes(Type?)
-  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_GetSupportedMediaTypes_System_Type_
-  commentId: M:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name.vb: GetSupportedMediaTypes(Type)
-  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes(System.Type?)
-  fullName.vb: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes(System.Type)
-  nameWithType: JsonContentDeserializer.GetSupportedMediaTypes(Type?)
-  nameWithType.vb: JsonContentDeserializer.GetSupportedMediaTypes(Type)
-- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes*
-  name: GetSupportedMediaTypes
-  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_GetSupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.GetSupportedMediaTypes
-  nameWithType: JsonContentDeserializer.GetSupportedMediaTypes
 - uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.Settings
   name: Settings
   href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_Settings
@@ -3712,72 +3821,110 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.Settings
   nameWithType: JsonContentDeserializer.Settings
-- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.SupportedMediaTypes
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_SupportedMediaTypes
-  commentId: P:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.SupportedMediaTypes
-  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.SupportedMediaTypes
-  nameWithType: JsonContentDeserializer.SupportedMediaTypes
-- uid: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.SupportedMediaTypes*
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html#Kampute_HttpClient_NewtonsoftJson_JsonContentDeserializer_SupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.SupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.SupportedMediaTypes
-  nameWithType: JsonContentDeserializer.SupportedMediaTypes
 - uid: Kampute.HttpClient.RetryManagement
   name: Kampute.HttpClient.RetryManagement
   href: api/Kampute.HttpClient.RetryManagement.html
   commentId: N:Kampute.HttpClient.RetryManagement
   fullName: Kampute.HttpClient.RetryManagement
   nameWithType: Kampute.HttpClient.RetryManagement
-- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory
-  name: DynamicRetrySchedulerFactory
-  href: api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html
-  commentId: T:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory
-  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory
-  nameWithType: DynamicRetrySchedulerFactory
-- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
-  name: DynamicRetrySchedulerFactory(Func<HttpRequestErrorContext, IRetryScheduler>)
-  href: api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__
-  commentId: M:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
-  name.vb: New(Func(Of HttpRequestErrorContext, IRetryScheduler))
-  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.DynamicRetrySchedulerFactory(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler>)
-  fullName.vb: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.New(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler))
-  nameWithType: DynamicRetrySchedulerFactory.DynamicRetrySchedulerFactory(Func<HttpRequestErrorContext, IRetryScheduler>)
-  nameWithType.vb: DynamicRetrySchedulerFactory.New(Func(Of HttpRequestErrorContext, IRetryScheduler))
-- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
-  name: DynamicRetrySchedulerFactory(Func<HttpRequestErrorContext, IRetryStrategy>)
-  href: api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryStrategy__
-  commentId: M:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
-  name.vb: New(Func(Of HttpRequestErrorContext, IRetryStrategy))
-  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.DynamicRetrySchedulerFactory(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy>)
-  fullName.vb: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.New(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy))
-  nameWithType: DynamicRetrySchedulerFactory.DynamicRetrySchedulerFactory(Func<HttpRequestErrorContext, IRetryStrategy>)
-  nameWithType.vb: DynamicRetrySchedulerFactory.New(Func(Of HttpRequestErrorContext, IRetryStrategy))
-- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor*
-  name: DynamicRetrySchedulerFactory
-  href: api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy
+  name: BackoffStrategy
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html
+  commentId: T:Kampute.HttpClient.RetryManagement.BackoffStrategy
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy
+  nameWithType: BackoffStrategy
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  name: BackoffStrategy(IRetryStrategy)
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html#Kampute_HttpClient_RetryManagement_BackoffStrategy__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  commentId: M:Kampute.HttpClient.RetryManagement.BackoffStrategy.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  name.vb: New(IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy.BackoffStrategy(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  fullName.vb: Kampute.HttpClient.RetryManagement.BackoffStrategy.New(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  nameWithType: BackoffStrategy.BackoffStrategy(IRetryStrategy)
+  nameWithType.vb: BackoffStrategy.New(IRetryStrategy)
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy.#ctor*
+  name: BackoffStrategy
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html#Kampute_HttpClient_RetryManagement_BackoffStrategy__ctor_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.BackoffStrategy.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.DynamicRetrySchedulerFactory
-  fullName.vb: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.New
-  nameWithType: DynamicRetrySchedulerFactory.DynamicRetrySchedulerFactory
-  nameWithType.vb: DynamicRetrySchedulerFactory.New
-- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
-  name: CreateScheduler(HttpRequestErrorContext)
-  href: api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory_CreateScheduler_Kampute_HttpClient_HttpRequestErrorContext_
-  commentId: M:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
-  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
-  nameWithType: DynamicRetrySchedulerFactory.CreateScheduler(HttpRequestErrorContext)
-- uid: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler*
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy.BackoffStrategy
+  fullName.vb: Kampute.HttpClient.RetryManagement.BackoffStrategy.New
+  nameWithType: BackoffStrategy.BackoffStrategy
+  nameWithType.vb: BackoffStrategy.New
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler
+  name: CreateScheduler()
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html#Kampute_HttpClient_RetryManagement_BackoffStrategy_CreateScheduler
+  commentId: M:Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler()
+  nameWithType: BackoffStrategy.CreateScheduler()
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler*
   name: CreateScheduler
-  href: api/Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory_CreateScheduler_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html#Kampute_HttpClient_RetryManagement_BackoffStrategy_CreateScheduler_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler
   isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler
-  nameWithType: DynamicRetrySchedulerFactory.CreateScheduler
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler
+  nameWithType: BackoffStrategy.CreateScheduler
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy
+  name: Strategy
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html#Kampute_HttpClient_RetryManagement_BackoffStrategy_Strategy
+  commentId: P:Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy
+  nameWithType: BackoffStrategy.Strategy
+- uid: Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy*
+  name: Strategy
+  href: api/Kampute.HttpClient.RetryManagement.BackoffStrategy.html#Kampute_HttpClient_RetryManagement_BackoffStrategy_Strategy_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy
+  isSpec: "True"
+  fullName: Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy
+  nameWithType: BackoffStrategy.Strategy
+- uid: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy
+  name: DynamicBackoffStrategy
+  href: api/Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html
+  commentId: T:Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy
+  fullName: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy
+  nameWithType: DynamicBackoffStrategy
+- uid: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
+  name: DynamicBackoffStrategy(Func<HttpRequestErrorContext, IRetryScheduler>)
+  href: api/Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html#Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__
+  commentId: M:Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})
+  name.vb: New(Func(Of HttpRequestErrorContext, IRetryScheduler))
+  fullName: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.DynamicBackoffStrategy(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler>)
+  fullName.vb: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.New(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryScheduler))
+  nameWithType: DynamicBackoffStrategy.DynamicBackoffStrategy(Func<HttpRequestErrorContext, IRetryScheduler>)
+  nameWithType.vb: DynamicBackoffStrategy.New(Func(Of HttpRequestErrorContext, IRetryScheduler))
+- uid: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
+  name: DynamicBackoffStrategy(Func<HttpRequestErrorContext, IRetryStrategy>)
+  href: api/Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html#Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryStrategy__
+  commentId: M:Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})
+  name.vb: New(Func(Of HttpRequestErrorContext, IRetryStrategy))
+  fullName: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.DynamicBackoffStrategy(System.Func<Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy>)
+  fullName.vb: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.New(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, Kampute.HttpClient.Interfaces.IRetryStrategy))
+  nameWithType: DynamicBackoffStrategy.DynamicBackoffStrategy(Func<HttpRequestErrorContext, IRetryStrategy>)
+  nameWithType.vb: DynamicBackoffStrategy.New(Func(Of HttpRequestErrorContext, IRetryStrategy))
+- uid: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor*
+  name: DynamicBackoffStrategy
+  href: api/Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html#Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.DynamicBackoffStrategy
+  fullName.vb: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.New
+  nameWithType: DynamicBackoffStrategy.DynamicBackoffStrategy
+  nameWithType.vb: DynamicBackoffStrategy.New
+- uid: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
+  name: CreateScheduler(HttpRequestErrorContext)
+  href: api/Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html#Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy_CreateScheduler_Kampute_HttpClient_HttpRequestErrorContext_
+  commentId: M:Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
+  fullName: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)
+  nameWithType: DynamicBackoffStrategy.CreateScheduler(HttpRequestErrorContext)
+- uid: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler*
+  name: CreateScheduler
+  href: api/Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html#Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy_CreateScheduler_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler
+  isSpec: "True"
+  fullName: Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler
+  nameWithType: DynamicBackoffStrategy.CreateScheduler
 - uid: Kampute.HttpClient.RetryManagement.RetryScheduler
   name: RetryScheduler
   href: api/Kampute.HttpClient.RetryManagement.RetryScheduler.html
@@ -3881,57 +4028,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.RetryManagement.RetryScheduler.WaitAsync
   nameWithType: RetryScheduler.WaitAsync
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
-  name: RetrySchedulerFactory
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html
-  commentId: T:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory
-  nameWithType: RetrySchedulerFactory
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  name: RetrySchedulerFactory(IRetryStrategy)
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_RetrySchedulerFactory__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_
-  commentId: M:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  name.vb: New(IRetryStrategy)
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.RetrySchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  fullName.vb: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.New(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  nameWithType: RetrySchedulerFactory.RetrySchedulerFactory(IRetryStrategy)
-  nameWithType.vb: RetrySchedulerFactory.New(IRetryStrategy)
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.#ctor*
-  name: RetrySchedulerFactory
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_RetrySchedulerFactory__ctor_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.RetrySchedulerFactory
-  fullName.vb: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.New
-  nameWithType: RetrySchedulerFactory.RetrySchedulerFactory
-  nameWithType.vb: RetrySchedulerFactory.New
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler
-  name: CreateScheduler()
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_CreateScheduler
-  commentId: M:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler()
-  nameWithType: RetrySchedulerFactory.CreateScheduler()
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler*
-  name: CreateScheduler
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_CreateScheduler_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler
-  isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler
-  nameWithType: RetrySchedulerFactory.CreateScheduler
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy
-  name: Strategy
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_Strategy
-  commentId: P:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy
-  nameWithType: RetrySchedulerFactory.Strategy
-- uid: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy*
-  name: Strategy
-  href: api/Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html#Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_Strategy_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy
-  isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy
-  nameWithType: RetrySchedulerFactory.Strategy
 - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
   name: RetryStrategyExtensions
   href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html
@@ -3983,6 +4079,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout
   nameWithType: RetryStrategyExtensions.Timeout
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  name: ToBackoffStrategy(IRetryStrategy)
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToBackoffStrategy_Kampute_HttpClient_Interfaces_IRetryStrategy_
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy(Kampute.HttpClient.Interfaces.IRetryStrategy)
+  nameWithType: RetryStrategyExtensions.ToBackoffStrategy(IRetryStrategy)
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy*
+  name: ToBackoffStrategy
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToBackoffStrategy_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy
+  isSpec: "True"
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy
+  nameWithType: RetryStrategyExtensions.ToBackoffStrategy
 - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler(Kampute.HttpClient.Interfaces.IRetryStrategy)
   name: ToScheduler(IRetryStrategy)
   href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToScheduler_Kampute_HttpClient_Interfaces_IRetryStrategy_
@@ -3996,19 +4105,6 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler
   nameWithType: RetryStrategyExtensions.ToScheduler
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  name: ToSchedulerFactory(IRetryStrategy)
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_Kampute_HttpClient_Interfaces_IRetryStrategy_
-  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory(Kampute.HttpClient.Interfaces.IRetryStrategy)
-  nameWithType: RetryStrategyExtensions.ToSchedulerFactory(IRetryStrategy)
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory*
-  name: ToSchedulerFactory
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToSchedulerFactory_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory
-  isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToSchedulerFactory
-  nameWithType: RetryStrategyExtensions.ToSchedulerFactory
 - uid: Kampute.HttpClient.RetryManagement.Strategies
   name: Kampute.HttpClient.RetryManagement.Strategies
   href: api/Kampute.HttpClient.RetryManagement.Strategies.html
@@ -4536,103 +4632,394 @@ references:
   commentId: N:Kampute.HttpClient.Utilities
   fullName: Kampute.HttpClient.Utilities
   nameWithType: Kampute.HttpClient.Utilities
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1
-  name: AsyncGuard<T>
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html
-  commentId: T:Kampute.HttpClient.Utilities.AsyncGuard`1
-  name.vb: AsyncGuard(Of T)
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T)
-  nameWithType: AsyncGuard<T>
-  nameWithType.vb: AsyncGuard(Of T)
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor(`0)
-  name: AsyncGuard(T?)
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1__ctor__0_
-  commentId: M:Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor(`0)
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1
+  name: AsyncUpdateThrottle<T>
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html
+  commentId: T:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1
+  name.vb: AsyncUpdateThrottle(Of T)
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T)
+  nameWithType: AsyncUpdateThrottle<T>
+  nameWithType.vb: AsyncUpdateThrottle(Of T)
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor
+  name: AsyncUpdateThrottle()
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor
+  commentId: M:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.AsyncUpdateThrottle()
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).New()
+  nameWithType: AsyncUpdateThrottle<T>.AsyncUpdateThrottle()
+  nameWithType.vb: AsyncUpdateThrottle(Of T).New()
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor(`0)
+  name: AsyncUpdateThrottle(T?)
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor__0_
+  commentId: M:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor(`0)
   name.vb: New(T)
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.AsyncGuard(T?)
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).New(T)
-  nameWithType: AsyncGuard<T>.AsyncGuard(T?)
-  nameWithType.vb: AsyncGuard(Of T).New(T)
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor*
-  name: AsyncGuard
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1__ctor_
-  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.AsyncUpdateThrottle(T?)
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).New(T)
+  nameWithType: AsyncUpdateThrottle<T>.AsyncUpdateThrottle(T?)
+  nameWithType.vb: AsyncUpdateThrottle(Of T).New(T)
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor*
+  name: AsyncUpdateThrottle
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.AsyncGuard
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).New
-  nameWithType: AsyncGuard<T>.AsyncGuard
-  nameWithType.vb: AsyncGuard(Of T).New
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.AsyncUpdateThrottle
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).New
+  nameWithType: AsyncUpdateThrottle<T>.AsyncUpdateThrottle
+  nameWithType.vb: AsyncUpdateThrottle(Of T).New
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Dispose
   name: Dispose()
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Dispose
-  commentId: M:Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Dispose()
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Dispose()
-  nameWithType: AsyncGuard<T>.Dispose()
-  nameWithType.vb: AsyncGuard(Of T).Dispose()
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose*
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Dispose
+  commentId: M:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Dispose
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.Dispose()
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).Dispose()
+  nameWithType: AsyncUpdateThrottle<T>.Dispose()
+  nameWithType.vb: AsyncUpdateThrottle(Of T).Dispose()
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Dispose*
   name: Dispose
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Dispose_
-  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Dispose_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Dispose
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Dispose
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Dispose
-  nameWithType: AsyncGuard<T>.Dispose
-  nameWithType.vb: AsyncGuard(Of T).Dispose
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime
-  name: LastUpdateUnixTime
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_LastUpdateUnixTime
-  commentId: P:Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.LastUpdateUnixTime
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).LastUpdateUnixTime
-  nameWithType: AsyncGuard<T>.LastUpdateUnixTime
-  nameWithType.vb: AsyncGuard(Of T).LastUpdateUnixTime
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime*
-  name: LastUpdateUnixTime
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_LastUpdateUnixTime_
-  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.Dispose
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).Dispose
+  nameWithType: AsyncUpdateThrottle<T>.Dispose
+  nameWithType.vb: AsyncUpdateThrottle(Of T).Dispose
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.LastUpdateTime
+  name: LastUpdateTime
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_LastUpdateTime
+  commentId: P:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.LastUpdateTime
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.LastUpdateTime
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).LastUpdateTime
+  nameWithType: AsyncUpdateThrottle<T>.LastUpdateTime
+  nameWithType.vb: AsyncUpdateThrottle(Of T).LastUpdateTime
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.LastUpdateTime*
+  name: LastUpdateTime
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_LastUpdateTime_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.LastUpdateTime
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.LastUpdateUnixTime
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).LastUpdateUnixTime
-  nameWithType: AsyncGuard<T>.LastUpdateUnixTime
-  nameWithType.vb: AsyncGuard(Of T).LastUpdateUnixTime
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.LastUpdateTime
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).LastUpdateTime
+  nameWithType: AsyncUpdateThrottle<T>.LastUpdateTime
+  nameWithType.vb: AsyncUpdateThrottle(Of T).LastUpdateTime
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
   name: TryUpdateAsync(Func<Task<T?>>, CancellationToken)
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken_
-  commentId: M:Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken_
+  commentId: M:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
   name.vb: TryUpdateAsync(Func(Of Task(Of T)), CancellationToken)
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.TryUpdateAsync(System.Func<System.Threading.Tasks.Task<T?>>, System.Threading.CancellationToken)
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).TryUpdateAsync(System.Func(Of System.Threading.Tasks.Task(Of T)), System.Threading.CancellationToken)
-  nameWithType: AsyncGuard<T>.TryUpdateAsync(Func<Task<T?>>, CancellationToken)
-  nameWithType.vb: AsyncGuard(Of T).TryUpdateAsync(Func(Of Task(Of T)), CancellationToken)
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync*
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.TryUpdateAsync(System.Func<System.Threading.Tasks.Task<T?>>, System.Threading.CancellationToken)
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).TryUpdateAsync(System.Func(Of System.Threading.Tasks.Task(Of T)), System.Threading.CancellationToken)
+  nameWithType: AsyncUpdateThrottle<T>.TryUpdateAsync(Func<Task<T?>>, CancellationToken)
+  nameWithType.vb: AsyncUpdateThrottle(Of T).TryUpdateAsync(Func(Of Task(Of T)), CancellationToken)
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.TryUpdateAsync*
   name: TryUpdateAsync
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_
-  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_TryUpdateAsync_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.TryUpdateAsync
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.TryUpdateAsync
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).TryUpdateAsync
-  nameWithType: AsyncGuard<T>.TryUpdateAsync
-  nameWithType.vb: AsyncGuard(Of T).TryUpdateAsync
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Value
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.TryUpdateAsync
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).TryUpdateAsync
+  nameWithType: AsyncUpdateThrottle<T>.TryUpdateAsync
+  nameWithType.vb: AsyncUpdateThrottle(Of T).TryUpdateAsync
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Value
   name: Value
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Value
-  commentId: P:Kampute.HttpClient.Utilities.AsyncGuard`1.Value
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Value
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Value
-  nameWithType: AsyncGuard<T>.Value
-  nameWithType.vb: AsyncGuard(Of T).Value
-- uid: Kampute.HttpClient.Utilities.AsyncGuard`1.Value*
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Value
+  commentId: P:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Value
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.Value
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).Value
+  nameWithType: AsyncUpdateThrottle<T>.Value
+  nameWithType.vb: AsyncUpdateThrottle(Of T).Value
+- uid: Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Value*
   name: Value
-  href: api/Kampute.HttpClient.Utilities.AsyncGuard-1.html#Kampute_HttpClient_Utilities_AsyncGuard_1_Value_
-  commentId: Overload:Kampute.HttpClient.Utilities.AsyncGuard`1.Value
+  href: api/Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html#Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Value_
+  commentId: Overload:Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Value
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.AsyncGuard<T>.Value
-  fullName.vb: Kampute.HttpClient.Utilities.AsyncGuard(Of T).Value
-  nameWithType: AsyncGuard<T>.Value
-  nameWithType.vb: AsyncGuard(Of T).Value
+  fullName: Kampute.HttpClient.Utilities.AsyncUpdateThrottle<T>.Value
+  fullName.vb: Kampute.HttpClient.Utilities.AsyncUpdateThrottle(Of T).Value
+  nameWithType: AsyncUpdateThrottle<T>.Value
+  nameWithType.vb: AsyncUpdateThrottle(Of T).Value
+- uid: Kampute.HttpClient.Utilities.ExceptionExtensions
+  name: ExceptionExtensions
+  href: api/Kampute.HttpClient.Utilities.ExceptionExtensions.html
+  commentId: T:Kampute.HttpClient.Utilities.ExceptionExtensions
+  fullName: Kampute.HttpClient.Utilities.ExceptionExtensions
+  nameWithType: ExceptionExtensions
+- uid: Kampute.HttpClient.Utilities.ExceptionExtensions.IsTransientNetworkError(System.Exception)
+  name: IsTransientNetworkError(Exception)
+  href: api/Kampute.HttpClient.Utilities.ExceptionExtensions.html#Kampute_HttpClient_Utilities_ExceptionExtensions_IsTransientNetworkError_System_Exception_
+  commentId: M:Kampute.HttpClient.Utilities.ExceptionExtensions.IsTransientNetworkError(System.Exception)
+  fullName: Kampute.HttpClient.Utilities.ExceptionExtensions.IsTransientNetworkError(System.Exception)
+  nameWithType: ExceptionExtensions.IsTransientNetworkError(Exception)
+- uid: Kampute.HttpClient.Utilities.ExceptionExtensions.IsTransientNetworkError*
+  name: IsTransientNetworkError
+  href: api/Kampute.HttpClient.Utilities.ExceptionExtensions.html#Kampute_HttpClient_Utilities_ExceptionExtensions_IsTransientNetworkError_
+  commentId: Overload:Kampute.HttpClient.Utilities.ExceptionExtensions.IsTransientNetworkError
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ExceptionExtensions.IsTransientNetworkError
+  nameWithType: ExceptionExtensions.IsTransientNetworkError
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2
+  name: FlyweightCache<TKey, TValue>
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html
+  commentId: T:Kampute.HttpClient.Utilities.FlyweightCache`2
+  name.vb: FlyweightCache(Of TKey, TValue)
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue)
+  nameWithType: FlyweightCache<TKey, TValue>
+  nameWithType.vb: FlyweightCache(Of TKey, TValue)
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1})
+  name: FlyweightCache(Func<TKey, TValue>)
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2__ctor_System_Func__0__1__
+  commentId: M:Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1})
+  name.vb: New(Func(Of TKey, TValue))
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.FlyweightCache(System.Func<TKey, TValue>)
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).New(System.Func(Of TKey, TValue))
+  nameWithType: FlyweightCache<TKey, TValue>.FlyweightCache(Func<TKey, TValue>)
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).New(Func(Of TKey, TValue))
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
+  name: FlyweightCache(Func<TKey, TValue>, IEqualityComparer<TKey>?)
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2__ctor_System_Func__0__1__System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: New(Func(Of TKey, TValue), IEqualityComparer(Of TKey))
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.FlyweightCache(System.Func<TKey, TValue>, System.Collections.Generic.IEqualityComparer<TKey>?)
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).New(System.Func(Of TKey, TValue), System.Collections.Generic.IEqualityComparer(Of TKey))
+  nameWithType: FlyweightCache<TKey, TValue>.FlyweightCache(Func<TKey, TValue>, IEqualityComparer<TKey>?)
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).New(Func(Of TKey, TValue), IEqualityComparer(Of TKey))
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor*
+  name: FlyweightCache
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2__ctor_
+  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.FlyweightCache
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).New
+  nameWithType: FlyweightCache<TKey, TValue>.FlyweightCache
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).New
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Clear
+  name: Clear()
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Clear
+  commentId: M:Kampute.HttpClient.Utilities.FlyweightCache`2.Clear
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Clear()
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Clear()
+  nameWithType: FlyweightCache<TKey, TValue>.Clear()
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Clear()
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Clear*
+  name: Clear
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Clear_
+  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.Clear
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Clear
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Clear
+  nameWithType: FlyweightCache<TKey, TValue>.Clear
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Clear
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Contains(`0)
+  name: Contains(TKey)
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Contains__0_
+  commentId: M:Kampute.HttpClient.Utilities.FlyweightCache`2.Contains(`0)
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Contains(TKey)
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Contains(TKey)
+  nameWithType: FlyweightCache<TKey, TValue>.Contains(TKey)
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Contains(TKey)
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Contains*
+  name: Contains
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Contains_
+  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.Contains
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Contains
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Contains
+  nameWithType: FlyweightCache<TKey, TValue>.Contains
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Contains
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Count
+  name: Count
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Count
+  commentId: P:Kampute.HttpClient.Utilities.FlyweightCache`2.Count
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Count
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Count
+  nameWithType: FlyweightCache<TKey, TValue>.Count
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Count
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Count*
+  name: Count
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Count_
+  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.Count
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Count
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Count
+  nameWithType: FlyweightCache<TKey, TValue>.Count
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Count
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Item(`0)
+  name: this[TKey]
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Item__0_
+  commentId: P:Kampute.HttpClient.Utilities.FlyweightCache`2.Item(`0)
+  name.vb: this[](TKey)
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.this[TKey]
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).this[](TKey)
+  nameWithType: FlyweightCache<TKey, TValue>.this[TKey]
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).this[](TKey)
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Item*
+  name: this
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Item_
+  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.Item
+  isSpec: "True"
+  name.vb: this[]
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.this
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).this[]
+  nameWithType: FlyweightCache<TKey, TValue>.this
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).this[]
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1
+  name: ScopedCollection<T>
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html
+  commentId: T:Kampute.HttpClient.Utilities.ScopedCollection`1
+  name.vb: ScopedCollection(Of T)
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T)
+  nameWithType: ScopedCollection<T>
+  nameWithType.vb: ScopedCollection(Of T)
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.BeginScope(System.Collections.Generic.IEnumerable{`0})
+  name: BeginScope(IEnumerable<T>)
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_BeginScope_System_Collections_Generic_IEnumerable__0__
+  commentId: M:Kampute.HttpClient.Utilities.ScopedCollection`1.BeginScope(System.Collections.Generic.IEnumerable{`0})
+  name.vb: BeginScope(IEnumerable(Of T))
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.BeginScope(System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).BeginScope(System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: ScopedCollection<T>.BeginScope(IEnumerable<T>)
+  nameWithType.vb: ScopedCollection(Of T).BeginScope(IEnumerable(Of T))
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.BeginScope*
+  name: BeginScope
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_BeginScope_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.BeginScope
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.BeginScope
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).BeginScope
+  nameWithType: ScopedCollection<T>.BeginScope
+  nameWithType.vb: ScopedCollection(Of T).BeginScope
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.EndScope(Kampute.HttpClient.Utilities.ScopedCollection{`0}.Scope)
+  name: EndScope(Scope)
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_EndScope_Kampute_HttpClient_Utilities_ScopedCollection__0__Scope_
+  commentId: M:Kampute.HttpClient.Utilities.ScopedCollection`1.EndScope(Kampute.HttpClient.Utilities.ScopedCollection{`0}.Scope)
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.EndScope(Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope)
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).EndScope(Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope)
+  nameWithType: ScopedCollection<T>.EndScope(ScopedCollection<T>.Scope)
+  nameWithType.vb: ScopedCollection(Of T).EndScope(ScopedCollection(Of T).Scope)
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.EndScope*
+  name: EndScope
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_EndScope_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.EndScope
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.EndScope
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).EndScope
+  nameWithType: ScopedCollection<T>.EndScope
+  nameWithType.vb: ScopedCollection(Of T).EndScope
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.GetEnumerator
+  name: GetEnumerator()
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_GetEnumerator
+  commentId: M:Kampute.HttpClient.Utilities.ScopedCollection`1.GetEnumerator
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.GetEnumerator()
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).GetEnumerator()
+  nameWithType: ScopedCollection<T>.GetEnumerator()
+  nameWithType.vb: ScopedCollection(Of T).GetEnumerator()
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.GetEnumerator*
+  name: GetEnumerator
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_GetEnumerator_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.GetEnumerator
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.GetEnumerator
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).GetEnumerator
+  nameWithType: ScopedCollection<T>.GetEnumerator
+  nameWithType.vb: ScopedCollection(Of T).GetEnumerator
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope
+  name: ScopedCollection<T>.Scope
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html
+  commentId: T:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope
+  name.vb: ScopedCollection(Of T).Scope
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope
+  nameWithType: ScopedCollection<T>.Scope
+  nameWithType.vb: ScopedCollection(Of T).Scope
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Dispose
+  name: Dispose()
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Dispose
+  commentId: M:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Dispose
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Dispose()
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Dispose()
+  nameWithType: ScopedCollection<T>.Scope.Dispose()
+  nameWithType.vb: ScopedCollection(Of T).Scope.Dispose()
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Dispose*
+  name: Dispose
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Dispose_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Dispose
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Dispose
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Dispose
+  nameWithType: ScopedCollection<T>.Scope.Dispose
+  nameWithType.vb: ScopedCollection(Of T).Scope.Dispose
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Items
+  name: Items
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Items
+  commentId: P:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Items
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Items
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Items
+  nameWithType: ScopedCollection<T>.Scope.Items
+  nameWithType.vb: ScopedCollection(Of T).Scope.Items
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Items*
+  name: Items
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Items_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Items
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Items
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Items
+  nameWithType: ScopedCollection<T>.Scope.Items
+  nameWithType.vb: ScopedCollection(Of T).Scope.Items
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Owner
+  name: Owner
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Owner
+  commentId: P:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Owner
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Owner
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Owner
+  nameWithType: ScopedCollection<T>.Scope.Owner
+  nameWithType.vb: ScopedCollection(Of T).Scope.Owner
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Owner*
+  name: Owner
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Owner_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Owner
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Owner
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Owner
+  nameWithType: ScopedCollection<T>.Scope.Owner
+  nameWithType.vb: ScopedCollection(Of T).Scope.Owner
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Parent
+  name: Parent
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Parent
+  commentId: P:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Parent
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Parent
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Parent
+  nameWithType: ScopedCollection<T>.Scope.Parent
+  nameWithType.vb: ScopedCollection(Of T).Scope.Parent
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Parent*
+  name: Parent
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Scope_Parent_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.Scope.Parent
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Scope.Parent
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Scope.Parent
+  nameWithType: ScopedCollection<T>.Scope.Parent
+  nameWithType.vb: ScopedCollection(Of T).Scope.Parent
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Traverse(System.Action{`0})
+  name: Traverse(Action<T>)
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Traverse_System_Action__0__
+  commentId: M:Kampute.HttpClient.Utilities.ScopedCollection`1.Traverse(System.Action{`0})
+  name.vb: Traverse(Action(Of T))
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Traverse(System.Action<T>)
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Traverse(System.Action(Of T))
+  nameWithType: ScopedCollection<T>.Traverse(Action<T>)
+  nameWithType.vb: ScopedCollection(Of T).Traverse(Action(Of T))
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Traverse*
+  name: Traverse
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_Traverse_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.Traverse
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.Traverse
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).Traverse
+  nameWithType: ScopedCollection<T>.Traverse
+  nameWithType.vb: ScopedCollection(Of T).Traverse
 - uid: Kampute.HttpClient.Utilities.SharedDisposable`1
   name: SharedDisposable<T>
   href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html
@@ -4642,6 +5029,15 @@ references:
   fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T)
   nameWithType: SharedDisposable<T>
   nameWithType.vb: SharedDisposable(Of T)
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor
+  name: SharedDisposable()
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1__ctor
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.SharedDisposable()
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).New()
+  nameWithType: SharedDisposable<T>.SharedDisposable()
+  nameWithType.vb: SharedDisposable(Of T).New()
 - uid: Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor(System.Func{`0})
   name: SharedDisposable(Func<T>)
   href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1__ctor_System_Func__0__
@@ -4661,41 +5057,102 @@ references:
   fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).New
   nameWithType: SharedDisposable<T>.SharedDisposable
   nameWithType.vb: SharedDisposable(Of T).New
-- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire
-  name: Acquire()
-  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Acquire
-  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire
-  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Acquire()
-  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Acquire()
-  nameWithType: SharedDisposable<T>.Acquire()
-  nameWithType.vb: SharedDisposable(Of T).Acquire()
-- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire*
-  name: Acquire
-  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Acquire_
-  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.AcquireReference
+  name: AcquireReference()
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_AcquireReference
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.AcquireReference
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.AcquireReference()
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).AcquireReference()
+  nameWithType: SharedDisposable<T>.AcquireReference()
+  nameWithType.vb: SharedDisposable(Of T).AcquireReference()
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.AcquireReference*
+  name: AcquireReference
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_AcquireReference_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.AcquireReference
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Acquire
-  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Acquire
-  nameWithType: SharedDisposable<T>.Acquire
-  nameWithType.vb: SharedDisposable(Of T).Acquire
-- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Is(`0)
-  name: Is(T?)
-  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Is__0_
-  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Is(`0)
-  name.vb: Is(T)
-  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Is(T?)
-  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Is(T)
-  nameWithType: SharedDisposable<T>.Is(T?)
-  nameWithType.vb: SharedDisposable(Of T).Is(T)
-- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Is*
-  name: Is
-  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Is_
-  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Is
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.AcquireReference
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).AcquireReference
+  nameWithType: SharedDisposable<T>.AcquireReference
+  nameWithType.vb: SharedDisposable(Of T).AcquireReference
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference
+  name: SharedDisposable<T>.Reference
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html
+  commentId: T:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference
+  name.vb: SharedDisposable(Of T).Reference
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference
+  nameWithType: SharedDisposable<T>.Reference
+  nameWithType.vb: SharedDisposable(Of T).Reference
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Dispose
+  name: Dispose()
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_Dispose
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Dispose
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.Dispose()
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.Dispose()
+  nameWithType: SharedDisposable<T>.Reference.Dispose()
+  nameWithType.vb: SharedDisposable(Of T).Reference.Dispose()
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Dispose*
+  name: Dispose
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_Dispose_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Dispose
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Is
-  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Is
-  nameWithType: SharedDisposable<T>.Is
-  nameWithType.vb: SharedDisposable(Of T).Is
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.Dispose
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.Dispose
+  nameWithType: SharedDisposable<T>.Reference.Dispose
+  nameWithType.vb: SharedDisposable(Of T).Reference.Dispose
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Instance
+  name: Instance
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_Instance
+  commentId: P:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Instance
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.Instance
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.Instance
+  nameWithType: SharedDisposable<T>.Reference.Instance
+  nameWithType.vb: SharedDisposable(Of T).Reference.Instance
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Instance*
+  name: Instance
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_Instance_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Instance
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.Instance
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.Instance
+  nameWithType: SharedDisposable<T>.Reference.Instance
+  nameWithType.vb: SharedDisposable(Of T).Reference.Instance
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Owner
+  name: Owner
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_Owner
+  commentId: P:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Owner
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.Owner
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.Owner
+  nameWithType: SharedDisposable<T>.Reference.Owner
+  nameWithType.vb: SharedDisposable(Of T).Reference.Owner
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Owner*
+  name: Owner
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_Owner_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.Owner
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.Owner
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.Owner
+  nameWithType: SharedDisposable<T>.Reference.Owner
+  nameWithType.vb: SharedDisposable(Of T).Reference.Owner
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.op_Implicit(Kampute.HttpClient.Utilities.SharedDisposable{`0}.Reference)~`0
+  name: implicit operator T(Reference)
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_op_Implicit_Kampute_HttpClient_Utilities_SharedDisposable__0__Reference___0
+  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.op_Implicit(Kampute.HttpClient.Utilities.SharedDisposable{`0}.Reference)~`0
+  name.vb: CType(Reference)
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.implicit operator T(Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference)
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.CType(Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference)
+  nameWithType: SharedDisposable<T>.Reference.implicit operator T(SharedDisposable<T>.Reference)
+  nameWithType.vb: SharedDisposable(Of T).Reference.CType(SharedDisposable(Of T).Reference)
+- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.op_Implicit*
+  name: implicit operator
+  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Reference_op_Implicit_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Reference.op_Implicit
+  isSpec: "True"
+  name.vb: CType
+  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Reference.implicit operator
+  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Reference.CType
+  nameWithType: SharedDisposable<T>.Reference.implicit operator
+  nameWithType.vb: SharedDisposable(Of T).Reference.CType
 - uid: Kampute.HttpClient.Utilities.SharedDisposable`1.ReferenceCount
   name: ReferenceCount
   href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_ReferenceCount
@@ -4713,23 +5170,38 @@ references:
   fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).ReferenceCount
   nameWithType: SharedDisposable<T>.ReferenceCount
   nameWithType.vb: SharedDisposable(Of T).ReferenceCount
-- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Release(`0)
-  name: Release(T)
-  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Release__0_
-  commentId: M:Kampute.HttpClient.Utilities.SharedDisposable`1.Release(`0)
-  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Release(T)
-  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Release(T)
-  nameWithType: SharedDisposable<T>.Release(T)
-  nameWithType.vb: SharedDisposable(Of T).Release(T)
-- uid: Kampute.HttpClient.Utilities.SharedDisposable`1.Release*
-  name: Release
-  href: api/Kampute.HttpClient.Utilities.SharedDisposable-1.html#Kampute_HttpClient_Utilities_SharedDisposable_1_Release_
-  commentId: Overload:Kampute.HttpClient.Utilities.SharedDisposable`1.Release
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient
+  name: SharedHttpClient
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html
+  commentId: T:Kampute.HttpClient.Utilities.SharedHttpClient
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient
+  nameWithType: SharedHttpClient
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient.AcquireReference
+  name: AcquireReference()
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_AcquireReference
+  commentId: M:Kampute.HttpClient.Utilities.SharedHttpClient.AcquireReference
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient.AcquireReference()
+  nameWithType: SharedHttpClient.AcquireReference()
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient.AcquireReference*
+  name: AcquireReference
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_AcquireReference_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedHttpClient.AcquireReference
   isSpec: "True"
-  fullName: Kampute.HttpClient.Utilities.SharedDisposable<T>.Release
-  fullName.vb: Kampute.HttpClient.Utilities.SharedDisposable(Of T).Release
-  nameWithType: SharedDisposable<T>.Release
-  nameWithType.vb: SharedDisposable(Of T).Release
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient.AcquireReference
+  nameWithType: SharedHttpClient.AcquireReference
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient.Factory
+  name: Factory
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_Factory
+  commentId: P:Kampute.HttpClient.Utilities.SharedHttpClient.Factory
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient.Factory
+  nameWithType: SharedHttpClient.Factory
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient.Factory*
+  name: Factory
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_Factory_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedHttpClient.Factory
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient.Factory
+  nameWithType: SharedHttpClient.Factory
 - uid: Kampute.HttpClient.Xml
   name: Kampute.HttpClient.Xml
   href: api/Kampute.HttpClient.Xml.html
@@ -4937,22 +5409,25 @@ references:
   commentId: T:Kampute.HttpClient.Xml.XmlContentDeserializer
   fullName: Kampute.HttpClient.Xml.XmlContentDeserializer
   nameWithType: XmlContentDeserializer
-- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize(System.String,System.Type)
-  name: CanDeserialize(string, Type?)
-  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_CanDeserialize_System_String_System_Type_
-  commentId: M:Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize(System.String,System.Type)
-  name.vb: CanDeserialize(String, Type)
-  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize(string, System.Type?)
-  fullName.vb: Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize(String, System.Type)
-  nameWithType: XmlContentDeserializer.CanDeserialize(string, Type?)
-  nameWithType.vb: XmlContentDeserializer.CanDeserialize(String, Type)
-- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize*
-  name: CanDeserialize
-  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_CanDeserialize_
-  commentId: Overload:Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize
+- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.#ctor
+  name: XmlContentDeserializer()
+  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer__ctor
+  commentId: M:Kampute.HttpClient.Xml.XmlContentDeserializer.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.XmlContentDeserializer()
+  fullName.vb: Kampute.HttpClient.Xml.XmlContentDeserializer.New()
+  nameWithType: XmlContentDeserializer.XmlContentDeserializer()
+  nameWithType.vb: XmlContentDeserializer.New()
+- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.#ctor*
+  name: XmlContentDeserializer
+  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer__ctor_
+  commentId: Overload:Kampute.HttpClient.Xml.XmlContentDeserializer.#ctor
   isSpec: "True"
-  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.CanDeserialize
-  nameWithType: XmlContentDeserializer.CanDeserialize
+  name.vb: New
+  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.XmlContentDeserializer
+  fullName.vb: Kampute.HttpClient.Xml.XmlContentDeserializer.New
+  nameWithType: XmlContentDeserializer.XmlContentDeserializer
+  nameWithType.vb: XmlContentDeserializer.New
 - uid: Kampute.HttpClient.Xml.XmlContentDeserializer.DeserializeAsync(System.Net.Http.HttpContent,System.Type,System.Threading.CancellationToken)
   name: DeserializeAsync(HttpContent, Type, CancellationToken)
   href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_DeserializeAsync_System_Net_Http_HttpContent_System_Type_System_Threading_CancellationToken_
@@ -4966,32 +5441,3 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.DeserializeAsync
   nameWithType: XmlContentDeserializer.DeserializeAsync
-- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name: GetSupportedMediaTypes(Type?)
-  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_GetSupportedMediaTypes_System_Type_
-  commentId: M:Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
-  name.vb: GetSupportedMediaTypes(Type)
-  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes(System.Type?)
-  fullName.vb: Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)
-  nameWithType: XmlContentDeserializer.GetSupportedMediaTypes(Type?)
-  nameWithType.vb: XmlContentDeserializer.GetSupportedMediaTypes(Type)
-- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes*
-  name: GetSupportedMediaTypes
-  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_GetSupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.GetSupportedMediaTypes
-  nameWithType: XmlContentDeserializer.GetSupportedMediaTypes
-- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.SupportedMediaTypes
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_SupportedMediaTypes
-  commentId: P:Kampute.HttpClient.Xml.XmlContentDeserializer.SupportedMediaTypes
-  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.SupportedMediaTypes
-  nameWithType: XmlContentDeserializer.SupportedMediaTypes
-- uid: Kampute.HttpClient.Xml.XmlContentDeserializer.SupportedMediaTypes*
-  name: SupportedMediaTypes
-  href: api/Kampute.HttpClient.Xml.XmlContentDeserializer.html#Kampute_HttpClient_Xml_XmlContentDeserializer_SupportedMediaTypes_
-  commentId: Overload:Kampute.HttpClient.Xml.XmlContentDeserializer.SupportedMediaTypes
-  isSpec: "True"
-  fullName: Kampute.HttpClient.Xml.XmlContentDeserializer.SupportedMediaTypes
-  nameWithType: XmlContentDeserializer.SupportedMediaTypes

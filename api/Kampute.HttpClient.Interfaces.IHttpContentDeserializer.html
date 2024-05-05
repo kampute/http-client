@@ -118,12 +118,12 @@ from HTTP responses into .NET objects. Implementers of this interface provide th
 by a specific media type, into instances of model types used within an application.
 </p>
 <p>
-The <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_">GetSupportedMediaTypes(Type?)</a> method is designed to communicate the content types that the deserializer can process, effectively 
+The <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_">GetSupportedMediaTypes(Type)</a> method is designed to communicate the content types that the deserializer can process, effectively 
 informing the server about the media types acceptable to the client. It ensures that the client and server can agree on a common format for 
 data exchange, enhancing the efficiency and compatibility of HTTP communications.
 </p>
 <p>
-Through the <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_">CanDeserialize(string, Type?)</a> method, implementations can provide a quick check to ascertain compatibility between the deserializer, 
+Through the <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html#Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_">CanDeserialize(string, Type)</a> method, implementations can provide a quick check to ascertain compatibility between the deserializer, 
 the media type of the content, and the target model type. This check is typically performed before attempting deserialization to ensure that 
 the deserializer is capable of processing the content as expected.
 </p>
@@ -147,7 +147,7 @@ facilitate efficient processing of HTTP response content in a concurrent environ
   <a id="Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_" data-uid="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize*"></a>
 
   <h3 id="Kampute_HttpClient_Interfaces_IHttpContentDeserializer_CanDeserialize_System_String_System_Type_" data-uid="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.CanDeserialize(System.String,System.Type)">
-  CanDeserialize(string, Type?)
+  CanDeserialize(string, Type)
   <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -156,7 +156,7 @@ facilitate efficient processing of HTTP response content in a concurrent environ
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool CanDeserialize(string mediaType, Type? modelType)</code></pre>
+    <pre><code class="lang-csharp hljs">bool CanDeserialize(string mediaType, Type modelType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -240,7 +240,7 @@ facilitate efficient processing of HTTP response content in a concurrent environ
   <a id="Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_" data-uid="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes*"></a>
 
   <h3 id="Kampute_HttpClient_Interfaces_IHttpContentDeserializer_GetSupportedMediaTypes_System_Type_" data-uid="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.GetSupportedMediaTypes(System.Type)">
-  GetSupportedMediaTypes(Type?)
+  GetSupportedMediaTypes(Type)
   <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Interfaces/IHttpContentDeserializer.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -249,7 +249,7 @@ facilitate efficient processing of HTTP response content in a concurrent environ
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IReadOnlyCollection&lt;string&gt; GetSupportedMediaTypes(Type? modelType)</code></pre>
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;string&gt; GetSupportedMediaTypes(Type modelType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -261,8 +261,8 @@ facilitate efficient processing of HTTP response content in a concurrent environ
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>A read-only collection of strings representing the media types supported for the specified model type.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>An enumerable of strings representing the media types supported for the specified model type.</p>
 </dd>
   </dl>
 

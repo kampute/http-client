@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions" class="text-break">
-Class HttpRestClientJsonExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L25"><i class="bi bi-code-slash"></i></a>
+Class HttpRestClientJsonExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -158,7 +158,7 @@ abstracting the serialization and deserialization of JSON to and from .NET objec
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_AcceptJson_Kampute_HttpClient_HttpRestClient_Newtonsoft_Json_JsonSerializerSettings_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.AcceptJson(Kampute.HttpClient.HttpRestClient,Newtonsoft.Json.JsonSerializerSettings)">
   AcceptJson(HttpRestClient, JsonSerializerSettings?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> to accept JSON responses by adding or updating a <a class="xref" href="Kampute.HttpClient.NewtonsoftJson.JsonContentDeserializer.html">JsonContentDeserializer</a> in its response deserializers collection.</p>
@@ -204,7 +204,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_GetJsonSerializerSettings_Kampute_HttpClient_HttpRestClient_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.GetJsonSerializerSettings(Kampute.HttpClient.HttpRestClient)">
   GetJsonSerializerSettings(HttpRestClient)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the settings used by the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> when serializing payloads as JSON.</p>
@@ -243,7 +243,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PatchAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.PatchAsJsonAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PatchAsJsonAsync(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L256"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L248"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PATCH request with JSON-formatted payload to the specified URI without processing the response body.</p>
@@ -298,7 +298,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -309,7 +309,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PatchAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.PatchAsJsonAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PatchAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L237"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PATCH request with JSON-formatted payload to the specified URI and returns the response body deserialized as the specified type.</p>
@@ -370,7 +370,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -381,7 +381,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PostAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.PostAsJsonAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PostAsJsonAsync(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L174"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous POST request with JSON-formatted payload to the specified URI without processing the response body.</p>
@@ -436,7 +436,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -447,7 +447,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PostAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.PostAsJsonAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PostAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L156"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous POST request with JSON-formatted payload to the specified URI.</p>
@@ -508,7 +508,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -519,7 +519,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PutAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.PutAsJsonAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PutAsJsonAsync(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L211"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PUT request with JSON-formatted payload to the specified URI without processing the response body.</p>
@@ -574,7 +574,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -585,7 +585,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_PutAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.PutAsJsonAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PutAsJsonAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PUT request with JSON-formatted payload to the specified URI and returns the response body deserialized as the specified type.</p>
@@ -646,7 +646,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -657,7 +657,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_SendAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.SendAsJsonAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)">
   SendAsJsonAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L126"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous POST request with JSON-formatted payload to the specified URI without processing the response body.</p>
@@ -665,7 +665,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;HttpResponseHeaders&gt; SendAsJsonAsync(this HttpRestClient client, HttpMethod method, string uri, object payload, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task SendAsJsonAsync(this HttpRestClient client, HttpMethod method, string uri, object payload, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -689,8 +689,8 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpresponseheaders">HttpResponseHeaders</a>&gt;</dt>
-    <dd><p>A task representing the asynchronous operation, returning headers of the response.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd><p>A task representing the asynchronous operation.</p>
 </dd>
   </dl>
 
@@ -715,7 +715,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -726,7 +726,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_SendAsJsonAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.SendAsJsonAsync``1(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)">
   SendAsJsonAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L96"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous request with JSON-formatted payload to the specified URI.</p>
@@ -790,7 +790,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -801,7 +801,7 @@ Otherwise, it adds a new <a class="xref" href="Kampute.HttpClient.NewtonsoftJson
 
   <h3 id="Kampute_HttpClient_NewtonsoftJson_HttpRestClientJsonExtensions_SetJsonSerializerSettings_Kampute_HttpClient_HttpRestClient_Newtonsoft_Json_JsonSerializerSettings_" data-uid="Kampute.HttpClient.NewtonsoftJson.HttpRestClientJsonExtensions.SetJsonSerializerSettings(Kampute.HttpClient.HttpRestClient,Newtonsoft.Json.JsonSerializerSettings)">
   SetJsonSerializerSettings(HttpRestClient, JsonSerializerSettings?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.NewtonsoftJson/HttpRestClientJsonExtensions.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> to use the specified settings when serializing payloads as JSON.</p>

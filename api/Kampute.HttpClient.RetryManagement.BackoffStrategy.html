@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class RetrySchedulerFactory | Kampute.HttpClient .NET Library </title>
+      <title>Class BackoffStrategy | Kampute.HttpClient .NET Library </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class RetrySchedulerFactory | Kampute.HttpClient .NET Library ">
+      <meta name="title" content="Class BackoffStrategy | Kampute.HttpClient .NET Library ">
       
       <meta name="description" content="A factory for creating  instances configured with a specific retry strategy.">
       <link rel="icon" href="../ICON.png">
@@ -16,7 +16,7 @@
       
       <meta name="docfx:disablenewtab" content="true">
       
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_RetrySchedulerFactory.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.RetrySchedulerFactory%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_BackoffStrategy.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.BackoffStrategy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory">
+        <article data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy">
 
 
 
-  <h1 id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory" class="text-break">
-Class RetrySchedulerFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetrySchedulerFactory.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Kampute_HttpClient_RetryManagement_BackoffStrategy" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy" class="text-break">
+Class BackoffStrategy  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/BackoffStrategy.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -98,7 +98,7 @@ Class RetrySchedulerFactory  <a class="header-action link-secondary" title="View
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RetrySchedulerFactory : IRetrySchedulerFactory</code></pre>
+    <pre><code class="lang-csharp hljs">public class BackoffStrategy : IHttpBackoffProvider</code></pre>
   </div>
 
 
@@ -108,14 +108,14 @@ Class RetrySchedulerFactory  <a class="header-action link-secondary" title="View
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">RetrySchedulerFactory</span></div>
+      <div><span class="xref">BackoffStrategy</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></div>
+      <div><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></div>
     </dd>
   </dl>
 
@@ -149,7 +149,7 @@ Class RetrySchedulerFactory  <a class="header-action link-secondary" title="View
 
 
 
-  <h2 id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_remarks">Remarks</h2>
+  <h2 id="Kampute_HttpClient_RetryManagement_BackoffStrategy_remarks">Remarks</h2>
   <div class="markdown level0 remarks"><p>This factory encapsulates the creation logic of retry schedulers, allowing for consistent configuration of schedulers
 across an application. It uses a designated retry strategy to configure each scheduler it creates, ensuring that all
 schedulers have a uniform approach to handling retry attempts.</p>
@@ -160,19 +160,19 @@ schedulers have a uniform approach to handling retry attempts.</p>
 </h2>
 
 
-  <a id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory__ctor_" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.#ctor*"></a>
+  <a id="Kampute_HttpClient_RetryManagement_BackoffStrategy__ctor_" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy.#ctor*"></a>
 
-  <h3 id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)">
-  RetrySchedulerFactory(IRetryStrategy)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetrySchedulerFactory.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_RetryManagement_BackoffStrategy__ctor_Kampute_HttpClient_Interfaces_IRetryStrategy_" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy.#ctor(Kampute.HttpClient.Interfaces.IRetryStrategy)">
+  BackoffStrategy(IRetryStrategy)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/BackoffStrategy.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.html">RetrySchedulerFactory</a> class with a specified retry strategy.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.BackoffStrategy.html">BackoffStrategy</a> class with a specified retry strategy.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RetrySchedulerFactory(IRetryStrategy strategy)</code></pre>
+    <pre><code class="lang-csharp hljs">public BackoffStrategy(IRetryStrategy strategy)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -203,11 +203,11 @@ schedulers have a uniform approach to handling retry attempts.</p>
 </h2>
 
 
-  <a id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_Strategy_" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy*"></a>
+  <a id="Kampute_HttpClient_RetryManagement_BackoffStrategy_Strategy_" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy*"></a>
 
-  <h3 id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_Strategy" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.Strategy">
+  <h3 id="Kampute_HttpClient_RetryManagement_BackoffStrategy_Strategy" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy.Strategy">
   Strategy
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetrySchedulerFactory.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/BackoffStrategy.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the retry strategy associated with this scheduler factory.</p>
@@ -239,11 +239,11 @@ schedulers have a uniform approach to handling retry attempts.</p>
 </h2>
 
 
-  <a id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_CreateScheduler_" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler*"></a>
+  <a id="Kampute_HttpClient_RetryManagement_BackoffStrategy_CreateScheduler_" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler*"></a>
 
-  <h3 id="Kampute_HttpClient_RetryManagement_RetrySchedulerFactory_CreateScheduler" data-uid="Kampute.HttpClient.RetryManagement.RetrySchedulerFactory.CreateScheduler">
+  <h3 id="Kampute_HttpClient_RetryManagement_BackoffStrategy_CreateScheduler" data-uid="Kampute.HttpClient.RetryManagement.BackoffStrategy.CreateScheduler">
   CreateScheduler()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetrySchedulerFactory.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/BackoffStrategy.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a <a class="xref" href="Kampute.HttpClient.RetryManagement.RetryScheduler.html">RetryScheduler</a> instance using the associated retry strategy.</p>

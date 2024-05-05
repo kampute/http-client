@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class GzipCompressedContent | Kampute.HttpClient .NET Library </title>
+      <title>Class EmptyContent | Kampute.HttpClient .NET Library </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class GzipCompressedContent | Kampute.HttpClient .NET Library ">
+      <meta name="title" content="Class EmptyContent | Kampute.HttpClient .NET Library ">
       
-      <meta name="description" content="Provides an HTTP content encapsulation that compresses the underlying content using the GZIP compression algorithm.">
+      <meta name="description" content="Represents an HTTP content with no data.">
       <link rel="icon" href="../ICON.png">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       
       <meta name="docfx:disablenewtab" content="true">
       
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_Content_Compression_GzipCompressedContent.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.Content.Compression.GzipCompressedContent%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_Content_EmptyContent.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.Content.EmptyContent%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,25 +80,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Kampute.HttpClient.Content.Compression.GzipCompressedContent">
+        <article data-uid="Kampute.HttpClient.Content.EmptyContent">
 
 
 
-  <h1 id="Kampute_HttpClient_Content_Compression_GzipCompressedContent" data-uid="Kampute.HttpClient.Content.Compression.GzipCompressedContent" class="text-break">
-Class GzipCompressedContent  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Compression/GZipCompressedContent.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Kampute_HttpClient_Content_EmptyContent" data-uid="Kampute.HttpClient.Content.EmptyContent" class="text-break">
+Class EmptyContent  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/EmptyContent.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a>.<a class="xref" href="Kampute.HttpClient.Content.html">Content</a>.<a class="xref" href="Kampute.HttpClient.Content.Compression.html">Compression</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Kampute.html">Kampute</a>.<a class="xref" href="Kampute.HttpClient.html">HttpClient</a>.<a class="xref" href="Kampute.HttpClient.Content.html">Content</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Kampute.HttpClient.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides an HTTP content encapsulation that compresses the underlying content using the GZIP compression algorithm.</p>
+  <div class="markdown summary"><p>Represents an HTTP content with no data.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class GzipCompressedContent : CompressedContent, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class EmptyContent : HttpContent, IDisposable</code></pre>
   </div>
 
 
@@ -109,9 +109,7 @@ Class GzipCompressedContent  <a class="header-action link-secondary" title="View
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></div>
-      <div><a class="xref" href="Kampute.HttpClient.Content.Abstracts.HttpContentDecorator.html">HttpContentDecorator</a></div>
-      <div><a class="xref" href="Kampute.HttpClient.Content.Compression.Abstracts.CompressedContent.html">CompressedContent</a></div>
-      <div><span class="xref">GzipCompressedContent</span></div>
+      <div><span class="xref">EmptyContent</span></div>
     </dd>
   </dl>
 
@@ -192,85 +190,78 @@ Class GzipCompressedContent  <a class="header-action link-secondary" title="View
 
 
 
-
-
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Kampute_HttpClient_Content_Compression_GzipCompressedContent__ctor_" data-uid="Kampute.HttpClient.Content.Compression.GzipCompressedContent.#ctor*"></a>
-
-  <h3 id="Kampute_HttpClient_Content_Compression_GzipCompressedContent__ctor_System_Net_Http_HttpContent_System_IO_Compression_CompressionLevel_" data-uid="Kampute.HttpClient.Content.Compression.GzipCompressedContent.#ctor(System.Net.Http.HttpContent,System.IO.Compression.CompressionLevel)">
-  GzipCompressedContent(HttpContent, CompressionLevel)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Compression/GZipCompressedContent.cs/#L22"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Content.Compression.GzipCompressedContent.html">GzipCompressedContent</a> class.</p>
+  <h2 id="Kampute_HttpClient_Content_EmptyContent_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>This class is used when an HTTP request or response needs to indicate a content body, but there should be no actual content sent or received.
+It effectively sets the content length to 0 and does not write anything to the output stream.</p>
 </div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public GzipCompressedContent(HttpContent content, CompressionLevel compressionLevel)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
-    <dd><p>The content to compress using the GZIP compression algorithm.</p>
-</dd>
-    <dt><code>compressionLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.compression.compressionlevel">CompressionLevel</a></dt>
-    <dd><p>The level of compression that indicates whether to emphasize speed or compression efficiency.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown when <code class="paramref">content</code> is <code>null</code>.</p>
-</dd>
-  </dl>
-
 
 
   <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="Kampute_HttpClient_Content_Compression_GzipCompressedContent_CompressStream_" data-uid="Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream*"></a>
+  <a id="Kampute_HttpClient_Content_EmptyContent_SerializeToStreamAsync_" data-uid="Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync*"></a>
 
-  <h3 id="Kampute_HttpClient_Content_Compression_GzipCompressedContent_CompressStream_System_IO_Stream_" data-uid="Kampute.HttpClient.Content.Compression.GzipCompressedContent.CompressStream(System.IO.Stream)">
-  CompressStream(Stream)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Compression/GZipCompressedContent.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Content_EmptyContent_SerializeToStreamAsync_System_IO_Stream_System_Net_TransportContext_" data-uid="Kampute.HttpClient.Content.EmptyContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
+  SerializeToStreamAsync(Stream, TransportContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/EmptyContent.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Wraps the provided base stream with a GZIP compression stream.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Stream CompressStream(Stream stream)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
-    <dd><p>The original stream to wrap with a GZIP compression stream.</p>
-</dd>
+    <dd></dd>
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.transportcontext">TransportContext</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
-    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a> that applies GZIP compression to the data written to the <code class="paramref">stream</code>.</p>
-</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_Content_EmptyContent_TryComputeLength_" data-uid="Kampute.HttpClient.Content.EmptyContent.TryComputeLength*"></a>
+
+  <h3 id="Kampute_HttpClient_Content_EmptyContent_TryComputeLength_System_Int64__" data-uid="Kampute.HttpClient.Content.EmptyContent.TryComputeLength(System.Int64@)">
+  TryComputeLength(out long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/EmptyContent.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool TryComputeLength(out long length)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>length</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
   </dl>
 
 

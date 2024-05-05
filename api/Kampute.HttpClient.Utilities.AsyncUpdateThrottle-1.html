@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class AsyncGuard&lt;T&gt; | Kampute.HttpClient .NET Library </title>
+      <title>Class AsyncUpdateThrottle&lt;T&gt; | Kampute.HttpClient .NET Library </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class AsyncGuard&lt;T&gt; | Kampute.HttpClient .NET Library ">
+      <meta name="title" content="Class AsyncUpdateThrottle&lt;T&gt; | Kampute.HttpClient .NET Library ">
       
-      <meta name="description" content="Provides a thread-safe mechanism for asynchronously updating a value of type T.">
+      <meta name="description" content="Manages thread-safe, asynchronous updates to a value, ensuring efficiency by reducing unnecessary update operations.">
       <link rel="icon" href="../ICON.png">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       
       <meta name="docfx:disablenewtab" content="true">
       
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_Utilities_AsyncGuard_1.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.Utilities.AsyncGuard%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.Utilities.AsyncUpdateThrottle%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1">
+        <article data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1">
 
 
 
-  <h1 id="Kampute_HttpClient_Utilities_AsyncGuard_1" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1" class="text-break">
-Class AsyncGuard&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncGuard.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1" class="text-break">
+Class AsyncUpdateThrottle&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -93,12 +93,12 @@ Class AsyncGuard&lt;T&gt;  <a class="header-action link-secondary" title="View s
   <dl><dt>Assembly</dt><dd>Kampute.HttpClient.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides a thread-safe mechanism for asynchronously updating a value of type <code class="typeparamref">T</code>.</p>
+  <div class="markdown summary"><p>Manages thread-safe, asynchronous updates to a value, ensuring efficiency by reducing unnecessary update operations.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class AsyncGuard&lt;T&gt; : IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class AsyncUpdateThrottle&lt;T&gt; : IDisposable</code></pre>
   </div>
 
 
@@ -106,7 +106,7 @@ Class AsyncGuard&lt;T&gt;  <a class="header-action link-secondary" title="View s
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>T</code></dt>
-    <dd><p>The type of the value to be updated. It is recommended that this type be immutable to ensure thread-safe operations.</p>
+    <dd><p>The type of the value to be managed, preferably immutable for thread safety.</p>
 </dd>
   </dl>
 
@@ -114,7 +114,7 @@ Class AsyncGuard&lt;T&gt;  <a class="header-action link-secondary" title="View s
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">AsyncGuard&lt;T&gt;</span></div>
+      <div><span class="xref">AsyncUpdateThrottle&lt;T&gt;</span></div>
     </dd>
   </dl>
 
@@ -152,16 +152,11 @@ Class AsyncGuard&lt;T&gt;  <a class="header-action link-secondary" title="View s
 
 
 
-  <h2 id="Kampute_HttpClient_Utilities_AsyncGuard_1_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>
-This class ensures that updates to the value are performed in a thread-safe manner and allows for updates to be deferred if
-a more recent update request has been made. It is particularly useful in scenarios where values are being updated from multiple
-sources or threads and you want to ensure consistency and prevent race conditions.
-</p>
-<p>
-The value is updated using an asynchronous updater function provided by the caller, which can incorporate custom logic for
-updating the value based on its current state and external criteria.
-</p>
+  <h2 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>This class provides a mechanism to update a value asynchronously while ensuring that updates are serialized and efficient. It is designed to prevent multiple,
+concurrent update operations from being processed if they are requested in quick succession. By employing a timing check before applying updates, the class ensures
+that only necessary updates proceed when the value has not been recently updated, making it ideal for scenarios where collecting or calculating the updated value is
+resource-intensive or costly.</p>
 </div>
 
 
@@ -169,19 +164,46 @@ updating the value based on its current state and external criteria.
 </h2>
 
 
-  <a id="Kampute_HttpClient_Utilities_AsyncGuard_1__ctor_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor*"></a>
+  <a id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor*"></a>
 
-  <h3 id="Kampute_HttpClient_Utilities_AsyncGuard_1__ctor__0_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.#ctor(`0)">
-  AsyncGuard(T?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncGuard.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor">
+  AsyncUpdateThrottle()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.html">AsyncGuard&lt;T&gt;</a> class with an initial value.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html">AsyncUpdateThrottle&lt;T&gt;</a> class with a default value.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AsyncGuard(T? initialValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public AsyncUpdateThrottle()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor*"></a>
+
+  <h3 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1__ctor__0_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.#ctor(`0)">
+  AsyncUpdateThrottle(T?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html">AsyncUpdateThrottle&lt;T&gt;</a> class with a specified value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AsyncUpdateThrottle(T? initialValue)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -206,19 +228,19 @@ updating the value based on its current state and external criteria.
 </h2>
 
 
-  <a id="Kampute_HttpClient_Utilities_AsyncGuard_1_LastUpdateUnixTime_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime*"></a>
+  <a id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_LastUpdateTime_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.LastUpdateTime*"></a>
 
-  <h3 id="Kampute_HttpClient_Utilities_AsyncGuard_1_LastUpdateUnixTime" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.LastUpdateUnixTime">
-  LastUpdateUnixTime
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncGuard.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_LastUpdateTime" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.LastUpdateTime">
+  LastUpdateTime
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the Unix time stamp of the last successful update operation.</p>
+  <div class="markdown level1 summary"><p>Gets the time of the last successful update operation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long LastUpdateUnixTime { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public DateTimeOffset LastUpdateTime { get; }</code></pre>
   </div>
 
 
@@ -227,9 +249,8 @@ updating the value based on its current state and external criteria.
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-    <dd><p>The Unix time stamp representing the point in time when the last successful update to the value was made, measured in milliseconds.
-If no update has been applied, the value is zero.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
+    <dd><p>The time when the last successful update to the value was made. If no update has been applied, the value is <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset.minvalue">MinValue</a>.</p>
 </dd>
   </dl>
 
@@ -240,11 +261,11 @@ If no update has been applied, the value is zero.</p>
 
 
 
-  <a id="Kampute_HttpClient_Utilities_AsyncGuard_1_Value_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.Value*"></a>
+  <a id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Value_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Value*"></a>
 
-  <h3 id="Kampute_HttpClient_Utilities_AsyncGuard_1_Value" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.Value">
+  <h3 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Value" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Value">
   Value
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncGuard.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the current value.</p>
@@ -263,7 +284,7 @@ If no update has been applied, the value is zero.</p>
   <dl class="parameters">
     <dt><span class="xref">T</span></dt>
     <dd><p>The current value of type <code class="typeparamref">T</code>. This value is thread-safe to access and represents the most recent state
-managed by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.html">AsyncGuard&lt;T&gt;</a>.</p>
+managed by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html">AsyncUpdateThrottle&lt;T&gt;</a>.</p>
 </dd>
   </dl>
 
@@ -278,14 +299,14 @@ managed by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.h
 </h2>
 
 
-  <a id="Kampute_HttpClient_Utilities_AsyncGuard_1_Dispose_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose*"></a>
+  <a id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Dispose_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Dispose*"></a>
 
-  <h3 id="Kampute_HttpClient_Utilities_AsyncGuard_1_Dispose" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.Dispose">
+  <h3 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_Dispose" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.Dispose">
   Dispose()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncGuard.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L108"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Releases all resources used by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.html">AsyncGuard&lt;T&gt;</a>.</p>
+  <div class="markdown level1 summary"><p>Releases all resources used by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html">AsyncUpdateThrottle&lt;T&gt;</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -305,11 +326,11 @@ managed by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.h
 
 
 
-  <a id="Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync*"></a>
+  <a id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_TryUpdateAsync_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.TryUpdateAsync*"></a>
 
-  <h3 id="Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Utilities.AsyncGuard`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)">
+  <h3 id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Utilities.AsyncUpdateThrottle`1.TryUpdateAsync(System.Func{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)">
   TryUpdateAsync(Func&lt;Task&lt;T?&gt;&gt;, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncGuard.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/AsyncUpdateThrottle.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Attempts to update the value asynchronously using the provided updater function.</p>
@@ -343,7 +364,7 @@ managed by the <a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.h
 
 
 
-  <h4 class="section" id="Kampute_HttpClient_Utilities_AsyncGuard_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken__remarks">Remarks</h4>
+  <h4 class="section" id="Kampute_HttpClient_Utilities_AsyncUpdateThrottle_1_TryUpdateAsync_System_Func_System_Threading_Tasks_Task__0___System_Threading_CancellationToken__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
 This method allows for a thread-safe update of the value. The update will only be applied if no other update has been completed since
 this update attempt was initiated, preventing unnecessary updates or overwrites by concurrent operations.
@@ -359,7 +380,7 @@ This behavior ensures that the value reflects the most recent update attempt tha
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
     <dd><p>Thrown if <code class="paramref">asyncUpdater</code> is <code>null</code>.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>

@@ -98,7 +98,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class XmlContentDeserializer : IHttpContentDeserializer</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class XmlContentDeserializer : HttpContentDeserializer, IHttpContentDeserializer</code></pre>
   </div>
 
 
@@ -108,6 +108,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html">HttpContentDeserializer</a></div>
       <div><span class="xref">XmlContentDeserializer</span></div>
     </dd>
   </dl>
@@ -123,6 +124,9 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="Kampute.HttpClient.Content.Abstracts.HttpContentDeserializer.html#Kampute_HttpClient_Content_Abstracts_HttpContentDeserializer_SupportedMediaTypes">HttpContentDeserializer.SupportedMediaTypes</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -148,6 +152,37 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
 
 
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Kampute_HttpClient_DataContract_XmlContentDeserializer__ctor_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.#ctor*"></a>
+
+  <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer__ctor" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.#ctor">
+  XmlContentDeserializer()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.DataContract.XmlContentDeserializer.html">XmlContentDeserializer</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XmlContentDeserializer()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -156,7 +191,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_Settings" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.Settings">
   Settings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the XML deserialization settings.</p>
@@ -185,39 +220,6 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
 
 
 
-  <a id="Kampute_HttpClient_DataContract_XmlContentDeserializer_SupportedMediaTypes_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes*"></a>
-
-  <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_SupportedMediaTypes" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.SupportedMediaTypes">
-  SupportedMediaTypes
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L40"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the collection of media types that this deserializer supports.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;string&gt; SupportedMediaTypes { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
-    <dd><p>The read-only collection of media types that this deserializer supports.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -225,7 +227,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <a id="Kampute_HttpClient_DataContract_XmlContentDeserializer_CanDeserialize_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize*"></a>
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_CanDeserialize_System_String_System_Type_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.CanDeserialize(System.String,System.Type)">
-  CanDeserialize(string, Type?)
+  CanDeserialize(string, Type)
   <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -234,7 +236,7 @@ Class XmlContentDeserializer  <a class="header-action link-secondary" title="Vie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanDeserialize(string mediaType, Type? modelType)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool CanDeserialize(string mediaType, Type modelType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -277,7 +279,7 @@ a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.se
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;object?&gt; DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;object?&gt; DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -319,7 +321,7 @@ a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.se
   <a id="Kampute_HttpClient_DataContract_XmlContentDeserializer_GetSupportedMediaTypes_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes*"></a>
 
   <h3 id="Kampute_HttpClient_DataContract_XmlContentDeserializer_GetSupportedMediaTypes_System_Type_" data-uid="Kampute.HttpClient.DataContract.XmlContentDeserializer.GetSupportedMediaTypes(System.Type)">
-  GetSupportedMediaTypes(Type?)
+  GetSupportedMediaTypes(Type)
   <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.DataContract/XmlContentDeserializer.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -328,7 +330,7 @@ a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.se
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;string&gt; GetSupportedMediaTypes(Type? modelType)</code></pre>
+    <pre><code class="lang-csharp hljs">public override IEnumerable&lt;string&gt; GetSupportedMediaTypes(Type modelType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -340,7 +342,7 @@ a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.se
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd><p>The read-only collection of media types that this deserializer supports if the model type is not <code>null</code> and
 is marked with a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datacontractattribute">DataContractAttribute</a>; otherwise, an empty collection.</p>
 </dd>

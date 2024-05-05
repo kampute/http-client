@@ -91,13 +91,43 @@
 Classes
 </h3>
     <dl class="jumplist">
-      <dt><a class="xref" href="Kampute.HttpClient.Utilities.AsyncGuard-1.html">AsyncGuard&lt;T&gt;</a></dt>
-      <dd><p>Provides a thread-safe mechanism for asynchronously updating a value of type <code class="typeparamref">T</code>.</p>
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.AsyncUpdateThrottle-1.html">AsyncUpdateThrottle&lt;T&gt;</a></dt>
+      <dd><p>Manages thread-safe, asynchronous updates to a value, ensuring efficiency by reducing unnecessary update operations.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.ExceptionExtensions.html">ExceptionExtensions</a></dt>
+      <dd><p>Provides extension methods for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a> to enhance functionality related to HTTP request execution.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.FlyweightCache-2.html">FlyweightCache&lt;TKey, TValue&gt;</a></dt>
+      <dd><p>Provides a thread-safe cache for efficiently retrieving and lazily adding key-value pairs.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.ScopedCollection-1.html">ScopedCollection&lt;T&gt;</a></dt>
+      <dd><p>Manages items within specific contexts.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html">ScopedCollection&lt;T&gt;.Scope</a></dt>
+      <dd><p>Represents a scope containing items within a specific context.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a></dt>
       <dd><p>Manages shared access to a disposable resource, ensuring it is correctly disposed of when no longer in use.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html">SharedDisposable&lt;T&gt;.Reference</a></dt>
+      <dd><p>Represents a reference to the shared disposable resource.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">SharedHttpClient</a></dt>
+      <dd><p>Provides a singleton-like access to a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance across the application using <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a>.</p>
 </dd>
     </dl>
 

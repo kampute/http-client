@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class ExceptionExtensions | Kampute.HttpClient .NET Library </title>
+      <title>Class MediaTypeHeaderValueStore | Kampute.HttpClient .NET Library </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ExceptionExtensions | Kampute.HttpClient .NET Library ">
+      <meta name="title" content="Class MediaTypeHeaderValueStore | Kampute.HttpClient .NET Library ">
       
-      <meta name="description" content="Provides extension methods for  to enhance functionality related to HTTP request execution.">
+      <meta name="description" content="Provides a cache for  instances to improve performance by reusing instances for frequently requested media types and quality settings.">
       <link rel="icon" href="../ICON.png">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       
       <meta name="docfx:disablenewtab" content="true">
       
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_ExceptionExtensions.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.ExceptionExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_MediaTypeHeaderValueStore.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.MediaTypeHeaderValueStore%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Kampute.HttpClient.ExceptionExtensions">
+        <article data-uid="Kampute.HttpClient.MediaTypeHeaderValueStore">
 
 
 
-  <h1 id="Kampute_HttpClient_ExceptionExtensions" data-uid="Kampute.HttpClient.ExceptionExtensions" class="text-break">
-Class ExceptionExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ExceptionExtensions.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Kampute_HttpClient_MediaTypeHeaderValueStore" data-uid="Kampute.HttpClient.MediaTypeHeaderValueStore" class="text-break">
+Class MediaTypeHeaderValueStore  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/MediaTypeHeaderValueStore.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -93,12 +93,13 @@ Class ExceptionExtensions  <a class="header-action link-secondary" title="View s
   <dl><dt>Assembly</dt><dd>Kampute.HttpClient.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides extension methods for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a> to enhance functionality related to HTTP request execution.</p>
+  <div class="markdown summary"><p>Provides a cache for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a> instances to improve performance by reusing instances for
+frequently requested media types and quality settings.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class ExceptionExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public static class MediaTypeHeaderValueStore</code></pre>
   </div>
 
 
@@ -108,7 +109,7 @@ Class ExceptionExtensions  <a class="header-action link-secondary" title="View s
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ExceptionExtensions</span></div>
+      <div><span class="xref">MediaTypeHeaderValueStore</span></div>
     </dd>
   </dl>
 
@@ -149,32 +150,74 @@ Class ExceptionExtensions  <a class="header-action link-secondary" title="View s
 </h2>
 
 
-  <a id="Kampute_HttpClient_ExceptionExtensions_IsTransientNetworkError_" data-uid="Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError*"></a>
+  <a id="Kampute_HttpClient_MediaTypeHeaderValueStore_Get_" data-uid="Kampute.HttpClient.MediaTypeHeaderValueStore.Get*"></a>
 
-  <h3 id="Kampute_HttpClient_ExceptionExtensions_IsTransientNetworkError_System_Exception_" data-uid="Kampute.HttpClient.ExceptionExtensions.IsTransientNetworkError(System.Exception)">
-  IsTransientNetworkError(Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ExceptionExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_MediaTypeHeaderValueStore_Get_System_String_" data-uid="Kampute.HttpClient.MediaTypeHeaderValueStore.Get(System.String)">
+  Get(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/MediaTypeHeaderValueStore.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Determines whether a given exception can be considered as a transient network issue for the purposes of retrying an HTTP request.</p>
+  <div class="markdown level1 summary"><p>Retrieves a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a> from the cache or creates a new one if it does not exist.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsTransientNetworkError(this Exception exception)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MediaTypeWithQualityHeaderValue Get(string mediaType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>exception</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
-    <dd><p>The exception encountered during the HTTP request execution.</p>
+    <dt><code>mediaType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The media type as a string.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the error can be considered as a transient network issue and might warrant a retry attempt; <code>false</code> otherwise.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a> corresponding to the specified media type.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_MediaTypeHeaderValueStore_Get_" data-uid="Kampute.HttpClient.MediaTypeHeaderValueStore.Get*"></a>
+
+  <h3 id="Kampute_HttpClient_MediaTypeHeaderValueStore_Get_System_String_System_Single_" data-uid="Kampute.HttpClient.MediaTypeHeaderValueStore.Get(System.String,System.Single)">
+  Get(string, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/MediaTypeHeaderValueStore.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a> from the cache or creates a new one if it does not exist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MediaTypeWithQualityHeaderValue Get(string mediaType, float quality)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>mediaType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The media type as a string.</p>
+</dd>
+    <dt><code>quality</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The quality factor associated with this media type, expressed as a value between 0 and 1.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.mediatypewithqualityheadervalue">MediaTypeWithQualityHeaderValue</a> corresponding to the specified media type and quality factor.</p>
 </dd>
   </dl>
 

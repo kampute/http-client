@@ -87,8 +87,8 @@
 <a href="https://github.com/kampute/http-client/actions/workflows/main.yml"><img src="https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master" alt="Build"></a></p>
 <p><code>Kampute.HttpClient</code> is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native <code>HttpClient</code> capabilities. Tailored for
 developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
-to address the complexities of web service consumption. <a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.html">Explore the API documentation</a> for
-detailed insights.</p>
+to address the complexities of web service consumption.</p>
+<p><a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.html">Explore the API documentation</a> for detailed insights.</p>
 <h2 id="key-features">Key Features</h2>
 <ul>
 <li><p><strong>Shared HttpClient Instances:</strong>
@@ -98,6 +98,11 @@ management. This approach significantly boosts performance in scenarios involvin
 <li><p><strong>Flexible HttpClient Configuration:</strong>
 Allows the integration of custom or shared <code>HttpClient</code> instances, complete with configurations for message handlers, timeouts, and advanced authentication
 mechanisms to fit specific application needs.</p>
+</li>
+<li><p><strong>Dynamic Request Customization:</strong>
+Offers the capability to define headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global configuration.
+Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration errors during
+runtime.</p>
 </li>
 <li><p><strong>Custom Error Handling and Exception Management:</strong>
 Converts HTTP response errors into detailed, meaningful exceptions, streamlining the process of interpreting API-specific errors with the aid of a customizable
@@ -174,6 +179,33 @@ client.AcceptJson();
 // into the specified MyModel type.
 var data = await client.GetAsync&lt;MyModel&gt;(&quot;https://api.example.com/resource&quot;);
 </code></pre>
+<h3 id="scoped-request-headers">Scoped Request Headers</h3>
+<p>In addition to setting default request headers that apply to all requests, you can also define headers for a specific set of requests using a scope. This allows
+temporary changes to headers that override the default settings within a defined context, which can be essential for handling varying endpoint requirements or
+testing scenarios.</p>
+<p>The example below demonstrates how to temporarily override the <code>Accept</code> header for a series of requests, ensuring that all requests within the scope explicitly
+request a specific media type.</p>
+<pre><code class="lang-csharp">using Kampute.HttpClient;
+
+// Create a new instance of the HttpRestClient.
+using var client = new HttpRestClient();
+
+// Begin a scoped block where the 'Accept' header is set to 'text/csv'.
+// All HTTP requests within this using block will include this 'Accept' header.
+using (client.BeginHeaderScope(new Dictionary&lt;string, string&gt; { [&quot;Accept&quot;] = MediaTypeNames.Text.Csv }))
+{
+    // Perform a GET request to retrieve data as CSV. The 'Accept' header for this request
+    // will be 'text/csv', as specified by the scoped header.
+    await client.GetAsStringAsync(&quot;https://api.example.com/resource/1/csv&quot;);
+
+    // Perform another GET request within the same scope. The 'Accept' header remains
+    // consistent with the scoped setting, ensuring both requests expect CSV responses.
+    await client.GetAsStringAsync(&quot;https://api.example.com/resource/2/csv&quot;);
+}
+</code></pre>
+<p>In addition to headers, it is also possible to scope request properties. This feature is particularly useful in scenarios where you need to maintain state or
+context-specific information temporarily during a series of HTTP operations. Scoped properties are managed similarly to scoped headers, enabling developers to
+define temporary data attached to requests that are automatically cleared once the scope is exited.</p>
 <h3 id="custom-retry-strategies">Custom Retry Strategies</h3>
 <p>The library offers various retry strategies to manage transient failures, ensuring your application remains resilient during network instability or temporary
 service unavailability. The example below demonstrates how to apply a Fibonacci backoff strategy, which gradually increases the delay between retries, balancing
@@ -262,7 +294,7 @@ potential.</p>
 <p>Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features, please open an issue
 first to discuss what you would like to change.</p>
 <h2 id="license">License</h2>
-<p><code>Kampute.HttpClient</code> is licensed under the terms of the <a href="LICENSE">MIT</a> license.</p>
+<p><code>Kampute.HttpClient</code> is licensed under the terms of the MIT license. See the <a href="LICENSE">LICENSE</a> file for more details.</p>
 
 </article>
 

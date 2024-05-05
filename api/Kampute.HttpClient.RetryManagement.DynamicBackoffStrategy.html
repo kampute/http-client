@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class DynamicRetrySchedulerFactory | Kampute.HttpClient .NET Library </title>
+      <title>Class DynamicBackoffStrategy | Kampute.HttpClient .NET Library </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class DynamicRetrySchedulerFactory | Kampute.HttpClient .NET Library ">
+      <meta name="title" content="Class DynamicBackoffStrategy | Kampute.HttpClient .NET Library ">
       
       <meta name="description" content="Represents a factory that dynamically creates retry schedulers based on runtime conditions of HTTP requests.">
       <link rel="icon" href="../ICON.png">
@@ -16,7 +16,7 @@
       
       <meta name="docfx:disablenewtab" content="true">
       
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/new/master/apiSpec/new?filename=Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy.md&amp;value=---%0Auid%3A%20Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory">
+        <article data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy">
 
 
 
-  <h1 id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory" class="text-break">
-Class DynamicRetrySchedulerFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicRetrySchedulerFactory.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy" class="text-break">
+Class DynamicBackoffStrategy  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicBackoffStrategy.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -98,7 +98,7 @@ Class DynamicRetrySchedulerFactory  <a class="header-action link-secondary" titl
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DynamicRetrySchedulerFactory : IRetrySchedulerFactory</code></pre>
+    <pre><code class="lang-csharp hljs">public class DynamicBackoffStrategy : IHttpBackoffProvider</code></pre>
   </div>
 
 
@@ -108,14 +108,14 @@ Class DynamicRetrySchedulerFactory  <a class="header-action link-secondary" titl
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">DynamicRetrySchedulerFactory</span></div>
+      <div><span class="xref">DynamicBackoffStrategy</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></div>
+      <div><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></div>
     </dd>
   </dl>
 
@@ -149,9 +149,9 @@ Class DynamicRetrySchedulerFactory  <a class="header-action link-secondary" titl
 
 
 
-  <h2 id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory_remarks">Remarks</h2>
+  <h2 id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy_remarks">Remarks</h2>
   <div class="markdown level0 remarks"><p>
-The <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a> class leverages a factory function to instantiate <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a> objects, enabling
+The <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a> class leverages a factory function to instantiate <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a> objects, enabling
 the selection of specific retry strategies tailored to the conditions observed during the execution of HTTP requests. The decision-making
 process utilizes detailed context provided by <a class="xref" href="Kampute.HttpClient.HttpRequestErrorContext.html">HttpRequestErrorContext</a>, which includes information about the HTTP client,
 the request, and any encountered exceptions.
@@ -168,19 +168,19 @@ different retry behaviors for optimizing overall system performance and reliabil
 </h2>
 
 
-  <a id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor*"></a>
+  <a id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor*"></a>
 
-  <h3 id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})">
-  DynamicRetrySchedulerFactory(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicRetrySchedulerFactory.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})">
+  DynamicBackoffStrategy(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicBackoffStrategy.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a> with a scheduler factory function.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a> with a scheduler factory function.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DynamicRetrySchedulerFactory(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt; schedulerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public DynamicBackoffStrategy(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt; schedulerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -208,19 +208,19 @@ selection of retry strategies based on the detailed context of failed HTTP reque
 
 
 
-  <a id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor*"></a>
+  <a id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor*"></a>
 
-  <h3 id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryStrategy__" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})">
-  DynamicRetrySchedulerFactory(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicRetrySchedulerFactory.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryStrategy__" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})">
+  DynamicBackoffStrategy(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicBackoffStrategy.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a> with a strategy factory function.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a> with a strategy factory function.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DynamicRetrySchedulerFactory(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt; strategyFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public DynamicBackoffStrategy(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt; strategyFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -252,11 +252,11 @@ selection of retry strategies based on the detailed context of failed HTTP reque
 </h2>
 
 
-  <a id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory_CreateScheduler_" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler*"></a>
+  <a id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy_CreateScheduler_" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler*"></a>
 
-  <h3 id="Kampute_HttpClient_RetryManagement_DynamicRetrySchedulerFactory_CreateScheduler_Kampute_HttpClient_HttpRequestErrorContext_" data-uid="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)">
+  <h3 id="Kampute_HttpClient_RetryManagement_DynamicBackoffStrategy_CreateScheduler_Kampute_HttpClient_HttpRequestErrorContext_" data-uid="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.CreateScheduler(Kampute.HttpClient.HttpRequestErrorContext)">
   CreateScheduler(HttpRequestErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicRetrySchedulerFactory.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/DynamicBackoffStrategy.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a retry scheduler tailored to the specific conditions of a failed HTTP request, as determined by the provided context.</p>

@@ -244,10 +244,10 @@ Class DeflateCompressedContent  <a class="header-action link-secondary" title="V
 </h2>
 
 
-  <a id="Kampute_HttpClient_Content_Compression_DeflateCompressedContent_WrapWithCompressionStream_" data-uid="Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream*"></a>
+  <a id="Kampute_HttpClient_Content_Compression_DeflateCompressedContent_CompressStream_" data-uid="Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream*"></a>
 
-  <h3 id="Kampute_HttpClient_Content_Compression_DeflateCompressedContent_WrapWithCompressionStream_System_IO_Stream_" data-uid="Kampute.HttpClient.Content.Compression.DeflateCompressedContent.WrapWithCompressionStream(System.IO.Stream)">
-  WrapWithCompressionStream(Stream)
+  <h3 id="Kampute_HttpClient_Content_Compression_DeflateCompressedContent_CompressStream_System_IO_Stream_" data-uid="Kampute.HttpClient.Content.Compression.DeflateCompressedContent.CompressStream(System.IO.Stream)">
+  CompressStream(Stream)
   <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Content/Compression/DeflateCompressedContent.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -256,12 +256,12 @@ Class DeflateCompressedContent  <a class="header-action link-secondary" title="V
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Stream WrapWithCompressionStream(Stream baseStream)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Stream CompressStream(Stream stream)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>baseStream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
     <dd><p>The original stream to wrap with a Deflate compression stream.</p>
 </dd>
   </dl>
@@ -269,7 +269,7 @@ Class DeflateCompressedContent  <a class="header-action link-secondary" title="V
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
-    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a> that applies Deflate compression to the data written to the <code class="paramref">baseStream</code>.</p>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a> that applies Deflate compression to the data written to the <code class="paramref">stream</code>.</p>
 </dd>
   </dl>
 

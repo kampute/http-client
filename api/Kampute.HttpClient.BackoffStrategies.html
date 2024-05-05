@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_BackoffStrategies" data-uid="Kampute.HttpClient.BackoffStrategies" class="text-break">
-Class BackoffStrategies  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L56"><i class="bi bi-code-slash"></i></a>
+Class BackoffStrategies  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -167,7 +167,7 @@ static retry strategy may not adequately address the nuances of different failur
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_None" data-uid="Kampute.HttpClient.BackoffStrategies.None">
   None
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a strategy where no retry attempts are made.</p>
@@ -175,7 +175,7 @@ static retry strategy may not adequately address the nuances of different failur
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory None { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider None { get; }</code></pre>
   </div>
 
 
@@ -184,8 +184,8 @@ static retry strategy may not adequately address the nuances of different failur
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy of no retry attempts.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy of no retry attempts.</p>
 </dd>
   </dl>
 
@@ -207,15 +207,15 @@ static retry strategy may not adequately address the nuances of different failur
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Dynamic_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__" data-uid="Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler})">
   Dynamic(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L331"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L315"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates an instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a> with a dynamic scheduler factory based on the context of a failed HTTP request.</p>
+  <div class="markdown level1 summary"><p>Creates an instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a> with a dynamic scheduler factory based on the context of a failed HTTP request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Dynamic(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt; schedulerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Dynamic(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt; schedulerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -227,8 +227,8 @@ static retry strategy may not adequately address the nuances of different failur
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a>.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a>.</p>
 </dd>
   </dl>
 
@@ -256,15 +256,15 @@ encountered errors, making it ideal for complex systems with varied types of tra
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Dynamic_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryStrategy__" data-uid="Kampute.HttpClient.BackoffStrategies.Dynamic(System.Func{Kampute.HttpClient.HttpRequestErrorContext,Kampute.HttpClient.Interfaces.IRetryStrategy})">
   Dynamic(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L315"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L300"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates an instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a> with a dynamic strategy factory based on the context of a failed HTTP request.</p>
+  <div class="markdown level1 summary"><p>Creates an instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a> with a dynamic strategy factory based on the context of a failed HTTP request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Dynamic(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt; strategyFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Dynamic(Func&lt;HttpRequestErrorContext, IRetryStrategy&gt; strategyFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -276,8 +276,8 @@ encountered errors, making it ideal for complex systems with varied types of tra
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicRetrySchedulerFactory.html">DynamicRetrySchedulerFactory</a>.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.DynamicBackoffStrategy.html">DynamicBackoffStrategy</a>.</p>
 </dd>
   </dl>
 
@@ -305,7 +305,7 @@ encountered errors, making it ideal for complex systems with varied types of tra
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Exponential_System_TimeSpan_System_TimeSpan_System_Double_" data-uid="Kampute.HttpClient.BackoffStrategies.Exponential(System.TimeSpan,System.TimeSpan,System.Double)">
   Exponential(TimeSpan, TimeSpan, double)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L231"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L221"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified timeout.</p>
@@ -313,7 +313,7 @@ encountered errors, making it ideal for complex systems with varied types of tra
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Exponential(TimeSpan timeout, TimeSpan initialDelay, double rate = 2)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Exponential(TimeSpan timeout, TimeSpan initialDelay, double rate = 2)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -331,8 +331,8 @@ encountered errors, making it ideal for complex systems with varied types of tra
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified timeout.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified timeout.</p>
 </dd>
   </dl>
 
@@ -361,7 +361,7 @@ retrying.</p>
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Exponential_System_UInt32_System_TimeSpan_System_Double_" data-uid="Kampute.HttpClient.BackoffStrategies.Exponential(System.UInt32,System.TimeSpan,System.Double)">
   Exponential(uint, TimeSpan, double)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L212"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L203"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays increasing exponentially between each attempt, up to a specified maximum number
@@ -370,7 +370,7 @@ of retry attempts.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Exponential(uint maxAttempts, TimeSpan initialDelay, double rate = 2)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Exponential(uint maxAttempts, TimeSpan initialDelay, double rate = 2)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -388,8 +388,8 @@ of retry attempts.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified maximum number of retry attempts.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays increasing exponentially between each attempt, up to a specified maximum number of retry attempts.</p>
 </dd>
   </dl>
 
@@ -417,7 +417,7 @@ the impact on systems by rapidly increasing wait times between retry attempts.</
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Fibonacci_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan)">
   Fibonacci(TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L299"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L285"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</p>
@@ -425,7 +425,7 @@ the impact on systems by rapidly increasing wait times between retry attempts.</
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Fibonacci(TimeSpan timeout, TimeSpan initialDelay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Fibonacci(TimeSpan timeout, TimeSpan initialDelay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -440,8 +440,8 @@ the impact on systems by rapidly increasing wait times between retry attempts.</
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</p>
 </dd>
   </dl>
 
@@ -463,7 +463,7 @@ a balanced choice between aggressive and cautious retry pacing, suitable for a w
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Fibonacci_System_TimeSpan_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Fibonacci(System.TimeSpan,System.TimeSpan,System.TimeSpan)">
   Fibonacci(TimeSpan, TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L266"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L254"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</p>
@@ -471,7 +471,7 @@ a balanced choice between aggressive and cautious retry pacing, suitable for a w
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Fibonacci(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Fibonacci(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -489,8 +489,8 @@ a balanced choice between aggressive and cautious retry pacing, suitable for a w
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified timeout.</p>
 </dd>
   </dl>
 
@@ -512,7 +512,7 @@ a balanced choice between aggressive and cautious retry pacing, suitable for a w
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Fibonacci_System_UInt32_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan)">
   Fibonacci(uint, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L283"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L270"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified maximum
@@ -521,7 +521,7 @@ number of retry attempts.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Fibonacci(uint maxAttempts, TimeSpan initialDelay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Fibonacci(uint maxAttempts, TimeSpan initialDelay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -536,8 +536,8 @@ number of retry attempts.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.</p>
 </dd>
   </dl>
 
@@ -559,7 +559,7 @@ aggressive and cautious retry pacing, suitable for a wide range of scenarios.</p
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Fibonacci_System_UInt32_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Fibonacci(System.UInt32,System.TimeSpan,System.TimeSpan)">
   Fibonacci(uint, TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L249"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L238"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays following the Fibonacci sequence between each attempt, up to a specified maximum
@@ -568,7 +568,7 @@ number of retry attempts.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Fibonacci(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Fibonacci(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -586,8 +586,8 @@ number of retry attempts.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays following the Fibonacci sequence between each attempt, up to a specified maximum number of retry attempts.</p>
 </dd>
   </dl>
 
@@ -609,7 +609,7 @@ aggressive and cautious retry pacing, suitable for a wide range of scenarios.</p
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Linear_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan)">
   Linear(TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L185"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout.</p>
@@ -617,7 +617,7 @@ aggressive and cautious retry pacing, suitable for a wide range of scenarios.</p
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Linear(TimeSpan timeout, TimeSpan initialDelay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Linear(TimeSpan timeout, TimeSpan initialDelay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -632,8 +632,8 @@ aggressive and cautious retry pacing, suitable for a wide range of scenarios.</p
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.</p>
 </dd>
   </dl>
 
@@ -655,7 +655,7 @@ reducing system load with gradually increasing wait times, while enforcing a max
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Linear_System_TimeSpan_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Linear(System.TimeSpan,System.TimeSpan,System.TimeSpan)">
   Linear(TimeSpan, TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L154"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified timeout.</p>
@@ -663,7 +663,7 @@ reducing system load with gradually increasing wait times, while enforcing a max
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Linear(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Linear(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -681,8 +681,8 @@ reducing system load with gradually increasing wait times, while enforcing a max
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified maximum number of retry attempts.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified maximum number of retry attempts.</p>
 </dd>
   </dl>
 
@@ -704,7 +704,7 @@ reducing system load with gradually increasing wait times, while enforcing a max
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Linear_System_UInt32_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan)">
   Linear(uint, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L170"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified maximum number of
@@ -713,7 +713,7 @@ retry attempts.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Linear(uint maxAttempts, TimeSpan initialDelay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Linear(uint maxAttempts, TimeSpan initialDelay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -728,8 +728,8 @@ retry attempts.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy with delays increasing linearly between each attempt, up to a specified timeout.</p>
 </dd>
   </dl>
 
@@ -751,7 +751,7 @@ gradually increasing wait times.</p>
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Linear_System_UInt32_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Linear(System.UInt32,System.TimeSpan,System.TimeSpan)">
   Linear(uint, TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L138"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with delays increasing linearly between each attempt, up to a specified maximum number of
@@ -760,7 +760,7 @@ retry attempts.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Linear(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Linear(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -778,8 +778,8 @@ retry attempts.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified timeout.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified timeout.</p>
 </dd>
   </dl>
 
@@ -801,7 +801,7 @@ gradually increasing wait times.</p>
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Once_System_DateTimeOffset_" data-uid="Kampute.HttpClient.BackoffStrategies.Once(System.DateTimeOffset)">
   Once(DateTimeOffset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs a single retry attempt after the specified date and time.</p>
@@ -809,7 +809,7 @@ gradually increasing wait times.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Once(DateTimeOffset after)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Once(DateTimeOffset after)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -821,8 +821,8 @@ gradually increasing wait times.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy of a single attempt after a specified date and time.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy of a single attempt after a specified date and time.</p>
 </dd>
   </dl>
 
@@ -844,7 +844,7 @@ conditions are likely met. If the specified time has already passed, it immediat
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Once_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Once(System.TimeSpan)">
   Once(TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L77"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs a single retry attempt after the specified delay.</p>
@@ -852,7 +852,7 @@ conditions are likely met. If the specified time has already passed, it immediat
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Once(TimeSpan delay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Once(TimeSpan delay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -864,8 +864,8 @@ conditions are likely met. If the specified time has already passed, it immediat
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy of a single attempt after a specified delay.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy of a single attempt after a specified delay.</p>
 </dd>
   </dl>
 
@@ -887,7 +887,7 @@ a transient issue.</p>
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Uniform_System_TimeSpan_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Uniform(System.TimeSpan,System.TimeSpan)">
   Uniform(TimeSpan, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L121"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with a constant delay between each attempt, up to a specified timeout.</p>
@@ -895,7 +895,7 @@ a transient issue.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Uniform(TimeSpan timeout, TimeSpan delay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Uniform(TimeSpan timeout, TimeSpan delay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -910,7 +910,7 @@ a transient issue.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
     <dd></dd>
   </dl>
 
@@ -932,7 +932,7 @@ multiple attempts with predictable delays, but with a maximum time limit for ret
 
   <h3 id="Kampute_HttpClient_BackoffStrategies_Uniform_System_UInt32_System_TimeSpan_" data-uid="Kampute.HttpClient.BackoffStrategies.Uniform(System.UInt32,System.TimeSpan)">
   Uniform(uint, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/BackoffStrategies.cs/#L107"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a strategy that performs multiple retry attempts with a constant delay between each attempt, up to a specified maximum number of retry
@@ -941,7 +941,7 @@ attempts.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IRetrySchedulerFactory Uniform(uint maxAttempts, TimeSpan delay)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IHttpBackoffProvider Uniform(uint maxAttempts, TimeSpan delay)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -956,8 +956,8 @@ attempts.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified maximum number of retry attempts.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified maximum number of retry attempts.</p>
 </dd>
   </dl>
 

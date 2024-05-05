@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_HttpResponseErrorContext" data-uid="Kampute.HttpClient.HttpResponseErrorContext" class="text-break">
-Class HttpResponseErrorContext  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L15"><i class="bi bi-code-slash"></i></a>
+Class HttpResponseErrorContext  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -126,6 +126,9 @@ the error encountered, and the response that indicates failure.</p>
       <a class="xref" href="Kampute.HttpClient.HttpRequestErrorContext.html#Kampute_HttpClient_HttpRequestErrorContext_Request">HttpRequestErrorContext.Request</a>
     </div>
     <div>
+      <a class="xref" href="Kampute.HttpClient.HttpRequestErrorContext.html#Kampute_HttpClient_HttpRequestErrorContext_ScheduleRetryAsync_System_Func_Kampute_HttpClient_HttpRequestErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__System_Threading_CancellationToken_">HttpRequestErrorContext.ScheduleRetryAsync(Func&lt;HttpRequestErrorContext, IRetryScheduler&gt;, CancellationToken)</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
     <div>
@@ -161,7 +164,7 @@ the error encountered, and the response that indicates failure.</p>
 
   <h3 id="Kampute_HttpClient_HttpResponseErrorContext__ctor_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_Kampute_HttpClient_HttpResponseException_" data-uid="Kampute.HttpClient.HttpResponseErrorContext.#ctor(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,Kampute.HttpClient.HttpResponseException)">
   HttpResponseErrorContext(HttpRestClient, HttpRequestMessage, HttpResponseMessage, HttpResponseException)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes an instance of the <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> class.</p>
@@ -213,7 +216,7 @@ the error encountered, and the response that indicates failure.</p>
 
   <h3 id="Kampute_HttpClient_HttpResponseErrorContext_Error" data-uid="Kampute.HttpClient.HttpResponseErrorContext.Error">
   Error
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the <a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a> containing details of the HTTP response error.</p>
@@ -246,7 +249,7 @@ the error encountered, and the response that indicates failure.</p>
 
   <h3 id="Kampute_HttpClient_HttpResponseErrorContext_Response" data-uid="Kampute.HttpClient.HttpResponseErrorContext.Response">
   Response
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> indicating the failure.</p>
@@ -272,6 +275,58 @@ the error encountered, and the response that indicates failure.</p>
 
 
 
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Kampute_HttpClient_HttpResponseErrorContext_ScheduleRetryAsync_" data-uid="Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync*"></a>
+
+  <h3 id="Kampute_HttpClient_HttpResponseErrorContext_ScheduleRetryAsync_System_Func_Kampute_HttpClient_HttpResponseErrorContext_Kampute_HttpClient_Interfaces_IRetryScheduler__System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpResponseErrorContext.ScheduleRetryAsync(System.Func{Kampute.HttpClient.HttpResponseErrorContext,Kampute.HttpClient.Interfaces.IRetryScheduler},System.Threading.CancellationToken)">
+  ScheduleRetryAsync(Func&lt;HttpResponseErrorContext, IRetryScheduler?&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpResponseErrorContext.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Schedules a retry for the failed HTTP request using a provided scheduler factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;HttpErrorHandlerResult&gt; ScheduleRetryAsync(Func&lt;HttpResponseErrorContext, IRetryScheduler?&gt; schedulerFactory, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>schedulerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a>, <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a>&gt;</dt>
+    <dd><p>A function that returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a> for scheduling retry attempts based on the error context.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A token that can be used to cancel the operation.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a>&gt;</dt>
+    <dd><p>A task that resolves to an <a class="xref" href="Kampute.HttpClient.HttpErrorHandlerResult.html">HttpErrorHandlerResult</a> indicating whether a retry should be attempted.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if the <code class="paramref">schedulerFactory</code> is <code>null</code>.</p>
+</dd>
+  </dl>
 
 
 

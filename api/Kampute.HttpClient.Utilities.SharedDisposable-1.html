@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_Utilities_SharedDisposable_1" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1" class="text-break">
-Class SharedDisposable&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L21"><i class="bi bi-code-slash"></i></a>
+Class SharedDisposable&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,10 +147,15 @@ Class SharedDisposable&lt;T&gt;  <a class="header-action link-secondary" title="
 
 
   <h2 id="Kampute_HttpClient_Utilities_SharedDisposable_1_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts
+  <div class="markdown level0 remarks"><p>
+This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts 
 of an application. It ensures that the resource remains alive as long as it is needed and is properly cleaned up afterwards. This pattern
-helps prevent resource leaks and promotes efficient resource usage. Additionally, the implementation is thread-safe, making it suitable for
-use in multi-threaded environments where resources may be accessed concurrently.</p>
+helps prevent resource leaks and promotes efficient resource usage.
+</p>
+<p>
+The implementation is thread-safe, making it suitable for use in multi-threaded environments where resources may be accessed concurrently.
+The resource is created lazily, only when it is first requested, and is disposed of when the last reference is released.
+</p>
 </div>
 
 
@@ -160,9 +165,36 @@ use in multi-threaded environments where resources may be accessed concurrently.
 
   <a id="Kampute_HttpClient_Utilities_SharedDisposable_1__ctor_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor*"></a>
 
+  <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1__ctor" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor">
+  SharedDisposable()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a> class that uses the default constructor of <code class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SharedDisposable()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_Utilities_SharedDisposable_1__ctor_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor*"></a>
+
   <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1__ctor_System_Func__0__" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.#ctor(System.Func{`0})">
   SharedDisposable(Func&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a> class with a factory function.</p>
@@ -205,7 +237,7 @@ use in multi-threaded environments where resources may be accessed concurrently.
 
   <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1_ReferenceCount" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.ReferenceCount">
   ReferenceCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the current number of active references to the managed disposable object.</p>
@@ -238,26 +270,26 @@ use in multi-threaded environments where resources may be accessed concurrently.
 </h2>
 
 
-  <a id="Kampute_HttpClient_Utilities_SharedDisposable_1_Acquire_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire*"></a>
+  <a id="Kampute_HttpClient_Utilities_SharedDisposable_1_AcquireReference_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.AcquireReference*"></a>
 
-  <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1_Acquire" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.Acquire">
-  Acquire()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1_AcquireReference" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.AcquireReference">
+  AcquireReference()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Acquires a reference to the managed object, creating the object if necessary.</p>
+  <div class="markdown level1 summary"><p>Creates a new reference to the shared disposable resource, increasing the reference count.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T Acquire()</code></pre>
+    <pre><code class="lang-csharp hljs">public SharedDisposable&lt;T&gt;.Reference AcquireReference()</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">T</span></dt>
-    <dd><p>A reference to the managed object.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable</a>&lt;T&gt;.<a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html">Reference</a></dt>
+    <dd><p>A new <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html">SharedDisposable&lt;T&gt;.Reference</a> instance.</p>
 </dd>
   </dl>
 
@@ -268,99 +300,6 @@ use in multi-threaded environments where resources may be accessed concurrently.
 
 
 
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
-    <dd><p>Thrown if the factory fails to create an instance of type <code class="typeparamref">T</code>.</p>
-</dd>
-  </dl>
-
-
-
-  <a id="Kampute_HttpClient_Utilities_SharedDisposable_1_Is_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.Is*"></a>
-
-  <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1_Is__0_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.Is(`0)">
-  Is(T?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L98"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Determines whether the specified <code class="paramref">obj</code> is the one managed by this <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a> instance.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Is(T? obj)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>obj</code> <span class="xref">T</span></dt>
-    <dd><p>The object to check.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if <code class="paramref">obj</code> is managed by this <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a> instance; otherwise, <code>false</code>.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Kampute_HttpClient_Utilities_SharedDisposable_1_Release_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.Release*"></a>
-
-  <h3 id="Kampute_HttpClient_Utilities_SharedDisposable_1_Release__0_" data-uid="Kampute.HttpClient.Utilities.SharedDisposable`1.Release(`0)">
-  Release(T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedDisposable.cs/#L73"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Releases a reference to the managed object, disposing of the object if it is no longer in use.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Release(T obj)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>obj</code> <span class="xref">T</span></dt>
-    <dd><p>The managed object to release.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the object was no longer in use and disposed; otherwise, <code>false</code>.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">obj</code> is <code>null</code>.</p>
-</dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
-    <dd><p>Thrown if <code class="paramref">obj</code> is not managed by this <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a> instance.</p>
-</dd>
-  </dl>
 
 
 

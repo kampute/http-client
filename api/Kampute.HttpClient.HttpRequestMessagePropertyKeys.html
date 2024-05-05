@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys" class="text-break">
-Class HttpRequestMessagePropertyKeys  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L13"><i class="bi bi-code-slash"></i></a>
+Class HttpRequestMessagePropertyKeys  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -152,11 +152,11 @@ Class HttpRequestMessagePropertyKeys  <a class="header-action link-secondary" ti
 
   <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_CloneGeneration" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.CloneGeneration">
   CloneGeneration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>A key used to store and identify the clone generation property in an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a>.
-This property tracks how many times the request has been cloned.</p>
+  <div class="markdown level1 summary"><p>A key used to store and identify the property within an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that tracks
+how many times the request has been cloned.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -182,13 +182,46 @@ This property tracks how many times the request has been cloned.</p>
 
 
 
-  <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_ResponseObjectType" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.ResponseObjectType">
-  ResponseObjectType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_ErrorHandler" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.ErrorHandler">
+  ErrorHandler
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>A key used to store and identify the response object type property in an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a>.
-This property identifies the type of expected .NET object in the response.</p>
+  <div class="markdown level1 summary"><p>A key used to store and identify the property within an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that references
+the <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> instance associated with the request, which is responsible for processing
+and potentially recovering from errors in the response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string ErrorHandler = &quot;HttpRestClient.ErrorHandler&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_ResponseObjectType" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.ResponseObjectType">
+  ResponseObjectType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A key used to store and identify the property within an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that identifies
+the type of expected .NET object in the response.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -216,11 +249,12 @@ This property identifies the type of expected .NET object in the response.</p>
 
   <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_RetryScheduler" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.RetryScheduler">
   RetryScheduler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>A key used to store and identify the retry scheduler property in an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a>.
-This property holds the active scheduler associated with the request, if any, managing retry logic for transient failures.</p>
+  <div class="markdown level1 summary"><p>A key used to store and identify the property within an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that references
+the <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a> instance associated with the request which is responsible for scheduling
+the retry logic for transient failures.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -246,13 +280,45 @@ This property holds the active scheduler associated with the request, if any, ma
 
 
 
-  <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_TransactionId" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.TransactionId">
-  TransactionId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_SkipUnauthorizedHandling" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling">
+  SkipUnauthorizedHandling
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>A key used to store and identify the transaction identifier property in an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a>.
-This property identifies the request and its clones.</p>
+  <div class="markdown level1 summary"><p>A key used to store and identify the property within an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that indicates
+'401 Unauthorized' errors should not be automatically handled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string SkipUnauthorizedHandling = &quot;HttpRestClient.SkipUnauthorizedHandling&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Kampute_HttpClient_HttpRequestMessagePropertyKeys_TransactionId" data-uid="Kampute.HttpClient.HttpRequestMessagePropertyKeys.TransactionId">
+  TransactionId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRequestMessagePropertyKeys.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A key used to store and identify the property within an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> that identifies
+the request and its clones.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 

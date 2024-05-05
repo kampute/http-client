@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions" class="text-break">
-Class HttpRestClientXmlExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L23"><i class="bi bi-code-slash"></i></a>
+Class HttpRestClientXmlExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -158,7 +158,7 @@ and deserialization of XML to and from .NET objects.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_AcceptXml_Kampute_HttpClient_HttpRestClient_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.AcceptXml(Kampute.HttpClient.HttpRestClient)">
   AcceptXml(HttpRestClient)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Configures the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> to accept XML responses by adding a <a class="xref" href="Kampute.HttpClient.Xml.XmlContentDeserializer.html">XmlContentDeserializer</a> in its response deserializers collection.</p>
@@ -201,7 +201,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PatchAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PatchAsXmlAsync(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L208"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PATCH request with XML-formatted payload to the specified URI without processing the response body.</p>
@@ -256,7 +256,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -267,7 +267,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PatchAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PatchAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PatchAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L190"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PATCH request with XML-formatted payload to the specified URI and returns the response body deserialized as the specified type.</p>
@@ -328,7 +328,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -339,7 +339,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PostAsXmlAsync(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L134"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous POST request with XML-formatted payload to the specified URI without processing the response body.</p>
@@ -394,7 +394,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -405,7 +405,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PostAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PostAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L116"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous POST request with XML-formatted payload to the specified URI.</p>
@@ -466,7 +466,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -477,7 +477,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PutAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PutAsXmlAsync(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L171"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PUT request with XML-formatted payload to the specified URI without processing the response body.</p>
@@ -532,7 +532,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -543,7 +543,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PutAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.PutAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.String,System.Object,System.Threading.CancellationToken)">
   PutAsXmlAsync&lt;T&gt;(HttpRestClient, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L153"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous PUT request with XML-formatted payload to the specified URI and returns the response body deserialized as the specified type.</p>
@@ -604,7 +604,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -615,7 +615,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_SendAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)">
   SendAsXmlAsync(HttpRestClient, HttpMethod, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous POST request with XML-formatted payload to the specified URI without processing the response body.</p>
@@ -623,7 +623,7 @@ the client's response deserializers.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;HttpResponseHeaders&gt; SendAsXmlAsync(this HttpRestClient client, HttpMethod method, string uri, object payload, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task SendAsXmlAsync(this HttpRestClient client, HttpMethod method, string uri, object payload, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -647,8 +647,8 @@ the client's response deserializers.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpresponseheaders">HttpResponseHeaders</a>&gt;</dt>
-    <dd><p>A task representing the asynchronous operation, returning headers of the response.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd><p>A task representing the asynchronous operation.</p>
 </dd>
   </dl>
 
@@ -673,7 +673,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>
@@ -684,7 +684,7 @@ the client's response deserializers.</p>
 
   <h3 id="Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_SendAsXmlAsync__1_Kampute_HttpClient_HttpRestClient_System_Net_Http_HttpMethod_System_String_System_Object_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.SendAsXmlAsync``1(Kampute.HttpClient.HttpRestClient,System.Net.Http.HttpMethod,System.String,System.Object,System.Threading.CancellationToken)">
   SendAsXmlAsync&lt;T&gt;(HttpRestClient, HttpMethod, string, object, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient.Xml/HttpRestClientXmlExtensions.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous request with XML-formatted payload to the specified URI.</p>
@@ -748,7 +748,7 @@ the client's response deserializers.</p>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown if the response body is empty or its media type is not supported.</p>
 </dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskcanceledexception">TaskCanceledException</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>
 </dd>
   </dl>

@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler" class="text-break">
-Class HttpError503Handler  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L26"><i class="bi bi-code-slash"></i></a>
+Class HttpError503Handler  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,7 +99,7 @@ default backoff strategy.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class HttpError503Handler : HttpErrorHandlerWithBackoff, IHttpErrorHandler</code></pre>
+    <pre><code class="lang-csharp hljs">public class HttpError503Handler : IHttpErrorHandler</code></pre>
   </div>
 
 
@@ -109,7 +109,6 @@ default backoff strategy.</p>
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html">HttpErrorHandlerWithBackoff</a></div>
       <div><span class="xref">HttpError503Handler</span></div>
     </dd>
   </dl>
@@ -125,9 +124,6 @@ default backoff strategy.</p>
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="Kampute.HttpClient.ErrorHandlers.Abstracts.HttpErrorHandlerWithBackoff.html#Kampute_HttpClient_ErrorHandlers_Abstracts_HttpErrorHandlerWithBackoff_BackoffAndDecideOnRetryAsync_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_">HttpErrorHandlerWithBackoff.BackoffAndDecideOnRetryAsync(HttpResponseErrorContext, CancellationToken)</a>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -171,7 +167,7 @@ present, its value is used to determine the backoff duration. If the header is n
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.OnBackoffStrategy">
   OnBackoffStrategy
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A delegate that allows customization of the backoff strategy when a '503 Service Unavailable' response is received.</p>
@@ -179,7 +175,7 @@ present, its value is used to determine the backoff duration. If the header is n
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Func&lt;HttpResponseErrorContext, DateTimeOffset?, IRetrySchedulerFactory?&gt;? OnBackoffStrategy { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Func&lt;HttpResponseErrorContext, DateTimeOffset?, IHttpBackoffProvider?&gt;? OnBackoffStrategy { get; set; }</code></pre>
   </div>
 
 
@@ -188,7 +184,7 @@ present, its value is used to determine the backoff duration. If the header is n
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>?, <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>?, <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -197,7 +193,7 @@ present, its value is used to determine the backoff duration. If the header is n
 
   <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy_remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
-If this delegate is set and returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a>, the returned strategy is used for the retry operation. 
+If this delegate is set and returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a>, the returned strategy is used for the retry operation. 
 If it is not set, or returns <code>null</code>, the handler will defer to the <code>Retry-After</code> header in the response or the 
 client's default backoff strategy.
 </p>
@@ -221,7 +217,7 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CanHandle_System_Net_HttpStatusCode_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CanHandle(System.Net.HttpStatusCode)">
   CanHandle(HttpStatusCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether this handler can process the specified HTTP status code.</p>
@@ -229,7 +225,7 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanHandle(HttpStatusCode statusCode)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool CanHandle(HttpStatusCode statusCode)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -259,19 +255,19 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
 
 
 
-  <a id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_DetermineBackoffStrategy_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy*"></a>
+  <a id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler*"></a>
 
-  <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.DetermineBackoffStrategy(Kampute.HttpClient.HttpResponseErrorContext)">
-  DetermineBackoffStrategy(HttpResponseErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)">
+  CreateScheduler(HttpResponseErrorContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Determines the backoff strategy to use based on the error context.</p>
+  <div class="markdown level1 summary"><p>Creates a scheduler for retrying the failed request based on the error context.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override IRetrySchedulerFactory DetermineBackoffStrategy(HttpResponseErrorContext ctx)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -283,8 +279,8 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a></dt>
-    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetrySchedulerFactory.html">IRetrySchedulerFactory</a> that defines the backoff strategy.</p>
+    <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a></dt>
+    <dd><p>An <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryScheduler.html">IRetryScheduler</a> that schedules the retry attempts.</p>
 </dd>
   </dl>
 
@@ -294,12 +290,18 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
 
 
 
-  <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_DetermineBackoffStrategy_Kampute_HttpClient_HttpResponseErrorContext__remarks">Remarks</h4>
+  <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>This method first attempts to use the <a class="xref" href="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy">OnBackoffStrategy</a> delegate to obtain a retry strategy. If the delegate is not
 provided or returns <code>null</code>, and a <code>Retry-After</code> header is present, the value of this header is used to create a retry
 delay. If neither condition is met, the client's default backoff strategy is utilized.</p>
 </div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if <code class="paramref">ctx</code> is <code>null</code>.</p>
+</dd>
+  </dl>
 
 
 

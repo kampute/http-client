@@ -964,15 +964,15 @@ references:
   commentId: T:Kampute.HttpClient.ErrorHandlers.HttpError401Handler
   fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler
   nameWithType: HttpError401Handler
-- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
-  name: HttpError401Handler(Func<HttpRequestErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>>)
-  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_System_Threading_CancellationToken_System_Threading_Tasks_Task_System_Net_Http_Headers_AuthenticationHeaderValue___
-  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
-  name.vb: New(Func(Of HttpRequestErrorContext, CancellationToken, Task(Of AuthenticationHeaderValue)))
-  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.HttpError401Handler(System.Func<Kampute.HttpClient.HttpRequestErrorContext, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Net.Http.Headers.AuthenticationHeaderValue?>>)
-  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.New(System.Func(Of Kampute.HttpClient.HttpRequestErrorContext, System.Threading.CancellationToken, System.Threading.Tasks.Task(Of System.Net.Http.Headers.AuthenticationHeaderValue)))
-  nameWithType: HttpError401Handler.HttpError401Handler(Func<HttpRequestErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>>)
-  nameWithType.vb: HttpError401Handler.New(Func(Of HttpRequestErrorContext, CancellationToken, Task(Of AuthenticationHeaderValue)))
+- uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
+  name: HttpError401Handler(Func<HttpResponseErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>>)
+  href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_System_Func_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_System_Threading_Tasks_Task_System_Net_Http_Headers_AuthenticationHeaderValue___
+  commentId: M:Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})
+  name.vb: New(Func(Of HttpResponseErrorContext, CancellationToken, Task(Of AuthenticationHeaderValue)))
+  fullName: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.HttpError401Handler(System.Func<Kampute.HttpClient.HttpResponseErrorContext, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Net.Http.Headers.AuthenticationHeaderValue?>>)
+  fullName.vb: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.New(System.Func(Of Kampute.HttpClient.HttpResponseErrorContext, System.Threading.CancellationToken, System.Threading.Tasks.Task(Of System.Net.Http.Headers.AuthenticationHeaderValue)))
+  nameWithType: HttpError401Handler.HttpError401Handler(Func<HttpResponseErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>>)
+  nameWithType.vb: HttpError401Handler.New(Func(Of HttpResponseErrorContext, CancellationToken, Task(Of AuthenticationHeaderValue)))
 - uid: Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor*
   name: HttpError401Handler
   href: api/Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_

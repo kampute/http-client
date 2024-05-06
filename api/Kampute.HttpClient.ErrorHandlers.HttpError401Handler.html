@@ -181,9 +181,9 @@ details. This enables a more efficient use of credentials and reduces the need f
 
   <a id="Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor*"></a>
 
-  <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_System_Func_Kampute_HttpClient_HttpRequestErrorContext_System_Threading_CancellationToken_System_Threading_Tasks_Task_System_Net_Http_Headers_AuthenticationHeaderValue___" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpRequestErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})">
-  HttpError401Handler(Func&lt;HttpRequestErrorContext, CancellationToken, Task&lt;AuthenticationHeaderValue?&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError401Handler__ctor_System_Func_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_System_Threading_Tasks_Task_System_Net_Http_Headers_AuthenticationHeaderValue___" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.#ctor(System.Func{Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.Headers.AuthenticationHeaderValue}})">
+  HttpError401Handler(Func&lt;HttpResponseErrorContext, CancellationToken, Task&lt;AuthenticationHeaderValue?&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html">HttpError401Handler</a> class.</p>
@@ -191,15 +191,19 @@ details. This enables a more efficient use of credentials and reduces the need f
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public HttpError401Handler(Func&lt;HttpRequestErrorContext, CancellationToken, Task&lt;AuthenticationHeaderValue?&gt;&gt; asyncAuthenticator)</code></pre>
+    <pre><code class="lang-csharp hljs">public HttpError401Handler(Func&lt;HttpResponseErrorContext, CancellationToken, Task&lt;AuthenticationHeaderValue?&gt;&gt; asyncAuthenticator)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>asyncAuthenticator</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpRequestErrorContext.html">HttpRequestErrorContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a>&gt;&gt;</dt>
+    <dt><code>asyncAuthenticator</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a>&gt;&gt;</dt>
     <dd><p>The asynchronous delegate to be invoked to acquire new authorization details. The delegate receives the following parameters:</p>
-<ul><li><span class="term">context</span>Provides context about the HTTP request resulting in a '401 Unauthorized' response. It is encapsulated within an
-    <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> instance, allowing for an informed decision on authentication.</li><li><span class="term">cancellationToken</span>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> for canceling the operation.</li></ul>
+<ul><li><span class="term">context</span>
+    Provides context about the HTTP response indicating a '401 Unauthorized' error. It is encapsulated within
+    an <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> instance, allowing for an informed decision on authentication.
+    </li><li><span class="term">cancellationToken</span>
+    A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> for canceling the operation.
+    </li></ul>
 The delegate should return a task resolving to an instance of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a> containing the  authorization details
 necessary for subsequent requests if authentication can be successfully completed. If the authentication process fails, the delegate should
 return <code>null</code>.
@@ -231,7 +235,7 @@ return <code>null</code>.
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError401Handler_AuthenticateAsync_Kampute_HttpClient_HttpResponseErrorContext_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.AuthenticateAsync(Kampute.HttpClient.HttpResponseErrorContext,System.Threading.CancellationToken)">
   AuthenticateAsync(HttpResponseErrorContext, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L98"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously authenticates an HTTP request that resulted in a '401 Unauthorized' response.</p>
@@ -279,7 +283,7 @@ return <code>null</code>.
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError401Handler_CanHandle_System_Net_HttpStatusCode_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.CanHandle(System.Net.HttpStatusCode)">
   CanHandle(HttpStatusCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L89"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether this handler can process the specified HTTP status code.</p>
@@ -321,7 +325,7 @@ return <code>null</code>.
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError401Handler_Dispose" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.Dispose">
   Dispose()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError401Handler.cs/#L136"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the <a class="xref" href="Kampute.HttpClient.ErrorHandlers.HttpError401Handler.html">HttpError401Handler</a> and optionally disposes of the managed resources.</p>

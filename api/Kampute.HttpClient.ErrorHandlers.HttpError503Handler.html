@@ -167,7 +167,7 @@ present, its value is used to determine the backoff duration. If the header is n
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.OnBackoffStrategy">
   OnBackoffStrategy
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A delegate that allows customization of the backoff strategy when a '503 Service Unavailable' response is received.</p>
@@ -199,10 +199,14 @@ client's default backoff strategy.
 </p>
 <p>
 The delegate receives the following parameters:
-<ul><li><span class="term">context</span>Provides context about the HTTP request resulting in a '503 Service Unavailable' response. It is encapsulated 
-within an <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> instance, allowing for an informed decision on the retry strategy.</li><li><span class="term">retryAfter</span>Advises on the next retry attempt timing as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a> value. If the response includes a 
-<code>Retry-After</code> header, this parameter reflects its value, suggesting an optimal time to retry. If the header is missing, 
-the value is <code>null</code>, indicating no specific suggestion from the server.</li></ul>
+<ul><li><span class="term">context</span>
+    Provides context about the HTTP responce indicating a '503 Service Unavailable' error. It is encapsulated within
+    an <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> instance, allowing for an informed decision on the retry strategy.
+    </li><li><span class="term">retryAfter</span>
+      Advises on the next retry attempt timing as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a> value. If the response includes a <code>Retry-After</code>
+      header, this parameter reflects its value, suggesting an optimal time to retry. If the header is missing, the value is <code>null</code>,
+      indicating no specific suggestion from the server.
+    </li></ul>
 
 </div>
 
@@ -217,7 +221,7 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CanHandle_System_Net_HttpStatusCode_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CanHandle(System.Net.HttpStatusCode)">
   CanHandle(HttpStatusCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether this handler can process the specified HTTP status code.</p>
@@ -259,7 +263,7 @@ the value is <code>null</code>, indicating no specific suggestion from the serve
 
   <h3 id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext_" data-uid="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.CreateScheduler(Kampute.HttpClient.HttpResponseErrorContext)">
   CreateScheduler(HttpResponseErrorContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/ErrorHandlers/HttpError503Handler.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a scheduler for retrying the failed request based on the error context.</p>

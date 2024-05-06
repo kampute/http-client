@@ -3,6 +3,7 @@
     using Kampute.HttpClient;
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.Test.TestHelpers;
+    using Kampute.HttpClient.Utilities;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -46,18 +47,33 @@
         }
 
         [Test]
+        public void DefaultConstractor_UsesSharedHttpClient()
+        {
+            var client = new HttpRestClient();
+            Assert.That(SharedHttpClient.ReferenceCount, Is.EqualTo(1));
+
+            client.Dispose();
+            Assert.That(SharedHttpClient.ReferenceCount, Is.Zero);
+        }
+
+        [Test]
         public async Task DefaultRequestHeaders_AreCopiedToRequestHeaders()
         {
             var testerAgent = new ProductInfoHeaderValue("Tester", "1.0");
             _client.DefaultRequestHeaders.UserAgent.Add(testerAgent);
 
+            var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
                 Assert.That(request.Headers.UserAgent, Contains.Item(testerAgent));
+
+                sent = true;
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             });
 
             await _client.SendAsync(TestHttpMethod, "/resource");
+
+            Assert.That(sent, Is.True);
         }
 
         [Test]

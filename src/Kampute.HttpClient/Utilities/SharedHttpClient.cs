@@ -4,7 +4,7 @@
     using System.Net.Http;
 
     /// <summary>
-    /// Provides a singleton-like access to a shared <see cref="HttpClient"/> instance across the application using <see cref="SharedDisposable{T}"/>.
+    /// Provides a singleton-like access to a shared <see cref="HttpClient"/> instance across the application.
     /// </summary>
     /// <remarks>
     /// This static class manages the lifecycle of a single <see cref="HttpClient"/> instance. It ensures efficient resource usage by allowing
@@ -33,6 +33,13 @@
 
             return _instance.AcquireReference();
         }
+
+
+        /// <summary>
+        /// Gets the current number of active references to the shared <see cref="HttpClient"/> instance.
+        /// </summary>
+        /// <value>The number of active references.</value>
+        public static int ReferenceCount => _instance is not null ? _instance.ReferenceCount : 0;
 
         /// <summary>
         /// Gets or sets the factory method used to create the <see cref="HttpClient"/> instance.

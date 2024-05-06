@@ -65,7 +65,7 @@
 
             var result = collection.GetAcceptableMediaTypes(modelType, errorType);
 
-            Assert.That(result, Is.EquivalentTo(expectedMediaTypes));
+            Assert.That(result, Is.EqualTo(expectedMediaTypes));
         }
 
         [Test]

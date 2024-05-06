@@ -12,7 +12,7 @@ namespace Kampute.HttpClient
     /// <summary>
     /// The exception that is thrown when an invalid or unsupported content is encountered in an HTTP response.
     /// </summary>
-    public class HttpContentException : ApplicationException
+    public class HttpContentException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpContentException"/> class.

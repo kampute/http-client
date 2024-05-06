@@ -44,7 +44,7 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
     public class HttpError401Handler : IHttpErrorHandler, IDisposable
     {
-        private readonly Func<HttpRequestErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>> _asyncAuthenticator;
+        private readonly Func<HttpResponseErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>> _asyncAuthenticator;
         private readonly AsyncUpdateThrottle<AuthenticationHeaderValue?> _lastAuthorization;
 
         /// <summary>
@@ -55,12 +55,16 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <list type="bullet">
         ///   <item>
         ///     <term>context</term>
-        ///     <description>Provides context about the HTTP request resulting in a '401 Unauthorized' response. It is encapsulated within an
-        ///     <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on authentication.</description>
+        ///     <description>
+        ///     Provides context about the HTTP response indicating a '401 Unauthorized' error. It is encapsulated within
+        ///     an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on authentication.
+        ///     </description>
         ///   </item>
         ///   <item>
         ///     <term>cancellationToken</term>
-        ///     <description>A <see cref="CancellationToken"/> for canceling the operation.</description>
+        ///     <description>
+        ///     A <see cref="CancellationToken"/> for canceling the operation.
+        ///     </description>
         ///   </item>
         /// </list>
         /// The delegate should return a task resolving to an instance of <see cref="AuthenticationHeaderValue"/> containing the  authorization details
@@ -68,7 +72,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// return <c>null</c>.
         /// </param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncAuthenticator"/> is <c>null</c>.</exception>
-        public HttpError401Handler(Func<HttpRequestErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>> asyncAuthenticator)
+        public HttpError401Handler(Func<HttpResponseErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>> asyncAuthenticator)
         {
             _asyncAuthenticator = asyncAuthenticator ?? throw new ArgumentNullException(nameof(asyncAuthenticator));
             _lastAuthorization = new(null);

@@ -5,7 +5,7 @@
     <Title>Kampute.HttpClient.Xml</Title>
     <Description>This package is an extension package for Kampute.HttpClient, enhancing it to manage application/xml content types, using XmlSerializer for serialization and deserialization of XML responses and payloads.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>2.1.0</Version>
+    <Version>2.1.1</Version>
     <Company>Kampute</Company>
     <Copyright>Copyright (c) 2024 Kampute</Copyright>
     <LangVersion>latest</LangVersion>

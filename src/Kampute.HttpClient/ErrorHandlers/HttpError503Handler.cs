@@ -38,17 +38,21 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <para>
         /// The delegate receives the following parameters:
         /// <list type="bullet">
-        /// <item>
-        /// <term>context</term>
-        /// <description>Provides context about the HTTP request resulting in a '503 Service Unavailable' response. It is encapsulated 
-        /// within an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on the retry strategy.</description>
-        /// </item>
-        /// <item>
-        /// <term>retryAfter</term>
-        /// <description>Advises on the next retry attempt timing as a <see cref="DateTimeOffset"/> value. If the response includes a 
-        /// <c>Retry-After</c> header, this parameter reflects its value, suggesting an optimal time to retry. If the header is missing, 
-        /// the value is <c>null</c>, indicating no specific suggestion from the server.</description>
-        /// </item>
+        ///   <item>
+        ///     <term>context</term>
+        ///     <description>
+        ///     Provides context about the HTTP responce indicating a '503 Service Unavailable' error. It is encapsulated within
+        ///     an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on the retry strategy.
+        ///     </description>
+        ///   </item>
+        ///   <item>
+        ///     <term>retryAfter</term>
+        ///     <description>
+        ///       Advises on the next retry attempt timing as a <see cref="DateTimeOffset"/> value. If the response includes a <c>Retry-After</c>
+        ///       header, this parameter reflects its value, suggesting an optimal time to retry. If the header is missing, the value is <c>null</c>,
+        ///       indicating no specific suggestion from the server.
+        ///     </description>
+        ///   </item>
         /// </list>
         /// </para>
         /// </remarks>

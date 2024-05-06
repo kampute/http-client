@@ -278,45 +278,6 @@ are accessed and not already present, allowing for efficient memory usage and av
 
 
 
-  <a id="Kampute_HttpClient_Utilities_FlyweightCache_2_Item_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Item*"></a>
-
-  <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2_Item__0_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Item(`0)">
-  this[TKey]
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L55"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Retrieves a value for the specified key.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TValue this[TKey key] { get; }</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>key</code> <span class="xref">TKey</span></dt>
-    <dd><p>The key whose value to retrieve.</p>
-</dd>
-  </dl>
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><span class="xref">TValue</span></dt>
-    <dd><p>The value associated with the specified key.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -374,6 +335,45 @@ are accessed and not already present, allowing for efficient memory usage and av
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd><p><code>true</code> if the key exists in the cache; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Kampute_HttpClient_Utilities_FlyweightCache_2_Get_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Get*"></a>
+
+  <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2_Get__0_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Get(`0)">
+  Get(TKey)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a value for the specified key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TValue Get(TKey key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <span class="xref">TKey</span></dt>
+    <dd><p>The key whose value to retrieve.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TValue</span></dt>
+    <dd><p>The value associated with the specified key.</p>
 </dd>
   </dl>
 

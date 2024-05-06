@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_HttpRestClient" data-uid="Kampute.HttpClient.HttpRestClient" class="text-break">
-Class HttpRestClient  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L52"><i class="bi bi-code-slash"></i></a>
+Class HttpRestClient  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -353,33 +353,30 @@ Class HttpRestClient  <a class="header-action link-secondary" title="View source
 
   <h2 id="Kampute_HttpClient_HttpRestClient_remarks">Remarks</h2>
   <div class="markdown level0 remarks"><p>
-<a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> simplifies interactions with RESTful APIs by abstracting the complexities of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>. It supports the 
-sharing of a single <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance across multiple <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instances, optimizing resource use and connection 
-management. This shared approach enhances performance, especially when concurrently accessing various services or API endpoints, by reusing HTTP 
-connections.
+<a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> abstracts the complexities of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>, supporting the sharing of a single <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>
+instance across multiple <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instances. This optimizes resource use and connection management, enhancing performance by
+reusing HTTP connections, especially during concurrent access to various services or API endpoints.
 </p>
 <p>
-It features a <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseDeserializers">ResponseDeserializers</a> collection for automatic HTTP response content deserialization into .NET objects. The client selects 
-the appropriate deserializer for the response's <code>Content-Type</code>, easing the integration with API responses.
+The client allows for scoped request headers and properties, providing temporary configurations that do not alter global settings. This ensures
+that changes remain isolated to specific contexts, increasing maintainability and reducing configuration errors during runtime.
 </p>
 <p>
-Backoff strategies are implemented through the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy">BackoffStrategy</a> property, providing a mechanism for handling transient failures and network 
-interruptions. These strategies dictate the logic for retrying requests after failures, including how long to wait between retries. By employing a
-proper backoff strategy, the client can avoid overwhelming the server or network, improving the chances of successful communication without compromising 
-resource utilization.
+It includes a <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseDeserializers">ResponseDeserializers</a> collection that automatically deserializes HTTP response content into .NET objects based on the
+response's <code>Content-Type</code>. If the <code>Accept</code> header is not predefined, the client dynamically adjusts it based on the configured response
+deserializers and the expected .NET object type.
 </p>
 <p>
-Extensible error handling is achieved through the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers">ErrorHandlers</a> collection. Custom <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> implementations can 
-be employed to address specific HTTP errors, enabling tailored retry strategies and failure responses.
+Transient failures and network interruptions are managed via the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BackoffStrategy">BackoffStrategy</a> property, which outlines retry logic and wait times
+between retries. This strategic approach helps avoid server overloads and improves communication success without excessive resource use.
 </p>
 <p>
-The client enriches HTTP request and response handling with life-cycle events such as <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> and <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a>. 
-These events allow for request modification, response inspection, and logging, facilitating a high degree of interaction customization.
+Extensible error handling is enabled through the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ErrorHandlers">ErrorHandlers</a> collection, allowing custom <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpErrorHandler.html">IHttpErrorHandler</a> implementations
+to handle specific HTTP errors with tailored strategies.
 </p>
 <p>
-Through its design, <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> aims to offer a balance between ease of use and flexibility, making it a suitable choice for developers 
-looking to interact with RESTful APIs in a .NET environment. Whether for simple API consumption or complex, high-load scenarios, it provides the tools 
-necessary to create efficient, reliable, and customizable HTTP communication solutions.
+Lifecycle events like <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> and <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a> enhance request and response handling by enabling
+modifications, inspections, and logging, allowing for a highly customizable interaction.
 </p>
 </div>
 
@@ -392,7 +389,7 @@ necessary to create efficient, reliable, and customizable HTTP communication sol
 
   <h3 id="Kampute_HttpClient_HttpRestClient__ctor" data-uid="Kampute.HttpClient.HttpRestClient.#ctor">
   HttpRestClient()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> class.</p>
@@ -412,8 +409,7 @@ necessary to create efficient, reliable, and customizable HTTP communication sol
 
 
   <h4 class="section" id="Kampute_HttpClient_HttpRestClient__ctor_remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>This constructor initializes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> with a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance provided
-by <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">SharedHttpClient</a> class.</p>
+  <div class="markdown level1 remarks"><p>This constructor initializes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> using a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance acquired from the <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">SharedHttpClient</a> static class.</p>
 </div>
 
 
@@ -423,10 +419,10 @@ by <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">Sha
 
   <h3 id="Kampute_HttpClient_HttpRestClient__ctor_Kampute_HttpClient_Utilities_SharedDisposable_System_Net_Http_HttpClient__Reference_" data-uid="Kampute.HttpClient.HttpRestClient.#ctor(Kampute.HttpClient.Utilities.SharedDisposable{System.Net.Http.HttpClient}.Reference)">
   HttpRestClient(Reference)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L85"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> class using a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> class with the specified shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> reference.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -437,7 +433,7 @@ by <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">Sha
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>httpClientReference</code> <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>&gt;.<a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html">Reference</a></dt>
-    <dd><p>A <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html">SharedDisposable&lt;T&gt;.Reference</a> to the shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance.</p>
+    <dd><p>A reference to a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance, managed as <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.Reference.html">SharedDisposable&lt;T&gt;.Reference</a>.</p>
 </dd>
   </dl>
 
@@ -448,11 +444,14 @@ by <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">Sha
 
 
 
+  <h4 class="section" id="Kampute_HttpClient_HttpRestClient__ctor_Kampute_HttpClient_Utilities_SharedDisposable_System_Net_Http_HttpClient__Reference__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This constructor takes ownership of the shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> reference and ensures it is properly released when the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> is disposed.</p>
+</div>
 
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">httpClientReference</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">httpClientReference</code> is <code>null</code>&gt;.</p>
 </dd>
   </dl>
 
@@ -462,7 +461,7 @@ by <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">Sha
 
   <h3 id="Kampute_HttpClient_HttpRestClient__ctor_System_Net_Http_HttpClient_System_Boolean_" data-uid="Kampute.HttpClient.HttpRestClient.#ctor(System.Net.Http.HttpClient,System.Boolean)">
   HttpRestClient(HttpClient, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> class with the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>.</p>
@@ -508,7 +507,7 @@ by <a class="xref" href="Kampute.HttpClient.Utilities.SharedHttpClient.html">Sha
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BackoffStrategy" data-uid="Kampute.HttpClient.HttpRestClient.BackoffStrategy">
   BackoffStrategy
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L176"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.</p>
@@ -546,7 +545,7 @@ issues or temporary server unavailability. The default is <a class="xref" href="
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BaseAddress" data-uid="Kampute.HttpClient.HttpRestClient.BaseAddress">
   BaseAddress
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L159"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the base address for HTTP requests.</p>
@@ -592,7 +591,7 @@ any HTTP request must use an absolute URL.
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DefaultRequestHeaders" data-uid="Kampute.HttpClient.HttpRestClient.DefaultRequestHeaders">
   DefaultRequestHeaders
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L234"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L233"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the headers which should be sent with each request.</p>
@@ -625,7 +624,7 @@ any HTTP request must use an absolute URL.
 
   <h3 id="Kampute_HttpClient_HttpRestClient_ErrorHandlers" data-uid="Kampute.HttpClient.HttpRestClient.ErrorHandlers">
   ErrorHandlers
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L213"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L212"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the mutable collection of HTTP error handlers used for handling error responses.</p>
@@ -662,7 +661,7 @@ HTTP error responses. The handlers in this collection are tried in order to hand
 
   <h3 id="Kampute_HttpClient_HttpRestClient_ResponseDeserializers" data-uid="Kampute.HttpClient.HttpRestClient.ResponseDeserializers">
   ResponseDeserializers
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L226"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L225"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the mutable collection of HTTP content deserializers used for deserializing response content.</p>
@@ -700,7 +699,7 @@ content into .NET objects.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_ResponseErrorType" data-uid="Kampute.HttpClient.HttpRestClient.ResponseErrorType">
   ResponseErrorType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L201"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L200"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a> used to deserialize the response body when the response status code indicates an error.</p>
@@ -749,7 +748,7 @@ returned from the server.
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BeginHeaderScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___" data-uid="Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
   BeginHeaderScope(IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L279"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L278"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Begins a new scope with the specified HTTP headers.</p>
@@ -798,7 +797,7 @@ be included in the HTTP headers of all subsequent HTTP requests made by this cli
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BeginPropertyScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_Object___" data-uid="Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
   BeginPropertyScope(IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L261"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L260"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Begins a new scope with the specified properties.</p>
@@ -853,7 +852,7 @@ and maintaining state across asynchronous operations or across different compone
 
   <h3 id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type_" data-uid="Kampute.HttpClient.HttpRestClient.CreateHttpRequest(System.Net.Http.HttpMethod,System.String,System.Type)">
   CreateHttpRequest(HttpMethod, string, Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L635"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L634"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> with the specified method and URI.</p>
@@ -932,7 +931,7 @@ of the request. In addition to the scoped properties, the following properties a
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseException_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseException,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
   DecideOnRetryAsync(HttpResponseException, HttpRequestMessage, HttpResponseMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L463"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L462"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously evaluates failed HTTP responses to decide the appropriate action based on the error context and predefined error
@@ -997,7 +996,7 @@ that guides the next steps, either to retry the request with potentially modifie
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
   DecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L437"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L436"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error
@@ -1060,7 +1059,7 @@ to handle the error as unrecoverable.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpResponseMessage_System_Type_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpResponseMessage,System.Type,System.Threading.CancellationToken)">
   DeserializeContentAsync(HttpResponseMessage, Type, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L551"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L550"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously deserializes the body of an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> and converts it into an object of a specified type.</p>
@@ -1124,7 +1123,7 @@ failures, an <a class="xref" href="Kampute.HttpClient.HttpContentException.html"
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DispatchAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
   DispatchAsync(HttpRequestMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L398"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L397"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously dispatches an HTTP request.</p>
@@ -1183,7 +1182,7 @@ request headers or logging response details.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchWithRetriesAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
   DispatchWithRetriesAsync(HttpRequestMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L356"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L355"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request, with the possibility of retrying the request based on specific failure conditions.</p>
@@ -1251,7 +1250,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_Dispose" data-uid="Kampute.HttpClient.HttpRestClient.Dispose">
   Dispose()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L239"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L238"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> and optionally disposes of the managed resources.</p>
@@ -1278,7 +1277,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_Dispose_System_Boolean_" data-uid="Kampute.HttpClient.HttpRestClient.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L690"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L689"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Disposes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance.</p>
@@ -1311,7 +1310,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_Finalize" data-uid="Kampute.HttpClient.HttpRestClient.Finalize">
   ~HttpRestClient()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L110"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Releases unmanaged resources.</p>
@@ -1338,7 +1337,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_System_Net_Http_HttpResponseMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnAfterReceivingResponse(System.Net.Http.HttpResponseMessage)">
   OnAfterReceivingResponse(HttpResponseMessage)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L728"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L727"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a> event.</p>
@@ -1376,7 +1375,7 @@ before any processing is performed on the response.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_System_Net_Http_HttpRequestMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnBeforeSendingRequest(System.Net.Http.HttpRequestMessage)">
   OnBeforeSendingRequest(HttpRequestMessage)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L714"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L713"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> event.</p>
@@ -1414,7 +1413,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnDisposing" data-uid="Kampute.HttpClient.HttpRestClient.OnDisposing">
   OnDisposing()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L739"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L738"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Disposing">Disposing</a> event.</p>
@@ -1441,7 +1440,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_SendAsync_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
   SendAsync(HttpMethod, string, HttpContent?, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L327"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L326"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request with the specified method, URI, and payload, without processing the response body.</p>
@@ -1504,7 +1503,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_SendAsync__1_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
   SendAsync&lt;T&gt;(HttpMethod, string, HttpContent?, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L301"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L300"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request with the specified method, URI, and payload, returning response body deserialized as the specified type.</p>
@@ -1576,7 +1575,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_ToExceptionAsync_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.ToExceptionAsync(System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
   ToExceptionAsync(HttpResponseMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L510"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L509"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Converts an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> into an appropriate exception.</p>
@@ -1640,7 +1639,7 @@ the response's status code and a default error message.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_AfterReceivingResponse" data-uid="Kampute.HttpClient.HttpRestClient.AfterReceivingResponse">
   AfterReceivingResponse
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L130"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Occurs when an HTTP response has been received.</p>
@@ -1676,7 +1675,7 @@ or headers before they are processed by the rest of the application.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BeforeSendingRequest" data-uid="Kampute.HttpClient.HttpRestClient.BeforeSendingRequest">
   BeforeSendingRequest
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L120"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Occurs when a new HTTP request message is about to be sent.</p>
@@ -1712,7 +1711,7 @@ HTTP request.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_Disposing" data-uid="Kampute.HttpClient.HttpRestClient.Disposing">
   Disposing
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L138"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Occurs just before the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> is disposed.</p>

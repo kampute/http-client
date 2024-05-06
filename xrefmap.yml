@@ -1118,6 +1118,25 @@ references:
   commentId: T:Kampute.HttpClient.HttpContentDeserializerCollection
   fullName: Kampute.HttpClient.HttpContentDeserializerCollection
   nameWithType: HttpContentDeserializerCollection
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.#ctor
+  name: HttpContentDeserializerCollection()
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection__ctor
+  commentId: M:Kampute.HttpClient.HttpContentDeserializerCollection.#ctor
+  name.vb: New()
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.HttpContentDeserializerCollection()
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.New()
+  nameWithType: HttpContentDeserializerCollection.HttpContentDeserializerCollection()
+  nameWithType.vb: HttpContentDeserializerCollection.New()
+- uid: Kampute.HttpClient.HttpContentDeserializerCollection.#ctor*
+  name: HttpContentDeserializerCollection
+  href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection__ctor_
+  commentId: Overload:Kampute.HttpClient.HttpContentDeserializerCollection.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.HttpContentDeserializerCollection.HttpContentDeserializerCollection
+  fullName.vb: Kampute.HttpClient.HttpContentDeserializerCollection.New
+  nameWithType: HttpContentDeserializerCollection.HttpContentDeserializerCollection
+  nameWithType.vb: HttpContentDeserializerCollection.New
 - uid: Kampute.HttpClient.HttpContentDeserializerCollection.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)
   name: Add(IHttpContentDeserializer)
   href: api/Kampute.HttpClient.HttpContentDeserializerCollection.html#Kampute_HttpClient_HttpContentDeserializerCollection_Add_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_
@@ -4845,25 +4864,23 @@ references:
   fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Count
   nameWithType: FlyweightCache<TKey, TValue>.Count
   nameWithType.vb: FlyweightCache(Of TKey, TValue).Count
-- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Item(`0)
-  name: this[TKey]
-  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Item__0_
-  commentId: P:Kampute.HttpClient.Utilities.FlyweightCache`2.Item(`0)
-  name.vb: this[](TKey)
-  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.this[TKey]
-  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).this[](TKey)
-  nameWithType: FlyweightCache<TKey, TValue>.this[TKey]
-  nameWithType.vb: FlyweightCache(Of TKey, TValue).this[](TKey)
-- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Item*
-  name: this
-  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Item_
-  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.Item
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Get(`0)
+  name: Get(TKey)
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Get__0_
+  commentId: M:Kampute.HttpClient.Utilities.FlyweightCache`2.Get(`0)
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Get(TKey)
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Get(TKey)
+  nameWithType: FlyweightCache<TKey, TValue>.Get(TKey)
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Get(TKey)
+- uid: Kampute.HttpClient.Utilities.FlyweightCache`2.Get*
+  name: Get
+  href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2_Get_
+  commentId: Overload:Kampute.HttpClient.Utilities.FlyweightCache`2.Get
   isSpec: "True"
-  name.vb: this[]
-  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.this
-  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).this[]
-  nameWithType: FlyweightCache<TKey, TValue>.this
-  nameWithType.vb: FlyweightCache(Of TKey, TValue).this[]
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.Get
+  fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).Get
+  nameWithType: FlyweightCache<TKey, TValue>.Get
+  nameWithType.vb: FlyweightCache(Of TKey, TValue).Get
 - uid: Kampute.HttpClient.Utilities.ScopedCollection`1
   name: ScopedCollection<T>
   href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html
@@ -5202,6 +5219,19 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.Utilities.SharedHttpClient.Factory
   nameWithType: SharedHttpClient.Factory
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount
+  name: ReferenceCount
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_ReferenceCount
+  commentId: P:Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount
+  nameWithType: SharedHttpClient.ReferenceCount
+- uid: Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount*
+  name: ReferenceCount
+  href: api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_ReferenceCount_
+  commentId: Overload:Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount
+  nameWithType: SharedHttpClient.ReferenceCount
 - uid: Kampute.HttpClient.Xml
   name: Kampute.HttpClient.Xml
   href: api/Kampute.HttpClient.Xml.html

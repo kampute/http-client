@@ -85,7 +85,7 @@
 
 
   <h1 id="Kampute_HttpClient_HttpContentDeserializerCollection" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection" class="text-break">
-Class HttpContentDeserializerCollection  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L37"><i class="bi bi-code-slash"></i></a>
+Class HttpContentDeserializerCollection  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -98,7 +98,7 @@ Class HttpContentDeserializerCollection  <a class="header-action link-secondary"
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpContentDeserializerCollection : ICollection&lt;IHttpContentDeserializer&gt;, IEnumerable&lt;IHttpContentDeserializer&gt;, IEnumerable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class HttpContentDeserializerCollection : ICollection&lt;IHttpContentDeserializer&gt;, IReadOnlyCollection&lt;IHttpContentDeserializer&gt;, IEnumerable&lt;IHttpContentDeserializer&gt;, IEnumerable</code></pre>
   </div>
 
 
@@ -116,6 +116,7 @@ Class HttpContentDeserializerCollection  <a class="header-action link-secondary"
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a>&gt;</div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a>&gt;</div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
     </dd>
@@ -149,23 +150,41 @@ Class HttpContentDeserializerCollection  <a class="header-action link-secondary"
 
 
   <h2 id="Kampute_HttpClient_HttpContentDeserializerCollection_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>
-This collection provides capabilities for managing <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> instances, including adding, removing,
+  <div class="markdown level0 remarks"><p>This collection provides capabilities for managing <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> instances, including adding, removing,
 and selecting deserializers based on media types and model types. It leverages internal caches to optimize performance for frequently
-accessed deserializers, significantly enhancing efficiency in scenarios where media types and model types are repeatedly queried.
-</p>
-<p>
-Caches within the collection are automatically invalidated and updated upon modification of the deserializer inventory, ensuring that access
-patterns remain efficient and that overhead associated with dynamic updates is minimized.
-</p>
-<p>
-The collection is designed to be flexible and adaptable, accommodating a wide range of models, media types, and server behaviors without
-prior knowledge of specific implementations. It supports assigning quality factors to media types, prioritizing those that can deserialize
-both model and error types (q=1.0) over those that solely support error types (q=0.9). This nuanced handling of media types facilitates
-sophisticated content negotiation strategies, ensuring clients can effectively communicate preferences for both successful responses and
-error scenarios.
-</p>
+accessed deserializers, significantly enhancing efficiency in scenarios where media types and model types are repeatedly queried.</p>
 </div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Kampute_HttpClient_HttpContentDeserializerCollection__ctor_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.#ctor*"></a>
+
+  <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection__ctor" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.#ctor">
+  HttpContentDeserializerCollection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.HttpContentDeserializerCollection.html">HttpContentDeserializerCollection</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpContentDeserializerCollection()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
   <h2 class="section" id="properties">Properties
@@ -176,7 +195,7 @@ error scenarios.
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_Count" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.Count">
   Count
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the number of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> instances contained in the collection.</p>
@@ -213,7 +232,7 @@ error scenarios.
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_Add_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.Add(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)">
   Add(IHttpContentDeserializer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L147"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L141"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> to the collection if an instance of the same type doesn't already exist.</p>
@@ -255,7 +274,7 @@ error scenarios.
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_Clear" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.Clear">
   Clear()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L192"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes all items from the collection.</p>
@@ -282,7 +301,7 @@ error scenarios.
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_Contains_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.Contains(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)">
   Contains(IHttpContentDeserializer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L174"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines whether the collection contains a specific <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a>.</p>
@@ -321,7 +340,7 @@ error scenarios.
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_Find__1" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.Find``1">
   Find&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L184"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Finds an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> by its type.</p>
@@ -360,7 +379,7 @@ error scenarios.
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_GetAcceptableMediaTypes_System_Type_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type)">
   GetAcceptableMediaTypes(Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L86"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves all supported media types for a specified model type from the collection of deserializers.</p>
@@ -410,7 +429,7 @@ For non-null model types, the method aggregates media types supported by the reg
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_GetAcceptableMediaTypes_System_Type_System_Type_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.GetAcceptableMediaTypes(System.Type,System.Type)">
   GetAcceptableMediaTypes(Type?, Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L123"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves all supported media types for a specified model type and error type from the collection of deserializers.</p>
@@ -470,7 +489,7 @@ If both parameters are <code>null</code>, the method defaults to returning <code
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_GetDeserializerFor_System_String_System_Type_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.GetDeserializerFor(System.String,System.Type)">
   GetDeserializerFor(string, Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the first <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> instances in the collection that support deserializing a specific media type and model type.</p>
@@ -512,7 +531,7 @@ If both parameters are <code>null</code>, the method defaults to returning <code
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_GetEnumerator" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.GetEnumerator">
   GetEnumerator()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L218"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L212"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection.</p>
@@ -545,7 +564,7 @@ If both parameters are <code>null</code>, the method defaults to returning <code
 
   <h3 id="Kampute_HttpClient_HttpContentDeserializerCollection_Remove_Kampute_HttpClient_Interfaces_IHttpContentDeserializer_" data-uid="Kampute.HttpClient.HttpContentDeserializerCollection.Remove(Kampute.HttpClient.Interfaces.IHttpContentDeserializer)">
   Remove(IHttpContentDeserializer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpContentDeserializerCollection.cs/#L159"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes the first occurrence of a specific <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> from the collection.</p>

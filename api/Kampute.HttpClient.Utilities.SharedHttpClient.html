@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class SharedHttpClient | Kampute.HttpClient .NET Library ">
       
-      <meta name="description" content="Provides a singleton-like access to a shared  instance across the application using .">
+      <meta name="description" content="Provides a singleton-like access to a shared  instance across the application.">
       <link rel="icon" href="../ICON.png">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -93,7 +93,7 @@ Class SharedHttpClient  <a class="header-action link-secondary" title="View sour
   <dl><dt>Assembly</dt><dd>Kampute.HttpClient.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides a singleton-like access to a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance across the application using <a class="xref" href="Kampute.HttpClient.Utilities.SharedDisposable-1.html">SharedDisposable&lt;T&gt;</a>.</p>
+  <div class="markdown summary"><p>Provides a singleton-like access to a shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance across the application.</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -158,7 +158,7 @@ which means it is only disposed when no longer in use by any part of the applica
 
   <h3 id="Kampute_HttpClient_Utilities_SharedHttpClient_Factory" data-uid="Kampute.HttpClient.Utilities.SharedHttpClient.Factory">
   Factory
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedHttpClient.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedHttpClient.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the factory method used to create the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance.</p>
@@ -194,6 +194,39 @@ has been created will throw an <a class="xref" href="https://learn.microsoft.com
     <dd><p>Thrown if attempting to change the factory after the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance has been created.</p>
 </dd>
   </dl>
+
+
+
+  <a id="Kampute_HttpClient_Utilities_SharedHttpClient_ReferenceCount_" data-uid="Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount*"></a>
+
+  <h3 id="Kampute_HttpClient_Utilities_SharedHttpClient_ReferenceCount" data-uid="Kampute.HttpClient.Utilities.SharedHttpClient.ReferenceCount">
+  ReferenceCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/SharedHttpClient.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the current number of active references to the shared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int ReferenceCount { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of active references.</p>
+</dd>
+  </dl>
+
+
+
+
+
 
 
 

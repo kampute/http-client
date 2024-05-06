@@ -35,17 +35,21 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <para>
         /// The delegate receives the following parameters:
         /// <list type="bullet">
-        /// <item>
-        /// <term>context</term>
-        /// <description>Provides context about the HTTP request resulting in a '429 Too Many Requests' response. It is encapsulated 
-        /// within an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on the retry strategy.</description>
-        /// </item>
-        /// <item>
-        /// <term>resetTime</term>
-        /// <description>Indicates the time when the rate limit will be lifted as a <see cref="DateTimeOffset"/> value. If the server specifies 
-        /// a reset time via response headers, this parameter provides that time, allowing the client to know when to resume requests. If the 
-        /// server does not specify a reset time, the value will be <c>null</c>.</description>
-        /// </item>
+        ///   <item>
+        ///     <term>context</term>
+        ///     <description>
+        ///     Provides context about the HTTP response indicating a '429 Too Many Requests' error. It is encapsulated within
+        ///     an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on the retry strategy.
+        ///     </description>
+        ///   </item>
+        ///   <item>
+        ///     <term>resetTime</term>
+        ///     <description>
+        ///     Indicates the time when the rate limit will be lifted as a <see cref="DateTimeOffset"/> value. If the server specifies 
+        ///     a reset time via response headers, this parameter provides that time, allowing the client to know when to resume requests.
+        ///     If the server does not specify a reset time, the value will be <c>null</c>.
+        ///     </description>
+        ///   </item>
         /// </list>
         /// </para>
         /// </remarks>

@@ -16,7 +16,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="mediaType">The media type as a string.</param>
         /// <returns>A <see cref="MediaTypeWithQualityHeaderValue"/> corresponding to the specified media type.</returns>
-        public static MediaTypeWithQualityHeaderValue Get(string mediaType) => WithoutQuality.Store[mediaType];
+        public static MediaTypeWithQualityHeaderValue Get(string mediaType) => WithoutQuality.Store.Get(mediaType);
 
         /// <summary>
         /// Retrieves a <see cref="MediaTypeWithQualityHeaderValue"/> from the cache or creates a new one if it does not exist.
@@ -24,7 +24,7 @@ namespace Kampute.HttpClient
         /// <param name="mediaType">The media type as a string.</param>
         /// <param name="quality">The quality factor associated with this media type, expressed as a value between 0 and 1.</param>
         /// <returns>A <see cref="MediaTypeWithQualityHeaderValue"/> corresponding to the specified media type and quality factor.</returns>
-        public static MediaTypeWithQualityHeaderValue Get(string mediaType, float quality) => WithQuality.Store[(mediaType, quality)];
+        public static MediaTypeWithQualityHeaderValue Get(string mediaType, float quality) => WithQuality.Store.Get((mediaType, quality));
 
         /// <summary>
         /// Manages the caching of <see cref="MediaTypeWithQualityHeaderValue"/> instances without quality factor.

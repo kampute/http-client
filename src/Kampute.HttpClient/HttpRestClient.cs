@@ -20,33 +20,30 @@ namespace Kampute.HttpClient
     /// </summary>
     /// <remarks>
     /// <para>
-    /// <see cref="HttpRestClient"/> simplifies interactions with RESTful APIs by abstracting the complexities of <see cref="HttpClient"/>. It supports the 
-    /// sharing of a single <see cref="HttpClient"/> instance across multiple <see cref="HttpRestClient"/> instances, optimizing resource use and connection 
-    /// management. This shared approach enhances performance, especially when concurrently accessing various services or API endpoints, by reusing HTTP 
-    /// connections.
+    /// <see cref="HttpRestClient"/> abstracts the complexities of <see cref="HttpClient"/>, supporting the sharing of a single <see cref="HttpClient"/>
+    /// instance across multiple <see cref="HttpRestClient"/> instances. This optimizes resource use and connection management, enhancing performance by
+    /// reusing HTTP connections, especially during concurrent access to various services or API endpoints.
     /// </para>
     /// <para>
-    /// It features a <see cref="ResponseDeserializers"/> collection for automatic HTTP response content deserialization into .NET objects. The client selects 
-    /// the appropriate deserializer for the response's <c>Content-Type</c>, easing the integration with API responses.
+    /// The client allows for scoped request headers and properties, providing temporary configurations that do not alter global settings. This ensures
+    /// that changes remain isolated to specific contexts, increasing maintainability and reducing configuration errors during runtime.
     /// </para>
     /// <para>
-    /// Backoff strategies are implemented through the <see cref="BackoffStrategy"/> property, providing a mechanism for handling transient failures and network 
-    /// interruptions. These strategies dictate the logic for retrying requests after failures, including how long to wait between retries. By employing a
-    /// proper backoff strategy, the client can avoid overwhelming the server or network, improving the chances of successful communication without compromising 
-    /// resource utilization.
+    /// It includes a <see cref="ResponseDeserializers"/> collection that automatically deserializes HTTP response content into .NET objects based on the
+    /// response's <c>Content-Type</c>. If the <c>Accept</c> header is not predefined, the client dynamically adjusts it based on the configured response
+    /// deserializers and the expected .NET object type.
     /// </para>
     /// <para>
-    /// Extensible error handling is achieved through the <see cref="ErrorHandlers"/> collection. Custom <see cref="IHttpErrorHandler"/> implementations can 
-    /// be employed to address specific HTTP errors, enabling tailored retry strategies and failure responses.
+    /// Transient failures and network interruptions are managed via the <see cref="BackoffStrategy"/> property, which outlines retry logic and wait times
+    /// between retries. This strategic approach helps avoid server overloads and improves communication success without excessive resource use.
     /// </para>
     /// <para>
-    /// The client enriches HTTP request and response handling with life-cycle events such as <see cref="BeforeSendingRequest"/> and <see cref="AfterReceivingResponse"/>. 
-    /// These events allow for request modification, response inspection, and logging, facilitating a high degree of interaction customization.
+    /// Extensible error handling is enabled through the <see cref="ErrorHandlers"/> collection, allowing custom <see cref="IHttpErrorHandler"/> implementations
+    /// to handle specific HTTP errors with tailored strategies.
     /// </para>
     /// <para>
-    /// Through its design, <see cref="HttpRestClient"/> aims to offer a balance between ease of use and flexibility, making it a suitable choice for developers 
-    /// looking to interact with RESTful APIs in a .NET environment. Whether for simple API consumption or complex, high-load scenarios, it provides the tools 
-    /// necessary to create efficient, reliable, and customizable HTTP communication solutions.
+    /// Lifecycle events like <see cref="BeforeSendingRequest"/> and <see cref="AfterReceivingResponse"/> enhance request and response handling by enabling
+    /// modifications, inspections, and logging, allowing for a highly customizable interaction.
     /// </para>
     /// </remarks>
     public class HttpRestClient : IDisposable
@@ -70,8 +67,7 @@ namespace Kampute.HttpClient
         /// Initializes a new instance of the <see cref="HttpRestClient"/> class.
         /// </summary>
         /// <remarks>
-        /// This constructor initializes the <see cref="HttpRestClient"/> with a shared <see cref="HttpClient"/> instance provided
-        /// by <see cref="SharedHttpClient"/> class.
+        /// This constructor initializes the <see cref="HttpRestClient"/> using a shared <see cref="HttpClient"/> instance acquired from the <see cref="SharedHttpClient"/> static class.
         /// </remarks>
         public HttpRestClient()
             : this(SharedHttpClient.AcquireReference())
@@ -79,10 +75,13 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpRestClient"/> class using a shared <see cref="HttpClient"/>.
+        /// Initializes a new instance of the <see cref="HttpRestClient"/> class with the specified shared <see cref="HttpClient"/> reference.
         /// </summary>
-        /// <param name="httpClientReference">A <see cref="SharedDisposable{T}.Reference"/> to the shared <see cref="HttpClient"/> instance.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <c>null</c>.</exception>
+        /// <param name="httpClientReference">A reference to a shared <see cref="HttpClient"/> instance, managed as <see cref="SharedDisposable{T}.Reference"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <c>null</c>>.</exception>
+        /// <remarks>
+        /// This constructor takes ownership of the shared <see cref="HttpClient"/> reference and ensures it is properly released when the <see cref="HttpRestClient"/> is disposed.
+        /// </remarks>
         public HttpRestClient(SharedDisposable<HttpClient>.Reference httpClientReference)
         {
             if (httpClientReference is null)

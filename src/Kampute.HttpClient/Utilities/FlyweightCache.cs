@@ -51,8 +51,8 @@
         /// Retrieves a value for the specified key.
         /// </summary>
         /// <param name="key">The key whose value to retrieve.</param>
-        /// <value>The value associated with the specified key.</value>
-        public TValue this[TKey key] => _store.GetOrAdd(key, _valueFactory);
+        /// <returns>The value associated with the specified key.</returns>
+        public TValue Get(TKey key) => _store.GetOrAdd(key, _valueFactory);
 
         /// <summary>
         /// Checks if the cache contains a value associated with the specified key.

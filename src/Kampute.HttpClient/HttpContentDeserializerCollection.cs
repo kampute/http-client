@@ -6,41 +6,39 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.HttpClient.Utilities;
     using System;
     using System.Collections;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Threading;
 
     /// <summary>
     /// Represents a specialized collection of <see cref="IHttpContentDeserializer"/> instances.
     /// </summary>
     /// <remarks>
-    /// <para>
     /// This collection provides capabilities for managing <see cref="IHttpContentDeserializer"/> instances, including adding, removing,
     /// and selecting deserializers based on media types and model types. It leverages internal caches to optimize performance for frequently
     /// accessed deserializers, significantly enhancing efficiency in scenarios where media types and model types are repeatedly queried.
-    /// </para>
-    /// <para>
-    /// Caches within the collection are automatically invalidated and updated upon modification of the deserializer inventory, ensuring that access
-    /// patterns remain efficient and that overhead associated with dynamic updates is minimized.
-    /// </para>
-    /// <para>
-    /// The collection is designed to be flexible and adaptable, accommodating a wide range of models, media types, and server behaviors without
-    /// prior knowledge of specific implementations. It supports assigning quality factors to media types, prioritizing those that can deserialize
-    /// both model and error types (q=1.0) over those that solely support error types (q=0.9). This nuanced handling of media types facilitates
-    /// sophisticated content negotiation strategies, ensuring clients can effectively communicate preferences for both successful responses and
-    /// error scenarios.
-    /// </para>
     /// </remarks>
-    public sealed class HttpContentDeserializerCollection : ICollection<IHttpContentDeserializer>
+    public sealed class HttpContentDeserializerCollection : ICollection<IHttpContentDeserializer>, IReadOnlyCollection<IHttpContentDeserializer>
     {
         private static readonly string[] AllMediaTypes = ["*/*"];
 
-        private readonly List<IHttpContentDeserializer> _collection = [];
-        private readonly ConcurrentDictionary<Type, IReadOnlyCollection<string>> _mediaTypes1Cache = new();
-        private readonly ConcurrentDictionary<(Type, Type), IReadOnlyCollection<string>> _mediaTypes2Cache = new();
+        private readonly List<IHttpContentDeserializer> _collection;
+        private readonly Lazy<AcceptableMediaTypeCache> _acceptCache;
+        private readonly FlyweightCache<(string, Type), IHttpContentDeserializer?> _deserializerCache;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpContentDeserializerCollection"/> class.
+        /// </summary>
+        public HttpContentDeserializerCollection()
+        {
+            _collection = [];
+            _deserializerCache = new(key => FindDeserializer(key.Item1, key.Item2));
+            _acceptCache = new(() => new(this), LazyThreadSafetyMode.PublicationOnly);
+        }
 
         /// <summary>
         /// Gets the number of <see cref="IHttpContentDeserializer"/> instances contained in the collection.
@@ -66,11 +64,7 @@ namespace Kampute.HttpClient
         /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <c>null</c> if none is found.</returns>
         public IHttpContentDeserializer? GetDeserializerFor(string mediaType, Type modelType)
         {
-            foreach (var deserializer in _collection)
-                if (deserializer.CanDeserialize(mediaType, modelType))
-                    return deserializer;
-
-            return null;
+            return _deserializerCache.Get((mediaType, modelType));
         }
 
         /// <summary>
@@ -98,7 +92,7 @@ namespace Kampute.HttpClient
             {
                 0 => [],
                 1 => _collection[0].GetSupportedMediaTypes(modelType),
-                _ => _mediaTypes1Cache.GetOrAdd(modelType, CollectSupportedMediaTypes)
+                _ => _acceptCache.Value.GetSupportedMediaTypes(modelType)
             };
         }
 
@@ -135,7 +129,7 @@ namespace Kampute.HttpClient
             if (modelType is null)
                 return GetAcceptableMediaTypes(errorType).Concat(AllMediaTypes);
 
-            return _mediaTypes2Cache.GetOrAdd((modelType, errorType), CollectSupportedMediaTypes);
+            return _acceptCache.Value.GetSupportedMediaTypes(modelType, errorType);
         }
 
         /// <summary>
@@ -230,75 +224,149 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
+        /// Locates the first <see cref="IHttpContentDeserializer"/> instances in the collection that support deserializing a specific media type and model type.
+        /// </summary>
+        /// <param name="mediaType">The media type to deserialize.</param>
+        /// <param name="modelType">The type of the model to deserialize.</param>
+        /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <c>null</c> if none is found.</returns>
+        private IHttpContentDeserializer? FindDeserializer(string mediaType, Type modelType)
+        {
+            foreach (var deserializer in _collection)
+                if (deserializer.CanDeserialize(mediaType, modelType))
+                    return deserializer;
+
+            return null;
+        }
+
+        /// <summary>
         /// Resets the caches.
         /// </summary>
         private void InvalidateCaches()
         {
-            _mediaTypes1Cache.Clear();
-            _mediaTypes2Cache.Clear();
+            _deserializerCache.Clear();
+            if (_acceptCache.IsValueCreated)
+                _acceptCache.Value.Clear();
         }
 
+        #region Helper Types
+
         /// <summary>
-        /// Retrieves all supported media types for a specified model type from the collection of deserializers.
+        /// Provides cache of supported media types for .NET object types.
         /// </summary>
-        /// <param name="modelType">The type of the model for which to retrieve supported media type header values.</param>
-        /// <returns>A read-only collection of strings that represent the media types supported for deserializing the specified model type.</returns>
-        private IReadOnlyCollection<string> CollectSupportedMediaTypes(Type modelType)
+        private sealed class AcceptableMediaTypeCache
         {
-            var uniqueMediaTypes = new HashSet<string>();
-            var orderedMediaTypes = new List<string>();
-            foreach (var deserializer in _collection)
+            private readonly IReadOnlyCollection<IHttpContentDeserializer> _deserializers;
+            private readonly FlyweightCache<Type, IReadOnlyCollection<string>> _singles;
+            private readonly FlyweightCache<(Type, Type), IReadOnlyCollection<string>> _duals;
+
+            public AcceptableMediaTypeCache(IReadOnlyCollection<IHttpContentDeserializer> deserializers)
             {
-                foreach (var mediaType in deserializer.GetSupportedMediaTypes(modelType))
+                _deserializers = deserializers;
+                _singles = new(CollectSupportedMediaTypes);
+                _duals = new(CollectSupportedMediaTypes);
+            }
+
+            /// <summary>
+            /// Retrieves all supported media types for a specified model type from the collection of deserializers.
+            /// </summary>
+            /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
+            /// <returns>A read-only collection of strings that represent the media types supported for deserializing the specified model type.</returns>
+            public IReadOnlyCollection<string> GetSupportedMediaTypes(Type modelType)
+            {
+                return _singles.Get(modelType);
+            }
+
+            /// <summary>
+            /// Retrieves all supported media types for a specified model type and error type from the collection of deserializers.
+            /// </summary>
+            /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
+            /// <param name="errorType">The type of the error for which to retrieve supported media types.</param>
+            /// <returns>A read-only collection of strings representing the supported media types for the specified types.</returns>
+            public IReadOnlyCollection<string> GetSupportedMediaTypes(Type modelType, Type errorType)
+            {
+                return _duals.Get((modelType, errorType));
+            }
+
+            /// <summary>
+            /// Clears the chace.
+            /// </summary>
+            public void Clear()
+            {
+                _singles.Clear();
+                _duals.Clear();
+            }
+
+            /// <summary>
+            /// Retrieves all supported media types for a specified model type from the collection of deserializers.
+            /// </summary>
+            /// <param name="modelType">The type of the model for which to retrieve supported media type header values.</param>
+            /// <returns>A read-only collection of strings that represent the media types supported for deserializing the specified model type.</returns>
+            private IReadOnlyCollection<string> CollectSupportedMediaTypes(Type modelType)
+            {
+                var uniqueMediaTypes = new HashSet<string>();
+                var orderedMediaTypes = new List<string>();
+
+                foreach (var deserializer in _deserializers)
                 {
-                    if (uniqueMediaTypes.Add(mediaType))
-                        orderedMediaTypes.Add(mediaType);
+                    foreach (var mediaType in deserializer.GetSupportedMediaTypes(modelType))
+                    {
+                        if (uniqueMediaTypes.Add(mediaType))
+                            orderedMediaTypes.Add(mediaType);
+                    }
                 }
+
+                orderedMediaTypes.TrimExcess();
+                return orderedMediaTypes;
             }
-            orderedMediaTypes.TrimExcess();
-            return orderedMediaTypes;
+
+            /// <summary>
+            /// Retrieves all supported media types for a specified pair of model and error types from the collection of deserializers.
+            /// </summary>
+            /// <param name="types">
+            /// A tuple containing two types used to collect and aggregate media types that can deserialize objects of these types from HTTP content:
+            /// <list type="bullet">
+            ///   <item>
+            ///     <term>Item1</term>
+            ///     <description>The type of the model for which to retrieve supported media types.</description>
+            ///   </item>
+            ///   <item>
+            ///     <term>Item2</term>
+            ///     <description>The type of the error for which to retrieve supported media types.</description>
+            ///   </item>
+            /// </list>
+            /// </param>
+            /// <returns>
+            /// A read-only collection of strings that represent the media types supported for deserializing the specified types.
+            /// </returns>
+            private IReadOnlyCollection<string> CollectSupportedMediaTypes((Type, Type) types)
+            {
+                var (modelType, errorType) = types;
+                var uniqueMediaTypes = new HashSet<string>();
+                var orderedMediaTypes = new List<string>();
+
+                foreach (var deserializer in _deserializers)
+                {
+                    foreach (var mediaType in deserializer.GetSupportedMediaTypes(modelType))
+                    {
+                        if (uniqueMediaTypes.Add(mediaType))
+                            orderedMediaTypes.Add(mediaType);
+                    }
+                }
+
+                foreach (var deserializer in _deserializers)
+                {
+                    foreach (var mediaType in deserializer.GetSupportedMediaTypes(errorType))
+                    {
+                        if (uniqueMediaTypes.Add(mediaType))
+                            orderedMediaTypes.Add(mediaType);
+                    }
+                }
+
+                orderedMediaTypes.TrimExcess();
+                return orderedMediaTypes;
+            }
         }
 
-        /// <summary>
-        /// Retrieves all supported media types for a specified pair of model and error types from the collection of deserializers.
-        /// </summary>
-        /// <param name="types">
-        /// A tuple containing two types used to collect and aggregate media types that can deserialize objects of these types from HTTP content:
-        /// <list type="bullet">
-        ///   <item>
-        ///     <term>Item1</term>
-        ///     <description>The type of the model for which to retrieve supported media types.</description>
-        ///   </item>
-        ///   <item>
-        ///     <term>Item2</term>
-        ///     <description>The type of the error for which to retrieve supported media types.</description>
-        ///   </item>
-        /// </list>
-        /// </param>
-        /// <returns>
-        /// A read-only collection of strings that represent the media types supported for deserializing the specified types.
-        /// </returns>
-        private IReadOnlyCollection<string> CollectSupportedMediaTypes((Type, Type) types)
-        {
-            var uniqueMediaTypes = new HashSet<string>();
-            var orderedMediaTypes = new List<string>();
-
-            // Add media type header values supporting model
-            foreach (var mediaType in GetAcceptableMediaTypes(types.Item1))
-            {
-                if (uniqueMediaTypes.Add(mediaType))
-                    orderedMediaTypes.Add(mediaType);
-            }
-
-            // Add media type header values supporting error
-            foreach (var mediaType in GetAcceptableMediaTypes(types.Item2))
-            {
-                if (uniqueMediaTypes.Add(mediaType))
-                    orderedMediaTypes.Add(mediaType);
-            }
-
-            orderedMediaTypes.TrimExcess();
-            return orderedMediaTypes;
-        }
+        #endregion
     }
 }

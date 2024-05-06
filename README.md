@@ -20,9 +20,9 @@ to address the complexities of web service consumption.
   mechanisms to fit specific application needs.
 
 - **Dynamic Request Customization:**
-  Offers the capability to define headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global configuration.
-  Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration errors during
-  runtime.
+  Offers the capability to define request headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global
+  configuration. Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration
+  errors during runtime.
 
 - **Custom Error Handling and Exception Management:**
   Converts HTTP response errors into detailed, meaningful exceptions, streamlining the process of interpreting API-specific errors with the aid of a customizable

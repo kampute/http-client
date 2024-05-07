@@ -102,7 +102,7 @@ namespace Kampute.HttpClient.ErrorHandlers
 
             await _lastAuthorization.TryUpdateAsync(async () =>
             {
-                using (ctx.Client.BeginPropertyScope(new Dictionary<string, object> { [HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true }))
+                using (ctx.Client.BeginPropertyScope(AuthorizationScope.Properties))
                 {
                     return await _asyncAuthenticator(ctx, cancellationToken).ConfigureAwait(false);
                 }
@@ -114,9 +114,8 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <inheritdoc/>
         async Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
-            if (ctx.Request.Properties.ContainsKey(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling))
+            if (ctx.Request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, out var skip) && skip is true)
                 return HttpErrorHandlerResult.NoRetry;
-
 
             var authorization = await AuthenticateAsync(ctx, cancellationToken).ConfigureAwait(false);
             if (authorization is null)
@@ -134,5 +133,34 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Releases the unmanaged resources used by the <see cref="HttpError401Handler"/> and optionally disposes of the managed resources.
         /// </summary>
         public void Dispose() => _lastAuthorization.Dispose();
+
+        /// <summary>
+        /// Provides the request properties to be set during authorization process.
+        /// </summary>
+        /// <remarks>
+        /// This class defines request properties that are used during the authorization process.
+        /// <list type="bullet">
+        ///   <item>
+        ///     <term><see cref="HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling"/></term>
+        ///     <description>
+        ///     A flag indicating whether the request should skip the authorization process.
+        ///     <para>
+        ///     This property is set to <c>true</c> for all requests initiated by the authorization process
+        ///     to prevent the handler from reentering itself and causing potential deadlocks.
+        ///     </para>
+        ///     </description>
+        ///   </item>
+        /// </list>
+        /// </remarks>
+        private static class AuthorizationScope
+        {
+            /// <summary>
+            /// Gets the scoped properties of requests initiated by the authorization process.
+            /// </summary>
+            public static IEnumerable<KeyValuePair<string, object?>> Properties =>
+            [
+                new KeyValuePair<string, object?>(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, true)
+            ];
+        }
     }
 }

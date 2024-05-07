@@ -57,8 +57,8 @@ namespace Kampute.HttpClient
         private readonly HttpClient _httpClient;
         private readonly IDisposable? _disposable;
 
-        private readonly Lazy<ScopedCollection<KeyValuePair<string, string>>> _scopedHeaders = new(LazyThreadSafetyMode.ExecutionAndPublication);
-        private readonly Lazy<ScopedCollection<KeyValuePair<string, object>>> _scopedProperties = new(LazyThreadSafetyMode.ExecutionAndPublication);
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, string?>>> _scopedHeaders = new(LazyThreadSafetyMode.ExecutionAndPublication);
+        private readonly Lazy<ScopedCollection<KeyValuePair<string, object?>>> _scopedProperties = new(LazyThreadSafetyMode.ExecutionAndPublication);
 
         private IHttpBackoffProvider _backoffStrategy = BackoffStrategies.None;
         private Uri? _baseAddress;
@@ -242,22 +242,21 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Begins a new scope with the specified properties.
+        /// Begins a new scope with the specified request properties.
         /// </summary>
-        /// <param name="properties">The properties to include in the new scope.</param>
-        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and remove the associated properties.</returns>
+        /// <param name="properties">The request properties to be applied exclusively during the lifetime of the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing of this object will end the scope and revert changes in the request properties.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="properties"/> is <c>null</c>.</exception>
         /// <remarks>
         /// <para>
-        /// The scope created by this method will be associated with the current <see cref="HttpRestClient"/> instance. The properties within the scope will
-        /// be included in the properties of all subsequent HTTP requests made by this client until the scope is disposed.
+        /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify or remove any request properties in subsequent
+        /// requests during the lifetime of this scope. To remove a property, use <c>null</c> for its value.
         /// </para>
         /// <para>
-        /// By using a scope, you can ensure that all related requests carry the same contextual information, which can be critical for tracing, logging,
-        /// and maintaining state across asynchronous operations or across different components of an application.
+        /// Upon disposing of the scope, all property adjustments are reverted, restoring the properties to their state before the scope was activated.
         /// </para>
         /// </remarks>
-        public virtual IDisposable BeginPropertyScope(IEnumerable<KeyValuePair<string, object>> properties)
+        public virtual IDisposable BeginPropertyScope(IEnumerable<KeyValuePair<string, object?>> properties)
         {
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
@@ -266,21 +265,32 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Begins a new scope with the specified HTTP headers.
+        /// Begins a new scope with the specified request headers.
         /// </summary>
-        /// <param name="httpHeaders">The HTTP headers to include in the new scope.</param>
-        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and remove the associated HTTP headers.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpHeaders"/> is <c>null</c>.</exception>
+        /// <param name="headers">The request headers to be applied exclusively during the lifetime of the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing of this object will end the scope and revert changes in the request headers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="headers"/> is <c>null</c>.</exception>
         /// <remarks>
-        /// The scope created by this method will be associated with the current <see cref="HttpRestClient"/> instance. The HTTP headers within the scope will
-        /// be included in the HTTP headers of all subsequent HTTP requests made by this client until the scope is disposed.
+        /// <para>
+        /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify or remove any request header in subsequent
+        /// requests during the lifetime of this scope. To remove a header, use <c>null</c> for its value.
+        /// </para>
+        /// <para>
+        /// Any header modifications made within this scope take precedence over the client's default headers. Header adjustments by other active scopes are overridden
+        /// by those provided in this scope. However, the default request headers set on the underlying <see cref="HttpClient"/> instance take precedence over the default
+        /// and scoped headers of the <see cref="HttpRestClient"/> instance because they are applied later in the message handler pipeline. To avoid conflicts, it is
+        /// recommended to keep the default request headers of the underlying <see cref="HttpClient"/> instance empty.
+        /// </para>
+        /// <para>
+        /// Upon disposing of the scope, all header adjustments are reverted, restoring the headers to their state before the scope was activated.
+        /// </para>
         /// </remarks>
-        public virtual IDisposable BeginHeaderScope(IEnumerable<KeyValuePair<string, string>> httpHeaders)
+        public virtual IDisposable BeginHeaderScope(IEnumerable<KeyValuePair<string, string?>> headers)
         {
-            if (httpHeaders is null)
-                throw new ArgumentNullException(nameof(httpHeaders));
+            if (headers is null)
+                throw new ArgumentNullException(nameof(headers));
 
-            return _scopedHeaders.Value.BeginScope(httpHeaders);
+            return _scopedHeaders.Value.BeginScope(headers);
         }
 
         /// <summary>
@@ -605,9 +615,9 @@ namespace Kampute.HttpClient
         /// to ensure that context-specific modifications are respected.
         /// </para>
         /// <para>
-        /// If the underlying HTTP client's default request headers, the headers provided by the <see cref="DefaultRequestHeaders"/> property, or any scoped
-        /// headers do not already include an <c>Accept</c> header, it is added to align with the media types supported by the content deserializers appropriate for
-        /// the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, it defaults to accepting all media types.
+        /// If an <c>Accept</c> header is absent in both default and scoped headers, it is added based on the media types supported by the content deserializers
+        /// for the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, the header defaults to accepting all
+        /// media types ("*/*").
         /// </para>
         /// <para>
         /// This method also includes scoped properties in the HTTP request message to provide additional context and facilitate easier tracking and processing
@@ -624,7 +634,7 @@ namespace Kampute.HttpClient
         ///   <item>
         ///     <term><see cref="HttpRequestMessagePropertyKeys.ResponseObjectType"/></term>
         ///     <description>
-        ///     Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
+        ///     Defines the .NET type (<see cref="Type"/>) expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
         ///     and support error recovery strategies.
         ///     </description>
         ///   </item>
@@ -640,8 +650,10 @@ namespace Kampute.HttpClient
 
             var requestUri = _baseAddress is null ? new Uri(uri) : new Uri(_baseAddress, uri);
             var request = new HttpRequestMessage(method, requestUri);
+
             AddRequestHeaders();
             AddRequestProperties();
+
             return request;
 
             void AddRequestHeaders()
@@ -654,15 +666,12 @@ namespace Kampute.HttpClient
                     foreach (var header in _scopedHeaders.Value)
                     {
                         request.Headers.Remove(header.Key);
-                        request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                        if (header.Value is not null)
+                            request.Headers.Add(header.Key, header.Value);
                     }
                 }
 
-                if
-                (
-                    !_httpClient.DefaultRequestHeaders.Contains(nameof(HttpRequestHeader.Accept)) &&
-                    !request.Headers.Contains(nameof(HttpRequestHeader.Accept))
-                )
+                if (!request.Headers.Contains(nameof(HttpRequestHeader.Accept)))
                 {
                     foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
                         request.Headers.Accept.Add(MediaTypeHeaderValueStore.Get(mediaType));
@@ -671,14 +680,19 @@ namespace Kampute.HttpClient
 
             void AddRequestProperties()
             {
+                request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
+                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
+
                 if (_scopedProperties.IsValueCreated)
                 {
                     foreach (var property in _scopedProperties.Value)
-                        request.Properties[property.Key] = property.Value;
+                    {
+                        if (property.Value is not null)
+                            request.Properties[property.Key] = property.Value;
+                        else
+                            request.Properties.Remove(property.Key);
+                    }
                 }
-
-                request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
-                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
             }
         }
 

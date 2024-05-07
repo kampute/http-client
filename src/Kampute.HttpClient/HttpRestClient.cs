@@ -244,21 +244,16 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Begins a new scope with the specified request properties.
         /// </summary>
-        /// <param name="properties">The request properties to include in the new scope.</param>
-        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and revert changes in the request properties.</returns>
+        /// <param name="properties">The request properties to be applied exclusively during the lifetime of the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing of this object will end the scope and revert changes in the request properties.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="properties"/> is <c>null</c>.</exception>
         /// <remarks>
         /// <para>
-        /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify, or remove any request property in
-        /// subsequent requests during the lifetime of this scope. To remove a property, set its value to <c>null</c>.
+        /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify or remove any request properties in subsequent
+        /// requests during the lifetime of this scope. To remove a property, use <c>null</c> for its value.
         /// </para>
         /// <para>
-        /// Any property modifications made within this scope take precedence over the property adjustemnts by other active scopes. In case of conflicts,
-        /// the properties provided by this scope will override the others.
-        /// </para>
-        /// <para>
-        /// Upon disposing of the scope, all property adjustments are reverted, restoring the properties to their original configuration prior to the scope's
-        /// activation.
+        /// Upon disposing of the scope, all property adjustments are reverted, restoring the properties to their state before the scope was activated.
         /// </para>
         /// </remarks>
         public virtual IDisposable BeginPropertyScope(IEnumerable<KeyValuePair<string, object?>> properties)
@@ -272,20 +267,22 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Begins a new scope with the specified request headers.
         /// </summary>
-        /// <param name="headers">The request headers to include in the new scope.</param>
-        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing this object will end the scope and revert changes in the request headers.</returns>
+        /// <param name="headers">The request headers to be applied exclusively during the lifetime of the new scope.</param>
+        /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing of this object will end the scope and revert changes in the request headers.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="headers"/> is <c>null</c>.</exception>
         /// <remarks>
         /// <para>
-        /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify, or remove any request header in subsequent
-        /// requests during the lifetime of this scope. To remove a header, set its value to <c>null</c>.
+        /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify or remove any request header in subsequent
+        /// requests during the lifetime of this scope. To remove a header, use <c>null</c> for its value.
         /// </para>
         /// <para>
-        /// Any header modifications made within this scope take precedence over the client's default headers and header adjustments by other active scopes. In case of
-        /// conflicts, the headers provided by this scope will override the others.
+        /// Any header modifications made within this scope take precedence over the client's default headers. Header adjustments by other active scopes are overridden
+        /// by those provided in this scope. However, the default request headers set on the underlying <see cref="HttpClient"/> instance take precedence over the default
+        /// and scoped headers of the <see cref="HttpRestClient"/> instance because they are applied later in the message handler pipeline. To avoid conflicts, it is
+        /// recommended to keep the default request headers of the underlying <see cref="HttpClient"/> instance empty.
         /// </para>
         /// <para>
-        /// Upon disposing of the scope, all header adjustments are reverted, restoring the headers to their original configuration prior to the scope's activation.
+        /// Upon disposing of the scope, all header adjustments are reverted, restoring the headers to their state before the scope was activated.
         /// </para>
         /// </remarks>
         public virtual IDisposable BeginHeaderScope(IEnumerable<KeyValuePair<string, string?>> headers)

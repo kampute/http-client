@@ -253,56 +253,61 @@
         }
 
         [Test]
-        public async Task BeginPropertyScope_AddsPropertiesToRequest()
+        public async Task BeginPropertyScope_ModifiesRequestPropertiesCorrectly()
         {
-            var customPropName = "PROP_NAME";
-            var customPropValue = "PROP_VALUE";
+            var scopedProperty = new KeyValuePair<string, object?>("PROP_NAME", "PROP_VALUE");
 
             var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                var propExists = request.Options.TryGetValue(new HttpRequestOptionsKey<string>(customPropName), out var propValue);
+                var propExists = request.Options.TryGetValue(new HttpRequestOptionsKey<string>(scopedProperty.Key), out var propValue);
                 Assert.Multiple(() =>
                 {
                     Assert.That(propExists, Is.True);
-                    Assert.That(propValue, Is.EqualTo(customPropValue));
+                    Assert.That(propValue, Is.EqualTo(scopedProperty.Value));
                 });
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });
 
-            using var scope = _client.BeginPropertyScope(new Dictionary<string, object>
+            using (_client.BeginPropertyScope([scopedProperty]))
             {
-                [customPropName] = customPropValue
-            });
-
-            using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+                using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+            }
 
             Assert.That(sent, Is.True);
         }
 
         [Test]
-        public async Task BeginHeaderScope_AddsHeadersToRequest()
+        public async Task BeginHeaderScope_ModifiesRequestHeadersCorrectly()
         {
-            var customHeaderName = "HEADER_NAME";
-            var customHeaderValue = "HEADER_VALUE";
+            var scopedHeaderToAdd = new KeyValuePair<string, string?>("X-TO-ADD", "ADDED");
+            var scopedHeaderToChange = new KeyValuePair<string, string?>("X-TO-ChANGE", "CHANGED");
+            var scopedHeaderToDelete = new KeyValuePair<string, string?>("X-TO-DELETE", null);
+
+            _client.DefaultRequestHeaders.Remove(scopedHeaderToAdd.Key);
+            _client.DefaultRequestHeaders.Add(scopedHeaderToChange.Key, "To be changed");
+            _client.DefaultRequestHeaders.Add(scopedHeaderToDelete.Key, "To be deleted");
 
             var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.That(request.Headers.GetValues(customHeaderName), Is.EquivalentTo(new[] { customHeaderValue }));
+                Assert.Multiple(() =>
+                {
+                    Assert.That(request.Headers.GetValues(scopedHeaderToAdd.Key), Is.EqualTo(new[] { scopedHeaderToAdd.Value }));
+                    Assert.That(request.Headers.GetValues(scopedHeaderToChange.Key), Is.EqualTo(new[] { scopedHeaderToChange.Value }));
+                    Assert.That(request.Headers.Contains(scopedHeaderToDelete.Key), Is.False);
+                });
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });
 
-            using var scope = _client.BeginHeaderScope(new Dictionary<string, string>
+            using (_client.BeginHeaderScope([scopedHeaderToAdd, scopedHeaderToChange, scopedHeaderToDelete]))
             {
-                [customHeaderName] = customHeaderValue
-            });
-
-            using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+                using var _ = await _client.SendAsync(TestHttpMethod, "/resource");
+            }
 
             Assert.That(sent, Is.True);
         }

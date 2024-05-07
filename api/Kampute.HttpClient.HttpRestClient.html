@@ -747,29 +747,29 @@ returned from the server.
   <a id="Kampute_HttpClient_HttpRestClient_BeginHeaderScope_" data-uid="Kampute.HttpClient.HttpRestClient.BeginHeaderScope*"></a>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BeginHeaderScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___" data-uid="Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
-  BeginHeaderScope(IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L278"><i class="bi bi-code-slash"></i></a>
+  BeginHeaderScope(IEnumerable&lt;KeyValuePair&lt;string, string?&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L288"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Begins a new scope with the specified HTTP headers.</p>
+  <div class="markdown level1 summary"><p>Begins a new scope with the specified request headers.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual IDisposable BeginHeaderScope(IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt; httpHeaders)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual IDisposable BeginHeaderScope(IEnumerable&lt;KeyValuePair&lt;string, string?&gt;&gt; headers)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>httpHeaders</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
-    <dd><p>The HTTP headers to include in the new scope.</p>
+    <dt><code>headers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
+    <dd><p>The request headers to be applied exclusively during the lifetime of the new scope.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></dt>
-    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> representing the new scope. Disposing this object will end the scope and remove the associated HTTP headers.</p>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> representing the new scope. Disposing of this object will end the scope and revert changes in the request headers.</p>
 </dd>
   </dl>
 
@@ -780,14 +780,25 @@ returned from the server.
 
 
   <h4 class="section" id="Kampute_HttpClient_HttpRestClient_BeginHeaderScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String____remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>The scope created by this method will be associated with the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance. The HTTP headers within the scope will
-be included in the HTTP headers of all subsequent HTTP requests made by this client until the scope is disposed.</p>
+  <div class="markdown level1 remarks"><p>
+This method creates a scope associated with the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance to add, modify or remove any request header in subsequent
+requests during the lifetime of this scope. To remove a header, use <code>null</code> for its value.
+</p>
+<p>
+Any header modifications made within this scope take precedence over the client's default headers. Header adjustments by other active scopes are overridden
+by those provided in this scope. However, the default request headers set on the underlying <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance take precedence over the default
+and scoped headers of the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance because they are applied later in the message handler pipeline. To avoid conflicts, it is
+recommended to keep the default request headers of the underlying <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance empty.
+</p>
+<p>
+Upon disposing of the scope, all header adjustments are reverted, restoring the headers to their state before the scope was activated.
+</p>
 </div>
 
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">httpHeaders</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">headers</code> is <code>null</code>.</p>
 </dd>
   </dl>
 
@@ -796,29 +807,29 @@ be included in the HTTP headers of all subsequent HTTP requests made by this cli
   <a id="Kampute_HttpClient_HttpRestClient_BeginPropertyScope_" data-uid="Kampute.HttpClient.HttpRestClient.BeginPropertyScope*"></a>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_BeginPropertyScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_Object___" data-uid="Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
-  BeginPropertyScope(IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  BeginPropertyScope(IEnumerable&lt;KeyValuePair&lt;string, object?&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L259"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Begins a new scope with the specified properties.</p>
+  <div class="markdown level1 summary"><p>Begins a new scope with the specified request properties.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual IDisposable BeginPropertyScope(IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt; properties)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual IDisposable BeginPropertyScope(IEnumerable&lt;KeyValuePair&lt;string, object?&gt;&gt; properties)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>properties</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;</dt>
-    <dd><p>The properties to include in the new scope.</p>
+    <dd><p>The request properties to be applied exclusively during the lifetime of the new scope.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></dt>
-    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> representing the new scope. Disposing this object will end the scope and remove the associated properties.</p>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> representing the new scope. Disposing of this object will end the scope and revert changes in the request properties.</p>
 </dd>
   </dl>
 
@@ -830,12 +841,11 @@ be included in the HTTP headers of all subsequent HTTP requests made by this cli
 
   <h4 class="section" id="Kampute_HttpClient_HttpRestClient_BeginPropertyScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_Object____remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
-The scope created by this method will be associated with the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance. The properties within the scope will
-be included in the properties of all subsequent HTTP requests made by this client until the scope is disposed.
+This method creates a scope associated with the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance to add, modify or remove any request properties in subsequent
+requests during the lifetime of this scope. To remove a property, use <code>null</code> for its value.
 </p>
 <p>
-By using a scope, you can ensure that all related requests carry the same contextual information, which can be critical for tracing, logging,
-and maintaining state across asynchronous operations or across different components of an application.
+Upon disposing of the scope, all property adjustments are reverted, restoring the properties to their state before the scope was activated.
 </p>
 </div>
 
@@ -852,7 +862,7 @@ and maintaining state across asynchronous operations or across different compone
 
   <h3 id="Kampute_HttpClient_HttpRestClient_CreateHttpRequest_System_Net_Http_HttpMethod_System_String_System_Type_" data-uid="Kampute.HttpClient.HttpRestClient.CreateHttpRequest(System.Net.Http.HttpMethod,System.String,System.Type)">
   CreateHttpRequest(HttpMethod, string, Type?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L634"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L644"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a> with the specified method and URI.</p>
@@ -900,9 +910,9 @@ headers that are active at the time of this request’s creation. Scoped headers
 to ensure that context-specific modifications are respected.
 </p>
 <p>
-If the underlying HTTP client's default request headers, the headers provided by the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_DefaultRequestHeaders">DefaultRequestHeaders</a> property, or any scoped
-headers do not already include an <code>Accept</code> header, it is added to align with the media types supported by the content deserializers appropriate for
-the specified <code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <code>null</code>, it defaults to accepting all media types.
+If an <code>Accept</code> header is absent in both default and scoped headers, it is added based on the media types supported by the content deserializers
+for the specified <code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <code>null</code>, the header defaults to accepting all
+media types ("*/*").
 </p>
 <p>
 This method also includes scoped properties in the HTTP request message to provide additional context and facilitate easier tracking and processing
@@ -912,7 +922,7 @@ of the request. In addition to the scoped properties, the following properties a
     processes. The unique identifier ensures that each request can be individually tracked, even when multiple requests are executed simultaneously
     or when requests are retried due to transient failures.
     </li><li><span class="term"><a class="xref" href="Kampute.HttpClient.HttpRequestMessagePropertyKeys.html#Kampute_HttpClient_HttpRequestMessagePropertyKeys_ResponseObjectType">ResponseObjectType</a></span>
-    Defines the .NET type expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
+    Defines the .NET type (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>) expected in the response, if any. This metadata provides context that can improve debugging, enhance logging details,
     and support error recovery strategies.
     </li></ul>
 
@@ -931,7 +941,7 @@ of the request. In addition to the scoped properties, the following properties a
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_Kampute_HttpClient_HttpResponseException_System_Net_Http_HttpRequestMessage_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(Kampute.HttpClient.HttpResponseException,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
   DecideOnRetryAsync(HttpResponseException, HttpRequestMessage, HttpResponseMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L462"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L472"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously evaluates failed HTTP responses to decide the appropriate action based on the error context and predefined error
@@ -996,7 +1006,7 @@ that guides the next steps, either to retry the request with potentially modifie
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DecideOnRetryAsync_System_Net_Http_HttpRequestException_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DecideOnRetryAsync(System.Net.Http.HttpRequestException,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
   DecideOnRetryAsync(HttpRequestException, HttpRequestMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L436"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L446"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error
@@ -1059,7 +1069,7 @@ to handle the error as unrecoverable.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DeserializeContentAsync_System_Net_Http_HttpResponseMessage_System_Type_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DeserializeContentAsync(System.Net.Http.HttpResponseMessage,System.Type,System.Threading.CancellationToken)">
   DeserializeContentAsync(HttpResponseMessage, Type, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L550"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L560"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously deserializes the body of an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> and converts it into an object of a specified type.</p>
@@ -1123,7 +1133,7 @@ failures, an <a class="xref" href="Kampute.HttpClient.HttpContentException.html"
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DispatchAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
   DispatchAsync(HttpRequestMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L397"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L407"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Asynchronously dispatches an HTTP request.</p>
@@ -1182,7 +1192,7 @@ request headers or logging response details.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_DispatchWithRetriesAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.DispatchWithRetriesAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
   DispatchWithRetriesAsync(HttpRequestMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L355"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L365"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request, with the possibility of retrying the request based on specific failure conditions.</p>
@@ -1277,7 +1287,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_Dispose_System_Boolean_" data-uid="Kampute.HttpClient.HttpRestClient.Dispose(System.Boolean)">
   Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L689"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L703"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Disposes the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance.</p>
@@ -1337,7 +1347,7 @@ on the nature of the failure, with potential consultation of external retry logi
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnAfterReceivingResponse_System_Net_Http_HttpResponseMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnAfterReceivingResponse(System.Net.Http.HttpResponseMessage)">
   OnAfterReceivingResponse(HttpResponseMessage)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L727"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L741"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse">AfterReceivingResponse</a> event.</p>
@@ -1375,7 +1385,7 @@ before any processing is performed on the response.</p>
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnBeforeSendingRequest_System_Net_Http_HttpRequestMessage_" data-uid="Kampute.HttpClient.HttpRestClient.OnBeforeSendingRequest(System.Net.Http.HttpRequestMessage)">
   OnBeforeSendingRequest(HttpRequestMessage)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L713"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L727"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest">BeforeSendingRequest</a> event.</p>
@@ -1413,7 +1423,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_OnDisposing" data-uid="Kampute.HttpClient.HttpRestClient.OnDisposing">
   OnDisposing()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L738"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L752"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_Disposing">Disposing</a> event.</p>
@@ -1440,7 +1450,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_SendAsync_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
   SendAsync(HttpMethod, string, HttpContent?, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L326"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L336"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request with the specified method, URI, and payload, without processing the response body.</p>
@@ -1503,7 +1513,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_SendAsync__1_System_Net_Http_HttpMethod_System_String_System_Net_Http_HttpContent_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.SendAsync``1(System.Net.Http.HttpMethod,System.String,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
   SendAsync&lt;T&gt;(HttpMethod, string, HttpContent?, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L300"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L310"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends an asynchronous HTTP request with the specified method, URI, and payload, returning response body deserialized as the specified type.</p>
@@ -1575,7 +1585,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
 
   <h3 id="Kampute_HttpClient_HttpRestClient_ToExceptionAsync_System_Net_Http_HttpResponseMessage_System_Threading_CancellationToken_" data-uid="Kampute.HttpClient.HttpRestClient.ToExceptionAsync(System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
   ToExceptionAsync(HttpResponseMessage, CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L509"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/HttpRestClient.cs/#L519"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Converts an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a> into an appropriate exception.</p>

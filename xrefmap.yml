@@ -2158,13 +2158,13 @@ references:
   fullName: Kampute.HttpClient.HttpRestClient.BeforeSendingRequest
   nameWithType: HttpRestClient.BeforeSendingRequest
 - uid: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
-  name: BeginHeaderScope(IEnumerable<KeyValuePair<string, string>>)
+  name: BeginHeaderScope(IEnumerable<KeyValuePair<string, string?>>)
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeginHeaderScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___
   commentId: M:Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
   name.vb: BeginHeaderScope(IEnumerable(Of KeyValuePair(Of String, String)))
-  fullName: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string>>)
+  fullName: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string?>>)
   fullName.vb: Kampute.HttpClient.HttpRestClient.BeginHeaderScope(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, String)))
-  nameWithType: HttpRestClient.BeginHeaderScope(IEnumerable<KeyValuePair<string, string>>)
+  nameWithType: HttpRestClient.BeginHeaderScope(IEnumerable<KeyValuePair<string, string?>>)
   nameWithType.vb: HttpRestClient.BeginHeaderScope(IEnumerable(Of KeyValuePair(Of String, String)))
 - uid: Kampute.HttpClient.HttpRestClient.BeginHeaderScope*
   name: BeginHeaderScope
@@ -2174,13 +2174,13 @@ references:
   fullName: Kampute.HttpClient.HttpRestClient.BeginHeaderScope
   nameWithType: HttpRestClient.BeginHeaderScope
 - uid: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})
-  name: BeginPropertyScope(IEnumerable<KeyValuePair<string, object>>)
+  name: BeginPropertyScope(IEnumerable<KeyValuePair<string, object?>>)
   href: api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeginPropertyScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_Object___
   commentId: M:Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})
   name.vb: BeginPropertyScope(IEnumerable(Of KeyValuePair(Of String, Object)))
-  fullName: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>>)
+  fullName: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object?>>)
   fullName.vb: Kampute.HttpClient.HttpRestClient.BeginPropertyScope(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, Object)))
-  nameWithType: HttpRestClient.BeginPropertyScope(IEnumerable<KeyValuePair<string, object>>)
+  nameWithType: HttpRestClient.BeginPropertyScope(IEnumerable<KeyValuePair<string, object?>>)
   nameWithType.vb: HttpRestClient.BeginPropertyScope(IEnumerable(Of KeyValuePair(Of String, Object)))
 - uid: Kampute.HttpClient.HttpRestClient.BeginPropertyScope*
   name: BeginPropertyScope

@@ -57,8 +57,8 @@ namespace Kampute.HttpClient
         private readonly HttpClient _httpClient;
         private readonly IDisposable? _disposable;
 
-        private readonly Lazy<ScopedCollection<KeyValuePair<string, string?>>> _scopedHeaders = new(LazyThreadSafetyMode.ExecutionAndPublication);
-        private readonly Lazy<ScopedCollection<KeyValuePair<string, object?>>> _scopedProperties = new(LazyThreadSafetyMode.ExecutionAndPublication);
+        private readonly ScopedCollection<KeyValuePair<string, string?>> _scopedHeaders = new();
+        private readonly ScopedCollection<KeyValuePair<string, object?>> _scopedProperties = new();
 
         private IHttpBackoffProvider _backoffStrategy = BackoffStrategies.None;
         private Uri? _baseAddress;
@@ -261,7 +261,7 @@ namespace Kampute.HttpClient
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
 
-            return _scopedProperties.Value.BeginScope(properties);
+            return _scopedProperties.BeginScope(properties);
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace Kampute.HttpClient
             if (headers is null)
                 throw new ArgumentNullException(nameof(headers));
 
-            return _scopedHeaders.Value.BeginScope(headers);
+            return _scopedHeaders.BeginScope(headers);
         }
 
         /// <summary>
@@ -661,9 +661,9 @@ namespace Kampute.HttpClient
                 foreach (var header in DefaultRequestHeaders)
                     request.Headers.TryAddWithoutValidation(header.Key, header.Value);
 
-                if (_scopedHeaders.IsValueCreated)
+                if (_scopedHeaders.HasActiveScope)
                 {
-                    foreach (var header in _scopedHeaders.Value)
+                    foreach (var header in _scopedHeaders)
                     {
                         request.Headers.Remove(header.Key);
                         if (header.Value is not null)
@@ -683,9 +683,9 @@ namespace Kampute.HttpClient
                 request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
                 request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
 
-                if (_scopedProperties.IsValueCreated)
+                if (_scopedProperties.HasActiveScope)
                 {
-                    foreach (var property in _scopedProperties.Value)
+                    foreach (var property in _scopedProperties)
                     {
                         if (property.Value is not null)
                             request.Properties[property.Key] = property.Value;

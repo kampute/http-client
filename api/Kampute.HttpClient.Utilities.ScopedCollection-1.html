@@ -172,6 +172,43 @@ remain accessible and intact across the lifespan of a context.
 </div>
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Kampute_HttpClient_Utilities_ScopedCollection_1_HasActiveScope_" data-uid="Kampute.HttpClient.Utilities.ScopedCollection`1.HasActiveScope*"></a>
+
+  <h3 id="Kampute_HttpClient_Utilities_ScopedCollection_1_HasActiveScope" data-uid="Kampute.HttpClient.Utilities.ScopedCollection`1.HasActiveScope">
+  HasActiveScope
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the current context has an active scope.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasActiveScope { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if an active scope is present; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -180,7 +217,7 @@ remain accessible and intact across the lifespan of a context.
 
   <h3 id="Kampute_HttpClient_Utilities_ScopedCollection_1_BeginScope_System_Collections_Generic_IEnumerable__0__" data-uid="Kampute.HttpClient.Utilities.ScopedCollection`1.BeginScope(System.Collections.Generic.IEnumerable{`0})">
   BeginScope(IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initiates a new scope within the current context, incorporating the specified items.</p>
@@ -225,7 +262,7 @@ remain accessible and intact across the lifespan of a context.
 
   <h3 id="Kampute_HttpClient_Utilities_ScopedCollection_1_EndScope_Kampute_HttpClient_Utilities_ScopedCollection__0__Scope_" data-uid="Kampute.HttpClient.Utilities.ScopedCollection`1.EndScope(Kampute.HttpClient.Utilities.ScopedCollection{`0}.Scope)">
   EndScope(Scope)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Ends the specified scope and removes it from the current context.</p>
@@ -264,7 +301,7 @@ remain accessible and intact across the lifespan of a context.
 
   <h3 id="Kampute_HttpClient_Utilities_ScopedCollection_1_GetEnumerator" data-uid="Kampute.HttpClient.Utilities.ScopedCollection`1.GetEnumerator">
   GetEnumerator()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L99"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection of items in the current context.</p>
@@ -297,7 +334,7 @@ remain accessible and intact across the lifespan of a context.
 
   <h3 id="Kampute_HttpClient_Utilities_ScopedCollection_1_Traverse_System_Action__0__" data-uid="Kampute.HttpClient.Utilities.ScopedCollection`1.Traverse(System.Action{`0})">
   Traverse(Action&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/ScopedCollection.cs/#L85"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Traverses items in each scope from the innermost to the outermost, applying an action to each item.</p>

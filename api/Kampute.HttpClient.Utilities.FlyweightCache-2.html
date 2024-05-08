@@ -202,8 +202,8 @@ are accessed and not already present, allowing for efficient memory usage and av
   <a id="Kampute_HttpClient_Utilities_FlyweightCache_2__ctor_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor*"></a>
 
   <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2__ctor_System_Func__0__1__System_Collections_Generic_IEqualityComparer__0__" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEqualityComparer{`0})">
-  FlyweightCache(Func&lt;TKey, TValue&gt;, IEqualityComparer&lt;TKey&gt;?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  FlyweightCache(Func&lt;TKey, TValue&gt;, IEqualityComparer&lt;TKey&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Kampute.HttpClient.Utilities.FlyweightCache-2.html">FlyweightCache&lt;TKey, TValue&gt;</a> class using a specified value factory and key comparer.</p>
@@ -211,7 +211,7 @@ are accessed and not already present, allowing for efficient memory usage and av
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FlyweightCache(Func&lt;TKey, TValue&gt; valueFactory, IEqualityComparer&lt;TKey&gt;? keyComparer)</code></pre>
+    <pre><code class="lang-csharp hljs">public FlyweightCache(Func&lt;TKey, TValue&gt; valueFactory, IEqualityComparer&lt;TKey&gt; keyComparer)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -235,7 +235,7 @@ are accessed and not already present, allowing for efficient memory usage and av
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if the provided <code class="paramref">valueFactory</code> is <code>null</code>.</p>
+    <dd><p>Thrown if the provided <code class="paramref">valueFactory</code> or <code class="paramref">keyComparer</code> is <code>null</code>.</p>
 </dd>
   </dl>
 
@@ -249,7 +249,7 @@ are accessed and not already present, allowing for efficient memory usage and av
 
   <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2_Count" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Count">
   Count
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the number of key/value pairs contained in the cache.</p>
@@ -286,7 +286,7 @@ are accessed and not already present, allowing for efficient memory usage and av
 
   <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2_Clear" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Clear">
   Clear()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L68"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears the cache.</p>
@@ -313,7 +313,7 @@ are accessed and not already present, allowing for efficient memory usage and av
 
   <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2_Contains__0_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Contains(`0)">
   Contains(TKey)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if the cache contains a value associated with the specified key.</p>
@@ -352,7 +352,7 @@ are accessed and not already present, allowing for efficient memory usage and av
 
   <h3 id="Kampute_HttpClient_Utilities_FlyweightCache_2_Get__0_" data-uid="Kampute.HttpClient.Utilities.FlyweightCache`2.Get(`0)">
   Get(TKey)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/Utilities/FlyweightCache.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a value for the specified key.</p>

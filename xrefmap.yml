@@ -4795,13 +4795,13 @@ references:
   nameWithType: FlyweightCache<TKey, TValue>.FlyweightCache(Func<TKey, TValue>)
   nameWithType.vb: FlyweightCache(Of TKey, TValue).New(Func(Of TKey, TValue))
 - uid: Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
-  name: FlyweightCache(Func<TKey, TValue>, IEqualityComparer<TKey>?)
+  name: FlyweightCache(Func<TKey, TValue>, IEqualityComparer<TKey>)
   href: api/Kampute.HttpClient.Utilities.FlyweightCache-2.html#Kampute_HttpClient_Utilities_FlyweightCache_2__ctor_System_Func__0__1__System_Collections_Generic_IEqualityComparer__0__
   commentId: M:Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEqualityComparer{`0})
   name.vb: New(Func(Of TKey, TValue), IEqualityComparer(Of TKey))
-  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.FlyweightCache(System.Func<TKey, TValue>, System.Collections.Generic.IEqualityComparer<TKey>?)
+  fullName: Kampute.HttpClient.Utilities.FlyweightCache<TKey, TValue>.FlyweightCache(System.Func<TKey, TValue>, System.Collections.Generic.IEqualityComparer<TKey>)
   fullName.vb: Kampute.HttpClient.Utilities.FlyweightCache(Of TKey, TValue).New(System.Func(Of TKey, TValue), System.Collections.Generic.IEqualityComparer(Of TKey))
-  nameWithType: FlyweightCache<TKey, TValue>.FlyweightCache(Func<TKey, TValue>, IEqualityComparer<TKey>?)
+  nameWithType: FlyweightCache<TKey, TValue>.FlyweightCache(Func<TKey, TValue>, IEqualityComparer<TKey>)
   nameWithType.vb: FlyweightCache(Of TKey, TValue).New(Func(Of TKey, TValue), IEqualityComparer(Of TKey))
 - uid: Kampute.HttpClient.Utilities.FlyweightCache`2.#ctor*
   name: FlyweightCache
@@ -4942,6 +4942,23 @@ references:
   fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).GetEnumerator
   nameWithType: ScopedCollection<T>.GetEnumerator
   nameWithType.vb: ScopedCollection(Of T).GetEnumerator
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.HasActiveScope
+  name: HasActiveScope
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_HasActiveScope
+  commentId: P:Kampute.HttpClient.Utilities.ScopedCollection`1.HasActiveScope
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.HasActiveScope
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).HasActiveScope
+  nameWithType: ScopedCollection<T>.HasActiveScope
+  nameWithType.vb: ScopedCollection(Of T).HasActiveScope
+- uid: Kampute.HttpClient.Utilities.ScopedCollection`1.HasActiveScope*
+  name: HasActiveScope
+  href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.html#Kampute_HttpClient_Utilities_ScopedCollection_1_HasActiveScope_
+  commentId: Overload:Kampute.HttpClient.Utilities.ScopedCollection`1.HasActiveScope
+  isSpec: "True"
+  fullName: Kampute.HttpClient.Utilities.ScopedCollection<T>.HasActiveScope
+  fullName.vb: Kampute.HttpClient.Utilities.ScopedCollection(Of T).HasActiveScope
+  nameWithType: ScopedCollection<T>.HasActiveScope
+  nameWithType.vb: ScopedCollection(Of T).HasActiveScope
 - uid: Kampute.HttpClient.Utilities.ScopedCollection`1.Scope
   name: ScopedCollection<T>.Scope
   href: api/Kampute.HttpClient.Utilities.ScopedCollection-1.Scope.html

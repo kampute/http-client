@@ -25,8 +25,9 @@
         /// <param name="valueFactory">A delegate that defines the method to create values if the key does not exist in the cache.</param>
         /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> is <c>null</c>.</exception>
         public FlyweightCache(Func<TKey, TValue> valueFactory)
-            : this(valueFactory, null)
         {
+            _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
+            _store = new ConcurrentDictionary<TKey, TValue>();
         }
 
         /// <summary>
@@ -34,11 +35,11 @@
         /// </summary>
         /// <param name="valueFactory">A delegate that defines the method to create values if the key does not exist in the cache.</param>
         /// <param name="keyComparer">The equality comparison implementation to use when comparing keys.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> is <c>null</c>.</exception>
-        public FlyweightCache(Func<TKey, TValue> valueFactory, IEqualityComparer<TKey>? keyComparer)
+        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> or <paramref name="keyComparer"/> is <c>null</c>.</exception>
+        public FlyweightCache(Func<TKey, TValue> valueFactory, IEqualityComparer<TKey> keyComparer)
         {
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
-            _store = new ConcurrentDictionary<TKey, TValue>(keyComparer);
+            _store = new ConcurrentDictionary<TKey, TValue>(keyComparer ?? throw new ArgumentNullException(nameof(keyComparer)));
         }
 
         /// <summary>

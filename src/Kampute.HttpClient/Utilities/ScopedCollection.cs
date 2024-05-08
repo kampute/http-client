@@ -29,6 +29,14 @@
         private readonly AsyncLocal<Scope?> _activeScope = new();
 
         /// <summary>
+        /// Gets a value indicating whether the current context has an active scope.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if an active scope is present; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasActiveScope => _activeScope.Value is not null;
+
+        /// <summary>
         /// Initiates a new scope within the current context, incorporating the specified items.
         /// </summary>
         /// <param name="items">The items to include in the new scope.</param>

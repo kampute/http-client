@@ -180,15 +180,17 @@ client.AcceptJson();
 var data = await client.GetAsync&lt;MyModel&gt;(&quot;https://api.example.com/resource&quot;);
 </code></pre>
 <h3 id="scoped-request-headers">Scoped Request Headers</h3>
-<p>In addition to setting default request headers that apply to all requests, you can also define headers for a specific set of requests using a scope. This allows
-temporary changes to headers that override the default settings within a defined context, which can be essential for handling varying endpoint requirements or
-testing scenarios.</p>
-<p>The example below demonstrates how to temporarily override the <code>Accept</code> header for a series of requests, ensuring that all requests within the scope explicitly
-request a specific media type.</p>
+<p>In addition to setting default request headers that apply to all requests, you can define headers for a specific set of requests using a scoped approach. This feature
+allows for temporary modifications to headers that override default settings within a defined context. This is particularly useful for handling varying endpoint requirements
+or for testing scenarios.</p>
+<p>Below is an example that demonstrates how to temporarily override the <code>Accept</code> header for a series of requests, ensuring that all requests within the scope explicitly request
+a specific media type.</p>
 <pre><code class="lang-csharp">using Kampute.HttpClient;
 
 // Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
+
+string csv;
 
 // Begin a scoped block where the 'Accept' header is set to 'text/csv'.
 // All HTTP requests within this using block will include this 'Accept' header.
@@ -196,16 +198,23 @@ using (client.BeginHeaderScope(new Dictionary&lt;string, string&gt; { [&quot;Acc
 {
     // Perform a GET request to retrieve data as CSV. The 'Accept' header for this request
     // will be 'text/csv', as specified by the scoped header.
-    await client.GetAsStringAsync(&quot;https://api.example.com/resource/1/csv&quot;);
-
-    // Perform another GET request within the same scope. The 'Accept' header remains
-    // consistent with the scoped setting, ensuring both requests expect CSV responses.
-    await client.GetAsStringAsync(&quot;https://api.example.com/resource/2/csv&quot;);
+    csv = await client.GetAsStringAsync(&quot;https://api.example.com/resource/csv&quot;);
 }
 </code></pre>
-<p>In addition to headers, it is also possible to scope request properties. This feature is particularly useful in scenarios where you need to maintain state or
-context-specific information temporarily during a series of HTTP operations. Scoped properties are managed similarly to scoped headers, enabling developers to
-define temporary data attached to requests that are automatically cleared once the scope is exited.</p>
+<p>Alternatively, you can use the <code>WithScope</code> extension method to simplify the code as follows:</p>
+<pre><code class="lang-csharp">using Kampute.HttpClient;
+
+using var client = new HttpRestClient();
+
+var csv = await client
+    .WithScope()
+	.SetHeader(&quot;Accept&quot;, MediaTypeNames.Text.Csv)
+	.PerformAsync(c =&gt; c.GetAsStringAsync(&quot;https://api.example.com/resource/csv&quot;));
+</code></pre>
+<h3 id="scoped-request-properties">Scoped Request Properties</h3>
+<p>Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily
+during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically
+cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios.</p>
 <h3 id="custom-retry-strategies">Custom Retry Strategies</h3>
 <p>The library offers various retry strategies to manage transient failures, ensuring your application remains resilient during network instability or temporary
 service unavailability. The example below demonstrates how to apply a Fibonacci backoff strategy, which gradually increases the delay between retries, balancing

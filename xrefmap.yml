@@ -1825,6 +1825,159 @@ references:
   commentId: F:Kampute.HttpClient.HttpRequestMessagePropertyKeys.TransactionId
   fullName: Kampute.HttpClient.HttpRequestMessagePropertyKeys.TransactionId
   nameWithType: HttpRequestMessagePropertyKeys.TransactionId
+- uid: Kampute.HttpClient.HttpRequestScope
+  name: HttpRequestScope
+  href: api/Kampute.HttpClient.HttpRequestScope.html
+  commentId: T:Kampute.HttpClient.HttpRequestScope
+  fullName: Kampute.HttpClient.HttpRequestScope
+  nameWithType: HttpRequestScope
+- uid: Kampute.HttpClient.HttpRequestScope.#ctor(Kampute.HttpClient.HttpRestClient)
+  name: HttpRequestScope(HttpRestClient)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope__ctor_Kampute_HttpClient_HttpRestClient_
+  commentId: M:Kampute.HttpClient.HttpRequestScope.#ctor(Kampute.HttpClient.HttpRestClient)
+  name.vb: New(HttpRestClient)
+  fullName: Kampute.HttpClient.HttpRequestScope.HttpRequestScope(Kampute.HttpClient.HttpRestClient)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.New(Kampute.HttpClient.HttpRestClient)
+  nameWithType: HttpRequestScope.HttpRequestScope(HttpRestClient)
+  nameWithType.vb: HttpRequestScope.New(HttpRestClient)
+- uid: Kampute.HttpClient.HttpRequestScope.#ctor*
+  name: HttpRequestScope
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope__ctor_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Kampute.HttpClient.HttpRequestScope.HttpRequestScope
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.New
+  nameWithType: HttpRequestScope.HttpRequestScope
+  nameWithType.vb: HttpRequestScope.New
+- uid: Kampute.HttpClient.HttpRequestScope.Client
+  name: Client
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_Client
+  commentId: P:Kampute.HttpClient.HttpRequestScope.Client
+  fullName: Kampute.HttpClient.HttpRequestScope.Client
+  nameWithType: HttpRequestScope.Client
+- uid: Kampute.HttpClient.HttpRequestScope.Client*
+  name: Client
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_Client_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.Client
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.Client
+  nameWithType: HttpRequestScope.Client
+- uid: Kampute.HttpClient.HttpRequestScope.Headers
+  name: Headers
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_Headers
+  commentId: P:Kampute.HttpClient.HttpRequestScope.Headers
+  fullName: Kampute.HttpClient.HttpRequestScope.Headers
+  nameWithType: HttpRequestScope.Headers
+- uid: Kampute.HttpClient.HttpRequestScope.Headers*
+  name: Headers
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_Headers_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.Headers
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.Headers
+  nameWithType: HttpRequestScope.Headers
+- uid: Kampute.HttpClient.HttpRequestScope.PerformAsync(System.Func{Kampute.HttpClient.HttpRestClient,System.Threading.Tasks.Task})
+  name: PerformAsync(Func<HttpRestClient, Task>)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_PerformAsync_System_Func_Kampute_HttpClient_HttpRestClient_System_Threading_Tasks_Task__
+  commentId: M:Kampute.HttpClient.HttpRequestScope.PerformAsync(System.Func{Kampute.HttpClient.HttpRestClient,System.Threading.Tasks.Task})
+  name.vb: PerformAsync(Func(Of HttpRestClient, Task))
+  fullName: Kampute.HttpClient.HttpRequestScope.PerformAsync(System.Func<Kampute.HttpClient.HttpRestClient, System.Threading.Tasks.Task>)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.PerformAsync(System.Func(Of Kampute.HttpClient.HttpRestClient, System.Threading.Tasks.Task))
+  nameWithType: HttpRequestScope.PerformAsync(Func<HttpRestClient, Task>)
+  nameWithType.vb: HttpRequestScope.PerformAsync(Func(Of HttpRestClient, Task))
+- uid: Kampute.HttpClient.HttpRequestScope.PerformAsync*
+  name: PerformAsync
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_PerformAsync_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.PerformAsync
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.PerformAsync
+  nameWithType: HttpRequestScope.PerformAsync
+- uid: Kampute.HttpClient.HttpRequestScope.PerformAsync``1(System.Func{Kampute.HttpClient.HttpRestClient,System.Threading.Tasks.Task{``0}})
+  name: PerformAsync<T>(Func<HttpRestClient, Task<T>>)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_PerformAsync__1_System_Func_Kampute_HttpClient_HttpRestClient_System_Threading_Tasks_Task___0___
+  commentId: M:Kampute.HttpClient.HttpRequestScope.PerformAsync``1(System.Func{Kampute.HttpClient.HttpRestClient,System.Threading.Tasks.Task{``0}})
+  name.vb: PerformAsync(Of T)(Func(Of HttpRestClient, Task(Of T)))
+  fullName: Kampute.HttpClient.HttpRequestScope.PerformAsync<T>(System.Func<Kampute.HttpClient.HttpRestClient, System.Threading.Tasks.Task<T>>)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.PerformAsync(Of T)(System.Func(Of Kampute.HttpClient.HttpRestClient, System.Threading.Tasks.Task(Of T)))
+  nameWithType: HttpRequestScope.PerformAsync<T>(Func<HttpRestClient, Task<T>>)
+  nameWithType.vb: HttpRequestScope.PerformAsync(Of T)(Func(Of HttpRestClient, Task(Of T)))
+- uid: Kampute.HttpClient.HttpRequestScope.Properties
+  name: Properties
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_Properties
+  commentId: P:Kampute.HttpClient.HttpRequestScope.Properties
+  fullName: Kampute.HttpClient.HttpRequestScope.Properties
+  nameWithType: HttpRequestScope.Properties
+- uid: Kampute.HttpClient.HttpRequestScope.Properties*
+  name: Properties
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_Properties_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.Properties
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.Properties
+  nameWithType: HttpRequestScope.Properties
+- uid: Kampute.HttpClient.HttpRequestScope.SetHeader(System.String,System.String)
+  name: SetHeader(string, string)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_SetHeader_System_String_System_String_
+  commentId: M:Kampute.HttpClient.HttpRequestScope.SetHeader(System.String,System.String)
+  name.vb: SetHeader(String, String)
+  fullName: Kampute.HttpClient.HttpRequestScope.SetHeader(string, string)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.SetHeader(String, String)
+  nameWithType: HttpRequestScope.SetHeader(string, string)
+  nameWithType.vb: HttpRequestScope.SetHeader(String, String)
+- uid: Kampute.HttpClient.HttpRequestScope.SetHeader*
+  name: SetHeader
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_SetHeader_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.SetHeader
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.SetHeader
+  nameWithType: HttpRequestScope.SetHeader
+- uid: Kampute.HttpClient.HttpRequestScope.SetProperty(System.String,System.Object)
+  name: SetProperty(string, object)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_SetProperty_System_String_System_Object_
+  commentId: M:Kampute.HttpClient.HttpRequestScope.SetProperty(System.String,System.Object)
+  name.vb: SetProperty(String, Object)
+  fullName: Kampute.HttpClient.HttpRequestScope.SetProperty(string, object)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.SetProperty(String, Object)
+  nameWithType: HttpRequestScope.SetProperty(string, object)
+  nameWithType.vb: HttpRequestScope.SetProperty(String, Object)
+- uid: Kampute.HttpClient.HttpRequestScope.SetProperty*
+  name: SetProperty
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_SetProperty_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.SetProperty
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.SetProperty
+  nameWithType: HttpRequestScope.SetProperty
+- uid: Kampute.HttpClient.HttpRequestScope.UnsetHeader(System.String)
+  name: UnsetHeader(string)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_UnsetHeader_System_String_
+  commentId: M:Kampute.HttpClient.HttpRequestScope.UnsetHeader(System.String)
+  name.vb: UnsetHeader(String)
+  fullName: Kampute.HttpClient.HttpRequestScope.UnsetHeader(string)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.UnsetHeader(String)
+  nameWithType: HttpRequestScope.UnsetHeader(string)
+  nameWithType.vb: HttpRequestScope.UnsetHeader(String)
+- uid: Kampute.HttpClient.HttpRequestScope.UnsetHeader*
+  name: UnsetHeader
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_UnsetHeader_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.UnsetHeader
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.UnsetHeader
+  nameWithType: HttpRequestScope.UnsetHeader
+- uid: Kampute.HttpClient.HttpRequestScope.UnsetProperty(System.String)
+  name: UnsetProperty(string)
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_UnsetProperty_System_String_
+  commentId: M:Kampute.HttpClient.HttpRequestScope.UnsetProperty(System.String)
+  name.vb: UnsetProperty(String)
+  fullName: Kampute.HttpClient.HttpRequestScope.UnsetProperty(string)
+  fullName.vb: Kampute.HttpClient.HttpRequestScope.UnsetProperty(String)
+  nameWithType: HttpRequestScope.UnsetProperty(string)
+  nameWithType.vb: HttpRequestScope.UnsetProperty(String)
+- uid: Kampute.HttpClient.HttpRequestScope.UnsetProperty*
+  name: UnsetProperty
+  href: api/Kampute.HttpClient.HttpRequestScope.html#Kampute_HttpClient_HttpRequestScope_UnsetProperty_
+  commentId: Overload:Kampute.HttpClient.HttpRequestScope.UnsetProperty
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRequestScope.UnsetProperty
+  nameWithType: HttpRequestScope.UnsetProperty
 - uid: Kampute.HttpClient.HttpResponseErrorContext
   name: HttpResponseErrorContext
   href: api/Kampute.HttpClient.HttpResponseErrorContext.html
@@ -2670,6 +2823,19 @@ references:
   fullName.vb: Kampute.HttpClient.HttpRestClientExtensions.PutAsync(Of T)(Kampute.HttpClient.HttpRestClient, String, System.Net.Http.HttpContent, System.Threading.CancellationToken)
   nameWithType: HttpRestClientExtensions.PutAsync<T>(HttpRestClient, string, HttpContent?, CancellationToken)
   nameWithType.vb: HttpRestClientExtensions.PutAsync(Of T)(HttpRestClient, String, HttpContent, CancellationToken)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.WithScope(Kampute.HttpClient.HttpRestClient)
+  name: WithScope(HttpRestClient)
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_WithScope_Kampute_HttpClient_HttpRestClient_
+  commentId: M:Kampute.HttpClient.HttpRestClientExtensions.WithScope(Kampute.HttpClient.HttpRestClient)
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.WithScope(Kampute.HttpClient.HttpRestClient)
+  nameWithType: HttpRestClientExtensions.WithScope(HttpRestClient)
+- uid: Kampute.HttpClient.HttpRestClientExtensions.WithScope*
+  name: WithScope
+  href: api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_WithScope_
+  commentId: Overload:Kampute.HttpClient.HttpRestClientExtensions.WithScope
+  isSpec: "True"
+  fullName: Kampute.HttpClient.HttpRestClientExtensions.WithScope
+  nameWithType: HttpRestClientExtensions.WithScope
 - uid: Kampute.HttpClient.HttpRestClientFormExtensions
   name: HttpRestClientFormExtensions
   href: api/Kampute.HttpClient.HttpRestClientFormExtensions.html
@@ -4053,51 +4219,6 @@ references:
   commentId: T:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
   fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions
   nameWithType: RetryStrategyExtensions
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
-  name: Jitter(IRetryStrategy, double)
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
-  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
-  name.vb: Jitter(IRetryStrategy, Double)
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, double)
-  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy, Double)
-  nameWithType: RetryStrategyExtensions.Jitter(IRetryStrategy, double)
-  nameWithType.vb: RetryStrategyExtensions.Jitter(IRetryStrategy, Double)
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter*
-  name: Jitter
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter
-  isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter
-  nameWithType: RetryStrategyExtensions.Jitter
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
-  name: MaxAttempts(IRetryStrategy, uint)
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
-  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
-  name.vb: MaxAttempts(IRetryStrategy, UInteger)
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, uint)
-  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, UInteger)
-  nameWithType: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, uint)
-  nameWithType.vb: RetryStrategyExtensions.MaxAttempts(IRetryStrategy, UInteger)
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts*
-  name: MaxAttempts
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts
-  isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts
-  nameWithType: RetryStrategyExtensions.MaxAttempts
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
-  name: Timeout(IRetryStrategy, TimeSpan)
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
-  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy, System.TimeSpan)
-  nameWithType: RetryStrategyExtensions.Timeout(IRetryStrategy, TimeSpan)
-- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout*
-  name: Timeout
-  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_
-  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout
-  isSpec: "True"
-  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout
-  nameWithType: RetryStrategyExtensions.Timeout
 - uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy(Kampute.HttpClient.Interfaces.IRetryStrategy)
   name: ToBackoffStrategy(IRetryStrategy)
   href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToBackoffStrategy_Kampute_HttpClient_Interfaces_IRetryStrategy_
@@ -4124,6 +4245,51 @@ references:
   isSpec: "True"
   fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToScheduler
   nameWithType: RetryStrategyExtensions.ToScheduler
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  name: WithJitter(IRetryStrategy, double)
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithJitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)
+  name.vb: WithJitter(IRetryStrategy, Double)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter(Kampute.HttpClient.Interfaces.IRetryStrategy, double)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter(Kampute.HttpClient.Interfaces.IRetryStrategy, Double)
+  nameWithType: RetryStrategyExtensions.WithJitter(IRetryStrategy, double)
+  nameWithType.vb: RetryStrategyExtensions.WithJitter(IRetryStrategy, Double)
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter*
+  name: WithJitter
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithJitter_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter
+  isSpec: "True"
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter
+  nameWithType: RetryStrategyExtensions.WithJitter
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  name: WithMaxAttempts(IRetryStrategy, uint)
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithMaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)
+  name.vb: WithMaxAttempts(IRetryStrategy, UInteger)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, uint)
+  fullName.vb: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy, UInteger)
+  nameWithType: RetryStrategyExtensions.WithMaxAttempts(IRetryStrategy, uint)
+  nameWithType.vb: RetryStrategyExtensions.WithMaxAttempts(IRetryStrategy, UInteger)
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts*
+  name: WithMaxAttempts
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithMaxAttempts_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts
+  isSpec: "True"
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts
+  nameWithType: RetryStrategyExtensions.WithMaxAttempts
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  name: WithTimeout(IRetryStrategy, TimeSpan)
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithTimeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_
+  commentId: M:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout(Kampute.HttpClient.Interfaces.IRetryStrategy, System.TimeSpan)
+  nameWithType: RetryStrategyExtensions.WithTimeout(IRetryStrategy, TimeSpan)
+- uid: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout*
+  name: WithTimeout
+  href: api/Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.html#Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithTimeout_
+  commentId: Overload:Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout
+  isSpec: "True"
+  fullName: Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout
+  nameWithType: RetryStrategyExtensions.WithTimeout
 - uid: Kampute.HttpClient.RetryManagement.Strategies
   name: Kampute.HttpClient.RetryManagement.Strategies
   href: api/Kampute.HttpClient.RetryManagement.Strategies.html

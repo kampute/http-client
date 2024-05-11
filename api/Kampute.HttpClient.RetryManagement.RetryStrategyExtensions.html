@@ -149,153 +149,6 @@ Class RetryStrategyExtensions  <a class="header-action link-secondary" title="Vi
 </h2>
 
 
-  <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter*"></a>
-
-  <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Jitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Jitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)">
-  Jitter(IRetryStrategy, double)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs/#L20"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Enhances a retry strategy with jitter to add randomness to the retry delay.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static JitterStrategyModifier Jitter(this IRetryStrategy source, double jitterFactor = 0.5)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
-    <dd><p>The original retry strategy to be enhanced.</p>
-</dd>
-    <dt><code>jitterFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
-    <dd><p>The factor by which to adjust the delay randomly, with a default of 0.5.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html">JitterStrategyModifier</a></dt>
-    <dd><p>A <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html">JitterStrategyModifier</a> instance wrapping the original retry strategy with added jitter.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
-</dd>
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></dt>
-    <dd><p>Thrown if <code class="paramref">jitterFactor</code> is not between 0 and 1.</p>
-</dd>
-  </dl>
-
-
-
-  <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts*"></a>
-
-  <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_MaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.MaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)">
-  MaxAttempts(IRetryStrategy, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs/#L29"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Enhances a retry strategy with a maximum number of retry attempts.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static LimitedAttemptsStrategyModifier MaxAttempts(this IRetryStrategy source, uint maxAttempts)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
-    <dd><p>The original retry strategy to be enhanced.</p>
-</dd>
-    <dt><code>maxAttempts</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The maximum number of attempts allowed before giving up.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html">LimitedAttemptsStrategyModifier</a></dt>
-    <dd><p>A <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html">LimitedAttemptsStrategyModifier</a> instance wrapping the original retry strategy with a limit on the number of attempts.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
-</dd>
-  </dl>
-
-
-
-  <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout*"></a>
-
-  <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_Timeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.Timeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)">
-  Timeout(IRetryStrategy, TimeSpan)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs/#L38"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Enhances a retry strategy with a timeout, limiting the total duration allowed for retry attempts.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static LimitedDurationStrategyModifier Timeout(this IRetryStrategy source, TimeSpan timeout)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
-    <dd><p>The original retry strategy to be enhanced.</p>
-</dd>
-    <dt><code>timeout</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
-    <dd><p>The maximum duration to attempt retries before giving up.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html">LimitedDurationStrategyModifier</a></dt>
-    <dd><p>A <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html">LimitedDurationStrategyModifier</a> instance wrapping the original retry strategy with a timeout limit.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
-</dd>
-  </dl>
-
-
-
   <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToBackoffStrategy_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy*"></a>
 
   <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_ToBackoffStrategy_Kampute_HttpClient_Interfaces_IRetryStrategy_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.ToBackoffStrategy(Kampute.HttpClient.Interfaces.IRetryStrategy)">
@@ -368,6 +221,153 @@ on the provided strategy.</p>
   <dl class="parameters">
     <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.RetryScheduler.html">RetryScheduler</a></dt>
     <dd><p>A new instance of <a class="xref" href="Kampute.HttpClient.RetryManagement.RetryScheduler.html">RetryScheduler</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithJitter_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithJitter_Kampute_HttpClient_Interfaces_IRetryStrategy_System_Double_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithJitter(Kampute.HttpClient.Interfaces.IRetryStrategy,System.Double)">
+  WithJitter(IRetryStrategy, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enhances a retry strategy with jitter to add randomness to the retry delay.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static JitterStrategyModifier WithJitter(this IRetryStrategy source, double jitterFactor = 0.5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
+    <dd><p>The original retry strategy to be enhanced.</p>
+</dd>
+    <dt><code>jitterFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>The factor by which to adjust the delay randomly, with a default of 0.5.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html">JitterStrategyModifier</a></dt>
+    <dd><p>A <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.JitterStrategyModifier.html">JitterStrategyModifier</a> instance wrapping the original retry strategy with added jitter.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></dt>
+    <dd><p>Thrown if <code class="paramref">jitterFactor</code> is not between 0 and 1.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithMaxAttempts_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithMaxAttempts_Kampute_HttpClient_Interfaces_IRetryStrategy_System_UInt32_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithMaxAttempts(Kampute.HttpClient.Interfaces.IRetryStrategy,System.UInt32)">
+  WithMaxAttempts(IRetryStrategy, uint)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enhances a retry strategy with a maximum number of retry attempts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static LimitedAttemptsStrategyModifier WithMaxAttempts(this IRetryStrategy source, uint maxAttempts)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
+    <dd><p>The original retry strategy to be enhanced.</p>
+</dd>
+    <dt><code>maxAttempts</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The maximum number of attempts allowed before giving up.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html">LimitedAttemptsStrategyModifier</a></dt>
+    <dd><p>A <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedAttemptsStrategyModifier.html">LimitedAttemptsStrategyModifier</a> instance wrapping the original retry strategy with a limit on the number of attempts.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p>Thrown if <code class="paramref">source</code> is <code>null</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithTimeout_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout*"></a>
+
+  <h3 id="Kampute_HttpClient_RetryManagement_RetryStrategyExtensions_WithTimeout_Kampute_HttpClient_Interfaces_IRetryStrategy_System_TimeSpan_" data-uid="Kampute.HttpClient.RetryManagement.RetryStrategyExtensions.WithTimeout(Kampute.HttpClient.Interfaces.IRetryStrategy,System.TimeSpan)">
+  WithTimeout(IRetryStrategy, TimeSpan)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/kampute/http-client/blob/master/src/Kampute.HttpClient/RetryManagement/RetryStrategyExtensions.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enhances a retry strategy with a timeout, limiting the total duration allowed for retry attempts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static LimitedDurationStrategyModifier WithTimeout(this IRetryStrategy source, TimeSpan timeout)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="Kampute.HttpClient.Interfaces.IRetryStrategy.html">IRetryStrategy</a></dt>
+    <dd><p>The original retry strategy to be enhanced.</p>
+</dd>
+    <dt><code>timeout</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd><p>The maximum duration to attempt retries before giving up.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html">LimitedDurationStrategyModifier</a></dt>
+    <dd><p>A <a class="xref" href="Kampute.HttpClient.RetryManagement.Strategies.Modifiers.LimitedDurationStrategyModifier.html">LimitedDurationStrategyModifier</a> instance wrapping the original retry strategy with a timeout limit.</p>
 </dd>
   </dl>
 

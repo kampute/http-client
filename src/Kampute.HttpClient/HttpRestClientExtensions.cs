@@ -345,5 +345,16 @@ namespace Kampute.HttpClient
             await response.Content.CopyToAsync(stream).ConfigureAwait(false);
             return stream;
         }
+
+        /// <summary>
+        /// Creates a new <see cref="HttpRequestScope"/> for managing scoped modifications of properties and headers for HTTP requests sent using the <see cref="HttpRestClient"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpRestClient"/> instance for which the scope is created.</param>
+        /// <returns>An instance of <see cref="HttpRequestScope"/> that allows properties and headers to be temporarily modified for requests made through the client.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <c>null</c>>.</exception>
+        public static HttpRequestScope WithScope(this HttpRestClient client)
+        {
+            return new HttpRequestScope(client);
+        }
     }
 }

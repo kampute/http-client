@@ -76,7 +76,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Once(TimeSpan delay)
         {
-            return new UniformStrategy(delay).MaxAttempts(1).ToBackoffStrategy();
+            return new UniformStrategy(delay).WithMaxAttempts(1).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Once(DateTimeOffset after)
         {
-            return new UniformStrategy(after - DateTimeOffset.UtcNow).MaxAttempts(1).ToBackoffStrategy();
+            return new UniformStrategy(after - DateTimeOffset.UtcNow).WithMaxAttempts(1).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Uniform(uint maxAttempts, TimeSpan delay)
         {
-            return new UniformStrategy(delay).MaxAttempts(maxAttempts).ToBackoffStrategy();
+            return new UniformStrategy(delay).WithMaxAttempts(maxAttempts).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Uniform(TimeSpan timeout, TimeSpan delay)
         {
-            return new UniformStrategy(delay).Timeout(timeout).ToBackoffStrategy();
+            return new UniformStrategy(delay).WithTimeout(timeout).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Linear(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)
         {
-            return new LinearStrategy(initialDelay, delayStep).MaxAttempts(maxAttempts).ToBackoffStrategy();
+            return new LinearStrategy(initialDelay, delayStep).WithMaxAttempts(maxAttempts).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Linear(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)
         {
-            return new LinearStrategy(initialDelay, delayStep).Timeout(timeout).ToBackoffStrategy();
+            return new LinearStrategy(initialDelay, delayStep).WithTimeout(timeout).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Linear(uint maxAttempts, TimeSpan initialDelay)
         {
-            return new LinearStrategy(initialDelay).MaxAttempts(maxAttempts).ToBackoffStrategy();
+            return new LinearStrategy(initialDelay).WithMaxAttempts(maxAttempts).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Linear(TimeSpan timeout, TimeSpan initialDelay)
         {
-            return new LinearStrategy(initialDelay).Timeout(timeout).ToBackoffStrategy();
+            return new LinearStrategy(initialDelay).WithTimeout(timeout).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rate"/> is less than 1.</exception>
         public static IHttpBackoffProvider Exponential(uint maxAttempts, TimeSpan initialDelay, double rate = 2.0)
         {
-            return new ExponentialStrategy(initialDelay, rate).MaxAttempts(maxAttempts).ToBackoffStrategy();
+            return new ExponentialStrategy(initialDelay, rate).WithMaxAttempts(maxAttempts).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rate"/> is less than 1.</exception>
         public static IHttpBackoffProvider Exponential(TimeSpan timeout, TimeSpan initialDelay, double rate = 2.0)
         {
-            return new ExponentialStrategy(initialDelay, rate).Timeout(timeout).ToBackoffStrategy();
+            return new ExponentialStrategy(initialDelay, rate).WithTimeout(timeout).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Fibonacci(uint maxAttempts, TimeSpan initialDelay, TimeSpan delayStep)
         {
-            return new FibonacciStrategy(initialDelay, delayStep).MaxAttempts(maxAttempts).ToBackoffStrategy();
+            return new FibonacciStrategy(initialDelay, delayStep).WithMaxAttempts(maxAttempts).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Fibonacci(TimeSpan timeout, TimeSpan initialDelay, TimeSpan delayStep)
         {
-            return new FibonacciStrategy(initialDelay, delayStep).Timeout(timeout).ToBackoffStrategy();
+            return new FibonacciStrategy(initialDelay, delayStep).WithTimeout(timeout).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Fibonacci(uint maxAttempts, TimeSpan initialDelay)
         {
-            return new FibonacciStrategy(initialDelay).MaxAttempts(maxAttempts).ToBackoffStrategy();
+            return new FibonacciStrategy(initialDelay).WithMaxAttempts(maxAttempts).ToBackoffStrategy();
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         public static IHttpBackoffProvider Fibonacci(TimeSpan timeout, TimeSpan initialDelay)
         {
-            return new FibonacciStrategy(initialDelay).Timeout(timeout).ToBackoffStrategy();
+            return new FibonacciStrategy(initialDelay).WithTimeout(timeout).ToBackoffStrategy();
         }
 
         /// <summary>

@@ -111,12 +111,12 @@ var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 
 ### Scoped Request Headers
 
-In addition to setting default request headers that apply to all requests, you can also define headers for a specific set of requests using a scope. This allows
-temporary changes to headers that override the default settings within a defined context, which can be essential for handling varying endpoint requirements or
-testing scenarios.
+In addition to setting default request headers that apply to all requests, you can define headers for a specific set of requests using a scoped approach. This feature
+allows for temporary modifications to headers that override default settings within a defined context. This is particularly useful for handling varying endpoint requirements
+or for testing scenarios.
 
-The example below demonstrates how to temporarily override the `Accept` header for a series of requests, ensuring that all requests within the scope explicitly
-request a specific media type.
+Below is an example that demonstrates how to temporarily override the `Accept` header for a series of requests, ensuring that all requests within the scope explicitly request
+a specific media type.
 
 ```csharp
 using Kampute.HttpClient;
@@ -124,23 +124,36 @@ using Kampute.HttpClient;
 // Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
 
+string csv;
+
 // Begin a scoped block where the 'Accept' header is set to 'text/csv'.
 // All HTTP requests within this using block will include this 'Accept' header.
 using (client.BeginHeaderScope(new Dictionary<string, string> { ["Accept"] = MediaTypeNames.Text.Csv }))
 {
     // Perform a GET request to retrieve data as CSV. The 'Accept' header for this request
     // will be 'text/csv', as specified by the scoped header.
-    await client.GetAsStringAsync("https://api.example.com/resource/1/csv");
-
-    // Perform another GET request within the same scope. The 'Accept' header remains
-    // consistent with the scoped setting, ensuring both requests expect CSV responses.
-    await client.GetAsStringAsync("https://api.example.com/resource/2/csv");
+    csv = await client.GetAsStringAsync("https://api.example.com/resource/csv");
 }
 ```
 
-In addition to headers, it is also possible to scope request properties. This feature is particularly useful in scenarios where you need to maintain state or
-context-specific information temporarily during a series of HTTP operations. Scoped properties are managed similarly to scoped headers, enabling developers to
-define temporary data attached to requests that are automatically cleared once the scope is exited. 
+Alternatively, you can use the `WithScope` extension method to simplify the code as follows:
+
+```csharp
+using Kampute.HttpClient;
+
+using var client = new HttpRestClient();
+
+var csv = await client
+    .WithScope()
+	.SetHeader("Accept", MediaTypeNames.Text.Csv)
+	.PerformAsync(c => c.GetAsStringAsync("https://api.example.com/resource/csv"));
+```
+
+### Scoped Request Properties
+
+Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily
+during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically
+cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios. 
 
 ### Custom Retry Strategies
 

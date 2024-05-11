@@ -567,11 +567,11 @@ namespace Kampute.HttpClient
             if (response.Content is null || response.Content.Headers.ContentLength == 0)
                 throw Error("The response body is empty.");
 
-            if (response.Content.Headers.ContentType is null)
-                throw Error("The content type of the response is missing.");
+            var mediaType = (response.Content.Headers.ContentType?.MediaType)
+                ?? throw Error("The media type of the response is unspecified.");
 
-            var deserializer = ResponseDeserializers.GetDeserializerFor(response.Content.Headers.ContentType.MediaType, objectType)
-                ?? throw Error("Unable to deserialize response body due to the absence of a matching deserializer.");
+            var deserializer = ResponseDeserializers.GetDeserializerFor(mediaType, objectType)
+                ?? throw Error($"Unable to deserialize response body due to the absence of a matching deserializer for '{mediaType}' media type.");
 
             try
             {

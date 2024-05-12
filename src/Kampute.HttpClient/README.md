@@ -63,8 +63,8 @@ By default, `Kampute.HttpClient` does not include any content deserializer. To a
   Employs the `XmlSerializer` for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom
   class structures.
 
-- **[Kampute.HttpClient.DataContract](https://www.nuget.org/packages/Kampute.HttpClient.DataContract)**: 
-  Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract 
+- **[Kampute.HttpClient.DataContract](https://www.nuget.org/packages/Kampute.HttpClient.DataContract)**:
+  Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract
   attributes for fine-grained control over the XML output.
 
 For scenarios where the provided serialization packages do not meet specific requirements, `Kampute.HttpClient` allows the implementation of custom deserializers.
@@ -140,15 +140,15 @@ using var client = new HttpRestClient();
 
 var csv = await client
     .WithScope()
-	.SetHeader("Accept", MediaTypeNames.Text.Csv)
-	.PerformAsync(c => c.GetAsStringAsync("https://api.example.com/resource/csv"));
+    .SetHeader("Accept", MediaTypeNames.Text.Csv)
+    .PerformAsync(scopedClient => scopedClient.GetAsStringAsync("https://api.example.com/resource/csv"));
 ```
 
 ### Scoped Request Properties
 
 Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily
 during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically
-cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios. 
+cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios.
 
 ### Custom Retry Strategies
 
@@ -163,7 +163,7 @@ using Kampute.HttpClient;
 using var client = new HttpRestClient();
 
 // Configure the client's retry mechanism.
-// The Fibonacci strategy will retry up to 5 times 
+// The Fibonacci strategy will retry up to 5 times
 // with an initial delay of 1 second between retries
 // and delay increases following the Fibonacci sequence for subsequent retries.
 client.BackoffStrategy = BackoffStrategies.Fibonacci(maxAttempts: 5, initialDelay: TimeSpan.FromSeconds(1));
@@ -182,7 +182,7 @@ using Kampute.HttpClient.ErrorHandlers;
 // This handler defines the logic to handle unauthorized responses.
 using var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =>
 {
-    // In this example, we're handling the unauthorized error by making a POST request to an 
+    // In this example, we're handling the unauthorized error by making a POST request to an
     // authentication endpoint to obtain a new authentication token.
     var auth = await client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
     [

@@ -145,8 +145,8 @@ using var client = new HttpRestClient();
 
 var csv = await client
     .WithScope()
-	.SetHeader("Accept", MediaTypeNames.Text.Csv)
-	.PerformAsync(c => c.GetAsStringAsync("https://api.example.com/resource/csv"));
+    .SetHeader("Accept", MediaTypeNames.Text.Csv)
+    .PerformAsync(scopedClient => scopedClient.GetAsStringAsync("https://api.example.com/resource/csv"));
 ```
 
 ### Scoped Request Properties

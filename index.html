@@ -208,8 +208,8 @@ using var client = new HttpRestClient();
 
 var csv = await client
     .WithScope()
-	.SetHeader(&quot;Accept&quot;, MediaTypeNames.Text.Csv)
-	.PerformAsync(c =&gt; c.GetAsStringAsync(&quot;https://api.example.com/resource/csv&quot;));
+    .SetHeader(&quot;Accept&quot;, MediaTypeNames.Text.Csv)
+    .PerformAsync(scopedClient =&gt; scopedClient.GetAsStringAsync(&quot;https://api.example.com/resource/csv&quot;));
 </code></pre>
 <h3 id="scoped-request-properties">Scoped Request Properties</h3>
 <p>Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily

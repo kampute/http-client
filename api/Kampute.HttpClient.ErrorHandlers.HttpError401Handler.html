@@ -206,7 +206,7 @@ details. This enables a more efficient use of credentials and reduces the need f
     </li></ul>
 The delegate should return a task resolving to an instance of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a> containing the  authorization details
 necessary for subsequent requests if authentication can be successfully completed. If the authentication process fails, the delegate should
-return <code>null</code>.
+return <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.
 </dd>
   </dl>
 
@@ -221,7 +221,7 @@ return <code>null</code>.
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">asyncAuthenticator</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">asyncAuthenticator</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -259,7 +259,7 @@ return <code>null</code>.
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a>&gt;</dt>
-    <dd><p>A task that resolves to an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a> if the client successfully acquires new authorization details; otherwise, <code>null</code>.</p>
+    <dd><p>A task that resolves to an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.headers.authenticationheadervalue">AuthenticationHeaderValue</a> if the client successfully acquires new authorization details; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -273,7 +273,7 @@ return <code>null</code>.
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Throws if <code class="paramref">ctx</code> is <code>null</code>.</p>
+    <dd><p>Throws if <code class="paramref">ctx</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -304,7 +304,7 @@ return <code>null</code>.
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the handler can process the status code; otherwise, <code>false</code>.</p>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the handler can process the status code; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
   </dl>
 

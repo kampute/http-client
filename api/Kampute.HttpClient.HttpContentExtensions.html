@@ -258,7 +258,7 @@ Class HttpContentExtensions  <a class="header-action link-secondary" title="View
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a> specified in the content's headers if the charset is recognized; otherwise, <code>null</code>.</p>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a> specified in the content's headers if the charset is recognized; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -270,7 +270,7 @@ Class HttpContentExtensions  <a class="header-action link-secondary" title="View
 
   <h4 class="section" id="Kampute_HttpClient_HttpContentExtensions_FindCharacterEncoding_System_Net_Http_HttpContent__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>This method inspects the 'CharSet' value in the content type header of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a>. If the charset is specified
-and recognized, it returns the corresponding <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a>. If the charset is not specified, the method returns <code>null</code>,
+and recognized, it returns the corresponding <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a>. If the charset is not specified, the method returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>,
 indicating that the encoding could not be determined. An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a> is thrown if the charset is specified but
 not supported by the system.</p>
 </div>
@@ -309,7 +309,7 @@ not supported by the system.</p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the content is reusable; otherwise, <code>false</code>.</p>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the content is reusable; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
   </dl>
 

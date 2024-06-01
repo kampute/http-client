@@ -261,7 +261,7 @@ accessed deserializers, significantly enhancing efficiency in scenarios where me
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">deserializer</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">deserializer</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
     <dd><p>Thrown if an instance of the same type already exists in the collection.</p>
@@ -322,7 +322,7 @@ accessed deserializers, significantly enhancing efficiency in scenarios where me
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if <code class="paramref">deserializer</code> is found in the collection; otherwise, <code>false</code>.</p>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">deserializer</code> is found in the collection; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
   </dl>
 
@@ -355,7 +355,7 @@ accessed deserializers, significantly enhancing efficiency in scenarios where me
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">T</span></dt>
-    <dd><p>The instance of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> of the specified type, or <code>null</code> if not found.</p>
+    <dd><p>The instance of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> of the specified type, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if not found.</p>
 </dd>
   </dl>
 
@@ -415,7 +415,7 @@ accessed deserializers, significantly enhancing efficiency in scenarios where me
 This method determines the supported media types for deserializing content based on the given model type.
 </p>
 <p>
-If the model type is <code>null</code>, this method returns a collection containing only <code>"*/*"</code>, signifying that all media types are acceptable.
+If the model type is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, this method returns a collection containing only <code>"*/*"</code>, signifying that all media types are acceptable.
 </p>
 <p>
 For non-null model types, the method aggregates media types supported by the registered deserializers for that specific model type.
@@ -471,14 +471,14 @@ This method determines the supported media types for deserializing content based
 If both <code class="paramref">modelType</code> and <code class="paramref">errorType</code> are provided, it aggregates and returns the media types that support deserializing either type.
 </p>
 <p>
-If only <code class="paramref">modelType</code> is provided and <code class="paramref">errorType</code> is <code>null</code>, the result includes media types exclusively supporting the <code class="paramref">modelType</code>.
+If only <code class="paramref">modelType</code> is provided and <code class="paramref">errorType</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, the result includes media types exclusively supporting the <code class="paramref">modelType</code>.
 </p>
 <p>
-Conversely, if <code class="paramref">modelType</code> is <code>null</code> and <code class="paramref">errorType</code> is provided, the result includes media types supporting the <code class="paramref">errorType</code>,
+Conversely, if <code class="paramref">modelType</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> and <code class="paramref">errorType</code> is provided, the result includes media types supporting the <code class="paramref">errorType</code>,
 augmented by <code>"*/*"</code> to indicate that all media types are acceptable for the <code class="paramref">modelType</code>.
 </p>
 <p>
-If both parameters are <code>null</code>, the method defaults to returning <code>"*/*"</code> only, implying general acceptability of any media type.
+If both parameters are <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, the method defaults to returning <code>"*/*"</code> only, implying general acceptability of any media type.
 </p>
 </div>
 
@@ -513,7 +513,7 @@ If both parameters are <code>null</code>, the method defaults to returning <code
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a></dt>
-    <dd><p>An instance of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> that can deserialize the specified media type and model type, or <code>null</code> if none is found.</p>
+    <dd><p>An instance of <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpContentDeserializer.html">IHttpContentDeserializer</a> that can deserialize the specified media type and model type, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if none is found.</p>
 </dd>
   </dl>
 
@@ -585,7 +585,7 @@ If both parameters are <code>null</code>, the method defaults to returning <code
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if <code class="paramref">deserializer</code> was successfully removed from the collection; otherwise, <code>false</code>.</p>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">deserializer</code> was successfully removed from the collection; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
   </dl>
 

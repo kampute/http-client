@@ -156,7 +156,7 @@ It encapsulates a delegate that is invoked to determine the retry logic for fail
 handling scenarios.
 </p>
 <p>
-Since this class always returns <code>true</code> for <a class="xref" href="Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html#Kampute_HttpClient_ErrorHandlers_DynamicHttpErrorHandler_CanHandle_System_Net_HttpStatusCode_">CanHandle(HttpStatusCode)</a>, it represents a "catch-all" handler that can be used as a fall-back 
+Since this class always returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> for <a class="xref" href="Kampute.HttpClient.ErrorHandlers.DynamicHttpErrorHandler.html#Kampute_HttpClient_ErrorHandlers_DynamicHttpErrorHandler_CanHandle_System_Net_HttpStatusCode_">CanHandle(HttpStatusCode)</a>, it represents a "catch-all" handler that can be used as a fall-back 
 when no other specific error handlers are suitable.
 </p>
 </div>
@@ -204,7 +204,7 @@ when no other specific error handlers are suitable.
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">asyncHandler</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">asyncHandler</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -239,7 +239,7 @@ when no other specific error handlers are suitable.
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Always <code>true</code>, indicating that this handler can handle any status code.</p>
+    <dd><p>Always <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, indicating that this handler can handle any status code.</p>
 </dd>
   </dl>
 

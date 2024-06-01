@@ -454,7 +454,7 @@ modifications, inspections, and logging, allowing for a highly customizable inte
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">httpClientReference</code> is <code>null</code>&gt;.</p>
+    <dd><p>Thrown if <code class="paramref">httpClientReference</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>&gt;.</p>
 </dd>
   </dl>
 
@@ -496,7 +496,7 @@ modifications, inspections, and logging, allowing for a highly customizable inte
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">httpClient</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">httpClient</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -582,7 +582,7 @@ with a slash, like <a href="http://example.com/api/">http://example.com/api/</a>
 difference can be crucial in ensuring requests are routed correctly.
 </p>
 <p>
-It's also worth noting that a <code>null</code> value for the base address is acceptable and indicates that no base address is set. In such cases, 
+It's also worth noting that a <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> value for the base address is acceptable and indicates that no base address is set. In such cases, 
 any HTTP request must use an absolute URL.
 </p>
 </div>
@@ -785,7 +785,7 @@ returned from the server.
   <h4 class="section" id="Kampute_HttpClient_HttpRestClient_BeginHeaderScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String____remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
 This method creates a scope associated with the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance to add, modify or remove any request header in subsequent
-requests during the lifetime of this scope. To remove a header, use <code>null</code> for its value.
+requests during the lifetime of this scope. To remove a header, use <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> for its value.
 </p>
 <p>
 Any header modifications made within this scope take precedence over the client's default headers. Header adjustments by other active scopes are overridden
@@ -801,7 +801,7 @@ Upon disposing of the scope, all header adjustments are reverted, restoring the 
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">headers</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">headers</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -845,7 +845,7 @@ Upon disposing of the scope, all header adjustments are reverted, restoring the 
   <h4 class="section" id="Kampute_HttpClient_HttpRestClient_BeginPropertyScope_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_Object____remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
 This method creates a scope associated with the current <a class="xref" href="Kampute.HttpClient.HttpRestClient.html">HttpRestClient</a> instance to add, modify or remove any request properties in subsequent
-requests during the lifetime of this scope. To remove a property, use <code>null</code> for its value.
+requests during the lifetime of this scope. To remove a property, use <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> for its value.
 </p>
 <p>
 Upon disposing of the scope, all property adjustments are reverted, restoring the properties to their state before the scope was activated.
@@ -855,7 +855,7 @@ Upon disposing of the scope, all property adjustments are reverted, restoring th
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">properties</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">properties</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -914,7 +914,7 @@ to ensure that context-specific modifications are respected.
 </p>
 <p>
 If an <code>Accept</code> header is absent in both default and scoped headers, it is added based on the media types supported by the content deserializers
-for the specified <code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <code>null</code>, the header defaults to accepting all
+for the specified <code class="paramref">responseObjectType</code>. If <code class="paramref">responseObjectType</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, the header defaults to accepting all
 media types ("*/*").
 </p>
 <p>
@@ -934,7 +934,7 @@ of the request. In addition to the scoped properties, the following properties a
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -993,7 +993,7 @@ that guides the next steps, either to retry the request with potentially modifie
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">error</code>, <code class="paramref">request</code> or <code class="paramref">response</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">error</code>, <code class="paramref">request</code> or <code class="paramref">response</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -1056,7 +1056,7 @@ to handle the error as unrecoverable.</p>
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">error</code> or <code class="paramref">request</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">error</code> or <code class="paramref">request</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 
@@ -1117,7 +1117,7 @@ failures, an <a class="xref" href="Kampute.HttpClient.HttpContentException.html"
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">response</code> or <code class="paramref">objectType</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">response</code> or <code class="paramref">objectType</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
     <dt><a class="xref" href="Kampute.HttpClient.HttpContentException.html">HttpContentException</a></dt>
     <dd><p>Thrown when the response body is empty, the content type is unsupported, or parsing the response fails.</p>
@@ -1237,7 +1237,7 @@ on the nature of the failure, with potential consultation of external retry logi
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">request</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">request</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
     <dt><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></dt>
     <dd><p>Thrown if the response status code indicates a failure.</p>
@@ -1497,7 +1497,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
     <dt><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></dt>
     <dd><p>Thrown if the response status code indicates a failure.</p>
@@ -1566,7 +1566,7 @@ before an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.ne
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">method</code> or <code class="paramref">uri</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
     <dt><a class="xref" href="Kampute.HttpClient.HttpResponseException.html">HttpResponseException</a></dt>
     <dd><p>Thrown if the response status code indicates a failure.</p>
@@ -1633,7 +1633,7 @@ the response's status code and a default error message.</p>
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">response</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">response</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 

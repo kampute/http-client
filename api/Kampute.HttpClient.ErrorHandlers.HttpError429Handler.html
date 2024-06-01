@@ -193,7 +193,7 @@ used to determine the backoff duration. If the header is not present, no retries
   <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_OnBackoffStrategy_remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
 If this delegate is set and returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a>, the returned strategy is used for the retry operation. 
-If it is not set, or returns <code>null</code>, the handler will defer to the <code>Retry-After</code> header in the response.
+If it is not set, or returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, the handler will defer to the <code>Retry-After</code> header in the response.
 </p>
 <p>
 The delegate receives the following parameters:
@@ -203,7 +203,7 @@ The delegate receives the following parameters:
     </li><li><span class="term">resetTime</span>
     Indicates the time when the rate limit will be lifted as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a> value. If the server specifies 
     a reset time via response headers, this parameter provides that time, allowing the client to know when to resume requests.
-    If the server does not specify a reset time, the value will be <code>null</code>.
+    If the server does not specify a reset time, the value will be <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.
     </li></ul>
 
 </div>
@@ -240,7 +240,7 @@ The delegate receives the following parameters:
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the handler can process the status code; otherwise, <code>false</code>.</p>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the handler can process the status code; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
   </dl>
 
@@ -294,14 +294,14 @@ The delegate receives the following parameters:
 
   <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError429Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>This method first attempts to use the <a class="xref" href="Kampute.HttpClient.ErrorHandlers.HttpError429Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError429Handler_OnBackoffStrategy">OnBackoffStrategy</a> delegate to obtain a retry strategy. If the delegate is not
-provided or returns <code>null</code>, and a rate limit reset header is present, the value of this header is used to create a retry delay.
+provided or returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, and a rate limit reset header is present, the value of this header is used to create a retry delay.
 If neither condition is met, no retries will be attempted.</p>
 </div>
 
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">ctx</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">ctx</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 

@@ -370,7 +370,7 @@ This method allows for a thread-safe update of the value. The update will only b
 this update attempt was initiated, preventing unnecessary updates or overwrites by concurrent operations.
 </p>
 <p>
-If the update proceeds and is successful, the method returns <code>true</code>; if another update has already been applied, it returns <code>false</code>.
+If the update proceeds and is successful, the method returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>; if another update has already been applied, it returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
 This behavior ensures that the value reflects the most recent update attempt that was actually needed.
 </p>
 </div>
@@ -378,7 +378,7 @@ This behavior ensures that the value reflects the most recent update attempt tha
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">asyncUpdater</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">asyncUpdater</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
     <dd><p>Thrown if the operation is canceled via the cancellation token.</p>

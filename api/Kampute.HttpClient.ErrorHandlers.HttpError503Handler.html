@@ -194,7 +194,7 @@ present, its value is used to determine the backoff duration. If the header is n
   <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy_remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
 If this delegate is set and returns an <a class="xref" href="Kampute.HttpClient.Interfaces.IHttpBackoffProvider.html">IHttpBackoffProvider</a>, the returned strategy is used for the retry operation. 
-If it is not set, or returns <code>null</code>, the handler will defer to the <code>Retry-After</code> header in the response or the 
+If it is not set, or returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, the handler will defer to the <code>Retry-After</code> header in the response or the 
 client's default backoff strategy.
 </p>
 <p>
@@ -204,7 +204,7 @@ The delegate receives the following parameters:
     an <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> instance, allowing for an informed decision on the retry strategy.
     </li><li><span class="term">retryAfter</span>
       Advises on the next retry attempt timing as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a> value. If the response includes a <code>Retry-After</code>
-      header, this parameter reflects its value, suggesting an optimal time to retry. If the header is missing, the value is <code>null</code>,
+      header, this parameter reflects its value, suggesting an optimal time to retry. If the header is missing, the value is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>,
       indicating no specific suggestion from the server.
     </li></ul>
 
@@ -242,7 +242,7 @@ The delegate receives the following parameters:
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p><code>true</code> if the handler can process the status code; otherwise, <code>false</code>.</p>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the handler can process the status code; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
   </dl>
 
@@ -296,14 +296,14 @@ The delegate receives the following parameters:
 
   <h4 class="section" id="Kampute_HttpClient_ErrorHandlers_HttpError503Handler_CreateScheduler_Kampute_HttpClient_HttpResponseErrorContext__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>This method first attempts to use the <a class="xref" href="Kampute.HttpClient.ErrorHandlers.HttpError503Handler.html#Kampute_HttpClient_ErrorHandlers_HttpError503Handler_OnBackoffStrategy">OnBackoffStrategy</a> delegate to obtain a retry strategy. If the delegate is not
-provided or returns <code>null</code>, and a <code>Retry-After</code> header is present, the value of this header is used to create a retry
+provided or returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, and a <code>Retry-After</code> header is present, the value of this header is used to create a retry
 delay. If neither condition is met, the client's default backoff strategy is utilized.</p>
 </div>
 
   <h4 class="section">Exceptions</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-    <dd><p>Thrown if <code class="paramref">ctx</code> is <code>null</code>.</p>
+    <dd><p>Thrown if <code class="paramref">ctx</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
 </dd>
   </dl>
 

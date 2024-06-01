@@ -292,7 +292,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="strategyFactory">A factory function that creates <see cref="IRetryStrategy"/> instances based on the failed HTTP request context.</param>
         /// <returns>An instance of <see cref="DynamicBackoffStrategy"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategyFactory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategyFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
@@ -307,7 +307,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="schedulerFactory">A factory function that creates <see cref="IRetryScheduler"/> instances based on the failed HTTP request context.</param>
         /// <returns>An instance of <see cref="DynamicBackoffStrategy"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="schedulerFactory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.

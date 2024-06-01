@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="content">The content to compress using the Deflate compression algorithm.</param>
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <see langword="null"/>.</exception>
         public DeflateCompressedContent(HttpContent content, CompressionLevel compressionLevel = CompressionLevel.Fastest)
             : base(content, "deflate")
         {

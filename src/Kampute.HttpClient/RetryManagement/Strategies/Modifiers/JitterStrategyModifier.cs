@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="source">The underlying retry strategy to which jitter will be added.</param>
         /// <param name="jitterFactor">The factor to apply to the delay to introduce jitter, represented as a value between 0 and 1.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="jitterFactor"/> is not between 0 and 1.</exception>
         /// <remarks>
         /// The jitter factor allows fine-tuning of the randomness applied to the retry delay, enabling a balance between predictability and the
@@ -57,7 +57,7 @@
         /// <param name="elapsed">The total time elapsed since the start of retry attempts.</param>
         /// <param name="attempts">The number of retry attempts made so far.</param>
         /// <param name="delay">When this method returns, contains the calculated delay for the next retry attempt. This parameter is passed uninitialized.</param>
-        /// <returns><c>true</c> if the underlying strategy indicates that a retry should be attempted; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the underlying strategy indicates that a retry should be attempted; otherwise, <see langword="false"/>.</returns>
         public bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay)
         {
             if (Source.TryGetRetryDelay(elapsed, attempts, out delay))

@@ -13,7 +13,7 @@
         /// <param name="elapsed">The total time elapsed since the start of retry attempts.</param>
         /// <param name="attempts">The count of retry attempts made so far.</param>
         /// <param name="delay">When this method returns, contains the calculated delay duration for the next retry attempt, if a retry is advisable. This parameter is passed uninitialized.</param>
-        /// <returns><c>true</c> if a retry attempt is advisable and should be made after the calculated delay; <c>false</c> otherwise, indicating no further retry attempts should be made.</returns>
+        /// <returns><see langword="true"/> if a retry attempt is advisable and should be made after the calculated delay; <see langword="false"/> otherwise, indicating no further retry attempts should be made.</returns>
         bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay);
     }
 }

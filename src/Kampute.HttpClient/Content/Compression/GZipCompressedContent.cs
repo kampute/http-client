@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="content">The content to compress using the GZIP compression algorithm.</param>
         /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <see langword="null"/>.</exception>
         public GzipCompressedContent(HttpContent content, CompressionLevel compressionLevel)
             : base(content, "gzip")
         {

@@ -40,7 +40,7 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         /// <param name="elapsed">The total time elapsed since the start of retry attempts. This parameter is ignored in this implementation.</param>
         /// <param name="attempts">The number of retry attempts made so far. This parameter is ignored in this implementation.</param>
         /// <param name="delay">When this method returns, contains the calculated delay for the next retry attempt. This parameter is passed uninitialized.</param>
-        /// <returns>Always returns <c>true</c>, indicating that a retry attempt should be made after the calculated <paramref name="delay"/>.</returns>
+        /// <returns>Always returns <see langword="true"/>, indicating that a retry attempt should be made after the calculated <paramref name="delay"/>.</returns>
         public bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay)
         {
             delay = Delay;

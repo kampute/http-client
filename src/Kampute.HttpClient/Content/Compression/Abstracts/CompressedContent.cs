@@ -17,8 +17,8 @@
         /// </summary>
         /// <param name="content">The HTTP content to compress.</param>
         /// <param name="contentEncoding">The encoding type used for compression (e.g., gzip, deflate).</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="contentEncoding"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="contentEncoding"/> is <see langword="null"/> or empty.</exception>
         protected CompressedContent(HttpContent content, string contentEncoding)
             : base(content)
         {
@@ -51,7 +51,7 @@
         /// Tries to compute the length of the compressed content.
         /// </summary>
         /// <param name="length">The length of the content, if it can be computed.</param>
-        /// <returns><c>false</c> as the compressed content length is not predictable before compression.</returns>
+        /// <returns><see langword="false"/> as the compressed content length is not predictable before compression.</returns>
         protected sealed override bool TryComputeLength(out long length)
         {
             length = -1;

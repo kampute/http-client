@@ -27,12 +27,12 @@ namespace Kampute.HttpClient.RetryManagement.Strategies
         public static NoneStrategy Instance { get; } = new NoneStrategy();
 
         /// <summary>
-        /// Always returns <c>false</c> to indicate that no further retry attempts should be made, setting the delay to its default value.
+        /// Always returns <see langword="false"/> to indicate that no further retry attempts should be made, setting the delay to its default value.
         /// </summary>
         /// <param name="elapsed">The total time elapsed since the start of retry attempts. This parameter is ignored in this implementation.</param>
         /// <param name="attempts">The number of retry attempts made so far. This parameter is ignored in this implementation.</param>
         /// <param name="delay">When this method returns, contains the default value for <see cref="TimeSpan"/>, indicating no delay. This parameter is passed uninitialized.</param>
-        /// <returns>Always returns <c>false</c>, indicating that no further retry attempts should be made.</returns>
+        /// <returns>Always returns <see langword="false"/>, indicating that no further retry attempts should be made.</returns>
         public bool TryGetRetryDelay(TimeSpan elapsed, uint attempts, out TimeSpan delay)
         {
             delay = default;

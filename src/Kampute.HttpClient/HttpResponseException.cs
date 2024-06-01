@@ -42,7 +42,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="statusCode">The HTTP status code associated with the exception.</param>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a <c>null</c> reference if no inner exception is specified.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception, or a <see langword="null"/> reference if no inner exception is specified.</param>
         public HttpResponseException(HttpStatusCode statusCode, string message, Exception? innerException)
             : base(message, innerException)
         {
@@ -61,7 +61,7 @@ namespace Kampute.HttpClient
         /// Gets or sets the validation errors associated with the exception.
         /// </summary>
         /// <value>
-        /// The validation errors associated with the exception, if any. It maps error keys to their corresponding error messages arrays. Can be <c>null</c> if there are no validation errors.
+        /// The validation errors associated with the exception, if any. It maps error keys to their corresponding error messages arrays. Can be <see langword="null"/> if there are no validation errors.
         /// </value>
         public IDictionary<string, string[]>? Errors { get; set; }
 
@@ -69,7 +69,7 @@ namespace Kampute.HttpClient
         /// Gets or sets the HTTP response message associated with the exception.
         /// </summary>
         /// <value>
-        /// The HTTP response message associated with the exception. Can be <c>null</c> if there is no HTTP response message.
+        /// The HTTP response message associated with the exception. Can be <see langword="null"/> if there is no HTTP response message.
         /// </value>
         public HttpResponseMessage? ResponseMessage { get; set; }
 
@@ -77,7 +77,7 @@ namespace Kampute.HttpClient
         /// Gets or sets the deserialized object from the HTTP response associated with the exception.
         /// </summary>
         /// <value>
-        /// The deserialized object from the HTTP response body. Can be <c>null</c> if the HTTP response is not deserialized.
+        /// The deserialized object from the HTTP response body. Can be <see langword="null"/> if the HTTP response is not deserialized.
         /// </value>
         public object? ResponseObject { get; set; }
 

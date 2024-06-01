@@ -56,7 +56,7 @@ namespace Kampute.HttpClient.Interfaces
         /// </summary>
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The type of the model to be deserialized.</param>
-        /// <returns><c>true</c> if this deserializer can handle the specified content type and model type; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if this deserializer can handle the specified content type and model type; otherwise, <see langword="false"/>.</returns>
         bool CanDeserialize(string mediaType, Type modelType);
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Kampute.HttpClient.Interfaces
         /// <param name="modelType">The type of the object to be deserialized.</param>
         /// <param name="cancellationToken">A token for canceling the operation (optional).</param>
         /// <returns>A task representing the asynchronous deserialization operation. Contains the deserialized object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <see langword="null"/>.</exception>
         Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default);
     }
 }

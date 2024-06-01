@@ -29,7 +29,7 @@ namespace Kampute.HttpClient.DataContract
         /// Initializes a new instance of the <see cref="XmlContent"/> class using a specified content object with UTF-8 encoding.
         /// </summary>
         /// <param name="payload">The object to be serialized into XML format.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="payload"/> is <see langword="null"/>.</exception>
         public XmlContent(object payload)
             : this(payload, utf8WithoutMarker)
         {
@@ -40,7 +40,7 @@ namespace Kampute.HttpClient.DataContract
         /// </summary>
         /// <param name="content">The object to be serialized into XML format.</param>
         /// <param name="encoding">The character encoding to use for the serialized XML content.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="encoding"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="encoding"/> is <see langword="null"/>.</exception>
         public XmlContent(object content, Encoding encoding)
         {
             _content = content ?? throw new ArgumentNullException(nameof(content));

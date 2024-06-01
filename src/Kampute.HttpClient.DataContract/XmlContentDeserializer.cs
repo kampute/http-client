@@ -44,7 +44,7 @@ namespace Kampute.HttpClient.DataContract
         /// </summary>
         /// <param name="modelType">The type of the model for which to retrieve supported media types.</param>
         /// <returns>
-        /// The read-only collection of media types that this deserializer supports if the model type is not <c>null</c> and
+        /// The read-only collection of media types that this deserializer supports if the model type is not <see langword="null"/> and
         /// is marked with a <see cref="DataContractAttribute"/>; otherwise, an empty collection.
         /// </returns>
         public override IEnumerable<string> GetSupportedMediaTypes(Type modelType)
@@ -58,8 +58,8 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The target model type for deserialization.</param>
         /// <returns>
-        /// <c>true</c> if the deserializer supports the media type and the model type is not <c>null</c> and is marked with
-        /// a <see cref="DataContractAttribute"/>; otherwise, <c>false</c>.
+        /// <see langword="true"/> if the deserializer supports the media type and the model type is not <see langword="null"/> and is marked with
+        /// a <see cref="DataContractAttribute"/>; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool CanDeserialize(string mediaType, Type modelType)
         {
@@ -73,7 +73,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="modelType">The type of the object to read.</param>
         /// <param name="cancellationToken">A token for canceling the read operation (optional).</param>
         /// <returns>A task representing the asynchronous read operation, containing the deserialized object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <see langword="null"/>.</exception>
         public override async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
         {
             if (content is null)

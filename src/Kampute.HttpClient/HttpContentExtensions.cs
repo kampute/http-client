@@ -21,11 +21,11 @@ namespace Kampute.HttpClient
         /// Attempts to find the character encoding from the <see cref="HttpContent"/> headers.
         /// </summary>
         /// <param name="httpContent">The <see cref="HttpContent"/> instance to extract the character encoding from.</param>
-        /// <returns>The <see cref="Encoding"/> specified in the content's headers if the charset is recognized; otherwise, <c>null</c>.</returns>
+        /// <returns>The <see cref="Encoding"/> specified in the content's headers if the charset is recognized; otherwise, <see langword="null"/>.</returns>
         /// <exception cref="ArgumentException">Thrown if the charset specified in the content's headers is not recognized.</exception>
         /// <remarks>
         /// This method inspects the 'CharSet' value in the content type header of the <see cref="HttpContent"/>. If the charset is specified
-        /// and recognized, it returns the corresponding <see cref="Encoding"/>. If the charset is not specified, the method returns <c>null</c>, 
+        /// and recognized, it returns the corresponding <see cref="Encoding"/>. If the charset is not specified, the method returns <see langword="null"/>, 
         /// indicating that the encoding could not be determined. An <see cref="ArgumentException"/> is thrown if the charset is specified but 
         /// not supported by the system.
         /// </remarks>
@@ -38,7 +38,7 @@ namespace Kampute.HttpClient
         /// Determines whether the <see cref="HttpContent"/> instance can be reused.
         /// </summary>
         /// <param name="httpContent">The <see cref="HttpContent"/> instance to check for re-usability.</param>
-        /// <returns><c>true</c> if the content is reusable; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the content is reusable; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
         /// Reusability of <see cref="HttpContent"/> is determined by its ability to provide its content multiple times without alteration.
         /// For example, content backed by a non-seekable stream is not reusable as the stream can be consumed only once.

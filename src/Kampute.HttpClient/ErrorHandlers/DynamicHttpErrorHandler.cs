@@ -21,7 +21,7 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// handling scenarios.
     /// </para>
     /// <para>
-    /// Since this class always returns <c>true</c> for <see cref="CanHandle(HttpStatusCode)"/>, it represents a "catch-all" handler that can be used as a fall-back 
+    /// Since this class always returns <see langword="true"/> for <see cref="CanHandle(HttpStatusCode)"/>, it represents a "catch-all" handler that can be used as a fall-back 
     /// when no other specific error handlers are suitable.
     /// </para>
     /// </remarks>
@@ -33,7 +33,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Initializes a new instance of the <see cref="DynamicHttpErrorHandler"/> class.
         /// </summary>
         /// <param name="asyncHandler">The asynchronous delegate to handle HTTP error status codes and decide on retry logic.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncHandler"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncHandler"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// The delegate receives the following parameters:
         /// <list type="bullet">
@@ -57,7 +57,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Determines whether the handler is capable of handling the provided HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to evaluate.</param>
-        /// <returns>Always <c>true</c>, indicating that this handler can handle any status code.</returns>
+        /// <returns>Always <see langword="true"/>, indicating that this handler can handle any status code.</returns>
         public bool CanHandle(HttpStatusCode statusCode) => true;
 
         /// <summary>

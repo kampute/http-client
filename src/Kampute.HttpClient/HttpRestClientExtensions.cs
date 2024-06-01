@@ -31,7 +31,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning the response headers.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -49,7 +49,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning the response headers.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -68,7 +68,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -85,7 +85,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning an array of bytes.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -102,7 +102,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a string.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -119,7 +119,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, returning a <see cref="Stream"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -144,7 +144,7 @@ namespace Kampute.HttpClient
         /// <param name="stream">The <see cref="Stream"/> where the response body is written.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="stream"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="stream"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -167,7 +167,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -185,7 +185,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -204,7 +204,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -222,7 +222,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -241,7 +241,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -259,7 +259,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -277,7 +277,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -294,7 +294,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -316,8 +316,8 @@ namespace Kampute.HttpClient
         /// <returns>
         /// A task that represents the asynchronous operation. The task result contains a <see cref="Stream"/> that represents the response content.
         /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/>, or <paramref name="streamProvider"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/>, or <paramref name="streamProvider"/> is <see langword="null"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -351,7 +351,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance for which the scope is created.</param>
         /// <returns>An instance of <see cref="HttpRequestScope"/> that allows properties and headers to be temporarily modified for requests made through the client.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <see langword="null"/>>.</exception>
         public static HttpRequestScope WithScope(this HttpRestClient client)
         {
             return new HttpRequestScope(client);

@@ -19,7 +19,7 @@ namespace Kampute.HttpClient.Interfaces
         /// be attempted.
         /// </summary>
         /// <param name="cancellationToken">A token that can be used to cancel the wait operation.</param>
-        /// <returns>A task that resolves to <c>true</c> if a retry should be attempted; otherwise, <c>false</c>.</returns>
+        /// <returns>A task that resolves to <see langword="true"/> if a retry should be attempted; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
         /// <para>
         /// The asynchronous nature of the method allows implementations to incorporate not just simple time-based waiting but also 

@@ -23,7 +23,7 @@
         /// Initializes a new instance of the <see cref="FlyweightCache{TKey, TValue}"/> class using a specified value factory.
         /// </summary>
         /// <param name="valueFactory">A delegate that defines the method to create values if the key does not exist in the cache.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> is <see langword="null"/>.</exception>
         public FlyweightCache(Func<TKey, TValue> valueFactory)
         {
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
@@ -35,7 +35,7 @@
         /// </summary>
         /// <param name="valueFactory">A delegate that defines the method to create values if the key does not exist in the cache.</param>
         /// <param name="keyComparer">The equality comparison implementation to use when comparing keys.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> or <paramref name="keyComparer"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> or <paramref name="keyComparer"/> is <see langword="null"/>.</exception>
         public FlyweightCache(Func<TKey, TValue> valueFactory, IEqualityComparer<TKey> keyComparer)
         {
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
@@ -59,7 +59,7 @@
         /// Checks if the cache contains a value associated with the specified key.
         /// </summary>
         /// <param name="key">The key to check in the cache.</param>
-        /// <returns><c>true</c> if the key exists in the cache; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the key exists in the cache; otherwise, <see langword="false"/>.</returns>
         public bool Contains(TKey key) => _store.ContainsKey(key);
 
         /// <summary>

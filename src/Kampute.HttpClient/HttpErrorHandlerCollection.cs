@@ -32,10 +32,10 @@ namespace Kampute.HttpClient
         public int Count => _collection.Count;
 
         /// <summary>
-        /// Gets a value indicating whether the collection is read-only. Always returns <c>false</c> for this implementation.
+        /// Gets a value indicating whether the collection is read-only. Always returns <see langword="false"/> for this implementation.
         /// </summary>
         /// <value>
-        /// Indicates whether the collection is read-only. This property always returns <c>false</c>.
+        /// Indicates whether the collection is read-only. This property always returns <see langword="false"/>.
         /// </value>
         bool ICollection<IHttpErrorHandler>.IsReadOnly => false;
 
@@ -53,7 +53,7 @@ namespace Kampute.HttpClient
         /// Adds an <see cref="IHttpErrorHandler"/> to the collection.
         /// </summary>
         /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> to add.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="errorHandler"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="errorHandler"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="errorHandler"/> is already present in the collection, as duplicates are not allowed.</exception>
         public void Add(IHttpErrorHandler errorHandler)
         {
@@ -69,7 +69,7 @@ namespace Kampute.HttpClient
         /// Removes the first occurrence of a specific <see cref="IHttpErrorHandler"/> from the collection.
         /// </summary>
         /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> to remove from the collection.</param>
-        /// <returns><c>true</c> if <paramref name="errorHandler"/> was successfully removed from the collection; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if <paramref name="errorHandler"/> was successfully removed from the collection; otherwise, <see langword="false"/>.</returns>
         public bool Remove(IHttpErrorHandler errorHandler)
         {
             return _collection.Remove(errorHandler);
@@ -79,7 +79,7 @@ namespace Kampute.HttpClient
         /// Determines whether the collection contains a specific <see cref="IHttpErrorHandler"/>.
         /// </summary>
         /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> to locate in the collection.</param>
-        /// <returns><c>true</c> if <paramref name="errorHandler"/> is found in the collection; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if <paramref name="errorHandler"/> is found in the collection; otherwise, <see langword="false"/>.</returns>
         public bool Contains(IHttpErrorHandler errorHandler)
         {
             return _collection.Contains(errorHandler);

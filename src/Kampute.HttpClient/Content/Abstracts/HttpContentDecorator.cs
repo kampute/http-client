@@ -15,7 +15,7 @@
         /// Initializes a new instance of the <see cref="HttpContentDecorator"/> class.
         /// </summary>
         /// <param name="content">The HTTP content to decorate. This content will be disposed when this decorator instance is disposed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <see langword="null"/>.</exception>
         protected HttpContentDecorator(HttpContent content)
         {
             OriginalContent = content ?? throw new ArgumentNullException(nameof(content));
@@ -31,7 +31,7 @@
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="HttpContent"/> and optionally disposes of the managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing"><see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

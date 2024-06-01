@@ -16,7 +16,7 @@
         /// Initializes a new instance of the <see cref="HttpRequestScope"/> class.
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> associated with this scope.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <see langword="null"/>>.</exception>
         public HttpRequestScope(HttpRestClient client)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
@@ -50,7 +50,7 @@
         /// <param name="name">The name of the header.</param>
         /// <param name="value">The value of the header.</param>
         /// <returns>The same <see cref="HttpRequestScope"/> instance for fluent chaining.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <see langword="null"/>>.</exception>
         public HttpRequestScope SetHeader(string name, string value)
         {
             if (name is null)
@@ -66,7 +66,7 @@
         /// </summary>
         /// <param name="name">The header name to remove.</param>
         /// <returns>The same <see cref="HttpRequestScope"/> instance for fluent chaining.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <see langword="null"/>>.</exception>
         public HttpRequestScope UnsetHeader(string name)
         {
             if (name is null)
@@ -83,7 +83,7 @@
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The value of the property.</param>
         /// <returns>The same <see cref="HttpRequestScope"/> instance for fluent chaining.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <see langword="null"/>.</exception>
         public HttpRequestScope SetProperty(string name, object value)
         {
             if (name is null)
@@ -99,7 +99,7 @@
         /// </summary>
         /// <param name="name">The name of the property.</param>
         /// <returns>The same <see cref="HttpRequestScope"/> instance for fluent chaining.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="name"/> argument is <see langword="null"/>>.</exception>
         public HttpRequestScope UnsetProperty(string name)
         {
             if (name is null)
@@ -115,7 +115,7 @@
         /// </summary>
         /// <param name="scopedAction">The asynchronous action to execute, which involves HTTP requests that will include the configured properties and headers.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="scopedAction"/> is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="scopedAction"/> is <see langword="null"/>>.</exception>
         public async Task PerformAsync(Func<HttpRestClient, Task> scopedAction)
         {
             if (scopedAction is null)
@@ -133,7 +133,7 @@
         /// <typeparam name="T">The type of the result returned by the scoped action.</typeparam>
         /// <param name="scopedFunction">The asynchronous function to execute, which involves HTTP requests that will include the configured properties and headers.</param>
         /// <returns>A task representing the asynchronous operation with a result of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="scopedFunction"/> is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="scopedFunction"/> is <see langword="null"/>>.</exception>
         public async Task<T> PerformAsync<T>(Func<HttpRestClient, Task<T>> scopedFunction)
         {
             if (scopedFunction is null)

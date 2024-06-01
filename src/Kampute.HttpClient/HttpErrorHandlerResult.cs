@@ -24,7 +24,7 @@ namespace Kampute.HttpClient
         /// Initializes a new instance of the <see cref="HttpErrorHandlerResult"/> struct with a request to retry.
         /// </summary>
         /// <param name="requestToRetry">The <see cref="HttpRequestMessage"/> to use for retrying the failed request.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <see langword="null"/>.</exception>
         private HttpErrorHandlerResult(HttpRequestMessage requestToRetry)
         {
             RequestToRetry = requestToRetry ?? throw new ArgumentNullException(nameof(requestToRetry));
@@ -32,10 +32,10 @@ namespace Kampute.HttpClient
 
         /// <summary>
         /// Gets the <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; 
-        /// otherwise, <c>null</c>.
+        /// otherwise, <see langword="null"/>.
         /// </summary>
         /// <value>
-        /// The <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; otherwise, <c>null</c>.
+        /// The <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; otherwise, <see langword="null"/>.
         /// </value>
         public readonly HttpRequestMessage? RequestToRetry;
 
@@ -44,7 +44,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="requestToRetry">The request to use for the retry.</param>
         /// <returns>An <see cref="HttpErrorHandlerResult"/> indicating the request should be retried with the provided <see cref="HttpRequestMessage"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <see langword="null"/>.</exception>
         public static HttpErrorHandlerResult Retry(HttpRequestMessage requestToRetry) => new(requestToRetry);
 
         /// <summary>

@@ -25,7 +25,7 @@ namespace Kampute.HttpClient.Json
         /// Initializes a new instance of the <see cref="JsonContent"/> class.
         /// </summary>
         /// <param name="content">The object to be serialized into JSON format.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> is <see langword="null"/>.</exception>
         public JsonContent(object content)
         {
             _content = content ?? throw new ArgumentNullException(nameof(content));

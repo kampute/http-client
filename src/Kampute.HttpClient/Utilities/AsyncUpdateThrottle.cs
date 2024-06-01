@@ -68,7 +68,7 @@
         /// <param name="asyncUpdater">The asynchronous function used to update the value.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a boolean value that indicates whether the value was updated.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncUpdater"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncUpdater"/> is <see langword="null"/>.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         /// <remarks>
         /// <para>
@@ -76,7 +76,7 @@
         /// this update attempt was initiated, preventing unnecessary updates or overwrites by concurrent operations.
         /// </para>
         /// <para>
-        /// If the update proceeds and is successful, the method returns <c>true</c>; if another update has already been applied, it returns <c>false</c>.
+        /// If the update proceeds and is successful, the method returns <see langword="true"/>; if another update has already been applied, it returns <see langword="false"/>.
         /// This behavior ensures that the value reflects the most recent update attempt that was actually needed.
         /// </para>
         /// </remarks>

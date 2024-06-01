@@ -25,7 +25,7 @@ namespace Kampute.HttpClient
         /// Initializes a new instance of the <see cref="HttpRequestMessageCloneManager"/> struct with the specified HTTP request.
         /// </summary>
         /// <param name="request">The original <see cref="HttpRequestMessage"/> to send.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
         public HttpRequestMessageCloneManager(HttpRequestMessage request)
         {
             _originalRequest = request ?? throw new ArgumentNullException(nameof(request));
@@ -45,7 +45,7 @@ namespace Kampute.HttpClient
         /// disposes of the previous request if it is not the original.
         /// </summary>
         /// <param name="decision">The retry decision.</param>
-        /// <returns><c>true</c> if the decision was applied and a retry should occur; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the decision was applied and a retry should occur; otherwise, <see langword="false"/>.</returns>
         public bool TryApplyDecision(in HttpErrorHandlerResult decision)
         {
             if (decision.RequestToRetry is null)

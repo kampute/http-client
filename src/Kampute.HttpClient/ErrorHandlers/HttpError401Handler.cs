@@ -69,9 +69,9 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </list>
         /// The delegate should return a task resolving to an instance of <see cref="AuthenticationHeaderValue"/> containing the  authorization details
         /// necessary for subsequent requests if authentication can be successfully completed. If the authentication process fails, the delegate should
-        /// return <c>null</c>.
+        /// return <see langword="null"/>.
         /// </param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncAuthenticator"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncAuthenticator"/> is <see langword="null"/>.</exception>
         public HttpError401Handler(Func<HttpResponseErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>> asyncAuthenticator)
         {
             _asyncAuthenticator = asyncAuthenticator ?? throw new ArgumentNullException(nameof(asyncAuthenticator));
@@ -82,7 +82,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Determines whether this handler can process the specified HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to evaluate.</param>
-        /// <returns><c>true</c> if the handler can process the status code; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the handler can process the status code; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
         /// This implementation specifically handles the HTTP '401 Unauthorized' status code.
         /// </remarks>
@@ -93,8 +93,8 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </summary>
         /// <param name="ctx">The error context for the HTTP response.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
-        /// <returns>A task that resolves to an <see cref="AuthenticationHeaderValue"/> if the client successfully acquires new authorization details; otherwise, <c>null</c>.</returns>
-        /// <exception cref="ArgumentNullException">Throws if <paramref name="ctx"/> is <c>null</c>.</exception>
+        /// <returns>A task that resolves to an <see cref="AuthenticationHeaderValue"/> if the client successfully acquires new authorization details; otherwise, <see langword="null"/>.</returns>
+        /// <exception cref="ArgumentNullException">Throws if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         protected virtual async Task<AuthenticationHeaderValue?> AuthenticateAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
             if (ctx is null)
@@ -145,7 +145,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         ///     <description>
         ///     A flag indicating whether the request should skip the authorization process.
         ///     <para>
-        ///     This property is set to <c>true</c> for all requests initiated by the authorization process
+        ///     This property is set to <see langword="true"/> for all requests initiated by the authorization process
         ///     to prevent the handler from reentering itself and causing potential deadlocks.
         ///     </para>
         ///     </description>

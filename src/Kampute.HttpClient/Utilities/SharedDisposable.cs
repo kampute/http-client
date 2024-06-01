@@ -41,7 +41,7 @@ namespace Kampute.HttpClient.Utilities
         /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class with a factory function.
         /// </summary>
         /// <param name="factory">A function that creates an instance of the object <typeparamref name="T"/> when needed.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="factory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="factory"/> is <see langword="null"/>.</exception>
         public SharedDisposable(Func<T> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));

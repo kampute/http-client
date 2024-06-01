@@ -17,7 +17,7 @@ namespace Kampute.HttpClient.Utilities
         /// Determines whether a given exception can be considered as a transient network issue for the purposes of retrying an HTTP request.
         /// </summary>
         /// <param name="exception">The exception encountered during the HTTP request execution.</param>
-        /// <returns><c>true</c> if the error can be considered as a transient network issue and might warrant a retry attempt; <c>false</c> otherwise.</returns>
+        /// <returns><see langword="true"/> if the error can be considered as a transient network issue and might warrant a retry attempt; <see langword="false"/> otherwise.</returns>
         public static bool IsTransientNetworkError(this Exception exception) => exception.GetBaseException() switch
         {
             TimeoutException => true,

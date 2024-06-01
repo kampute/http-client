@@ -24,7 +24,7 @@ namespace Kampute.HttpClient
         /// <param name="request">The <see cref="HttpRequestMessage"/> that resulted in a failure.</param>
         /// <param name="response">The <see cref="HttpResponseMessage"/> indicating the failure.</param>
         /// <param name="error">The <see cref="Exception"/> containing details of the error encountered during the HTTP request.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/>, <paramref name="response"/> or <paramref name="error"/> or is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/>, <paramref name="response"/> or <paramref name="error"/> or is <see langword="null"/>.</exception>
         public HttpResponseErrorContext(HttpRestClient client, HttpRequestMessage request, HttpResponseMessage response, HttpResponseException error)
             : base(client, request, error)
         {
@@ -53,7 +53,7 @@ namespace Kampute.HttpClient
         /// <param name="schedulerFactory">A function that returns an <see cref="IRetryScheduler"/> for scheduling retry attempts based on the error context.</param>
         /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="schedulerFactory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         public Task<HttpErrorHandlerResult> ScheduleRetryAsync(Func<HttpResponseErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
         {
             if (schedulerFactory is null)

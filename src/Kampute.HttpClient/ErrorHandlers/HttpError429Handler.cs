@@ -30,7 +30,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <remarks>
         /// <para>
         /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation. 
-        /// If it is not set, or returns <c>null</c>, the handler will defer to the <c>Retry-After</c> header in the response.
+        /// If it is not set, or returns <see langword="null"/>, the handler will defer to the <c>Retry-After</c> header in the response.
         /// </para>
         /// <para>
         /// The delegate receives the following parameters:
@@ -47,7 +47,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         ///     <description>
         ///     Indicates the time when the rate limit will be lifted as a <see cref="DateTimeOffset"/> value. If the server specifies 
         ///     a reset time via response headers, this parameter provides that time, allowing the client to know when to resume requests.
-        ///     If the server does not specify a reset time, the value will be <c>null</c>.
+        ///     If the server does not specify a reset time, the value will be <see langword="null"/>.
         ///     </description>
         ///   </item>
         /// </list>
@@ -59,7 +59,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Determines whether this handler can process the specified HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to evaluate.</param>
-        /// <returns><c>true</c> if the handler can process the status code; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the handler can process the status code; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
         /// This implementation specifically handles the HTTP '429 Too Many Requests' status code.
         /// </remarks>
@@ -75,10 +75,10 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
         /// <returns>An <see cref="IRetryScheduler"/> that schedules the retry attempts.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not 
-        /// provided or returns <c>null</c>, and a rate limit reset header is present, the value of this header is used to create a retry delay. 
+        /// provided or returns <see langword="null"/>, and a rate limit reset header is present, the value of this header is used to create a retry delay. 
         /// If neither condition is met, no retries will be attempted.
         /// </remarks>
         protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)

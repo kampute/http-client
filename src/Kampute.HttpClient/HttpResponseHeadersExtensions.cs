@@ -18,8 +18,8 @@ namespace Kampute.HttpClient
         /// Attempts to extract the retry-after time from the HTTP response headers.
         /// </summary>
         /// <param name="headers">The HTTP response headers.</param>
-        /// <param name="retryAfterTime">When this method returns, contains the extracted time if the operation is successful; otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
-        /// <returns><c>true</c> if the time could be successfully extracted and parsed; otherwise, <c>false</c>.</returns>
+        /// <param name="retryAfterTime">When this method returns, contains the extracted time if the operation is successful; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+        /// <returns><see langword="true"/> if the time could be successfully extracted and parsed; otherwise, <see langword="false"/>.</returns>
         public static bool TryExtractRetryAfterTime(this HttpResponseHeaders headers, out DateTimeOffset? retryAfterTime)
         {
             if (headers.RetryAfter is RetryConditionHeaderValue retryAfterHeader)
@@ -44,8 +44,8 @@ namespace Kampute.HttpClient
         /// Attempts to extract the rate limit reset time from the HTTP response headers.
         /// </summary>
         /// <param name="headers">The HTTP response headers.</param>
-        /// <param name="resetTime">When this method returns, contains the extracted time if the operation is successful; otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
-        /// <returns><c>true</c> if the time could be successfully extracted and parsed; otherwise, <c>false</c>.</returns>
+        /// <param name="resetTime">When this method returns, contains the extracted time if the operation is successful; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+        /// <returns><see langword="true"/> if the time could be successfully extracted and parsed; otherwise, <see langword="false"/>.</returns>
         public static bool TryExtractRateLimitResetTime(this HttpResponseHeaders headers, out DateTimeOffset? resetTime)
         {
             if (headers.TryExtractRetryAfterTime(out resetTime))

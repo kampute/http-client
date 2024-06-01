@@ -35,7 +35,7 @@ namespace Kampute.HttpClient.Interfaces
         /// Determines whether the handler is capable of handling the provided HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to evaluate.</param>
-        /// <returns><c>true</c>if the handler can handle the specified status code; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/>if the handler can handle the specified status code; otherwise, <see langword="false"/>.</returns>
         bool CanHandle(HttpStatusCode statusCode);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Kampute.HttpClient.Interfaces
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         Task<HttpErrorHandlerResult> DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken);
     }
 }

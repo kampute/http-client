@@ -78,7 +78,7 @@ namespace Kampute.HttpClient
         /// Initializes a new instance of the <see cref="HttpRestClient"/> class with the specified shared <see cref="HttpClient"/> reference.
         /// </summary>
         /// <param name="httpClientReference">A reference to a shared <see cref="HttpClient"/> instance, managed as <see cref="SharedDisposable{T}.Reference"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <c>null</c>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <see langword="null"/>>.</exception>
         /// <remarks>
         /// This constructor takes ownership of the shared <see cref="HttpClient"/> reference and ensures it is properly released when the <see cref="HttpRestClient"/> is disposed.
         /// </remarks>
@@ -96,7 +96,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="httpClient">The <see cref="HttpClient"/> to be used by the <see cref="HttpRestClient"/>.</param>
         /// <param name="disposeClient">Specifies whether the <see cref="HttpRestClient"/> should dispose of the provided <see cref="HttpClient"/> when the <see cref="HttpRestClient"/> is disposed.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClient"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClient"/> is <see langword="null"/>.</exception>
         public HttpRestClient(HttpClient httpClient, bool disposeClient = true)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
@@ -152,7 +152,7 @@ namespace Kampute.HttpClient
         /// difference can be crucial in ensuring requests are routed correctly.
         /// </para>
         /// <para>
-        /// It's also worth noting that a <c>null</c> value for the base address is acceptable and indicates that no base address is set. In such cases, 
+        /// It's also worth noting that a <see langword="null"/> value for the base address is acceptable and indicates that no base address is set. In such cases, 
         /// any HTTP request must use an absolute URL.
         /// </para>
         /// </remarks>
@@ -246,11 +246,11 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="properties">The request properties to be applied exclusively during the lifetime of the new scope.</param>
         /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing of this object will end the scope and revert changes in the request properties.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="properties"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="properties"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// <para>
         /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify or remove any request properties in subsequent
-        /// requests during the lifetime of this scope. To remove a property, use <c>null</c> for its value.
+        /// requests during the lifetime of this scope. To remove a property, use <see langword="null"/> for its value.
         /// </para>
         /// <para>
         /// Upon disposing of the scope, all property adjustments are reverted, restoring the properties to their state before the scope was activated.
@@ -269,11 +269,11 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="headers">The request headers to be applied exclusively during the lifetime of the new scope.</param>
         /// <returns>An <see cref="IDisposable"/> representing the new scope. Disposing of this object will end the scope and revert changes in the request headers.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="headers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="headers"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// <para>
         /// This method creates a scope associated with the current <see cref="HttpRestClient"/> instance to add, modify or remove any request header in subsequent
-        /// requests during the lifetime of this scope. To remove a header, use <c>null</c> for its value.
+        /// requests during the lifetime of this scope. To remove a header, use <see langword="null"/> for its value.
         /// </para>
         /// <para>
         /// Any header modifications made within this scope take precedence over the client's default headers. Header adjustments by other active scopes are overridden
@@ -302,7 +302,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content (optional).</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the specified type.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -329,7 +329,7 @@ namespace Kampute.HttpClient
         /// <param name="payload">The HTTP request payload content (optional).</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the response.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -352,7 +352,7 @@ namespace Kampute.HttpClient
         /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
@@ -436,7 +436,7 @@ namespace Kampute.HttpClient
         /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/> or <paramref name="request"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/> or <paramref name="request"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an 
         /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or 
@@ -463,7 +463,7 @@ namespace Kampute.HttpClient
         /// <param name="response">The received <see cref="HttpResponseMessage"/> indicating a failure.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/> or <paramref name="response"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/> or <paramref name="response"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This method assesses HTTP request failures, leveraging error handling strategies within <see cref="ErrorHandlers"/>. It returns an <see cref="HttpErrorHandlerResult"/> 
         /// that guides the next steps, either to retry the request with potentially modified parameters or to handle the error as unrecoverable.
@@ -508,7 +508,7 @@ namespace Kampute.HttpClient
         /// A task that represents the asynchronous operation. The task result contains an <see cref="HttpResponseException"/> object
         /// that represents the error extracted from the response.
         /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This method endeavors to deserialize the response content into a <see cref="ResponseErrorType"/>, provided that the type is 
         /// specified and implements the <see cref="IHttpErrorResponse"/> interface. Upon successful deserialization, the resulting data 
@@ -550,7 +550,7 @@ namespace Kampute.HttpClient
         /// <param name="objectType">The type of object to which the response body is to be converted.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task representing the asynchronous operation, with the deserialized response body as an object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> or <paramref name="objectType"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> or <paramref name="objectType"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpContentException">Thrown when the response body is empty, the content type is unsupported, or parsing the response fails.</exception>
         /// <remarks>
         /// This method uses configured content deserializers for content deserialization and supports custom content types. In case of deserialization 
@@ -603,7 +603,7 @@ namespace Kampute.HttpClient
         /// <param name="uri">The URI to which the request will be sent. Should be a valid, fully qualified URL.</param>
         /// <param name="responseObjectType">The type of the object expected to be contained in the response.</param>
         /// <returns>An <see cref="HttpRequestMessage"/> configured with the specified method and URI.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// <para>
         /// This method constructs a new HTTP request message by setting the HTTP method and URI. It prepares the request for transmission by
@@ -616,7 +616,7 @@ namespace Kampute.HttpClient
         /// </para>
         /// <para>
         /// If an <c>Accept</c> header is absent in both default and scoped headers, it is added based on the media types supported by the content deserializers
-        /// for the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <c>null</c>, the header defaults to accepting all
+        /// for the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <see langword="null"/>, the header defaults to accepting all
         /// media types ("*/*").
         /// </para>
         /// <para>

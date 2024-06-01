@@ -42,7 +42,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// <param name="modelType">The type of the object to read.</param>
         /// <param name="cancellationToken">A token for canceling the read operation (optional).</param>
         /// <returns>A task representing the asynchronous read operation, containing the deserialized object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <see langword="null"/>.</exception>
         public override async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
         {
             if (content is null)

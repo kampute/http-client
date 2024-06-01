@@ -23,7 +23,7 @@ namespace Kampute.HttpClient.RetryManagement
         /// Initializes a new instance of the <see cref="RetryScheduler"/> class with a specified retry strategy.
         /// </summary>
         /// <param name="strategy">The retry strategy to be used by this scheduler.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategy"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategy"/> is <see langword="null"/>.</exception>
         public RetryScheduler(IRetryStrategy strategy)
         {
             Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
@@ -48,7 +48,7 @@ namespace Kampute.HttpClient.RetryManagement
         /// Waits for the appropriate time before the next retry attempt, and determines if a retry should be attempted.
         /// </summary>
         /// <param name="cancellationToken">A token that can be used to cancel the wait operation.</param>
-        /// <returns>A task that resolves to <c>true</c> if a retry should be attempted; otherwise, <c>false</c>.</returns>
+        /// <returns>A task that resolves to <see langword="true"/> if a retry should be attempted; otherwise, <see langword="false"/>.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the wait operation is canceled.</exception>
         public virtual async Task<bool> WaitAsync(CancellationToken cancellationToken)
         {

@@ -32,7 +32,7 @@
         /// Gets a value indicating whether the current context has an active scope.
         /// </summary>
         /// <value>
-        /// <c>true</c> if an active scope is present; otherwise, <c>false</c>.
+        /// <see langword="true"/> if an active scope is present; otherwise, <see langword="false"/>.
         /// </value>
         public bool HasActiveScope => _activeScope.Value is not null;
 
@@ -41,7 +41,7 @@
         /// </summary>
         /// <param name="items">The items to include in the new scope.</param>
         /// <returns>A new instance of the <see cref="Scope"/> class, containing the specified items.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="items"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="items"/> is <see langword="null"/>.</exception>
         public virtual Scope BeginScope(IEnumerable<T> items)
         {
             if (items is null)
@@ -59,7 +59,7 @@
         /// Ends the specified scope and removes it from the current context.
         /// </summary>
         /// <param name="scope">The scope to be removed.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="scope"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="scope"/> is <see langword="null"/>.</exception>
         protected virtual void EndScope(Scope scope)
         {
             if (scope is null)
@@ -76,7 +76,7 @@
         /// Traverses items in each scope from the innermost to the outermost, applying an action to each item.
         /// </summary>
         /// <param name="action">The action to perform on each item within the scopes.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="action"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="action"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// Unlike the standard enumeration, which traverses items from outermost to innermost scopes, this method traverses the scopes
         /// starting from the current active scope and moving outward to the parent scopes. This order ensures that actions are performed
@@ -147,7 +147,7 @@
             /// <summary>
             /// Gets the parent scope of this instance, if any.
             /// </summary>
-            /// <value>The parent scope of this scope. It is <c>null</c> if there is no parent scope.</value>
+            /// <value>The parent scope of this scope. It is <see langword="null"/> if there is no parent scope.</value>
             public Scope? Parent { get; }
 
             /// <summary>

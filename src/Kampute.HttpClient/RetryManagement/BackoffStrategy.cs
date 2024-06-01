@@ -23,7 +23,7 @@ namespace Kampute.HttpClient.RetryManagement
         /// Initializes a new instance of the <see cref="BackoffStrategy"/> class with a specified retry strategy.
         /// </summary>
         /// <param name="strategy">The retry strategy to be used by schedulers created by this factory.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategy"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategy"/> is <see langword="null"/>.</exception>
         public BackoffStrategy(IRetryStrategy strategy)
         {
             Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));

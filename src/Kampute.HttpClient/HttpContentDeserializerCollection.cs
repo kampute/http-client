@@ -49,10 +49,10 @@ namespace Kampute.HttpClient
         public int Count => _collection.Count;
 
         /// <summary>
-        /// Gets a value indicating whether the collection is read-only. Always returns <c>false</c> for this implementation.
+        /// Gets a value indicating whether the collection is read-only. Always returns <see langword="false"/> for this implementation.
         /// </summary>
         /// <value>
-        /// Indicates whether the collection is read-only. This implementation always returns <c>false</c>.
+        /// Indicates whether the collection is read-only. This implementation always returns <see langword="false"/>.
         /// </value> 
         bool ICollection<IHttpContentDeserializer>.IsReadOnly => false;
 
@@ -61,7 +61,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="mediaType">The media type to deserialize.</param>
         /// <param name="modelType">The type of the model to deserialize.</param>
-        /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <c>null</c> if none is found.</returns>
+        /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <see langword="null"/> if none is found.</returns>
         public IHttpContentDeserializer? GetDeserializerFor(string mediaType, Type modelType)
         {
             return _deserializerCache.Get((mediaType, modelType));
@@ -77,7 +77,7 @@ namespace Kampute.HttpClient
         /// This method determines the supported media types for deserializing content based on the given model type.
         /// </para>
         /// <para>
-        /// If the model type is <c>null</c>, this method returns a collection containing only <c>"*/*"</c>, signifying that all media types are acceptable.
+        /// If the model type is <see langword="null"/>, this method returns a collection containing only <c>"*/*"</c>, signifying that all media types are acceptable.
         /// </para>
         /// <para>
         /// For non-null model types, the method aggregates media types supported by the registered deserializers for that specific model type.
@@ -110,14 +110,14 @@ namespace Kampute.HttpClient
         /// If both <paramref name="modelType"/> and <paramref name="errorType"/> are provided, it aggregates and returns the media types that support deserializing either type.
         /// </para>
         /// <para>
-        /// If only <paramref name="modelType"/> is provided and <paramref name="errorType"/> is <c>null</c>, the result includes media types exclusively supporting the <paramref name="modelType"/>.
+        /// If only <paramref name="modelType"/> is provided and <paramref name="errorType"/> is <see langword="null"/>, the result includes media types exclusively supporting the <paramref name="modelType"/>.
         /// </para>
         /// <para>
-        /// Conversely, if <paramref name="modelType"/> is <c>null</c> and <paramref name="errorType"/> is provided, the result includes media types supporting the <paramref name="errorType"/>,
+        /// Conversely, if <paramref name="modelType"/> is <see langword="null"/> and <paramref name="errorType"/> is provided, the result includes media types supporting the <paramref name="errorType"/>,
         /// augmented by <c>"*/*"</c> to indicate that all media types are acceptable for the <paramref name="modelType"/>.
         /// </para>
         /// <para>
-        /// If both parameters are <c>null</c>, the method defaults to returning <c>"*/*"</c> only, implying general acceptability of any media type.
+        /// If both parameters are <see langword="null"/>, the method defaults to returning <c>"*/*"</c> only, implying general acceptability of any media type.
         /// </para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -136,7 +136,7 @@ namespace Kampute.HttpClient
         /// Adds an <see cref="IHttpContentDeserializer"/> to the collection if an instance of the same type doesn't already exist.
         /// </summary>
         /// <param name="deserializer">The <see cref="IHttpContentDeserializer"/> to add.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="deserializer"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="deserializer"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentException">Thrown if an instance of the same type already exists in the collection.</exception>
         public void Add(IHttpContentDeserializer deserializer)
         {
@@ -155,7 +155,7 @@ namespace Kampute.HttpClient
         /// Removes the first occurrence of a specific <see cref="IHttpContentDeserializer"/> from the collection.
         /// </summary>
         /// <param name="deserializer">The <see cref="IHttpContentDeserializer"/> to remove from the collection.</param>
-        /// <returns><c>true</c> if <paramref name="deserializer"/> was successfully removed from the collection; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if <paramref name="deserializer"/> was successfully removed from the collection; otherwise, <see langword="false"/>.</returns>
         public bool Remove(IHttpContentDeserializer deserializer)
         {
             if (_collection.Remove(deserializer))
@@ -170,7 +170,7 @@ namespace Kampute.HttpClient
         /// Determines whether the collection contains a specific <see cref="IHttpContentDeserializer"/>.
         /// </summary>
         /// <param name="deserializer">The <see cref="IHttpContentDeserializer"/> to locate in the collection.</param>
-        /// <returns><c>true</c> if <paramref name="deserializer"/> is found in the collection; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if <paramref name="deserializer"/> is found in the collection; otherwise, <see langword="false"/>.</returns>
         public bool Contains(IHttpContentDeserializer deserializer)
         {
             return _collection.Contains(deserializer);
@@ -180,7 +180,7 @@ namespace Kampute.HttpClient
         /// Finds an <see cref="IHttpContentDeserializer"/> by its type.
         /// </summary>
         /// <typeparam name="T">The type of the deserializer to find.</typeparam>
-        /// <returns>The instance of <see cref="IHttpContentDeserializer"/> of the specified type, or <c>null</c> if not found.</returns>
+        /// <returns>The instance of <see cref="IHttpContentDeserializer"/> of the specified type, or <see langword="null"/> if not found.</returns>
         public T Find<T>() where T : IHttpContentDeserializer
         {
             return (T)_collection.FirstOrDefault(deserializer => deserializer.GetType() == typeof(T));
@@ -228,7 +228,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="mediaType">The media type to deserialize.</param>
         /// <param name="modelType">The type of the model to deserialize.</param>
-        /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <c>null</c> if none is found.</returns>
+        /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <see langword="null"/> if none is found.</returns>
         private IHttpContentDeserializer? FindDeserializer(string mediaType, Type modelType)
         {
             foreach (var deserializer in _collection)

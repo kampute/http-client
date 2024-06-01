@@ -30,7 +30,7 @@ namespace Kampute.HttpClient.DataContract
         /// Configures the <see cref="HttpRestClient"/> to use the specified settings when serializing payloads as XML.
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to configure.</param>
-        /// <param name="settings">The <see cref="DataContractSerializerSettings"/> to use for serializing payload as XML. If <c>null</c>, default settings will be used.</param>
+        /// <param name="settings">The <see cref="DataContractSerializerSettings"/> to use for serializing payload as XML. If <see langword="null"/>, default settings will be used.</param>
         public static void SetXmlSerializerSettings(this HttpRestClient client, DataContractSerializerSettings? settings)
         {
             client.Disposing -= ClientDisposing;
@@ -49,7 +49,7 @@ namespace Kampute.HttpClient.DataContract
         /// Retrieves the settings used by the <see cref="HttpRestClient"/> when serializing payloads as XML.
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to query.</param>
-        /// <returns>The <see cref="DataContractSerializerSettings"/> if set; otherwise, <c>null</c>.</returns>
+        /// <returns>The <see cref="DataContractSerializerSettings"/> if set; otherwise, <see langword="null"/>.</returns>
         public static DataContractSerializerSettings? GetXmlSerializerSettings(this HttpRestClient client)
         {
             serializerSettings.TryGetValue(client, out var settings);
@@ -60,7 +60,7 @@ namespace Kampute.HttpClient.DataContract
         /// Configures the <see cref="HttpRestClient"/> to accept XML responses by adding or updating a <see cref="XmlContentDeserializer"/> in its response deserializers collection.
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to configure.</param>
-        /// <param name="settings">The <see cref="DataContractSerializerSettings"/> to use for deserializing XML responses. if <c>null</c>, default settings will be used.</param>
+        /// <param name="settings">The <see cref="DataContractSerializerSettings"/> to use for deserializing XML responses. if <see langword="null"/>, default settings will be used.</param>
         /// <returns>The <see cref="XmlContentDeserializer"/> used for XML content deserialization.</returns>
         /// <remarks>
         /// If the client already has a <see cref="XmlContentDeserializer"/>, this method updates its options with the provided <paramref name="settings"/>.
@@ -88,7 +88,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -118,7 +118,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/>, <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -148,7 +148,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task representing the asynchronous operation, returning a deserialized object of type <typeparamref name="T"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -166,7 +166,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -185,7 +185,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the specified type.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -203,7 +203,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -222,7 +222,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the specified type.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
@@ -240,7 +240,7 @@ namespace Kampute.HttpClient.DataContract
         /// <param name="payload">The object to serialize as the XML-formatted HTTP request payload.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="payload"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>

@@ -49,7 +49,7 @@ namespace Kampute.HttpClient
         /// Determines whether the <see cref="HttpRequestMessage"/> can be cloned without issues.
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to check.</param>
-        /// <returns><c>true</c> if the request does not contain a content or the content is reusable; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the request does not contain a content or the content is reusable; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
         /// This is a quick check to prevent cloning of requests that contain one-time-use content, which could lead to unexpected behaviors
         /// such as empty request bodies or <see cref="InvalidOperationException"/>.
@@ -63,7 +63,7 @@ namespace Kampute.HttpClient
         /// Checks if the <see cref="HttpRequestMessage"/> is a clone.
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to check.</param>
-        /// <returns><c>true</c> if the request has been cloned; otherwise, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the request has been cloned; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
         /// A cloned request is one that has been created through the <see cref="Clone(HttpRequestMessage)"/> extension method.
         /// </remarks>

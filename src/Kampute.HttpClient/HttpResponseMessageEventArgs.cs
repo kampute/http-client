@@ -25,7 +25,7 @@ namespace Kampute.HttpClient
         /// Initializes a new instance of the <see cref="HttpResponseMessageEventArgs"/> class with the specified response message.
         /// </summary>
         /// <param name="response">The received HTTP response message.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="response"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="response"/> is <see langword="null"/>.</exception>
         public HttpResponseMessageEventArgs(HttpResponseMessage response)
         {
             Response = response ?? throw new ArgumentNullException(nameof(response));

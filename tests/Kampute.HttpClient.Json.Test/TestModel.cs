@@ -5,7 +5,7 @@
     using System.Text.Json.Serialization;
     using System.Text.RegularExpressions;
 
-    public class TestModel
+    public partial class TestModel
     {
         public string? Name { get; set; }
 
@@ -28,7 +28,7 @@
                 if (value is null)
                     return "null";
 
-                var escaped = Regex.Replace(value, @"[\u0000-\u001F\\""]", match =>
+                var escaped = SpecialCharacters().Replace(value, match =>
                 {
                     var c = match.Value[0];
                     return c switch
@@ -52,5 +52,8 @@
         {
             UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
         };
+
+        [GeneratedRegex(@"[\u0000-\u001F\\""]")]
+        private static partial Regex SpecialCharacters();
     }
 }

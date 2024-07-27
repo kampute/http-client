@@ -24,10 +24,8 @@
 
         public async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
         {
-            if (content is null)
-                throw new ArgumentNullException(nameof(content));
-            if (modelType is null)
-                throw new ArgumentNullException(nameof(modelType));
+            ArgumentNullException.ThrowIfNull(content);
+            ArgumentNullException.ThrowIfNull(modelType);
 
             var str = await content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             return (typeof(TestErrorResponse) == modelType) ? new TestErrorResponse(str) : Convert.ChangeType(str, modelType);

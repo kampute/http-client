@@ -12,10 +12,8 @@
     {
         public static void MockHttpResponse(this Mock<HttpMessageHandler> mockMessageHandler, Func<HttpRequestMessage, HttpResponseMessage> responseFactory)
         {
-            if (mockMessageHandler is null)
-                throw new ArgumentNullException(nameof(mockMessageHandler));
-            if (responseFactory is null)
-                throw new ArgumentNullException(nameof(responseFactory));
+            ArgumentNullException.ThrowIfNull(mockMessageHandler);
+            ArgumentNullException.ThrowIfNull(responseFactory);
 
             mockMessageHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>
@@ -34,8 +32,7 @@
 
         public static void MockHttpResponse(this Mock<HttpMessageHandler> mockMessageHandler, HttpStatusCode statusCode, HttpContent? content = null)
         {
-            if (mockMessageHandler is null)
-                throw new ArgumentNullException(nameof(mockMessageHandler));
+            ArgumentNullException.ThrowIfNull(mockMessageHandler);
 
             mockMessageHandler.MockHttpResponse(_ => new HttpResponseMessage(statusCode) { Content = content });
         }

@@ -41,7 +41,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         ///   <item>
         ///     <term>context</term>
         ///     <description>
-        ///     Provides context about the HTTP responce indicating a '503 Service Unavailable' error. It is encapsulated within
+        ///     Provides context about the HTTP response indicating a '503 Service Unavailable' error. It is encapsulated within
         ///     an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on the retry strategy.
         ///     </description>
         ///   </item>

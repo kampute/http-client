@@ -288,7 +288,7 @@ namespace Kampute.HttpClient
             }
 
             /// <summary>
-            /// Clears the chace.
+            /// Clears the cache.
             /// </summary>
             public void Clear()
             {

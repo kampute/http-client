@@ -200,7 +200,7 @@ client's default backoff strategy.
 <p>
 The delegate receives the following parameters:
 <ul><li><span class="term">context</span>
-    Provides context about the HTTP responce indicating a '503 Service Unavailable' error. It is encapsulated within
+    Provides context about the HTTP response indicating a '503 Service Unavailable' error. It is encapsulated within
     an <a class="xref" href="Kampute.HttpClient.HttpResponseErrorContext.html">HttpResponseErrorContext</a> instance, allowing for an informed decision on the retry strategy.
     </li><li><span class="term">retryAfter</span>
       Advises on the next retry attempt timing as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a> value. If the response includes a <code>Retry-After</code>

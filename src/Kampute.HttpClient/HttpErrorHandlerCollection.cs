@@ -43,7 +43,7 @@ namespace Kampute.HttpClient
         /// Retrieves all <see cref="IHttpErrorHandler"/> instances in the collection that support handling a specific HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to query.</param>
-        /// <returns>An enumrable of <see cref="IHttpErrorHandler"/> that can handle the specified status code.</returns>
+        /// <returns>An enumerable of <see cref="IHttpErrorHandler"/> that can handle the specified status code.</returns>
         public IEnumerable<IHttpErrorHandler> GetHandlersFor(HttpStatusCode statusCode)
         {
             return _collection.Where(errorHandler => errorHandler.CanHandle(statusCode));

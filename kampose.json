@@ -1,0 +1,40 @@
+{
+    "convention": "docfx",
+    "outputDirectory": ".site",
+    "audit": {
+        "options": [
+            "recommended"
+        ],
+        "stopOnIssues": true
+    },
+    "assemblies": [
+        "src/**/bin/Release/netstandard2.1/*.dll"
+    ],
+    "assets": [
+        {
+            "source": [
+                "LICENSE",
+                "logo-dark.png",
+                "logo-light.png"
+            ]
+        }
+    ],
+    "references": [
+        {
+            "namespaces": [
+                "Newtonsoft.Json.*"
+            ],
+            "strategy": "onlineSearch",
+            "url": "https://www.phind.com/search/"
+        }
+    ],
+    "theme": "classic",
+    "themeSettings": {
+        "projectName": "Kampute.HttpClient",
+        "projectSlogan": "A lightweight .NET library that simplifies RESTful API communication.",
+        "projectLogoLightUri": "logo-dark.png",
+        "projectLogoDarkUri": "logo-light.png",
+        "faviconUri": "logo-dark.png",
+        "pageFooter": "- Copyright © {{now 'yyyy'}} [Kampute](https://kampute.com/)\n- Site built with [Kampose](https://kampute.github.io/kampose/)."
+    }
+}

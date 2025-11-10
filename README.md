@@ -1,13 +1,10 @@
-# Kampute.HttpClient
-
-[![Release](https://img.shields.io/github/v/release/kampute/http-client)](https://github.com/kampute/http-client/releases/latest)
-[![Build](https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kampute/http-client/actions/workflows/main.yml)
+# Welcome to HttpClient
 
 `Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities. Tailored for
 developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
 to address the complexities of web service consumption.
 
-[Explore the API documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for detailed insights.
+[Explore the API documentation](https://kampute.github.io/http-client/api/) for detailed insights.
 
 ## Key Features
 
@@ -56,20 +53,20 @@ to address the complexities of web service consumption.
 
 By default, `Kampute.HttpClient` does not include any content deserializer. To accommodate popular content types, the following extension packages are available:
 
-- **[Kampute.HttpClient.Json](https://www.nuget.org/packages/Kampute.HttpClient.Json)**:
+- **[Kampute.HttpClient.Json](https://kampute.github.io/http-client/api/Kampute.HttpClient.Json)**:
   Utilizes the `System.Text.Json` library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
   with the .NET ecosystem.
 
-- **[Kampute.HttpClient.NewtonsoftJson](https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson)**:
+- **[Kampute.HttpClient.NewtonsoftJson](https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson)**:
   Leverages the `Newtonsoft.Json` library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON
   features and formats.
 
-- **[Kampute.HttpClient.Xml](https://www.nuget.org/packages/Kampute.HttpClient.Xml)**:
+- **[Kampute.HttpClient.Xml](https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml)**:
   Employs the `XmlSerializer` for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom
   class structures.
 
-- **[Kampute.HttpClient.DataContract](https://www.nuget.org/packages/Kampute.HttpClient.DataContract)**: 
-  Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract 
+- **[Kampute.HttpClient.DataContract](https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract)**:
+  Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract
   attributes for fine-grained control over the XML output.
 
 For scenarios where the provided serialization packages do not meet specific requirements, `Kampute.HttpClient` allows the implementation of custom deserializers.
@@ -153,7 +150,7 @@ var csv = await client
 
 Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily
 during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically
-cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios. 
+cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios.
 
 ### Custom Retry Strategies
 
@@ -168,7 +165,7 @@ using Kampute.HttpClient;
 using var client = new HttpRestClient();
 
 // Configure the client's retry mechanism.
-// The Fibonacci strategy will retry up to 5 times 
+// The Fibonacci strategy will retry up to 5 times
 // with an initial delay of 1 second between retries
 // and delay increases following the Fibonacci sequence for subsequent retries.
 client.BackoffStrategy = BackoffStrategies.Fibonacci(maxAttempts: 5, initialDelay: TimeSpan.FromSeconds(1));
@@ -187,7 +184,7 @@ using Kampute.HttpClient.ErrorHandlers;
 // This handler defines the logic to handle unauthorized responses.
 using var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =>
 {
-    // In this example, we're handling the unauthorized error by making a POST request to an 
+    // In this example, we're handling the unauthorized error by making a POST request to an
     // authentication endpoint to obtain a new authentication token.
     var auth = await client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
     [
@@ -251,15 +248,20 @@ await client.PostAsXmlAsync("https://api.example.com/resource", newResource);
 
 ## Documentation
 
-Explore the `Kampute.HttpClient` library's [API Documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for an in-depth understanding of its
+Explore the `Kampute.HttpClient` library's [API Documentation](https://kampute.github.io/http-client/api/) for an in-depth understanding of its
 functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full
 potential.
 
 ## Contributing
 
-Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features, please open an issue
-first to discuss what you would like to change.
+Contributions welcome! Please follow the existing coding and documentation conventions to maintain consistency across the codebase.
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -m 'Add feature'`
+4. Push branch: `git push origin feature-name`
+5. Open a pull request
 
 ## License
 
-`Kampute.HttpClient` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.
+Licensed under the [MIT License](LICENSE).

@@ -12,14 +12,14 @@ namespace Kampute.HttpClient.ErrorHandlers
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Handles '503 Service Unavailable' HTTP responses by attempting to back off and retry the request according to a specified or 
+    /// Handles '503 Service Unavailable' HTTP responses by attempting to back off and retry the request according to a specified or
     /// default backoff strategy.
     /// </summary>
     /// <remarks>
-    /// This handler provides a mechanism to respond to HTTP 503 errors by retrying the request after a delay. The delay duration and 
-    /// retry logic can be customized through the <see cref="OnBackoffStrategy"/> delegate. If the delegate is not provided, or does not 
-    /// specify a strategy, the handler will look for a <c>Retry-After</c> header in the response. If the <c>Retry-After</c> header is 
-    /// present, its value is used to determine the backoff duration. If the header is not present, the default backoff strategy of the 
+    /// This handler provides a mechanism to respond to HTTP 503 errors by retrying the request after a delay. The delay duration and
+    /// retry logic can be customized through the <see cref="OnBackoffStrategy"/> delegate. If the delegate is not provided, or does not
+    /// specify a strategy, the handler will look for a <c>Retry-After</c> header in the response. If the <c>Retry-After</c> header is
+    /// present, its value is used to determine the backoff duration. If the header is not present, the default backoff strategy of the
     /// <see cref="HttpRestClient"/> is used.
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
@@ -29,10 +29,15 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <summary>
         /// A delegate that allows customization of the backoff strategy when a '503 Service Unavailable' response is received.
         /// </summary>
+        /// <value>
+        /// A function that takes an <see cref="HttpResponseErrorContext"/> and an optional <see cref="DateTimeOffset"/> representing
+        /// the suggested retry time from the <c>Retry-After</c> header, and returns an <see cref="IHttpBackoffProvider"/> to be used
+        /// for the retry operation.
+        /// </value>
         /// <remarks>
         /// <para>
-        /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation. 
-        /// If it is not set, or returns <see langword="null"/>, the handler will defer to the <c>Retry-After</c> header in the response or the 
+        /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation.
+        /// If it is not set, or returns <see langword="null"/>, the handler will defer to the <c>Retry-After</c> header in the response or the
         /// client's default backoff strategy.
         /// </para>
         /// <para>
@@ -75,8 +80,8 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <returns>An <see cref="IRetryScheduler"/> that schedules the retry attempts.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not 
-        /// provided or returns <see langword="null"/>, and a <c>Retry-After</c> header is present, the value of this header is used to create a retry 
+        /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not
+        /// provided or returns <see langword="null"/>, and a <c>Retry-After</c> header is present, the value of this header is used to create a retry
         /// delay. If neither condition is met, the client's default backoff strategy is utilized.
         /// </remarks>
         protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)

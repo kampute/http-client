@@ -59,7 +59,7 @@ namespace Kampute.HttpClient.Json
         /// Attempts to compute the length of the content.
         /// </summary>
         /// <param name="length">When this method returns, contains the length of the content in bytes.</param>
-        /// <returns>><see langword="true"/> if the length could be computed; otherwise, <see langword="false"/>.</returns>
+        /// <returns><see langword="true"/> if the length could be computed; otherwise, <see langword="false"/>.</returns>
         protected override bool TryComputeLength(out long length)
         {
             length = -1;

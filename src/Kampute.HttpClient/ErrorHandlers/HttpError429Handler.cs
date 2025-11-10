@@ -12,13 +12,13 @@ namespace Kampute.HttpClient.ErrorHandlers
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Handles '429 Too Many Requests' HTTP responses by attempting to back off and retry the request according to a specified or 
+    /// Handles '429 Too Many Requests' HTTP responses by attempting to back off and retry the request according to a specified or
     /// default backoff strategy.
     /// </summary>
     /// <remarks>
-    /// This handler provides a mechanism to respond to HTTP 429 errors by retrying the request after a delay. The delay duration and 
-    /// retry logic can be customized through the <see cref="OnBackoffStrategy"/> delegate. If the delegate is not provided, or does not 
-    /// specify a strategy, the handler will look for a rate limit reset header in the response. If the header is present, its value is 
+    /// This handler provides a mechanism to respond to HTTP 429 errors by retrying the request after a delay. The delay duration and
+    /// retry logic can be customized through the <see cref="OnBackoffStrategy"/> delegate. If the delegate is not provided, or does not
+    /// specify a strategy, the handler will look for a rate limit reset header in the response. If the header is present, its value is
     /// used to determine the backoff duration. If the header is not present, no retries will be attempted.
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
@@ -27,9 +27,13 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <summary>
         /// A delegate that allows customization of the backoff strategy when a 429 Too Many Requests' response is received.
         /// </summary>
+        /// <value>
+        /// A function that takes an <see cref="HttpResponseErrorContext"/> and an optional <see cref="DateTimeOffset"/> representing
+        /// the rate limit reset time, and returns an <see cref="IHttpBackoffProvider"/> to define the backoff strategy.
+        /// </value>
         /// <remarks>
         /// <para>
-        /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation. 
+        /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation.
         /// If it is not set, or returns <see langword="null"/>, the handler will defer to the <c>Retry-After</c> header in the response.
         /// </para>
         /// <para>
@@ -45,7 +49,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         ///   <item>
         ///     <term>resetTime</term>
         ///     <description>
-        ///     Indicates the time when the rate limit will be lifted as a <see cref="DateTimeOffset"/> value. If the server specifies 
+        ///     Indicates the time when the rate limit will be lifted as a <see cref="DateTimeOffset"/> value. If the server specifies
         ///     a reset time via response headers, this parameter provides that time, allowing the client to know when to resume requests.
         ///     If the server does not specify a reset time, the value will be <see langword="null"/>.
         ///     </description>
@@ -77,8 +81,8 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <returns>An <see cref="IRetryScheduler"/> that schedules the retry attempts.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not 
-        /// provided or returns <see langword="null"/>, and a rate limit reset header is present, the value of this header is used to create a retry delay. 
+        /// This method first attempts to use the <see cref="OnBackoffStrategy"/> delegate to obtain a retry strategy. If the delegate is not
+        /// provided or returns <see langword="null"/>, and a rate limit reset header is present, the value of this header is used to create a retry delay.
         /// If neither condition is met, no retries will be attempted.
         /// </remarks>
         protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)

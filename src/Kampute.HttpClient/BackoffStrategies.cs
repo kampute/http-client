@@ -47,8 +47,8 @@ namespace Kampute.HttpClient
     /// </list>
     /// </para>
     /// <para>
-    /// The <c>Dynamic</c> strategy stands apart, as its delay can vary based on the context of the failure. It tailors retry attempts to specific conditions, such 
-    /// as error type or system load, offering the flexibility to adapt retry logic for optimal outcomes. This approach is most useful in complex systems where a 
+    /// The <c>Dynamic</c> strategy stands apart, as its delay can vary based on the context of the failure. It tailors retry attempts to specific conditions, such
+    /// as error type or system load, offering the flexibility to adapt retry logic for optimal outcomes. This approach is most useful in complex systems where a
     /// static retry strategy may not adequately address the nuances of different failure scenarios.
     /// </para>
     /// </remarks>
@@ -85,7 +85,7 @@ namespace Kampute.HttpClient
         /// <param name="after">The date and time after which the single retry attempt will be made.</param>
         /// <returns>An <see cref="IHttpBackoffProvider"/> that defines a retry strategy of a single attempt after a specified date and time.</returns>
         /// <remarks>
-        /// This strategy schedules a single retry attempt for a specified future point in time, ensuring operations are retried when certain 
+        /// This strategy schedules a single retry attempt for a specified future point in time, ensuring operations are retried when certain
         /// conditions are likely met. If the specified time has already passed, it immediately schedules the retry attempt.
         /// </remarks>
         public static IHttpBackoffProvider Once(DateTimeOffset after)
@@ -114,6 +114,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="timeout">The maximum time to spend retrying.</param>
         /// <param name="delay">The constant delay between each retry attempt.</param>
+        /// <returns>An <see cref="IHttpBackoffProvider"/> that defines a retry strategy of multiple attempts with a constant delay between each attempt, up to a specified timeout.</returns>
         /// <remarks>
         /// This strategy performs multiple retry attempts with a constant delay between each attempt, up to a specified timeout. It is ideal for cases needing
         /// multiple attempts with predictable delays, but with a maximum time limit for retrying.
@@ -294,7 +295,7 @@ namespace Kampute.HttpClient
         /// <returns>An instance of <see cref="DynamicBackoffStrategy"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="strategyFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
+        /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
         /// </remarks>
         public static IHttpBackoffProvider Dynamic(Func<HttpRequestErrorContext, IRetryStrategy> strategyFactory)
@@ -309,7 +310,7 @@ namespace Kampute.HttpClient
         /// <returns>An instance of <see cref="DynamicBackoffStrategy"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of 
+        /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
         /// </remarks>
         public static IHttpBackoffProvider Dynamic(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory)

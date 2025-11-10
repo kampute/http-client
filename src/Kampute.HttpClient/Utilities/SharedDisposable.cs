@@ -14,7 +14,7 @@ namespace Kampute.HttpClient.Utilities
     /// <typeparam name="T">The type of the disposable object. Must be a class that implements <see cref="IDisposable"/>.</typeparam>
     /// <remarks>
     /// <para>
-    /// This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts 
+    /// This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts
     /// of an application. It ensures that the resource remains alive as long as it is needed and is properly cleaned up afterwards. This pattern
     /// helps prevent resource leaks and promotes efficient resource usage.
     /// </para>
@@ -27,13 +27,14 @@ namespace Kampute.HttpClient.Utilities
     {
         private T? _instance;
         private int _referenceCount;
-        private readonly Func<T>? _factory;
+        private readonly Func<T> _factory;
         private readonly object _lock = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class that uses the default constructor of <typeparamref name="T"/>.
         /// </summary>
         public SharedDisposable()
+            : this(Activator.CreateInstance<T>)
         {
         }
 
@@ -68,7 +69,7 @@ namespace Kampute.HttpClient.Utilities
             lock (_lock)
             {
                 if (++_referenceCount == 1)
-                    _instance = _factory is not null ? _factory() : (T)Activator.CreateInstance(typeof(T));
+                    _instance = _factory();
 
                 return _instance ?? throw new InvalidOperationException("The shared disposal manager factory failed.");
             }
@@ -110,6 +111,7 @@ namespace Kampute.HttpClient.Utilities
             /// <summary>
             /// Gets the <see cref="SharedDisposable{T}"/> instance that owns this reference.
             /// </summary>
+            /// <value>The owning <see cref="SharedDisposable{T}"/> instance.</value>
             public SharedDisposable<T> Owner => _owner;
 
             /// <summary>
@@ -135,6 +137,7 @@ namespace Kampute.HttpClient.Utilities
             /// Allows implicit conversion of the <see cref="Reference"/> to the shared resource type.
             /// </summary>
             /// <param name="reference">The reference instance.</param>
+            /// <returns>The shared disposable resource instance.</returns>
             public static implicit operator T(Reference reference) => reference.Instance;
         }
     }

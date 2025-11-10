@@ -4,7 +4,7 @@
     using System.Net.Http;
 
     /// <summary>
-    /// Serves as a base class for decorating <see cref="HttpContent"/> instances. 
+    /// Serves as a base class for decorating <see cref="HttpContent"/> instances.
     /// </summary>
     /// <remarks>
     /// This class provides common functionality such as copying headers from the original content and managing the lifecycle of the wrapped content.
@@ -26,6 +26,7 @@
         /// <summary>
         /// Gets the original HTTP content that this instance decorates.
         /// </summary>
+        /// <value>The original <see cref="HttpContent"/> instance.</value>
         protected internal HttpContent OriginalContent { get; }
 
         /// <summary>

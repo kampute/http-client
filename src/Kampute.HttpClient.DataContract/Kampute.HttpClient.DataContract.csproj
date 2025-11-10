@@ -5,7 +5,7 @@
     <Title>Kampute.HttpClient.DataContract</Title>
     <Description>This package is an extension package for Kampute.HttpClient, enhancing it to manage application/xml content types, using DataContractSerializer for serialization and deserialization of XML responses and payloads.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>2.3.1</Version>
+    <Version>2.3.2</Version>
     <Company>Kampute</Company>
     <Copyright>Copyright (c) 2024 Kampute</Copyright>
     <LangVersion>latest</LangVersion>
@@ -13,7 +13,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>Kampute.HttpClient.DataContract</PackageId>
     <PackageTags>http http-client restful rest-client rest-api web-api xml</PackageTags>
     <PackageIcon>ICON.png</PackageIcon>

@@ -32,6 +32,7 @@ namespace Kampute.HttpClient.RetryManagement
         /// <summary>
         /// Gets the retry strategy associated with this scheduler factory.
         /// </summary>
+        /// <value>The <see cref="IRetryStrategy"/> used by schedulers created by this factory.</value>
         public virtual IRetryStrategy Strategy { get; }
 
         /// <summary>

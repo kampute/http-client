@@ -14,13 +14,22 @@
     /// </remarks>
     public sealed class EmptyContent : HttpContent
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Serializes the content to a stream asynchronously.
+        /// </summary>
+        /// <param name="stream">The target stream to which the content should be written.</param>
+        /// <param name="context">The transport context.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
         {
             return Task.CompletedTask;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Attempts to compute the length of the content.
+        /// </summary>
+        /// <param name="length">When this method returns, contains the length of the content in bytes.</param>
+        /// <returns><see langword="true"/> if the length could be computed; otherwise, <see langword="false"/>.</returns>
         protected override bool TryComputeLength(out long length)
         {
             length = 0;

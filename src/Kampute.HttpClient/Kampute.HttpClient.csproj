@@ -5,7 +5,7 @@
     <Title>Kampute.HttpClient</Title>
     <Description>Kampute.HttpClient is a versatile and lightweight .NET library that simplifies RESTful API communication. Its core HttpRestClient class provides a streamlined approach to HTTP interactions, offering advanced features such as flexible serialization/deserialization, robust error handling, configurable backoff strategies, and detailed request-response processing. Striking a balance between simplicity and extensibility, Kampute.HttpClient empowers developers with a powerful yet easy-to-use client for seamless API integration across a wide range of .NET applications.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>2.3.1</Version>
+    <Version>2.3.2</Version>
     <Company>Kampute</Company>
     <Copyright>Copyright (c) 2024 Kampute</Copyright>
     <LangVersion>latest</LangVersion>
@@ -13,7 +13,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <PackageId>Kampute.HttpClient</PackageId>
     <PackageTags>http http-client restful rest-client rest-api web-api</PackageTags>

@@ -1,170 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-      <title>Kampute.HttpClient | Kampute.HttpClient .NET Library </title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Kampute.HttpClient | Kampute.HttpClient .NET Library ">
-      
-      
-      <link rel="icon" href="ICON.png">
-      <link rel="stylesheet" href="public/docfx.min.css">
-      <link rel="stylesheet" href="public/main.css">
-      <meta name="docfx:navrel" content="">
-      <meta name="docfx:tocrel" content="">
-      
-      
-      <meta name="docfx:disablenewtab" content="true">
-      
-      <meta name="docfx:docurl" content="https://github.com/kampute/http-client/blob/master/README.md/#L1">
-      <meta name="loc:inThisArticle" content="In this article">
-      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
-      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
-      <meta name="loc:tocFilter" content="Filter by title">
-      <meta name="loc:nextArticle" content="Next">
-      <meta name="loc:prevArticle" content="Previous">
-      <meta name="loc:themeLight" content="Light">
-      <meta name="loc:themeDark" content="Dark">
-      <meta name="loc:themeAuto" content="Auto">
-      <meta name="loc:changeTheme" content="Change theme">
-      <meta name="loc:copy" content="Copy">
-      <meta name="loc:downloadPdf" content="Download PDF">
-  </head>
-
-  <script type="module" src="./public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
-
-  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
-    <header class="bg-body border-bottom">
-      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
-        <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="index.html">
-            <img id="logo" class="svg" src="ICON.png" alt="Kampute.HttpClient .NET Library">
-            Kampute.HttpClient .NET Library
-          </a>
-          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-three-dots"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navpanel">
-            <div id="navbar">
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main class="container-xxl">
-      <div class="toc-offcanvas">
-        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <nav class="toc" id="toc"></nav>
-          </div>
-        </div>
-      </div>
-
-      <div class="content">
-        <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-            <i class="bi bi-list"></i>
-          </button>
-
-          <nav id="breadcrumb"></nav>
-        </div>
-
-        <article data-uid="">
-<h1 id="kamputehttpclient">Kampute.HttpClient</h1>
-
-<p><a href="https://github.com/kampute/http-client/releases/latest"><img src="https://img.shields.io/github/v/release/kampute/http-client" alt="Release"></a>
-<a href="https://github.com/kampute/http-client/actions/workflows/main.yml"><img src="https://github.com/kampute/http-client/actions/workflows/main.yml/badge.svg?branch=master" alt="Build"></a></p>
-<p><code>Kampute.HttpClient</code> is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native <code>HttpClient</code> capabilities. Tailored for
-developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
-to address the complexities of web service consumption.</p>
-<p><a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.html">Explore the API documentation</a> for detailed insights.</p>
-<h2 id="key-features">Key Features</h2>
-<ul>
-<li><p><strong>Shared HttpClient Instances:</strong>
-Facilitates the reuse of a single <code>HttpClient</code> instance across multiple <code>HttpRestClient</code> instances, promoting efficient resource and connection
-management. This approach significantly boosts performance in scenarios involving concurrent access to multiple services or API endpoints.</p>
-</li>
-<li><p><strong>Flexible HttpClient Configuration:</strong>
-Allows the integration of custom or shared <code>HttpClient</code> instances, complete with configurations for message handlers, timeouts, and advanced authentication
-mechanisms to fit specific application needs.</p>
-</li>
-<li><p><strong>Dynamic Request Customization:</strong>
-Offers the capability to define request headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global
-configuration. Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration
-errors during runtime.</p>
-</li>
-<li><p><strong>Custom Error Handling and Exception Management:</strong>
-Converts HTTP response errors into detailed, meaningful exceptions, streamlining the process of interpreting API-specific errors with the aid of a customizable
-error response type set through the <code>ResponseErrorType</code> property. Furthermore, it enhances flexibility in error management with the <code>ErrorHandlers</code> collection,
-allowing for response status code-specific handling. Developers can craft and utilize custom <code>IHttpErrorHandler</code> implementations to address distinct HTTP errors
-directly, facilitating the development of refined retry strategies and precise error responses tailored to specific needs.</p>
-</li>
-<li><p><strong>Retry Strategies with Backoff Mechanisms:</strong>
-Implements backoff strategies to handle transient failures and network interruptions effectively. These strategies, configurable via the <code>BackoffStrategy</code>
-property, ensure resilient communication by dictating the logic for retrying requests, thereby preventing server overload and optimizing resource use.</p>
-</li>
-<li><p><strong>Modular Content Processing:</strong>
-Supports extendable serialization/deserialization modules for seamless integration with common and custom content types. It uses a collection of response
-deserializers that automatically convert HTTP response content into .NET objects based on the response's <code>Content-Type</code>, and proactively informs the service
-of the content types it is configured to accept by setting the appropriate <code>Accept</code> headers. This dual-functionality simplifies the process of working with
-API responses and ensures seamless data integration by aligning expected response formats with the client’s capabilities.</p>
-</li>
-<li><p><strong>Streamlined Authentication and Authorization:</strong>
-Simplifies the process of integrating various authentication schemes and dynamic reauthorization, facilitating straightforward implementation of authentication
-strategies.</p>
-</li>
-<li><p><strong>Request and Response Interception:</strong>
-Provides events such as <code>BeforeSendingRequest</code> and <code>AfterReceivingResponse</code> for executing custom logic before sending a request or after receiving a response.
-This feature enables detailed request modification, response inspection, and logging, offering developers full control over the HTTP communication process.</p>
-</li>
-<li><p><strong>Asynchronous API for Enhanced Performance:</strong>
-Promotes fully asynchronous network operations with support for cancellation tokens, ensuring efficient management of long-running requests in line with modern
-asynchronous programming practices in .NET.</p>
-</li>
-</ul>
-<h2 id="serialization-support">Serialization Support</h2>
-<p>By default, <code>Kampute.HttpClient</code> does not include any content deserializer. To accommodate popular content types, the following extension packages are available:</p>
-<ul>
-<li><p><strong><a href="https://www.nuget.org/packages/Kampute.HttpClient.Json">Kampute.HttpClient.Json</a></strong>:
-Utilizes the <code>System.Text.Json</code> library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
-with the .NET ecosystem.</p>
-</li>
-<li><p><strong><a href="https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson">Kampute.HttpClient.NewtonsoftJson</a></strong>:
-Leverages the <code>Newtonsoft.Json</code> library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON
-features and formats.</p>
-</li>
-<li><p><strong><a href="https://www.nuget.org/packages/Kampute.HttpClient.Xml">Kampute.HttpClient.Xml</a></strong>:
-Employs the <code>XmlSerializer</code> for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom
-class structures.</p>
-</li>
-<li><p><strong><a href="https://www.nuget.org/packages/Kampute.HttpClient.DataContract">Kampute.HttpClient.DataContract</a></strong>:
-Utilizes the <code>DataContractSerializer</code> for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract
-attributes for fine-grained control over the XML output.</p>
-</li>
-</ul>
-<p>For scenarios where the provided serialization packages do not meet specific requirements, <code>Kampute.HttpClient</code> allows the implementation of custom deserializers.
-Developers can create their own serialization modules by implementing interfaces for deserialization, thus enabling support for custom content types or proprietary
-data formats.</p>
-<h2 id="installation">Installation</h2>
-<p>Install <code>Kampute.HttpClient</code> via NuGet:</p>
-<pre><code class="lang-shell">dotnet add package Kampute.HttpClient
-</code></pre>
-<h2 id="usage-examples">Usage Examples</h2>
-<p>The examples below demonstrate how to use the library for common tasks.</p>
-<h3 id="basic-usage">Basic Usage</h3>
-<p>To get started with <code>HttpRestClient</code>, simply instantiate it and use it to perform HTTP requests.</p>
-<pre><code class="lang-csharp">using Kampute.HttpClient;
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kampute.HttpClient - Welcome to HttpClient</title><link rel="icon" href="logo-dark.png"/><link rel="stylesheet" href="style.css"/><script src="script.js"></script><script src="prism.min.js"></script><meta name="generator" content="Kampose [Version 0.1.2.0]"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="description" content=""/></head><body class="has-left-sidebar has-right-sidebar has-breadcrumb"><a href="#article" class="skip-link" aria-label="Skip to main content" tabindex="0">Skip to main content</a><header class="header" role="banner"><div class="header-main"><div class="brand" aria-label="Project title and logo"><img src="logo-light.png" alt="Kampute.HttpClient logo" class="logo dark-mode"/> <img src="logo-dark.png" alt="Kampute.HttpClient logo" class="logo light-mode"/><div class="project-info"><span class="project-name">Kampute.HttpClient</span> <span class="project-slogan">A lightweight .NET library that simplifies RESTful API communication.</span></div></div><nav id="menubar" class="menu-bar" role="navigation" aria-label="Main Menu" data-base-url="" tabindex="-1"><ul class="menu" role="menubar" aria-labelledby="menubar"><li id="color-mode" class="menu-item has-submenu" role="menuitem" aria-hidden="true" tabindex="-1"><a><span class="icon selected-icon" aria-hidden="true"></span></a><ul class="menu" role="menu" aria-labelledby="color-mode" tabindex="-1"><li class="menu-item" data-mode="light" role="menuitemradio" aria-label="Light Color Mode" tabindex="-1"><a><span class="icon icon-light-color" aria-hidden="true"></span> <span>Light</span></a></li><li class="menu-item" data-mode="dark" role="menuitemradio" aria-label="Dark Color Mode" tabindex="-1"><a><span class="icon icon-dark-color" aria-hidden="true"></span> <span>Dark</span></a></li><li class="menu-item" data-mode="system" role="menuitemradio" aria-label="System Color Mode" tabindex="-1"><a><span class="icon icon-system-color" aria-hidden="true"></span> <span>System</span></a></li></ul></li></ul></nav></div><nav class="breadcrumb" role="navigation" aria-label="Breadcrumb" tabindex="-1"><ol><li class="is-topic current-page" aria-current="page"><a href="index.html"><span class="name">Welcome to HttpClient</span></a></li></ol></nav></header><div class="content"><aside class="sidebar sidebar-left" role="complementary" aria-label="Site navigation" tabindex="-1"><div class="sidebar-header"><div class="search-container" role="search"><input type="text" id="nav-search" class="nav-search" placeholder="Search..." aria-label="Search documentation" title="Type to filter content (Press / to focus)" autocomplete="off" spellcheck="false"><button id="clear-search" type="button" class="clear-search hidden" aria-label="Clear search" title="Clear" tabindex="-1"><span class="icon icon-delete" aria-hidden="true"></span></button> <span class="search-icon" aria-hidden="true"><span class="icon icon-search"></span></span></div></div><nav id="site-navigation" class="sidebar-nav" data-base-url=""><div class="no-search-results hidden" aria-live="polite" role="status">No results found</div></nav></aside><main id="article" role="main" class="article"><h1 id="welcome-to-httpclient">Welcome to HttpClient</h1><p><code>Kampute.HttpClient</code> is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native <code>HttpClient</code> capabilities. Tailored for developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities to address the complexities of web service consumption.</p><p><a href="https://kampute.github.io/http-client/api/">Explore the API documentation</a> for detailed insights.</p><h2 id="key-features">Key Features</h2><ul><li><p><strong>Shared HttpClient Instances:</strong> Facilitates the reuse of a single <code>HttpClient</code> instance across multiple <code>HttpRestClient</code> instances, promoting efficient resource and connection management. This approach significantly boosts performance in scenarios involving concurrent access to multiple services or API endpoints.</p></li><li><p><strong>Flexible HttpClient Configuration:</strong> Allows the integration of custom or shared <code>HttpClient</code> instances, complete with configurations for message handlers, timeouts, and advanced authentication mechanisms to fit specific application needs.</p></li><li><p><strong>Dynamic Request Customization:</strong> Offers the capability to define request headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global configuration. Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration errors during runtime.</p></li><li><p><strong>Custom Error Handling and Exception Management:</strong> Converts HTTP response errors into detailed, meaningful exceptions, streamlining the process of interpreting API-specific errors with the aid of a customizable error response type set through the <code>ResponseErrorType</code> property. Furthermore, it enhances flexibility in error management with the <code>ErrorHandlers</code> collection, allowing for response status code-specific handling. Developers can craft and utilize custom <code>IHttpErrorHandler</code> implementations to address distinct HTTP errors directly, facilitating the development of refined retry strategies and precise error responses tailored to specific needs.</p></li><li><p><strong>Retry Strategies with Backoff Mechanisms:</strong> Implements backoff strategies to handle transient failures and network interruptions effectively. These strategies, configurable via the <code>BackoffStrategy</code> property, ensure resilient communication by dictating the logic for retrying requests, thereby preventing server overload and optimizing resource use.</p></li><li><p><strong>Modular Content Processing:</strong> Supports extendable serialization/deserialization modules for seamless integration with common and custom content types. It uses a collection of response deserializers that automatically convert HTTP response content into .NET objects based on the response's <code>Content-Type</code>, and proactively informs the service of the content types it is configured to accept by setting the appropriate <code>Accept</code> headers. This dual-functionality simplifies the process of working with API responses and ensures seamless data integration by aligning expected response formats with the client’s capabilities.</p></li><li><p><strong>Streamlined Authentication and Authorization:</strong> Simplifies the process of integrating various authentication schemes and dynamic reauthorization, facilitating straightforward implementation of authentication strategies.</p></li><li><p><strong>Request and Response Interception:</strong> Provides events such as <code>BeforeSendingRequest</code> and <code>AfterReceivingResponse</code> for executing custom logic before sending a request or after receiving a response. This feature enables detailed request modification, response inspection, and logging, offering developers full control over the HTTP communication process.</p></li><li><p><strong>Asynchronous API for Enhanced Performance:</strong> Promotes fully asynchronous network operations with support for cancellation tokens, ensuring efficient management of long-running requests in line with modern asynchronous programming practices in .NET.</p></li></ul><h2 id="serialization-support">Serialization Support</h2><p>By default, <code>Kampute.HttpClient</code> does not include any content deserializer. To accommodate popular content types, the following extension packages are available:</p><ul><li><p><strong><a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.Json">Kampute.HttpClient.Json</a></strong>: Utilizes the <code>System.Text.Json</code> library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly with the .NET ecosystem.</p></li><li><p><strong><a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson">Kampute.HttpClient.NewtonsoftJson</a></strong>: Leverages the <code>Newtonsoft.Json</code> library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON features and formats.</p></li><li><p><strong><a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml">Kampute.HttpClient.Xml</a></strong>: Employs the <code>XmlSerializer</code> for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom class structures.</p></li><li><p><strong><a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract">Kampute.HttpClient.DataContract</a></strong>: Utilizes the <code>DataContractSerializer</code> for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract attributes for fine-grained control over the XML output.</p></li></ul><p>For scenarios where the provided serialization packages do not meet specific requirements, <code>Kampute.HttpClient</code> allows the implementation of custom deserializers. Developers can create their own serialization modules by implementing interfaces for deserialization, thus enabling support for custom content types or proprietary data formats.</p><h2 id="installation">Installation</h2><p>Install <code>Kampute.HttpClient</code> via NuGet:</p><pre><code class="language-shell">dotnet add package Kampute.HttpClient
+</code></pre><h2 id="usage-examples">Usage Examples</h2><p>The examples below demonstrate how to use the library for common tasks.</p><h3 id="basic-usage">Basic Usage</h3><p>To get started with <code>HttpRestClient</code>, simply instantiate it and use it to perform HTTP requests.</p><pre><code class="language-csharp">using Kampute.HttpClient;
 using Kampute.HttpClient.Json;
 
 // Create a new instance of the HttpRestClient
@@ -178,14 +13,7 @@ client.AcceptJson();
 // The GetAsync&lt;TResponse&gt; method will automatically deserialize the JSON response
 // into the specified MyModel type.
 var data = await client.GetAsync&lt;MyModel&gt;(&quot;https://api.example.com/resource&quot;);
-</code></pre>
-<h3 id="scoped-request-headers">Scoped Request Headers</h3>
-<p>In addition to setting default request headers that apply to all requests, you can define headers for a specific set of requests using a scoped approach. This feature
-allows for temporary modifications to headers that override default settings within a defined context. This is particularly useful for handling varying endpoint requirements
-or for testing scenarios.</p>
-<p>Below is an example that demonstrates how to temporarily override the <code>Accept</code> header for a series of requests, ensuring that all requests within the scope explicitly request
-a specific media type.</p>
-<pre><code class="lang-csharp">using Kampute.HttpClient;
+</code></pre><h3 id="scoped-request-headers">Scoped Request Headers</h3><p>In addition to setting default request headers that apply to all requests, you can define headers for a specific set of requests using a scoped approach. This feature allows for temporary modifications to headers that override default settings within a defined context. This is particularly useful for handling varying endpoint requirements or for testing scenarios.</p><p>Below is an example that demonstrates how to temporarily override the <code>Accept</code> header for a series of requests, ensuring that all requests within the scope explicitly request a specific media type.</p><pre><code class="language-csharp">using Kampute.HttpClient;
 
 // Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
@@ -200,9 +28,7 @@ using (client.BeginHeaderScope(new Dictionary&lt;string, string&gt; { [&quot;Acc
     // will be 'text/csv', as specified by the scoped header.
     csv = await client.GetAsStringAsync(&quot;https://api.example.com/resource/csv&quot;);
 }
-</code></pre>
-<p>Alternatively, you can use the <code>WithScope</code> extension method to simplify the code as follows:</p>
-<pre><code class="lang-csharp">using Kampute.HttpClient;
+</code></pre><p>Alternatively, you can use the <code>WithScope</code> extension method to simplify the code as follows:</p><pre><code class="language-csharp">using Kampute.HttpClient;
 
 using var client = new HttpRestClient();
 
@@ -210,37 +36,24 @@ var csv = await client
     .WithScope()
     .SetHeader(&quot;Accept&quot;, MediaTypeNames.Text.Csv)
     .PerformAsync(scopedClient =&gt; scopedClient.GetAsStringAsync(&quot;https://api.example.com/resource/csv&quot;));
-</code></pre>
-<h3 id="scoped-request-properties">Scoped Request Properties</h3>
-<p>Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily
-during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically
-cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios.</p>
-<h3 id="custom-retry-strategies">Custom Retry Strategies</h3>
-<p>The library offers various retry strategies to manage transient failures, ensuring your application remains resilient during network instability or temporary
-service unavailability. The example below demonstrates how to apply a Fibonacci backoff strategy, which gradually increases the delay between retries, balancing
-the need to retry soon against the need to wait longer as the number of attempts increases.</p>
-<pre><code class="lang-csharp">using Kampute.HttpClient;
+</code></pre><h3 id="scoped-request-properties">Scoped Request Properties</h3><p>Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios.</p><h3 id="custom-retry-strategies">Custom Retry Strategies</h3><p>The library offers various retry strategies to manage transient failures, ensuring your application remains resilient during network instability or temporary service unavailability. The example below demonstrates how to apply a Fibonacci backoff strategy, which gradually increases the delay between retries, balancing the need to retry soon against the need to wait longer as the number of attempts increases.</p><pre><code class="language-csharp">using Kampute.HttpClient;
 
 // Create a new instance of the HttpRestClient
 using var client = new HttpRestClient();
 
 // Configure the client's retry mechanism.
-// The Fibonacci strategy will retry up to 5 times 
+// The Fibonacci strategy will retry up to 5 times
 // with an initial delay of 1 second between retries
 // and delay increases following the Fibonacci sequence for subsequent retries.
 client.BackoffStrategy = BackoffStrategies.Fibonacci(maxAttempts: 5, initialDelay: TimeSpan.FromSeconds(1));
-</code></pre>
-<h3 id="handling-http-errors">Handling HTTP Errors</h3>
-<p>The library includes built-in handlers for managing common HTTP errors, streamlining the implementation of custom logic for error responses.
-Here's how to utilize the built-in '401 Unauthorized' error handler:</p>
-<pre><code class="lang-csharp">using Kampute.HttpClient;
+</code></pre><h3 id="handling-http-errors">Handling HTTP Errors</h3><p>The library includes built-in handlers for managing common HTTP errors, streamlining the implementation of custom logic for error responses. Here's how to utilize the built-in '401 Unauthorized' error handler:</p><pre><code class="language-csharp">using Kampute.HttpClient;
 using Kampute.HttpClient.ErrorHandlers;
 
 // Create an instance of the built-in '401 Unauthorized' error handler.
 // This handler defines the logic to handle unauthorized responses.
 using var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =&gt;
 {
-    // In this example, we're handling the unauthorized error by making a POST request to an 
+    // In this example, we're handling the unauthorized error by making a POST request to an
     // authentication endpoint to obtain a new authentication token.
     var auth = await client.PostAsFormAsync&lt;AuthToken&gt;(&quot;https://api.example.com/auth&quot;,
     [
@@ -259,14 +72,7 @@ using var client = new HttpRestClient();
 // Register the unauthorized error handler with the client.
 // This allows the client to handle '401 Unauthorized' responses automatically.
 client.ErrorHandlers.Add(unauthorizedErrorHandler);
-</code></pre>
-<p>Additionally, handling '503 Service Unavailable' and '429 Too Many Requests' errors is simplified with the built-in handler, ensuring your application can gracefully
-retry requests during service outages and rate limit encounters.</p>
-<h3 id="handling-content-types">Handling Content Types</h3>
-<p>For handling specific content types like JSON or XML, consider using the available extension packages.</p>
-<p>In the example below, we assume that both the <code>Kampute.HttpClient.NewtonsoftJson</code> package, which facilitates JSON content handling through the <code>Newtonsoft.Json</code>
-library, and the <code>Kampute.HttpClient.DataContract</code> package, enabling XML content management via <code>DataContractSerializer</code>, have been installed.</p>
-<pre><code class="lang-csharp">using Kampute.HttpClient;
+</code></pre><p>Additionally, handling '503 Service Unavailable' and '429 Too Many Requests' errors is simplified with the built-in handler, ensuring your application can gracefully retry requests during service outages and rate limit encounters.</p><h3 id="handling-content-types">Handling Content Types</h3><p>For handling specific content types like JSON or XML, consider using the available extension packages.</p><p>In the example below, we assume that both the <code>Kampute.HttpClient.NewtonsoftJson</code> package, which facilitates JSON content handling through the <code>Newtonsoft.Json</code> library, and the <code>Kampute.HttpClient.DataContract</code> package, enabling XML content management via <code>DataContractSerializer</code>, have been installed.</p><pre><code class="language-csharp">using Kampute.HttpClient;
 using Kampute.HttpClient.NewtonsoftJson;
 using Kampute.HttpClient.DataContract;
 
@@ -294,36 +100,4 @@ await client.PatchAsJsonAsync(&quot;https://api.example.com/resource&quot;, new 
 // The PostAsXmlAsync method is provided by the Kampute.HttpClient.DataContract package.
 var newResource = new MyResource();
 await client.PostAsXmlAsync(&quot;https://api.example.com/resource&quot;, newResource);
-</code></pre>
-<h2 id="documentation">Documentation</h2>
-<p>Explore the <code>Kampute.HttpClient</code> library's <a href="https://kampute.github.io/http-client/api/Kampute.HttpClient.html">API Documentation</a> for an in-depth understanding of its
-functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full
-potential.</p>
-<h2 id="contributing">Contributing</h2>
-<p>Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features, please open an issue
-first to discuss what you would like to change.</p>
-<h2 id="license">License</h2>
-<p><code>Kampute.HttpClient</code> is licensed under the terms of the MIT license. See the <a href="LICENSE">LICENSE</a> file for more details.</p>
-
-</article>
-
-
-        <div class="next-article d-print-none border-top" id="nextArticle"></div>
-
-      </div>
-
-      <div class="affix">
-        <nav id="affix"></nav>
-      </div>
-    </main>
-
-
-    <footer class="border-top text-secondary">
-      <div class="container-xxl">
-        <div class="flex-fill">
-          © 2024 Kampute
-        </div>
-      </div>
-    </footer>
-  </body>
-</html>
+</code></pre><h2 id="documentation">Documentation</h2><p>Explore the <code>Kampute.HttpClient</code> library's <a href="https://kampute.github.io/http-client/api/">API Documentation</a> for an in-depth understanding of its functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full potential.</p><h2 id="contributing">Contributing</h2><p>Contributions welcome! Please follow the existing coding and documentation conventions to maintain consistency across the codebase.</p><ol><li>Fork the repository</li><li>Create a feature branch: <code>git checkout -b feature-name</code></li><li>Commit changes: <code>git commit -m 'Add feature'</code></li><li>Push branch: <code>git push origin feature-name</code></li><li>Open a pull request</li></ol><h2 id="license">License</h2><p>Licensed under the <a href="LICENSE">MIT License</a>.</p><footer class="content-footer" role="contentinfo"><ul><li>Copyright © 2025 <a href="https://kampute.com/">Kampute</a></li><li>Site built with <a href="https://kampute.github.io/kampose/">Kampose</a>.</li></ul></footer></main><aside class="sidebar sidebar-right" role="complementary" aria-label="In this article" tabindex="-1"><div class="sidebar-header" aria-hidden="true"><h3>In this article</h3></div><nav id="article-navigation" class="sidebar-nav" data-max-level="3"></nav></aside></div><div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true"><div class="modal-container"><div class="modal-header"><h3 id="modal-title"></h3><button id="modal-close" type="button" class="modal-close-btn" aria-label="Close dialog">&times;</button></div><div class="modal-content"><div id="modal-body" class="modal-body"><iframe id="modal-iframe" frameborder="0" title="Dialog content"></iframe></div></div></div></div></body></html>

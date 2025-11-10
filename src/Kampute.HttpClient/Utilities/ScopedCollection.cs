@@ -9,6 +9,7 @@
     /// <summary>
     /// Manages items within specific contexts.
     /// </summary>
+    /// <typeparam name="T">The type of items managed within the scopes.</typeparam>
     /// <remarks>
     /// <para>
     /// This class facilitates the management of contextual items, which are elements associated with distinct operational contexts,

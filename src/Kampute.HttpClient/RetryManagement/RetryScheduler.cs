@@ -32,16 +32,19 @@ namespace Kampute.HttpClient.RetryManagement
         /// <summary>
         /// Gets the retry strategy associated with this scheduler.
         /// </summary>
+        /// <value>The <see cref="IRetryStrategy"/> instance used by this scheduler.</value>
         public virtual IRetryStrategy Strategy { get; }
 
         /// <summary>
         /// Gets the number of retry attempts that have been made.
         /// </summary>
+        /// <value>The number of retry attempts.</value>
         public virtual uint Attempts => _attempts;
 
         /// <summary>
         /// Gets the total elapsed time since the retry attempts were started.
         /// </summary>
+        /// <value>The elapsed time as a <see cref="TimeSpan"/>.</value>
         public virtual TimeSpan Elapsed => _timer.Elapsed;
 
         /// <summary>
@@ -78,7 +81,7 @@ namespace Kampute.HttpClient.RetryManagement
         /// Prepares the internal state for the next retry attempt.
         /// </summary>
         /// <remarks>
-        /// This method is called immediately after a retry attempt is determined to be necessary and before the delay for the next attempt begins. 
+        /// This method is called immediately after a retry attempt is determined to be necessary and before the delay for the next attempt begins.
         /// It allows for updating the internal state or performing any preparations required before the next attempt.
         /// </remarks>
         protected virtual void ReadyNextAttempt()

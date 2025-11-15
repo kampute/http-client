@@ -5,7 +5,7 @@
     <Title>Kampute.HttpClient.Json</Title>
     <Description>This package is an extension package for Kampute.HttpClient, enhancing it to manage application/json content types, using System.Text.Json library for serialization and deserialization of JSON responses and payloads.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>2.3.2</Version>
+    <Version>2.4.0</Version>
     <Company>Kampute</Company>
     <Copyright>Copyright (c) 2024 Kampute</Copyright>
     <LangVersion>latest</LangVersion>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.6" />
+    <PackageReference Include="System.Text.Json" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>

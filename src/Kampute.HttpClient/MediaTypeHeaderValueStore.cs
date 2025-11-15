@@ -1,7 +1,6 @@
-﻿using Kampute.HttpClient.Utilities;
-
-namespace Kampute.HttpClient
+﻿namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Utilities;
     using System;
     using System.Net.Http.Headers;
 

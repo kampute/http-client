@@ -78,12 +78,12 @@
         [Test]
         public void SharedDisposable_MaintainsCorrectReferenceCount_OnConcurrentAcquireAndDispose()
         {
-            int numberOfThreads = 100;
+            var numberOfThreads = 100;
             var threads = new Thread[numberOfThreads];
-            int createdCount = 0;
+            var createdCount = 0;
 
             var sharedDisposable = new SharedDisposable<TestDisposable>(() => new TestDisposable());
-            for (int i = 0; i < numberOfThreads; i++)
+            for (var i = 0; i < numberOfThreads; i++)
             {
                 threads[i] = new Thread(() =>
                 {
@@ -93,10 +93,10 @@
                 });
             }
 
-            foreach (Thread thread in threads)
+            foreach (var thread in threads)
                 thread.Start();
 
-            foreach (Thread thread in threads)
+            foreach (var thread in threads)
                 thread.Join();
 
             Assert.Multiple(() =>

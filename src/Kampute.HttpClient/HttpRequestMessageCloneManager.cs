@@ -70,12 +70,13 @@ namespace Kampute.HttpClient
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private readonly void DisposeNonOriginalRequest()
         {
-            if (!ReferenceEquals(_currentRequest, _originalRequest))
-            {
-                if (_currentRequest.IsCloned())
-                    _currentRequest.Content = null; // Content is reused, not cloned.
-                _currentRequest.Dispose();
-            }
+            if (ReferenceEquals(_currentRequest, _originalRequest))
+                return;
+
+            if (_currentRequest.IsCloned())
+                _currentRequest.Content = null; // Content is reused, not cloned.
+
+            _currentRequest.Dispose();
         }
     }
 }

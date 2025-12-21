@@ -5,9 +5,9 @@
     <Title>Kampute.HttpClient.NewtonsoftJson</Title>
     <Description>This package is an extension package for Kampute.HttpClient, enhancing it to manage application/json content types, using Newtonsoft.Json library for serialization and deserialization of JSON responses and payloads.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>2.4.0</Version>
+    <Version>2.5.0</Version>
     <Company>Kampute</Company>
-    <Copyright>Copyright (c) 2024 Kampute</Copyright>
+    <Copyright>Copyright (c) 2025 Kampute</Copyright>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <IncludeSymbols>true</IncludeSymbols>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.*" />
   </ItemGroup>
 
   <ItemGroup>

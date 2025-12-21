@@ -484,11 +484,11 @@ namespace Kampute.HttpClient
             if (response is null)
                 throw new ArgumentNullException(nameof(response));
 
-            var context = new HttpResponseErrorContext(this, request, response, error);
+            var ctx = new HttpResponseErrorContext(this, request, response, error);
 
             foreach (var errorHandler in ErrorHandlers.GetHandlersFor(response.StatusCode))
             {
-                var decision = await errorHandler.DecideOnRetryAsync(context, cancellationToken).ConfigureAwait(false);
+                var decision = await errorHandler.DecideOnRetryAsync(ctx, cancellationToken).ConfigureAwait(false);
                 if (decision.RequestToRetry is not null)
                 {
                     decision.RequestToRetry.Properties[HttpRequestMessagePropertyKeys.ErrorHandler] = errorHandler;

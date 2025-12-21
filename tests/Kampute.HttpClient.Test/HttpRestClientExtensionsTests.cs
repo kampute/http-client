@@ -47,11 +47,11 @@
         {
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Head));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });
@@ -66,11 +66,11 @@
         {
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Options));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });
@@ -87,11 +87,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -112,11 +112,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -137,11 +137,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -162,11 +162,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -187,11 +187,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Get));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -214,12 +214,12 @@
             var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                     Assert.That(request.Content?.ReadAsStringAsync().Result, Is.EqualTo(payload));
-                });
+                }
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -238,12 +238,12 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                     Assert.That(request.Content?.ReadAsStringAsync().Result, Is.EqualTo(payload));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -265,12 +265,12 @@
             var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Put));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                     Assert.That(request.Content?.ReadAsStringAsync().Result, Is.EqualTo(payload));
-                });
+                }
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -278,7 +278,7 @@
 
             await _client.PutAsync("/resource", new TestContent(payload));
 
-            Assert.That(sent, Is.EqualTo(true));
+            Assert.That(sent, Is.True);
         }
 
         [Test]
@@ -289,12 +289,12 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Put));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                     Assert.That(request.Content?.ReadAsStringAsync().Result, Is.EqualTo(payload));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -316,12 +316,12 @@
             var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Patch));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                     Assert.That(request.Content?.ReadAsStringAsync().Result, Is.EqualTo(payload));
-                });
+                }
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -329,7 +329,7 @@
 
             await _client.PatchAsync("/resource", new TestContent(payload));
 
-            Assert.That(sent, Is.EqualTo(true));
+            Assert.That(sent, Is.True);
         }
 
         [Test]
@@ -340,12 +340,12 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Patch));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                     Assert.That(request.Content?.ReadAsStringAsync().Result, Is.EqualTo(payload));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -366,11 +366,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Delete));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -391,11 +391,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Delete));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -418,11 +418,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(method));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 var content = new ByteArrayContent(expectedStream.ToArray());
                 content.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Octet);
@@ -437,21 +437,21 @@
             using var resultStream = await _client.DownloadAsync(method, "/resource", new TestContent(payload), contentHeaders =>
             {
                 Assert.That(contentHeaders, Is.Not.Null);
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(contentHeaders.ContentType, Is.EqualTo(new MediaTypeHeaderValue(MediaTypeNames.Application.Octet)));
                     Assert.That(contentHeaders.ContentLength, Is.EqualTo(expectedStream.Length));
-                });
+                }
                 return new MemoryStream((int)contentHeaders.ContentLength.GetValueOrDefault());
             });
 
             Assert.That(resultStream, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 resultStream.Seek(0, SeekOrigin.Begin);
                 Assert.That(resultStream, Is.TypeOf<MemoryStream>());
                 Assert.That(resultStream, Is.EqualTo(expectedStream));
-            });
+            }
         }
     }
 }

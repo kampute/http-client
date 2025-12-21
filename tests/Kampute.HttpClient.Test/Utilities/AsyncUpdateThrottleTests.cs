@@ -22,11 +22,11 @@
 
             var updateResult = await synchronizer.TryUpdateAsync(() => Task.FromResult(42));
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(updateResult, Is.True);
                 Assert.That(synchronizer.Value, Is.EqualTo(42));
-            });
+            }
         }
 
         [Test]
@@ -48,12 +48,12 @@
                 })
             );
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(results[0], Is.True);
                 Assert.That(results[1], Is.False);
                 Assert.That(synchronizer.Value, Is.EqualTo(2));
-            });
+            }
         }
     }
 }

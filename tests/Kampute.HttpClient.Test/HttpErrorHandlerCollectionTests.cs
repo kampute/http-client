@@ -53,11 +53,11 @@
 
             var result = collection.Remove(errorHandler);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(collection, Is.Empty);
-            });
+            }
         }
 
         [Test]

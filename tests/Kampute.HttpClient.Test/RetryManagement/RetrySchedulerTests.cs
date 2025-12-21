@@ -56,11 +56,11 @@
 
             var result = await scheduler.WaitAsync(CancellationToken.None);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(scheduler.Attempts, Is.EqualTo(1u));
-            });
+            }
         }
 
         [Test]
@@ -72,11 +72,11 @@
 
             var result = await scheduler.WaitAsync(CancellationToken.None);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.False);
                 Assert.That(scheduler.Attempts, Is.Zero);
-            });
+            }
         }
 
         [Test]
@@ -102,11 +102,11 @@
             await scheduler.WaitAsync(CancellationToken.None);
             scheduler.Reset();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(scheduler.Elapsed, Is.LessThanOrEqualTo(TimeSpan.FromMilliseconds(10)));
                 Assert.That(scheduler.Attempts, Is.Zero);
-            });
+            }
         }
     }
 }

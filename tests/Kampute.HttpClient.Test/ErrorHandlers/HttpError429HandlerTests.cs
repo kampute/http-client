@@ -54,11 +54,11 @@
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"), Throws.TypeOf<HttpResponseException>());
             timer.Stop();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
                 Assert.That(timer.Elapsed, Is.EqualTo(resetDelay).Within(TimeSpan.FromSeconds(1.0)));
-            });
+            }
         }
 
         [Test]

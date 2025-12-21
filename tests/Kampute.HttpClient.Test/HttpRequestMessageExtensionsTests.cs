@@ -1,19 +1,13 @@
 ﻿namespace Kampute.HttpClient.Test
 {
+    using Kampute.HttpClient.Test.TestHelpers;
     using NUnit.Framework;
     using System;
-    using System.IO;
     using System.Net.Http;
 
     [TestFixture]
     public class HttpRequestMessageExtensionsTests
     {
-        private class NonSeekableMemoryStream : MemoryStream
-        {
-            public override bool CanSeek => false;
-            public override long Seek(long offset, SeekOrigin loc) => throw new NotSupportedException();
-        }
-
         [Test]
         public void Clone_WithReusableContent_CreatesCopy()
         {
@@ -28,14 +22,14 @@
 
             Assert.That(clonedRequest, Is.Not.Null);
             Assert.That(clonedRequest, Is.Not.SameAs(originalRequest));
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(clonedRequest.RequestUri, Is.EqualTo(originalRequest.RequestUri));
                 Assert.That(clonedRequest.Version, Is.EqualTo(originalRequest.Version));
                 Assert.That(clonedRequest.Headers.Contains("Test-Header"), Is.True);
                 Assert.That(clonedRequest.Content, Is.SameAs(originalRequest.Content));
                 Assert.That(clonedRequest.GetCloneGeneration(), Is.EqualTo(1));
-            });
+            }
         }
 
         [Test]
@@ -43,7 +37,7 @@
         {
             using var request = new HttpRequestMessage
             {
-                Content = new StreamContent(new NonSeekableMemoryStream())
+                Content = new StreamContent(new TestStream(seekable: false))
             };
 
             Assert.That(request.Clone, Throws.InstanceOf<InvalidOperationException>());
@@ -62,7 +56,7 @@
         {
             using var request = new HttpRequestMessage
             {
-                Content = new StreamContent(new MemoryStream())
+                Content = new StreamContent(new TestStream(seekable: true))
             };
 
             Assert.That(request.CanClone(), Is.True);
@@ -73,7 +67,7 @@
         {
             using var request = new HttpRequestMessage
             {
-                Content = new StreamContent(new NonSeekableMemoryStream())
+                Content = new StreamContent(new TestStream(seekable: false))
             };
 
             Assert.That(request.CanClone(), Is.False);
@@ -103,12 +97,12 @@
             using var firstGenerationClone = originalRequest.Clone();
             using var secondGenerationClone = firstGenerationClone.Clone();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
-                Assert.That(originalRequest.GetCloneGeneration(), Is.EqualTo(0));
+                Assert.That(originalRequest.GetCloneGeneration(), Is.Zero);
                 Assert.That(firstGenerationClone.GetCloneGeneration(), Is.EqualTo(1));
                 Assert.That(secondGenerationClone.GetCloneGeneration(), Is.EqualTo(2));
-            });
+            }
         }
     }
 }

@@ -17,11 +17,11 @@
 
             var strategy = new FibonacciStrategy(initialDelay, delayStep);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(strategy.InitialDelay, Is.EqualTo(initialDelay));
                 Assert.That(strategy.DelayStep, Is.EqualTo(delayStep));
-            });
+            }
         }
 
         [TestCase(0)]
@@ -33,11 +33,11 @@
 
             var strategy = new FibonacciStrategy(initialDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(strategy.InitialDelay, Is.EqualTo(initialDelay));
                 Assert.That(strategy.DelayStep, Is.EqualTo(initialDelay));
-            });
+            }
         }
 
         [TestCase(0u, 0, 0, 0)]
@@ -57,11 +57,11 @@
 
             var result = strategy.TryGetRetryDelay(TimeSpan.Zero, attempts, out var actualDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(actualDelay, Is.EqualTo(expectedDelay));
-            });
+            }
         }
 
         [TestCase(0u, 0, 0, 0)]
@@ -81,11 +81,11 @@
 
             var result = strategy.TryGetRetryDelay(TimeSpan.FromHours(1), attempts, out var actualDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(actualDelay, Is.EqualTo(expectedDelay));
-            });
+            }
         }
     }
 }

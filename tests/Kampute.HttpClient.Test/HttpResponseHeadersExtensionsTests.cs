@@ -25,11 +25,11 @@
 
             var result = _headers.TryExtractRetryAfterTime(out var retryAfterTime);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(retryAfterTime, Is.EqualTo(expectedDate).Within(TimeSpan.FromSeconds(1)));
-            });
+            }
         }
 
         [Test]
@@ -40,11 +40,11 @@
 
             var result = _headers.TryExtractRetryAfterTime(out var retryAfterTime);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(retryAfterTime, Is.EqualTo(DateTimeOffset.UtcNow.Add(delta)).Within(TimeSpan.FromSeconds(1)));
-            });
+            }
         }
 
         [Test]
@@ -52,11 +52,11 @@
         {
             var result = _headers.TryExtractRetryAfterTime(out var retryAfterTime);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.False);
                 Assert.That(retryAfterTime, Is.Null);
-            });
+            }
         }
 
         [Test]
@@ -67,11 +67,11 @@
 
             var result = _headers.TryExtractRateLimitResetTime(out var resetTime);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(resetTime, Is.EqualTo(expectedTime).Within(TimeSpan.FromSeconds(1)));
-            });
+            }
         }
     }
 }

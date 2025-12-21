@@ -1,9 +1,9 @@
 ﻿namespace Kampute.HttpClient.Test
 {
     using Kampute.HttpClient.Content.Compression;
+    using Kampute.HttpClient.Test.TestHelpers;
     using NUnit.Framework;
     using System;
-    using System.IO;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
@@ -11,12 +11,6 @@
     [TestFixture]
     public class HttpContentExtensionsTests
     {
-        private class NonSeekableMemoryStream : MemoryStream
-        {
-            public override bool CanSeek => false;
-            public override long Seek(long offset, SeekOrigin loc) => throw new NotSupportedException();
-        }
-
         [Test]
         public void FindCharacterEncoding_WithCharSet_ReturnsEncoding()
         {
@@ -49,7 +43,7 @@
         [Test]
         public void IsReusable_WhenContentIsReusable_ReturnsTrue()
         {
-            using var content = new StreamContent(new MemoryStream());
+            using var content = new StreamContent(new TestStream(seekable: true));
 
             var result = content.IsReusable();
 
@@ -59,7 +53,29 @@
         [Test]
         public void IsReusable_WhenContentIsNotReusable_ReturnsFalse()
         {
-            using var content = new StreamContent(new NonSeekableMemoryStream());
+            using var content = new StreamContent(new TestStream(seekable: false));
+
+            var result = content.IsReusable();
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void IsReusable_WhenCompressedContentIsReusable_ReturnsTrue()
+        {
+            var originalContent = new StreamContent(new TestStream(seekable: true));
+            using var content = new DeflateCompressedContent(originalContent);
+
+            var result = content.IsReusable();
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void IsReusable_WhenCompressedContentIsNotReusable_ReturnsFalse()
+        {
+            var originalContent = new StreamContent(new TestStream(seekable: false));
+            using var content = new DeflateCompressedContent(originalContent);
 
             var result = content.IsReusable();
 

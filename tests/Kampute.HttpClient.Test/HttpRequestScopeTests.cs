@@ -91,12 +91,12 @@
             _mockMessageHandler.MockHttpResponse(request =>
             {
                 var propExists = request.Options.TryGetValue(new HttpRequestOptionsKey<string>(propertyName), out var propValue);
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(propExists, Is.True);
                     Assert.That(propValue, Is.EqualTo(propertyValue));
-                    Assert.That(request.Headers.GetValues(headerName), Is.EqualTo(new[] { headerValue }));
-                });
+                    Assert.That(request.Headers.GetValues(headerName), Is.EqualTo([headerValue]));
+                }
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });

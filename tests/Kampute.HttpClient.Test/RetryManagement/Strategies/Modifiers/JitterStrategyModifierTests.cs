@@ -32,11 +32,11 @@
 
             var result = strategy.TryGetRetryDelay(TimeSpan.Zero, 0, out var actualDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(actualDelay, Is.EqualTo(baseDelay).Within(jitterFactor * baseDelay));
-            });
+            }
         }
 
         [Test]
@@ -48,11 +48,11 @@
 
             var result = strategy.TryGetRetryDelay(TimeSpan.Zero, 0, out var actualDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.False);
                 Assert.That(actualDelay, Is.Default);
-            });
+            }
         }
     }
 }

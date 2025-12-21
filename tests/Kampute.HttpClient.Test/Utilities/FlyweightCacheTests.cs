@@ -26,11 +26,11 @@
             var result1 = cache.Get(1);
             var result2 = cache.Get(1);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(cache.Count, Is.EqualTo(1));
                 Assert.That(result2, Is.SameAs(result1));
-            });
+            }
         }
 
         [Test]

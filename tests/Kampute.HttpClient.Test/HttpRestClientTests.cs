@@ -8,6 +8,9 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -47,7 +50,7 @@
         }
 
         [Test]
-        public void DefaultConstractor_UsesSharedHttpClient()
+        public void DefaultConstructor_UsesSharedHttpClient()
         {
             var client = new HttpRestClient();
             Assert.That(SharedHttpClient.ReferenceCount, Is.EqualTo(1));
@@ -81,11 +84,11 @@
         {
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(TestHttpMethod));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Headers.Add("X-Test", "Testing");
@@ -105,11 +108,11 @@
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(TestHttpMethod));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -141,13 +144,13 @@
             var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(TestHttpMethod));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 Assert.That(exception.Message, Is.Not.EqualTo(errorDetails.Message));
-            });
+            }
         }
 
         [Test]
@@ -160,14 +163,14 @@
             var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception, Is.Not.Null);
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.Method, Is.EqualTo(TestHttpMethod));
                 Assert.That(exception.ResponseMessage?.RequestMessage?.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 Assert.That(exception.ResponseObject, Is.EqualTo(errorDetails).UsingPropertiesComparer());
                 Assert.That(exception.Message, Is.EqualTo(errorDetails.Message));
-            });
+            }
         }
 
         [Test]
@@ -211,11 +214,11 @@
 
             var result = await _client.SendAsync<string>(HttpMethod.Get, "/resource", new StringContent("test"));
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
                 Assert.That(result, Is.EqualTo(expectedResult));
-            });
+            }
         }
 
         [Test]
@@ -252,6 +255,60 @@
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
         }
 
+        [TestCase("gzip")]
+        [TestCase("deflate")]
+        public async Task OnConnectionFailure_WithCompressedContent_UsesBackoffStrategy(string encoding)
+        {
+            var maxRetries = 2;
+
+            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
+            var mockRetryScheduler = new Mock<IRetryScheduler>();
+
+            var retries = 0;
+            mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(() => retries < maxRetries).Callback(() => ++retries);
+            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
+                .Returns(mockRetryScheduler.Object);
+
+            _client.BackoffStrategy = mockBackoffStrategy.Object;
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                if (++attempts <= maxRetries)
+                    throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.HostUnreachable));
+
+                Assert.That(request.Content, Is.Not.Null);
+
+                var compressedStream = request.Content.ReadAsStreamAsync().Result;
+                using Stream decompressedStream = request.Content.Headers.ContentEncoding.FirstOrDefault() switch
+                {
+                    "gzip" => new GZipStream(compressedStream, CompressionMode.Decompress),
+                    "deflate" => new DeflateStream(compressedStream, CompressionMode.Decompress),
+                    _ => throw new InvalidOperationException("Unsupported encoding")
+                };
+                using var reader = new StreamReader(decompressedStream, Encoding.UTF8);
+                var actual = reader.ReadToEnd();
+
+                Assert.That(actual, Is.EqualTo("test"));
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            using var payload = new StringContent("test", Encoding.UTF8);
+            using HttpContent compressedPayload = encoding switch
+            {
+                "gzip" => payload.AsGzip(),
+                "deflate" => payload.AsDeflate(),
+                _ => throw new InvalidOperationException("Unsupported encoding")
+            };
+
+            await _client.SendAsync(TestHttpMethod, "/test", compressedPayload);
+
+            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
+            Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+        }
+
         [Test]
         public async Task BeginPropertyScope_ModifiesRequestPropertiesCorrectly()
         {
@@ -261,11 +318,11 @@
             _mockMessageHandler.MockHttpResponse(request =>
             {
                 var propExists = request.Options.TryGetValue(new HttpRequestOptionsKey<string>(scopedProperty.Key), out var propValue);
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(propExists, Is.True);
                     Assert.That(propValue, Is.EqualTo(scopedProperty.Value));
-                });
+                }
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -293,12 +350,12 @@
             var sent = false;
             _mockMessageHandler.MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
-                    Assert.That(request.Headers.GetValues(scopedHeaderToAdd.Key), Is.EqualTo(new[] { scopedHeaderToAdd.Value }));
-                    Assert.That(request.Headers.GetValues(scopedHeaderToChange.Key), Is.EqualTo(new[] { scopedHeaderToChange.Value }));
+                    Assert.That(request.Headers.GetValues(scopedHeaderToAdd.Key), Is.EqualTo([scopedHeaderToAdd.Value]));
+                    Assert.That(request.Headers.GetValues(scopedHeaderToChange.Key), Is.EqualTo([scopedHeaderToChange.Value]));
                     Assert.That(request.Headers.Contains(scopedHeaderToDelete.Key), Is.False);
-                });
+                }
 
                 sent = true;
                 return new HttpResponseMessage(HttpStatusCode.OK);

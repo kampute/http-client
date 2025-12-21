@@ -19,11 +19,11 @@
             using var originalContent = new StringContent(text, Encoding.UTF32, MediaTypeNames.Text.Plain);
             using var compressedContent = new DeflateCompressedContent(originalContent, CompressionLevel.Optimal);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(compressedContent.Headers.ContentType, Is.EqualTo(originalContent.Headers.ContentType));
                 Assert.That(compressedContent.Headers.ContentEncoding, Contains.Item("deflate"));
-            });
+            }
 
             var compressedStream = await compressedContent.ReadAsStreamAsync();
 

@@ -22,11 +22,11 @@
 
             using var reference1 = sharedDisposable.AcquireReference();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(1));
                 Assert.That(reference1.Instance, Is.Not.Null);
-            });
+            }
         }
 
         [Test]
@@ -42,11 +42,11 @@
             using var reference1 = sharedDisposable.AcquireReference();
             using var reference2 = sharedDisposable.AcquireReference();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(2));
                 Assert.That(factoryInvoked, Is.EqualTo(1));
-            });
+            }
         }
 
         [Test]
@@ -61,18 +61,18 @@
             Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(2));
 
             reference1.Dispose();
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(1));
                 Assert.That(instance.IsDisposed, Is.False);
-            });
+            }
 
             reference2.Dispose();
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
-                Assert.That(sharedDisposable.ReferenceCount, Is.EqualTo(0));
+                Assert.That(sharedDisposable.ReferenceCount, Is.Zero);
                 Assert.That(instance.IsDisposed, Is.True);
-            });
+            }
         }
 
         [Test]
@@ -99,11 +99,11 @@
             foreach (var thread in threads)
                 thread.Join();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(sharedDisposable.ReferenceCount, Is.Zero);
                 Assert.That(createdCount, Is.EqualTo(numberOfThreads));
-            });
+            }
         }
     }
 }

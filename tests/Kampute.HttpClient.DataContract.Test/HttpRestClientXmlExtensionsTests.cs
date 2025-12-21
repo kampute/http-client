@@ -62,12 +62,12 @@
 
             MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/echo")));
                     Assert.That(request.Content?.Headers.ContentType?.MediaType, Is.EqualTo(MediaTypeNames.Application.Xml));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -89,12 +89,12 @@
 
             MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Put));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/echo")));
                     Assert.That(request.Content?.Headers.ContentType?.MediaType, Is.EqualTo(MediaTypeNames.Application.Xml));
-                });
+                }
 
                 return new HttpResponseMessage
                 {
@@ -116,12 +116,12 @@
 
             MockHttpResponse(request =>
             {
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(request.Method, Is.EqualTo(HttpMethod.Patch));
                     Assert.That(request.RequestUri, Is.EqualTo(AbsoluteUrl("/echo")));
                     Assert.That(request.Content?.Headers.ContentType?.MediaType, Is.EqualTo(MediaTypeNames.Application.Xml));
-                });
+                }
 
                 return new HttpResponseMessage
                 {

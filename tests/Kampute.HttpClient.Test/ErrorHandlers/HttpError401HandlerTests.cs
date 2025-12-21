@@ -67,17 +67,17 @@
             var tasks = Enumerable.Range(1, numberOfRequests).Select(i => _client.SendAsync(HttpMethod.Get, $"/protected/resource{i}"));
             await Task.WhenAll(tasks);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(numberOfInvokes, Is.EqualTo(1));
                 Assert.That(numberOfResponses, Is.EqualTo(numberOfRequests + 1));
                 Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Not.Null);
-                Assert.Multiple(() =>
+                using (Assert.EnterMultipleScope())
                 {
                     Assert.That(_client.DefaultRequestHeaders.Authorization?.Scheme, Is.EqualTo(scheme));
                     Assert.That(_client.DefaultRequestHeaders.Authorization?.Parameter, Is.EqualTo(apiKey));
-                });
-            });
+                }
+            }
         }
 
         [Test]

@@ -55,11 +55,11 @@
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
             timer.Stop();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
                 Assert.That(timer.Elapsed, Is.EqualTo(retryDelay).Within(0.1 * retryDelay));
-            });
+            }
         }
 
         [Test]
@@ -84,11 +84,11 @@
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
             timer.Stop();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
                 Assert.That(timer.Elapsed, Is.EqualTo(retryDelay).Within(0.1 * retryDelay));
-            });
+            }
         }
 
         [Test]

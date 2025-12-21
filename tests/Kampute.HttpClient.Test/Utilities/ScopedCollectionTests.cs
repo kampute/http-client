@@ -17,11 +17,11 @@
 
             using var scope = context.BeginScope(items);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(scope, Is.Not.Null);
                 Assert.That(context, Is.EqualTo(items));
-            });
+            }
         }
 
         [Test]
@@ -113,11 +113,11 @@
 
             var results = await Task.WhenAll(task1, task2);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(results[0], Is.EquivalentTo(expectedProperties1));
                 Assert.That(results[1], Is.EquivalentTo(expectedProperties2));
-            });
+            }
         }
     }
 }

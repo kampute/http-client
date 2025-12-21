@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2024 Kampute
+﻿// Copyright (C) 2025 Kampute
 //
 // This file is part of the Kampute.HttpClient package and is released under the terms of the MIT license.
 // See the LICENSE file in the project root for the full license text.
@@ -484,11 +484,11 @@ namespace Kampute.HttpClient
             if (response is null)
                 throw new ArgumentNullException(nameof(response));
 
-            var context = new HttpResponseErrorContext(this, request, response, error);
+            var ctx = new HttpResponseErrorContext(this, request, response, error);
 
             foreach (var errorHandler in ErrorHandlers.GetHandlersFor(response.StatusCode))
             {
-                var decision = await errorHandler.DecideOnRetryAsync(context, cancellationToken).ConfigureAwait(false);
+                var decision = await errorHandler.DecideOnRetryAsync(ctx, cancellationToken).ConfigureAwait(false);
                 if (decision.RequestToRetry is not null)
                 {
                     decision.RequestToRetry.Properties[HttpRequestMessagePropertyKeys.ErrorHandler] = errorHandler;

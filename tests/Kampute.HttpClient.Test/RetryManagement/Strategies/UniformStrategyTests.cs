@@ -27,11 +27,11 @@
 
             var result = strategy.TryGetRetryDelay(TimeSpan.Zero, attempts, out var actualDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(actualDelay, Is.EqualTo(expectedDelay));
-            });
+            }
         }
 
         [TestCase(0u)]
@@ -44,11 +44,11 @@
 
             var result = strategy.TryGetRetryDelay(TimeSpan.FromHours(1), attempts, out var actualDelay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.True);
                 Assert.That(actualDelay, Is.EqualTo(expectedDelay));
-            });
+            }
         }
     }
 }

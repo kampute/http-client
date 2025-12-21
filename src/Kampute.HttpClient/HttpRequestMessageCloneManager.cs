@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2024 Kampute
+﻿// Copyright (C) 2025 Kampute
 //
 // This file is part of the Kampute.HttpClient package and is released under the terms of the MIT license.
 // See the LICENSE file in the project root for the full license text.
@@ -70,12 +70,13 @@ namespace Kampute.HttpClient
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private readonly void DisposeNonOriginalRequest()
         {
-            if (!ReferenceEquals(_currentRequest, _originalRequest))
-            {
-                if (_currentRequest.IsCloned())
-                    _currentRequest.Content = null; // Content is reused, not cloned.
-                _currentRequest.Dispose();
-            }
+            if (ReferenceEquals(_currentRequest, _originalRequest))
+                return;
+
+            if (_currentRequest.IsCloned())
+                _currentRequest.Content = null; // Content is reused, not cloned.
+
+            _currentRequest.Dispose();
         }
     }
 }

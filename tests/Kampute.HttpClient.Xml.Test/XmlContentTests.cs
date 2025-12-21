@@ -17,12 +17,12 @@
 
             var xmlString = await xmlContent.ReadAsStringAsync();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(xmlString, Is.EqualTo(expectedString));
                 Assert.That(xmlContent.Headers.ContentType?.MediaType, Is.EqualTo(MediaTypeNames.Application.Xml));
                 Assert.That(xmlContent.Headers.ContentType?.CharSet, Is.EqualTo(Encoding.UTF8.WebName));
-            });
+            }
         }
 
         [Test]
@@ -36,12 +36,12 @@
 
             var xmlString = await xmlContent.ReadAsStringAsync();
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(xmlString, Is.EqualTo(expectedString));
                 Assert.That(xmlContent.Headers.ContentType?.MediaType, Is.EqualTo(MediaTypeNames.Application.Xml));
                 Assert.That(xmlContent.Headers.ContentType?.CharSet, Is.EqualTo(encoding.WebName));
-            });
+            }
         }
     }
 }

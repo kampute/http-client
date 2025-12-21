@@ -33,11 +33,11 @@
 
             var result = NoneStrategy.Instance.TryGetRetryDelay(elapsed, attempts, out var delay);
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(result, Is.False);
                 Assert.That(delay, Is.Default);
-            });
+            }
         }
     }
 }

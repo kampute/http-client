@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2024 Kampute
+﻿// Copyright (C) 2025 Kampute
 //
 // This file is part of the Kampute.HttpClient.Json package and is released under the terms of the MIT license.
 // See the LICENSE file in the project root for the full license text.

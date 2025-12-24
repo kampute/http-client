@@ -113,8 +113,8 @@ namespace Kampute.HttpClient
         /// Occurs when a new HTTP request message is about to be sent.
         /// </summary>
         /// <remarks>
-        /// This event provides an opportunity for subscribers to modify the <see cref="HttpRequestMessage"/> before it is sent. Common modifications include adding 
-        /// custom headers, changing request properties, or logging request information. Modifications made to the request in this event are included in the outgoing 
+        /// This event provides an opportunity for subscribers to modify the <see cref="HttpRequestMessage"/> before it is sent. Common modifications include adding
+        /// custom headers, changing request properties, or logging request information. Modifications made to the request in this event are included in the outgoing
         /// HTTP request.
         /// </remarks>
         public event EventHandler<HttpRequestMessageEventArgs>? BeforeSendingRequest;
@@ -123,8 +123,8 @@ namespace Kampute.HttpClient
         /// Occurs when an HTTP response has been received.
         /// </summary>
         /// <remarks>
-        /// This event is raised after an HTTP response is received but before the response is processed further. It provides a way for subscribers to inspect the 
-        /// <see cref="HttpResponseMessage"/>. This can be useful for logging response details, handling specific HTTP status codes, or modifying the response content 
+        /// This event is raised after an HTTP response is received but before the response is processed further. It provides a way for subscribers to inspect the
+        /// <see cref="HttpResponseMessage"/>. This can be useful for logging response details, handling specific HTTP status codes, or modifying the response content
         /// or headers before they are processed by the rest of the application.
         /// </remarks>
         public event EventHandler<HttpResponseMessageEventArgs>? AfterReceivingResponse;
@@ -133,7 +133,7 @@ namespace Kampute.HttpClient
         /// Occurs just before the <see cref="HttpRestClient"/> is disposed.
         /// </summary>
         /// <remarks>
-        /// This event provides a way for subscribers to perform cleanup or other actions before the client is disposed. 
+        /// This event provides a way for subscribers to perform cleanup or other actions before the client is disposed.
         /// </remarks>
         public event EventHandler<EventArgs>? Disposing;
 
@@ -145,14 +145,18 @@ namespace Kampute.HttpClient
         /// </value>
         /// <remarks>
         /// <para>
-        /// If the provided base address does not end with a slash, one is automatically appended. The presence or absence of this trailing 
-        /// slash is significant in how relative URLs are resolved. For instance, if the base address is <see href="http://example.com/api"/> (no trailing 
-        /// slash) and the relative URL is "users", the resolved URL will be <see href="http://example.com/users"/>. Conversely, if the base address ends 
-        /// with a slash, like <see href="http://example.com/api/"/>, the resolved URL will be <see href="http://example.com/api/users"/>. This subtle 
-        /// difference can be crucial in ensuring requests are routed correctly.
+        /// If the provided base address does not end with a slash, one is automatically appended to ensure consistent URL resolution behavior.
         /// </para>
         /// <para>
-        /// It's also worth noting that a <see langword="null"/> value for the base address is acceptable and indicates that no base address is set. In such cases, 
+        /// This is important because the presence or absence of a trailing slash affects how relative URIs are combined with the base address.
+        /// For example, with a base address of <c>http://example.com/api</c> (no trailing slash), a relative URI of <c>users</c> resolves to
+        /// <c>http://example.com/users</c>. Conversely, with <c>http://example.com/api/</c>, it resolves to <c>http://example.com/api/users</c>.
+        /// </para>
+        /// <para>
+        /// By appending the slash when missing, the library ensures predictable and correct routing of requests.
+        /// </para>
+        /// <para>
+        /// It's also worth noting that a <see langword="null"/> value for the base address is acceptable and indicates that no base address is set. In such cases,
         /// any HTTP request must use an absolute URL.
         /// </para>
         /// </remarks>
@@ -169,8 +173,8 @@ namespace Kampute.HttpClient
         /// The backoff strategy for handling transient connection failures during HTTP requests.
         /// </value>
         /// <remarks>
-        /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines 
-        /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network 
+        /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines
+        /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network
         /// issues or temporary server unavailability. The default is <see cref="BackoffStrategies.None"/>.
         /// </remarks>
         public IHttpBackoffProvider BackoffStrategy
@@ -206,7 +210,7 @@ namespace Kampute.HttpClient
         /// The mutable collection of HTTP error handlers used for handling error responses.
         /// </value>
         /// <remarks>
-        /// This property provides access to a collection of <see cref="IHttpErrorHandler"/> instances that are used to handle 
+        /// This property provides access to a collection of <see cref="IHttpErrorHandler"/> instances that are used to handle
         /// HTTP error responses. The handlers in this collection are tried in order to handle errors.
         /// </remarks>
         public HttpErrorHandlerCollection ErrorHandlers { get; } = [];
@@ -218,8 +222,8 @@ namespace Kampute.HttpClient
         /// The mutable collection of HTTP content deserializers used for deserializing response content.
         /// </value>
         /// <remarks>
-        /// This property provides access to a collection of <see cref="IHttpContentDeserializer"/> instances that are used to 
-        /// deserialize the content of HTTP responses. The deserializers in this list are tried in order to deserialize the response 
+        /// This property provides access to a collection of <see cref="IHttpContentDeserializer"/> instances that are used to
+        /// deserialize the content of HTTP responses. The deserializers in this list are tried in order to deserialize the response
         /// content into .NET objects.
         /// </remarks>
         public HttpContentDeserializerCollection ResponseDeserializers { get; } = [];
@@ -294,7 +298,7 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, returning response body deserialized as the specified type. 
+        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, returning response body deserialized as the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the response object.</typeparam>
         /// <param name="method">The HTTP method to use for the request.</param>
@@ -322,7 +326,7 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, without processing the response body. 
+        /// Sends an asynchronous HTTP request with the specified method, URI, and payload, without processing the response body.
         /// </summary>
         /// <param name="method">The HTTP method to use for the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
@@ -357,7 +361,7 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         /// <remarks>
-        /// This method is responsible for sending the HTTP request and optionally retrying it under specific failure conditions. The decision to retry a request is based 
+        /// This method is responsible for sending the HTTP request and optionally retrying it under specific failure conditions. The decision to retry a request is based
         /// on the nature of the failure, with potential consultation of external retry logic mechanisms.
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
@@ -400,8 +404,8 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         /// <remarks>
-        /// This method sends the provided HTTP request and returns the response if the status code indicates a success. For any error status codes, it fails fast by throwing 
-        /// an exception specific to the nature of the error. Additionally, the method incorporates pre-send and post-receive hooks for adding custom logic, such as modifying 
+        /// This method sends the provided HTTP request and returns the response if the status code indicates a success. For any error status codes, it fails fast by throwing
+        /// an exception specific to the nature of the error. Additionally, the method incorporates pre-send and post-receive hooks for adding custom logic, such as modifying
         /// request headers or logging response details.
         /// </remarks>
         protected virtual async Task<HttpResponseMessage> DispatchAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -429,8 +433,8 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error 
-        /// handling strategies. 
+        /// Asynchronously evaluates transient network issues to decide the appropriate action based on the error context and predefined error
+        /// handling strategies.
         /// </summary>
         /// <param name="error">The <see cref="HttpRequestException"/> encapsulating details of the encountered error during the HTTP request execution.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
@@ -438,8 +442,8 @@ namespace Kampute.HttpClient
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/> or <paramref name="request"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an 
-        /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or 
+        /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an
+        /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or
         /// to handle the error as unrecoverable.
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
@@ -455,8 +459,8 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Asynchronously evaluates failed HTTP responses to decide the appropriate action based on the error context and predefined error 
-        /// handling strategies. 
+        /// Asynchronously evaluates failed HTTP responses to decide the appropriate action based on the error context and predefined error
+        /// handling strategies.
         /// </summary>
         /// <param name="error">The <see cref="HttpResponseException"/> encapsulating details of the encountered error during the HTTP request execution.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
@@ -465,7 +469,7 @@ namespace Kampute.HttpClient
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/> or <paramref name="response"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This method assesses HTTP request failures, leveraging error handling strategies within <see cref="ErrorHandlers"/>. It returns an <see cref="HttpErrorHandlerResult"/> 
+        /// This method assesses HTTP request failures, leveraging error handling strategies within <see cref="ErrorHandlers"/>. It returns an <see cref="HttpErrorHandlerResult"/>
         /// that guides the next steps, either to retry the request with potentially modified parameters or to handle the error as unrecoverable.
         /// </remarks>
         /// <seealso cref="ErrorHandlers"/>
@@ -510,9 +514,9 @@ namespace Kampute.HttpClient
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This method endeavors to deserialize the response content into a <see cref="ResponseErrorType"/>, provided that the type is 
-        /// specified and implements the <see cref="IHttpErrorResponse"/> interface. Upon successful deserialization, the resulting data 
-        /// is transformed into an exception. If deserialization fails, a generic <see cref="HttpResponseException"/> is generated, incorporating 
+        /// This method endeavors to deserialize the response content into a <see cref="ResponseErrorType"/>, provided that the type is
+        /// specified and implements the <see cref="IHttpErrorResponse"/> interface. Upon successful deserialization, the resulting data
+        /// is transformed into an exception. If deserialization fails, a generic <see cref="HttpResponseException"/> is generated, incorporating
         /// the response's status code and a default error message.
         /// </remarks>
         /// <seealso cref="ResponseErrorType"/>
@@ -553,9 +557,9 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> or <paramref name="objectType"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpContentException">Thrown when the response body is empty, the content type is unsupported, or parsing the response fails.</exception>
         /// <remarks>
-        /// This method uses configured content deserializers for content deserialization and supports custom content types. In case of deserialization 
-        /// failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about the parsing error. 
-        /// </remarks>        
+        /// This method uses configured content deserializers for content deserialization and supports custom content types. In case of deserialization
+        /// failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about the parsing error.
+        /// </remarks>
         /// <seealso cref="ResponseDeserializers"/>
         protected virtual async Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
         {
@@ -720,9 +724,9 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="request">The HTTP request message that was created.</param>
         /// <remarks>
-        /// This method is called to trigger the <see cref="BeforeSendingRequest"/> event. This allows for centralized 
-        /// handling of request modifications across various methods that send HTTP requests. The method is invoked 
-        /// before an <see cref="HttpRequestMessage"/> is sent. 
+        /// This method is called to trigger the <see cref="BeforeSendingRequest"/> event. This allows for centralized
+        /// handling of request modifications across various methods that send HTTP requests. The method is invoked
+        /// before an <see cref="HttpRequestMessage"/> is sent.
         /// </remarks>
         protected virtual void OnBeforeSendingRequest(HttpRequestMessage request)
         {
@@ -734,8 +738,8 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="response">The HTTP response message that was received.</param>
         /// <remarks>
-        /// This method is called to trigger the <see cref="AfterReceivingResponse"/> event. This allows to react to the 
-        /// reception of an HTTP response. The method is invoked after a response is received from an HTTP request but 
+        /// This method is called to trigger the <see cref="AfterReceivingResponse"/> event. This allows to react to the
+        /// reception of an HTTP response. The method is invoked after a response is received from an HTTP request but
         /// before any processing is performed on the response.
         /// </remarks>
         protected virtual void OnAfterReceivingResponse(HttpResponseMessage response)

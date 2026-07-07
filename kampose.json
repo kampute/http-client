@@ -10,12 +10,14 @@
     "assemblies": [
         "src/**/bin/Release/netstandard2.1/*.dll"
     ],
+    "topics": [
+        "docs/**/*.md"
+    ],
     "assets": [
         {
             "source": [
                 "LICENSE",
-                "logo-dark.png",
-                "logo-light.png"
+                "docs/*.png"
             ]
         }
     ],
@@ -35,6 +37,7 @@
         "projectLogoLightUri": "logo-dark.png",
         "projectLogoDarkUri": "logo-light.png",
         "faviconUri": "logo-dark.png",
-        "pageFooter": "- Copyright © {{now 'yyyy'}} [Kampute](https://kampute.com/)\n- Site built with [Kampose](https://kampute.github.io/kampose/)."
+        "pageFooter": "- [MIT License]({{#rootRelativeUrl 'LICENSE'}})\n- Copyright © [Kampute](https://kampute.com)",
+        "pageFooterRight": "Built with [Kampose](https://kampute.github.io/kampose/)"
     }
 }

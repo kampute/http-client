@@ -1,10 +1,10 @@
-# Welcome to HttpClient
+# Kampute.HttpClient
 
 `Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities. Tailored for
 developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide array of functionalities
 to address the complexities of web service consumption.
 
-[Explore the API documentation](https://kampute.github.io/http-client/api/) for detailed insights.
+[Explore the API documentation](https://kampute.github.io/http-client/) for detailed insights.
 
 ## Key Features
 
@@ -53,19 +53,19 @@ to address the complexities of web service consumption.
 
 By default, `Kampute.HttpClient` does not include any content deserializer. To accommodate popular content types, the following extension packages are available:
 
-- **[Kampute.HttpClient.Json](https://kampute.github.io/http-client/api/Kampute.HttpClient.Json)**:
+- **[Kampute.HttpClient.Json](https://kampute.github.io/http-client/api/Kampute.HttpClient.Json.html)**:
   Utilizes the `System.Text.Json` library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
   with the .NET ecosystem.
 
-- **[Kampute.HttpClient.NewtonsoftJson](https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson)**:
+- **[Kampute.HttpClient.NewtonsoftJson](https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.html)**:
   Leverages the `Newtonsoft.Json` library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON
   features and formats.
 
-- **[Kampute.HttpClient.Xml](https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml)**:
+- **[Kampute.HttpClient.Xml](https://kampute.github.io/http-client/api/Kampute.HttpClient.Xml.html)**:
   Employs the `XmlSerializer` for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom
   class structures.
 
-- **[Kampute.HttpClient.DataContract](https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract)**:
+- **[Kampute.HttpClient.DataContract](https://kampute.github.io/http-client/api/Kampute.HttpClient.DataContract.html)**:
   Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract
   attributes for fine-grained control over the XML output.
 

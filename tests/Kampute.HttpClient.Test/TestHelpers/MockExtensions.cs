@@ -12,6 +12,13 @@
     {
         public static void MockHttpResponse(this Mock<HttpMessageHandler> mockMessageHandler, Func<HttpRequestMessage, HttpResponseMessage> responseFactory)
         {
+            ArgumentNullException.ThrowIfNull(responseFactory);
+
+            mockMessageHandler.MockHttpResponse((request, _) => responseFactory(request));
+        }
+
+        public static void MockHttpResponse(this Mock<HttpMessageHandler> mockMessageHandler, Func<HttpRequestMessage, CancellationToken, HttpResponseMessage> responseFactory)
+        {
             ArgumentNullException.ThrowIfNull(mockMessageHandler);
             ArgumentNullException.ThrowIfNull(responseFactory);
 
@@ -24,8 +31,8 @@
                 )
                 .ReturnsAsync
                 (
-                    (HttpRequestMessage request, CancellationToken _)
-                        => responseFactory(request) ?? throw new InvalidOperationException($"No response for the '{request.Method} {request.RequestUri}' request is provided.")
+                    (HttpRequestMessage request, CancellationToken cancellationToken)
+                        => responseFactory(request, cancellationToken) ?? throw new InvalidOperationException($"No response for the '{request.Method} {request.RequestUri}' request is provided.")
                 )
                 .Verifiable();
         }

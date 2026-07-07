@@ -310,6 +310,65 @@
         }
 
         [Test]
+        public async Task OnRequestTimeout_UsesBackoffStrategy()
+        {
+            var maxRetries = 2;
+
+            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
+            var mockRetryScheduler = new Mock<IRetryScheduler>();
+
+            var retries = 0;
+            mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(() => retries < maxRetries).Callback(() => ++retries);
+            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
+                .Returns(mockRetryScheduler.Object);
+
+            _client.BackoffStrategy = mockBackoffStrategy.Object;
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Assert.That(request.Content, Is.Not.Null);
+                Assert.That(request.Content.ReadAsStringAsync().Result, Is.EqualTo("test"));
+
+                if (++attempts <= maxRetries)
+                    throw new TaskCanceledException("The request timed out.");
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
+
+            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
+            Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+        }
+
+        [Test]
+        public void OnCallerCancellation_DoesNotUseBackoffStrategy()
+        {
+            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
+            _client.BackoffStrategy = mockBackoffStrategy.Object;
+
+            var attempts = 0;
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            _mockMessageHandler.MockHttpResponse((request, cancellationToken) =>
+            {
+                ++attempts;
+                cancellationTokenSource.Cancel();
+                throw new TaskCanceledException("The request was canceled.", null, cancellationToken);
+            });
+
+            Assert.ThrowsAsync<TaskCanceledException>
+            (
+                async () => await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"), cancellationTokenSource.Token)
+            );
+
+            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Never);
+            Assert.That(attempts, Is.EqualTo(1));
+        }
+
+        [Test]
         public async Task BeginPropertyScope_ModifiesRequestPropertiesCorrectly()
         {
             var scopedProperty = new KeyValuePair<string, object?>("PROP_NAME", "PROP_VALUE");

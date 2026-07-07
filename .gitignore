@@ -358,6 +358,12 @@ FodyWeavers.xsd
 *.pfx
 *.snk
 
+# Folders for AI agents and tools
+.agents/
+.codex/
+.claude/
+.junie/
+
 # VS Code settings folder
 .vscode/
 

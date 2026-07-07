@@ -374,6 +374,7 @@ namespace Kampute.HttpClient
             using var cloneManager = new HttpRequestMessageCloneManager(request);
             for (; ; )
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 try
                 {
                     return await DispatchAsync(cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
@@ -390,7 +391,13 @@ namespace Kampute.HttpClient
                     if (!cloneManager.TryApplyDecision(decision))
                         throw;
                 }
-                cancellationToken.ThrowIfCancellationRequested();
+                catch (TaskCanceledException timeoutError) when (!cancellationToken.IsCancellationRequested)
+                {
+                    var networkError = new HttpRequestException("The HTTP request timed out.", timeoutError);
+                    var decision = await DecideOnRetryAsync(networkError, cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
+                    if (!cloneManager.TryApplyDecision(decision))
+                        throw;
+                }
             }
         }
 

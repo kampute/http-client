@@ -6,12 +6,11 @@
 namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
-    using Kampute.HttpClient.Test.TestHelpers;
+    using Kampute.HttpClient.TestSupport;
     using Moq;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -87,10 +86,18 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         [Test]
         public async Task OnTransientHttpError_WithRetryAfterHeader_AsDate_RetriesRequestAfterSpecifiedTime()
         {
-            var transientHandler = new TransientHttpErrorHandler();
-            _client.ErrorHandlers.Add(transientHandler);
-
             var retryDelay = TimeSpan.FromMilliseconds(1000);
+            var retryTime = DateTimeOffset.UtcNow.Add(retryDelay);
+            var actualRetryTime = default(DateTimeOffset?);
+            var transientHandler = new TransientHttpErrorHandler
+            {
+                OnBackoffStrategy = (ctx, retryAfter) =>
+                {
+                    actualRetryTime = retryAfter;
+                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                }
+            };
+            _client.ErrorHandlers.Add(transientHandler);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -98,28 +105,33 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 attempts++;
 
                 var response = new HttpResponseMessage(HttpStatusCode.RequestTimeout);
-                response.Headers.RetryAfter = new RetryConditionHeaderValue(DateTimeOffset.UtcNow.Add(retryDelay));
+                response.Headers.RetryAfter = new RetryConditionHeaderValue(retryTime);
                 return response;
             });
 
-            var timer = Stopwatch.StartNew();
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
-            timer.Stop();
 
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.EqualTo(retryDelay).Within(0.1 * retryDelay));
+                Assert.That(actualRetryTime, Is.EqualTo(retryTime).Within(TimeSpan.FromSeconds(1)));
             }
         }
 
         [Test]
         public async Task OnTransientHttpError_WithRetryAfterHeader_AsDelta_RetriesRequestAfterSpecifiedDelay()
         {
-            var transientHandler = new TransientHttpErrorHandler();
-            _client.ErrorHandlers.Add(transientHandler);
-
             var retryDelay = TimeSpan.FromMilliseconds(1000);
+            var actualRetryTime = default(DateTimeOffset?);
+            var transientHandler = new TransientHttpErrorHandler
+            {
+                OnBackoffStrategy = (ctx, retryAfter) =>
+                {
+                    actualRetryTime = retryAfter;
+                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                }
+            };
+            _client.ErrorHandlers.Add(transientHandler);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -131,14 +143,12 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 return response;
             });
 
-            var timer = Stopwatch.StartNew();
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
-            timer.Stop();
 
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.EqualTo(retryDelay).Within(0.1 * retryDelay));
+                Assert.That(actualRetryTime, Is.EqualTo(DateTimeOffset.UtcNow.Add(retryDelay)).Within(TimeSpan.FromSeconds(1)));
             }
         }
 

@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kampute.HttpClient", "src\K
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kampute.HttpClient.Test", "tests\Kampute.HttpClient.Test\Kampute.HttpClient.Test.csproj", "{8675C4E8-DDAF-4303-A263-610CD18A20A8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kampute.HttpClient.TestSupport", "tests\Kampute.HttpClient.TestSupport\Kampute.HttpClient.TestSupport.csproj", "{42B55A45-5DD1-4F49-9286-7FBA7FA88F07}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kampute.HttpClient.Json", "src\Kampute.HttpClient.Json\Kampute.HttpClient.Json.csproj", "{A6C59FE1-D230-4AF8-AC2C-AE0C7CD0FA17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kampute.HttpClient.Json.Test", "tests\Kampute.HttpClient.Json.Test\Kampute.HttpClient.Json.Test.csproj", "{A861BB86-73F3-4DE4-AC47-3EB67CD977C1}"
@@ -48,6 +50,10 @@ Global
 		{8675C4E8-DDAF-4303-A263-610CD18A20A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8675C4E8-DDAF-4303-A263-610CD18A20A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8675C4E8-DDAF-4303-A263-610CD18A20A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B55A45-5DD1-4F49-9286-7FBA7FA88F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B55A45-5DD1-4F49-9286-7FBA7FA88F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B55A45-5DD1-4F49-9286-7FBA7FA88F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B55A45-5DD1-4F49-9286-7FBA7FA88F07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6C59FE1-D230-4AF8-AC2C-AE0C7CD0FA17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6C59FE1-D230-4AF8-AC2C-AE0C7CD0FA17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C59FE1-D230-4AF8-AC2C-AE0C7CD0FA17}.Release|Any CPU.ActiveCfg = Release|Any CPU

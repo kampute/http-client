@@ -2,7 +2,7 @@
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.Interfaces;
-    using Kampute.HttpClient.Test.TestHelpers;
+    using Kampute.HttpClient.TestSupport;
     using Kampute.HttpClient.Utilities;
     using Moq;
     using NUnit.Framework;
@@ -226,14 +226,7 @@
         {
             var maxRetries = 2;
 
-            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
-            var mockRetryScheduler = new Mock<IRetryScheduler>();
-
-            var retries = 0;
-            mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(() => retries < maxRetries).Callback(() => ++retries);
-            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
-                .Returns(mockRetryScheduler.Object);
+            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(maxRetries, out var mockRetryScheduler);
 
             _client.BackoffStrategy = mockBackoffStrategy.Object;
 
@@ -261,14 +254,7 @@
         {
             var maxRetries = 2;
 
-            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
-            var mockRetryScheduler = new Mock<IRetryScheduler>();
-
-            var retries = 0;
-            mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(() => retries < maxRetries).Callback(() => ++retries);
-            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
-                .Returns(mockRetryScheduler.Object);
+            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(maxRetries, out var mockRetryScheduler);
 
             _client.BackoffStrategy = mockBackoffStrategy.Object;
 
@@ -310,37 +296,46 @@
         }
 
         [Test]
-        public async Task OnRequestTimeout_UsesBackoffStrategy()
+        public async Task OnTimeoutCancellation_UsesBackoffStrategy()
         {
-            var maxRetries = 2;
-
-            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
-            var mockRetryScheduler = new Mock<IRetryScheduler>();
-
-            var retries = 0;
-            mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(() => retries < maxRetries).Callback(() => ++retries);
-            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
-                .Returns(mockRetryScheduler.Object);
-
-            _client.BackoffStrategy = mockBackoffStrategy.Object;
+            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
 
             var attempts = 0;
-            _mockMessageHandler.MockHttpResponse(request =>
+            using var testHandler = new TestHttpMessageHandler
             {
-                Assert.That(request.Content, Is.Not.Null);
-                Assert.That(request.Content.ReadAsStringAsync().Result, Is.EqualTo("test"));
+                ResponseFactory = async (request, cancellationToken) =>
+                {
+                    ++attempts;
 
-                if (++attempts <= maxRetries)
-                    throw new TaskCanceledException("The request timed out.");
+                    Assert.That(request.Content, Is.Not.Null);
+                    Assert.That(await request.Content!.ReadAsStringAsync(cancellationToken), Is.EqualTo("test"));
 
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            });
+                    if (attempts == 1)
+                        await Task.Delay(TimeSpan.FromMilliseconds(250), cancellationToken);
 
-            await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+            };
+            using var timedOutHttpClient = new HttpClient(testHandler, disposeHandler: false)
+            {
+                Timeout = TimeSpan.FromMilliseconds(50)
+            };
 
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
-            Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+            using var timedOutClient = new HttpRestClient(timedOutHttpClient)
+            {
+                BaseAddress = new Uri("http://api.test.com"),
+            };
+            timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
+
+            using var response = await timedOutClient.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
+
+            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Once);
+            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(attempts, Is.EqualTo(2));
+            }
         }
 
         [Test]

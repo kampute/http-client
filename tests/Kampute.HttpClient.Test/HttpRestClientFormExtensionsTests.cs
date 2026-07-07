@@ -1,7 +1,7 @@
 ﻿namespace Kampute.HttpClient.Test
 {
     using Kampute.HttpClient;
-    using Kampute.HttpClient.Test.TestHelpers;
+    using Kampute.HttpClient.TestSupport;
     using Moq;
     using NUnit.Framework;
     using System;

@@ -1,9 +1,9 @@
-﻿namespace Kampute.HttpClient.Test.TestHelpers
+namespace Kampute.HttpClient.TestSupport
 {
     using System;
     using System.IO;
 
-    internal class TestStream : MemoryStream
+    public class TestStream : MemoryStream
     {
         private readonly bool seekable;
 

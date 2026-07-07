@@ -1,4 +1,4 @@
-﻿namespace Kampute.HttpClient.Test.TestHelpers
+namespace Kampute.HttpClient.TestSupport
 {
     using Kampute.HttpClient.Interfaces;
     using System;
@@ -8,7 +8,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal class TestContentDeserializer : IHttpContentDeserializer
+    public class TestContentDeserializer : IHttpContentDeserializer
     {
         public IReadOnlyCollection<string> SupportedMediaTypes { get; } = [Constants.TestMediaType];
 

@@ -1,18 +1,17 @@
 ﻿namespace Kampute.HttpClient.Xml.Test
 {
     using Kampute.HttpClient;
+    using Kampute.HttpClient.TestSupport;
     using Moq;
-    using Moq.Protected;
     using NUnit.Framework;
     using System;
-    using System.IO;
-    using System.IO.Compression;
     using System.Net;
     using System.Net.Http;
     using System.Net.Sockets;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using static Kampute.HttpClient.TestSupport.CompressedContentHelpers;
 
     [TestFixture]
     public class HttpRestClientXmlExtensionsTests
@@ -25,52 +24,6 @@
             return _restClient.BaseAddress is not null
                 ? new Uri(_restClient.BaseAddress, url)
                 : new Uri(url);
-        }
-
-        private void MockHttpResponse(Func<HttpRequestMessage, HttpResponseMessage> responseFactory)
-        {
-            MockHttpResponse((request, _) => responseFactory(request));
-        }
-
-        private void MockHttpResponse(Func<HttpRequestMessage, CancellationToken, HttpResponseMessage> responseFactory)
-        {
-            _mockMessageHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>
-                (
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
-                .ReturnsAsync
-                (
-                    (HttpRequestMessage request, CancellationToken cancellationToken) => responseFactory(request, cancellationToken)
-                );
-        }
-
-        private static string ReadCompressedContent(HttpContent content)
-        {
-            using var compressedStream = new MemoryStream();
-            content.CopyToAsync(compressedStream).GetAwaiter().GetResult();
-            compressedStream.Position = 0;
-
-            using Stream decompressedStream = content.Headers.ContentEncoding.ToString() switch
-            {
-                "gzip" => new GZipStream(compressedStream, CompressionMode.Decompress),
-                "deflate" => new DeflateStream(compressedStream, CompressionMode.Decompress),
-                _ => throw new InvalidOperationException("Unsupported encoding")
-            };
-            using var reader = new StreamReader(decompressedStream, Encoding.UTF8);
-            return reader.ReadToEnd();
-        }
-
-        private static HttpContent CompressContent(HttpContent content, string encoding)
-        {
-            return encoding switch
-            {
-                "gzip" => content.AsGzip(),
-                "deflate" => content.AsDeflate(),
-                _ => throw new InvalidOperationException("Unsupported encoding")
-            };
         }
 
         [SetUp]
@@ -95,7 +48,7 @@
         {
             var payload = new TestModel { Name = "XML Test" };
 
-            MockHttpResponse(request =>
+            _mockMessageHandler.MockHttpResponse(request =>
             {
                 using (Assert.EnterMultipleScope())
                 {
@@ -122,7 +75,7 @@
         {
             var payload = new TestModel { Name = "XML Test" };
 
-            MockHttpResponse(request =>
+            _mockMessageHandler.MockHttpResponse(request =>
             {
                 using (Assert.EnterMultipleScope())
                 {
@@ -149,7 +102,7 @@
         {
             var payload = new TestModel { Name = "XML Test" };
 
-            MockHttpResponse(request =>
+            _mockMessageHandler.MockHttpResponse(request =>
             {
                 using (Assert.EnterMultipleScope())
                 {
@@ -183,7 +136,7 @@
 
             _restClient.BackoffStrategy = BackoffStrategies.Uniform((uint)maxRetries, TimeSpan.Zero);
 
-            MockHttpResponse(request =>
+            _mockMessageHandler.MockHttpResponse(request =>
             {
                 ++attempts;
 
@@ -204,7 +157,7 @@
             using var content = new XmlContent(payload);
             using var compressedContent = CompressContent(content, encoding);
 
-            using var response = await _restClient.SendAsync(HttpMethod.Post, "/echo", compressedContent);
+            using var response = await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent);
 
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
         }
@@ -219,7 +172,7 @@
 
             _restClient.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
 
-            MockHttpResponse((request, cancellationToken) =>
+            _mockMessageHandler.MockHttpResponse((request, cancellationToken) =>
             {
                 ++attempts;
 
@@ -240,44 +193,62 @@
             Assert.ThrowsAsync
             (
                 Is.InstanceOf<OperationCanceledException>(),
-                async () => await _restClient.SendAsync(HttpMethod.Post, "/echo", compressedContent, cancellationTokenSource.Token)
+                async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationTokenSource.Token)
             );
             Assert.That(attempts, Is.EqualTo(1));
         }
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public async Task SendAsync_OnTaskCanceledTimeout_WithCompressedXmlContent_RetriesSerializedPayload(string encoding)
+        public async Task SendAsync_OnTimeoutCancellation_WithCompressedXmlContent_UsesBackoffStrategy(string encoding)
         {
             var payload = new TestModel { Name = "XML Test" };
-            var maxRetries = 2;
+            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
+
             var attempts = 0;
-
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform((uint)maxRetries, TimeSpan.Zero);
-
-            MockHttpResponse(request =>
+            using var testHandler = new TestHttpMessageHandler
             {
-                ++attempts;
-
-                using (Assert.EnterMultipleScope())
+                ResponseFactory = async (request, cancellationToken) =>
                 {
-                    Assert.That(request.Content, Is.Not.Null);
-                    Assert.That(request.Content?.Headers.ContentEncoding, Contains.Item(encoding));
-                    Assert.That(ReadCompressedContent(request.Content!), Is.EqualTo(payload.ToXmlString(Encoding.UTF8)));
+                    ++attempts;
+
+                    using (Assert.EnterMultipleScope())
+                    {
+                        Assert.That(request.Content, Is.Not.Null);
+                        Assert.That(request.Content?.Headers.ContentEncoding, Contains.Item(encoding));
+                        Assert.That(ReadCompressedContent(request.Content!), Is.EqualTo(payload.ToXmlString(Encoding.UTF8)));
+                    }
+
+                    if (attempts == 1)
+                        await Task.Delay(TimeSpan.FromMilliseconds(250), cancellationToken);
+
+                    return new HttpResponseMessage(HttpStatusCode.NoContent);
                 }
+            };
+            using var timedOutHttpClient = new HttpClient(testHandler, disposeHandler: false)
+            {
+                Timeout = TimeSpan.FromMilliseconds(50)
+            };
 
-                if (attempts <= maxRetries)
-                    throw new TaskCanceledException("The request timed out.");
-
-                return new HttpResponseMessage(HttpStatusCode.NoContent);
-            });
+            using var timedOutClient = new HttpRestClient(timedOutHttpClient)
+            {
+                BaseAddress = new Uri("http://api.test.com/xml"),
+            };
+            timedOutClient.AcceptXml();
+            timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
 
             using var content = new XmlContent(payload);
             using var compressedContent = CompressContent(content, encoding);
 
-            using var response = await _restClient.SendAsync(HttpMethod.Post, "/echo", compressedContent);
+            using var response = await timedOutClient.SendAsync(HttpMethod.Post, "/resource", compressedContent);
 
-            Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Once);
+            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+                Assert.That(attempts, Is.EqualTo(2));
+            }
         }
     }
 }

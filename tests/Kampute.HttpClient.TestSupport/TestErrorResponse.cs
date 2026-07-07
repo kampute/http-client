@@ -1,10 +1,10 @@
-﻿namespace Kampute.HttpClient.Test.TestHelpers
+namespace Kampute.HttpClient.TestSupport
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.Interfaces;
     using System.Net;
 
-    internal class TestErrorResponse : IHttpErrorResponse
+    public class TestErrorResponse : IHttpErrorResponse
     {
         public string Message { get; }
 

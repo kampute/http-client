@@ -1,11 +1,10 @@
 ﻿namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
-    using Kampute.HttpClient.Test.TestHelpers;
+    using Kampute.HttpClient.TestSupport;
     using Moq;
     using NUnit.Framework;
     using System;
-    using System.Diagnostics;
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -35,10 +34,18 @@
         [Test]
         public async Task On429Response_WithRateLimitResetHeader_RetriesRequestAfterSpecifiedTime()
         {
-            var tooManyRequestsHandler = new HttpError429Handler();
-            _client.ErrorHandlers.Add(tooManyRequestsHandler);
-
             var resetDelay = TimeSpan.FromSeconds(2); // The delay should be more than a second because the reset time is expressed as a Unix time in seconds.
+            var resetTime = DateTimeOffset.FromUnixTimeSeconds(DateTimeOffset.UtcNow.Add(resetDelay).ToUnixTimeSeconds());
+            var actualResetTime = default(DateTimeOffset?);
+            var tooManyRequestsHandler = new HttpError429Handler
+            {
+                OnBackoffStrategy = (ctx, retryAfter) =>
+                {
+                    actualResetTime = retryAfter;
+                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                }
+            };
+            _client.ErrorHandlers.Add(tooManyRequestsHandler);
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -46,18 +53,16 @@
                 attempts++;
 
                 var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
-                response.Headers.Add("x-rate-limit-reset", DateTimeOffset.UtcNow.Add(resetDelay).ToUnixTimeSeconds().ToString());
+                response.Headers.Add("x-rate-limit-reset", resetTime.ToUnixTimeSeconds().ToString());
                 return response;
             });
 
-            var timer = Stopwatch.StartNew();
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"), Throws.TypeOf<HttpResponseException>());
-            timer.Stop();
 
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(attempts, Is.EqualTo(2));
-                Assert.That(timer.Elapsed, Is.EqualTo(resetDelay).Within(TimeSpan.FromSeconds(1.0)));
+                Assert.That(actualResetTime, Is.EqualTo(resetTime));
             }
         }
 

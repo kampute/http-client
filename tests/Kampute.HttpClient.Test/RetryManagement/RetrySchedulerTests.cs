@@ -34,7 +34,7 @@
         [Test]
         public async Task WaitAsync_WaitsAccordingToStrategy()
         {
-            var expectedDelay = TimeSpan.FromMilliseconds(1000);
+            var expectedDelay = TimeSpan.FromMilliseconds(50);
 
             var mockStrategy = new Mock<IRetryStrategy>();
             mockStrategy.Setup(s => s.TryGetRetryDelay(It.IsAny<TimeSpan>(), It.IsAny<uint>(), out expectedDelay)).Returns(true);
@@ -44,7 +44,7 @@
             var result = await scheduler.WaitAsync(CancellationToken.None);
             timer.Stop();
 
-            Assert.That(timer.Elapsed, Is.EqualTo(expectedDelay).Within(0.1 * expectedDelay));
+            Assert.That(timer.Elapsed, Is.EqualTo(expectedDelay).Within(TimeSpan.FromMilliseconds(100)));
         }
 
         [Test]

@@ -1,4 +1,4 @@
-﻿namespace Kampute.HttpClient.Test.TestHelpers
+namespace Kampute.HttpClient.TestSupport
 {
     using Moq;
     using Moq.Protected;
@@ -8,7 +8,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal static class MockExtensions
+    public static class MockExtensions
     {
         public static void MockHttpResponse(this Mock<HttpMessageHandler> mockMessageHandler, Func<HttpRequestMessage, HttpResponseMessage> responseFactory)
         {

@@ -1,6 +1,6 @@
-﻿namespace Kampute.HttpClient.Test.TestHelpers
+namespace Kampute.HttpClient.TestSupport
 {
-    internal class Constants
+    public static class Constants
     {
         public const string TestMediaType = "application/test+text";
     }

@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Kampute.HttpClient.Xml\Kampute.HttpClient.Xml.csproj" />
+    <ProjectReference Include="..\Kampute.HttpClient.TestSupport\Kampute.HttpClient.TestSupport.csproj" />
   </ItemGroup>
 
 </Project>

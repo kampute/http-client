@@ -37,7 +37,13 @@
         "projectLogoLightUri": "logo-dark.png",
         "projectLogoDarkUri": "logo-light.png",
         "faviconUri": "logo-dark.png",
-        "pageFooter": "- [MIT License]({{#rootRelativeUrl 'LICENSE'}})\n- Copyright © [Kampute](https://kampute.com)",
-        "pageFooterRight": "Built with [Kampose](https://kampute.github.io/kampose/)"
+        "pageFooter": [
+            "- Copyright © {{now 'yyyy'}} Kampute",
+            "- [MIT License](~/LICENSE)",
+            "- [Source code](https://github.com/kampute/http-client)"
+        ],
+        "pageFooterRight": [
+            "Built with [Kampose](https://kampute.github.io/kampose/)"
+        ]
     }
 }

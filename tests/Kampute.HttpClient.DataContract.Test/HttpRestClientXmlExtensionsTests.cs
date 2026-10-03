@@ -8,6 +8,8 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Sockets;
+    using System.Runtime.CompilerServices;
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -250,5 +252,59 @@
                 Assert.That(attempts, Is.EqualTo(2));
             }
         }
+
+        [Test]
+        public void SetXmlSerializerSettings_WithValue_IsReturnedByGetXmlSerializerSettings()
+        {
+            using var client = new HttpRestClient(new HttpClient());
+            var value = new DataContractSerializerSettings();
+
+            client.SetXmlSerializerSettings(value);
+
+            Assert.That(client.GetXmlSerializerSettings(), Is.SameAs(value));
+        }
+
+        [Test]
+        public void SetXmlSerializerSettings_WithNull_RemovesSettings()
+        {
+            using var client = new HttpRestClient(new HttpClient());
+            client.SetXmlSerializerSettings(new DataContractSerializerSettings());
+
+            client.SetXmlSerializerSettings(null);
+
+            Assert.That(client.GetXmlSerializerSettings(), Is.Null);
+        }
+
+        [Test]
+        public void SetXmlSerializerSettings_WhenClientIsDisposed_RemovesSettings()
+        {
+            var client = new HttpRestClient(new HttpClient());
+            client.SetXmlSerializerSettings(new DataContractSerializerSettings());
+
+            client.Dispose();
+
+            Assert.That(client.GetXmlSerializerSettings(), Is.Null);
+        }
+
+        [Test]
+        public void SetXmlSerializerSettings_DoesNotKeepClientAlive()
+        {
+            var clientReference = CreateUnreferencedClientWithSettings();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            Assert.That(clientReference.IsAlive, Is.False);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static WeakReference CreateUnreferencedClientWithSettings()
+        {
+            var client = new HttpRestClient(new HttpClient());
+            client.SetXmlSerializerSettings(new DataContractSerializerSettings());
+            return new WeakReference(client);
+        }
+
     }
 }

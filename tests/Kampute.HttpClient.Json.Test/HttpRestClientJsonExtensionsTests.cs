@@ -8,6 +8,8 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Sockets;
+    using System.Runtime.CompilerServices;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using static Kampute.HttpClient.TestSupport.CompressedContentHelpers;
@@ -259,5 +261,59 @@
                 Assert.That(attempts, Is.EqualTo(2));
             }
         }
+
+        [Test]
+        public void SetJsonSerializerOptions_WithValue_IsReturnedByGetJsonSerializerOptions()
+        {
+            using var client = new HttpRestClient(new HttpClient());
+            var value = new JsonSerializerOptions();
+
+            client.SetJsonSerializerOptions(value);
+
+            Assert.That(client.GetJsonSerializerOptions(), Is.SameAs(value));
+        }
+
+        [Test]
+        public void SetJsonSerializerOptions_WithNull_RemovesOptions()
+        {
+            using var client = new HttpRestClient(new HttpClient());
+            client.SetJsonSerializerOptions(new JsonSerializerOptions());
+
+            client.SetJsonSerializerOptions(null);
+
+            Assert.That(client.GetJsonSerializerOptions(), Is.Null);
+        }
+
+        [Test]
+        public void SetJsonSerializerOptions_WhenClientIsDisposed_RemovesOptions()
+        {
+            var client = new HttpRestClient(new HttpClient());
+            client.SetJsonSerializerOptions(new JsonSerializerOptions());
+
+            client.Dispose();
+
+            Assert.That(client.GetJsonSerializerOptions(), Is.Null);
+        }
+
+        [Test]
+        public void SetJsonSerializerOptions_DoesNotKeepClientAlive()
+        {
+            var clientReference = CreateUnreferencedClientWithOptions();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            Assert.That(clientReference.IsAlive, Is.False);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static WeakReference CreateUnreferencedClientWithOptions()
+        {
+            var client = new HttpRestClient(new HttpClient());
+            client.SetJsonSerializerOptions(new JsonSerializerOptions());
+            return new WeakReference(client);
+        }
+
     }
 }

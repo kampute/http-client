@@ -6,8 +6,8 @@
 namespace Kampute.HttpClient.DataContract
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Net.Http;
+    using System.Runtime.CompilerServices;
     using System.Runtime.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace Kampute.HttpClient.DataContract
     /// </remarks>
     public static class HttpRestClientXmlExtensions
     {
-        private static readonly ConcurrentDictionary<HttpRestClient, DataContractSerializerSettings?> serializerSettings = new();
+        private static readonly ConditionalWeakTable<HttpRestClient, DataContractSerializerSettings> serializerSettings = new();
 
         private static void ClientDisposing(object sender, EventArgs e) => SetXmlSerializerSettings((HttpRestClient)sender, null);
 
@@ -36,12 +36,19 @@ namespace Kampute.HttpClient.DataContract
             client.Disposing -= ClientDisposing;
             if (settings is not null)
             {
-                serializerSettings[client] = settings;
+                lock (serializerSettings)
+                {
+                    serializerSettings.Remove(client);
+                    serializerSettings.Add(client, settings);
+                }
                 client.Disposing += ClientDisposing;
             }
             else
             {
-                serializerSettings.TryRemove(client, out _);
+                lock (serializerSettings)
+                {
+                    serializerSettings.Remove(client);
+                }
             }
         }
 

@@ -6,8 +6,8 @@
 namespace Kampute.HttpClient.Json
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Net.Http;
+    using System.Runtime.CompilerServices;
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace Kampute.HttpClient.Json
     /// </remarks>
     public static class HttpRestClientJsonExtensions
     {
-        private static readonly ConcurrentDictionary<HttpRestClient, JsonSerializerOptions?> serializerOptions = new();
+        private static readonly ConditionalWeakTable<HttpRestClient, JsonSerializerOptions> serializerOptions = new();
 
         private static void ClientDisposing(object sender, EventArgs e) => SetJsonSerializerOptions((HttpRestClient)sender, null);
 
@@ -36,12 +36,19 @@ namespace Kampute.HttpClient.Json
             client.Disposing -= ClientDisposing;
             if (options is not null)
             {
-                serializerOptions[client] = options;
+                lock (serializerOptions)
+                {
+                    serializerOptions.Remove(client);
+                    serializerOptions.Add(client, options);
+                }
                 client.Disposing += ClientDisposing;
             }
             else
             {
-                serializerOptions.TryRemove(client, out _);
+                lock (serializerOptions)
+                {
+                    serializerOptions.Remove(client);
+                }
             }
         }
 

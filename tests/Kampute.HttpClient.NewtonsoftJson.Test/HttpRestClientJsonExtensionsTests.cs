@@ -3,11 +3,13 @@
     using Kampute.HttpClient;
     using Kampute.HttpClient.TestSupport;
     using Moq;
+    using Newtonsoft.Json;
     using NUnit.Framework;
     using System;
     using System.Net;
     using System.Net.Http;
     using System.Net.Sockets;
+    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
     using static Kampute.HttpClient.TestSupport.CompressedContentHelpers;
@@ -259,5 +261,59 @@
                 Assert.That(attempts, Is.EqualTo(2));
             }
         }
+
+        [Test]
+        public void SetJsonSerializerSettings_WithValue_IsReturnedByGetJsonSerializerSettings()
+        {
+            using var client = new HttpRestClient(new HttpClient());
+            var value = new JsonSerializerSettings();
+
+            client.SetJsonSerializerSettings(value);
+
+            Assert.That(client.GetJsonSerializerSettings(), Is.SameAs(value));
+        }
+
+        [Test]
+        public void SetJsonSerializerSettings_WithNull_RemovesSettings()
+        {
+            using var client = new HttpRestClient(new HttpClient());
+            client.SetJsonSerializerSettings(new JsonSerializerSettings());
+
+            client.SetJsonSerializerSettings(null);
+
+            Assert.That(client.GetJsonSerializerSettings(), Is.Null);
+        }
+
+        [Test]
+        public void SetJsonSerializerSettings_WhenClientIsDisposed_RemovesSettings()
+        {
+            var client = new HttpRestClient(new HttpClient());
+            client.SetJsonSerializerSettings(new JsonSerializerSettings());
+
+            client.Dispose();
+
+            Assert.That(client.GetJsonSerializerSettings(), Is.Null);
+        }
+
+        [Test]
+        public void SetJsonSerializerSettings_DoesNotKeepClientAlive()
+        {
+            var clientReference = CreateUnreferencedClientWithSettings();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            Assert.That(clientReference.IsAlive, Is.False);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static WeakReference CreateUnreferencedClientWithSettings()
+        {
+            var client = new HttpRestClient(new HttpClient());
+            client.SetJsonSerializerSettings(new JsonSerializerSettings());
+            return new WeakReference(client);
+        }
+
     }
 }

@@ -40,12 +40,12 @@ using Kampute.HttpClient.Json;
 
 using var client = new HttpRestClient();
 
-client.AcceptJson();
+client.UseJson();
 
 var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 ```
 
-[`AcceptJson()`](api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_AcceptJson_Kampute_HttpClient_HttpRestClient_System_Text_Json_JsonSerializerOptions_) registers the JSON deserializer and lets the client advertise JSON through the `Accept` header when the request does not already provide one.
+[`UseJson()`](api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_UseJson_Kampute_HttpClient_HttpRestClient_System_Text_Json_JsonSerializerOptions_) registers the JSON formatter, which reads JSON responses and writes JSON payloads with the same options, and lets the client advertise JSON through the `Accept` header when the request does not already provide one.
 
 ## Choosing Packages
 
@@ -123,7 +123,7 @@ using Kampute.HttpClient.Json;
 
 using var client = new HttpRestClient();
 
-client.AcceptJson();
+client.UseJson();
 
 var created = await client.PostAsJsonAsync<MyResource>(
     "https://api.example.com/resources",
@@ -326,7 +326,7 @@ public sealed class AccountApiClient : IDisposable
             BaseAddress = baseAddress
         };
 
-        _client.AcceptJson();
+        _client.UseJson();
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
     }
 

@@ -5,11 +5,11 @@
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Net.Sockets;
-    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Text.Json;
     using System.Threading;
@@ -37,8 +37,7 @@
             {
                 BaseAddress = new Uri("http://api.test.com/json"),
             };
-            _restClient.AcceptJson(TestModel.JsonOption);
-            _restClient.SetJsonSerializerOptions(TestModel.JsonOption);
+            _restClient.UseJson(TestModel.JsonOption);
         }
 
         [TearDown]
@@ -257,7 +256,7 @@
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
-            timedOutClient.AcceptJson();
+            timedOutClient.UseJson();
             timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
 
             using var content = new JsonContent(payload)
@@ -278,57 +277,69 @@
         }
 
         [Test]
-        public void SetJsonSerializerOptions_WithValue_IsReturnedByGetJsonSerializerOptions()
+        public void UseJson_RegistersOneFormatterAndUpdatesItsOptions()
         {
-            using var client = new HttpRestClient(new HttpClient());
-            var value = new JsonSerializerOptions();
+            var options = new JsonSerializerOptions();
 
-            client.SetJsonSerializerOptions(value);
+            var formatter = _restClient.UseJson(options);
 
-            Assert.That(client.GetJsonSerializerOptions(), Is.SameAs(value));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(formatter.Options, Is.SameAs(options));
+                Assert.That(_restClient.ContentFormatters.OfType<JsonFormatter>().Single(), Is.SameAs(formatter));
+            }
         }
 
         [Test]
-        public void SetJsonSerializerOptions_WithNull_RemovesOptions()
+        public async Task UseJson_OptionsApplyToRequestAndResponse()
         {
-            using var client = new HttpRestClient(new HttpClient());
-            client.SetJsonSerializerOptions(new JsonSerializerOptions());
+            _restClient.UseJson(new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            var sentBody = default(string);
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBody = request.Content!.ReadAsStringAsync().Result;
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"name\":\"Echo\"}", Encoding.UTF8, MediaTypeNames.Application.Json),
+                };
+            });
 
-            client.SetJsonSerializerOptions(null);
+            var result = await _restClient.PostAsJsonAsync<TestModel>("/echo", new TestModel { Name = "JSON Test" });
 
-            Assert.That(client.GetJsonSerializerOptions(), Is.Null);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(sentBody, Is.EqualTo("{\"name\":\"JSON Test\"}"));
+                Assert.That(result, Is.EqualTo(new TestModel { Name = "Echo" }));
+            }
         }
 
         [Test]
-        public void SetJsonSerializerOptions_WhenClientIsDisposed_RemovesOptions()
+        public async Task PostAsJsonAsync_WithoutRegistration_SendsWithDefaultOptions()
         {
-            var client = new HttpRestClient(new HttpClient());
-            client.SetJsonSerializerOptions(new JsonSerializerOptions());
+            using var client = new HttpRestClient(new HttpClient(_mockMessageHandler.Object, false))
+            {
+                BaseAddress = new Uri("http://api.test.com/json"),
+            };
+            var sentBody = default(string);
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBody = request.Content!.ReadAsStringAsync().Result;
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            });
 
-            client.Dispose();
+            await client.PostAsJsonAsync("/models", new TestModel { Name = "JSON Test" });
 
-            Assert.That(client.GetJsonSerializerOptions(), Is.Null);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(sentBody, Is.EqualTo(new TestModel { Name = "JSON Test" }.ToJsonString()));
+                Assert.That(client.ContentFormatters, Is.Empty);
+            }
         }
 
         [Test]
-        public void SetJsonSerializerOptions_DoesNotKeepClientAlive()
+        public void PostAsJsonAsync_WithNullPayload_ThrowsBeforeReturningTask()
         {
-            var clientReference = CreateUnreferencedClientWithOptions();
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-
-            Assert.That(clientReference.IsAlive, Is.False);
+            Assert.Throws<ArgumentNullException>(() => _restClient.PostAsJsonAsync("/models", null!));
         }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static WeakReference CreateUnreferencedClientWithOptions()
-        {
-            var client = new HttpRestClient(new HttpClient());
-            client.SetJsonSerializerOptions(new JsonSerializerOptions());
-            return new WeakReference(client);
-        }
-
     }
 }

@@ -91,9 +91,9 @@ using Kampute.HttpClient.Json;
 // Create a new instance of the HttpRestClient
 using var client = new HttpRestClient();
 
-// Configure the client to accept JSON responses, using System.Text.Json library.
+// Configure the client to read and write JSON, using the System.Text.Json library.
 // This is an extension method provided by the Kampute.HttpClient.Json package.
-client.AcceptJson();
+client.UseJson();
 
 // Perform a GET request.
 // The GetAsync<TResponse> method will automatically deserialize the JSON response

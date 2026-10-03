@@ -25,8 +25,8 @@ using Kampute.HttpClient.Json;
 // Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
 
-// Configure the client to accept JSON responses.
-client.AcceptJson();
+// Configure the client to read and write JSON.
+client.UseJson();
 
 // Sending a JSON payload to an API endpoint.
 var payload = new MyPayload();

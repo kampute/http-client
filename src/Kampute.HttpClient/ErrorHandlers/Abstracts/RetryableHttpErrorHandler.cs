@@ -157,7 +157,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
                 throw new ArgumentNullException(nameof(ctx));
 
             var retryTime = GetSuggestedRetryTime(ctx);
-            if (retryTime.HasValue && _maxRetryDelay.HasValue && retryTime.Value - DateTimeOffset.UtcNow > _maxRetryDelay.Value)
+            if (ExceedsMaxRetryDelay(retryTime))
                 return null;
 
             var strategy = OnRetryPolicy?.Invoke(ctx, retryTime) ?? GetDefaultPolicy(ctx, retryTime);
@@ -167,7 +167,23 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// <inheritdoc/>
         Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
+            if (ctx is null)
+                throw new ArgumentNullException(nameof(ctx));
+
+            if (!ctx.Request.CanClone() || ExceedsMaxRetryDelay(GetSuggestedRetryTime(ctx)))
+                return Task.FromResult(HttpErrorHandlerResult.NoRetry);
+
             return ctx.ScheduleRetryAsync(this, CreateSession, cancellationToken);
+        }
+
+        /// <summary>
+        /// Checks the suggested retry time against the configured limit, including when a retry session already exists.
+        /// </summary>
+        /// <param name="retryTime">The retry time suggested by the current response, if any.</param>
+        /// <returns><see langword="true"/> if the suggested time is further away than the configured limit.</returns>
+        private bool ExceedsMaxRetryDelay(DateTimeOffset? retryTime)
+        {
+            return retryTime.HasValue && _maxRetryDelay.HasValue && retryTime.Value - DateTimeOffset.UtcNow > _maxRetryDelay.Value;
         }
     }
 }

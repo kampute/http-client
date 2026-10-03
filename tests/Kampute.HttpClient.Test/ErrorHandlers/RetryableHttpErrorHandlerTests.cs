@@ -1,6 +1,7 @@
 namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
+    using Kampute.HttpClient.ErrorHandlers.Abstracts;
     using Kampute.HttpClient.TestSupport;
     using Kampute.Retry;
     using Moq;
@@ -111,6 +112,58 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
 
             Assert.That(attempts(), Is.EqualTo(2));
+        }
+
+        [TestCase(false, false)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        public async Task OnLongSuggestedDelay_AfterRetrySessionCreated_RespectsMaxRetryDelay(bool useRateLimitReset, bool unlimitedDelay)
+        {
+            RetryableHttpErrorHandler handler = useRateLimitReset ? new HttpError429Handler() : new HttpError503Handler();
+            handler.MaxRetryDelay = unlimitedDelay ? null : TimeSpan.FromMinutes(1);
+            var policyRequests = 0;
+            handler.OnRetryPolicy = (_, _) =>
+            {
+                ++policyRequests;
+                return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
+            };
+            _client.ErrorHandlers.Add(handler);
+
+            var statusCode = useRateLimitReset ? HttpStatusCode.TooManyRequests : HttpStatusCode.ServiceUnavailable;
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(_ =>
+            {
+                if (++attempts > 2)
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+
+                var response = new HttpResponseMessage(statusCode);
+                if (attempts == 2)
+                {
+                    if (useRateLimitReset)
+                        response.Headers.Add("x-rate-limit-reset", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds().ToString());
+                    else
+                        response.Headers.RetryAfter = new RetryConditionHeaderValue(TimeSpan.FromHours(1));
+                }
+                return response;
+            });
+
+            if (unlimitedDelay)
+            {
+                using var response = await _client.SendAsync(HttpMethod.Get, "/resource");
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            }
+            else
+            {
+                var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
+                Assert.That(exception.StatusCode, Is.EqualTo(statusCode));
+            }
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(attempts, Is.EqualTo(unlimitedDelay ? 3 : 2));
+                Assert.That(policyRequests, Is.EqualTo(1));
+            }
         }
 
         [Test]

@@ -81,12 +81,23 @@
         /// This behavior ensures that the value reflects the most recent update attempt that was actually needed.
         /// </para>
         /// </remarks>
-        public async Task<bool> TryUpdateAsync(Func<Task<T?>> asyncUpdater, CancellationToken cancellationToken = default)
+        public Task<bool> TryUpdateAsync(Func<Task<T?>> asyncUpdater, CancellationToken cancellationToken = default)
         {
             if (asyncUpdater is null)
                 throw new ArgumentNullException(nameof(asyncUpdater));
 
-            var requestVersion = Volatile.Read(ref _version);
+            return TryUpdateCoreAsync(asyncUpdater, Volatile.Read(ref _version), cancellationToken);
+        }
+
+        /// <summary>
+        /// Updates the value unless another update has completed since <paramref name="requestVersion"/> was read.
+        /// </summary>
+        /// <param name="asyncUpdater">The function that produces the new value.</param>
+        /// <param name="requestVersion">The version of the value when the update was requested.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task that resolves to <see langword="true"/> if the value was updated; otherwise, <see langword="false"/>.</returns>
+        private async Task<bool> TryUpdateCoreAsync(Func<Task<T?>> asyncUpdater, int requestVersion, CancellationToken cancellationToken)
+        {
             await _semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {

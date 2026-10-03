@@ -325,13 +325,27 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="HttpContentException">Thrown if the response body is empty or its media type is not supported.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public virtual async Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
+        public virtual Task<T?> SendAsync<T>(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
             if (uri is null)
                 throw new ArgumentNullException(nameof(uri));
 
+            return SendCoreAsync<T>(method, uri, payload, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends the request of <see cref="SendAsync{T}(HttpMethod, string, HttpContent?, CancellationToken)"/> after its arguments have been validated.
+        /// </summary>
+        /// <typeparam name="T">The type of the response object.</typeparam>
+        /// <param name="method">The HTTP method to use for the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
+        /// <param name="cancellationToken">A token for canceling the request.</param>
+        /// <returns>A task that represents the asynchronous operation, with a result of the specified type.</returns>
+        private async Task<T?> SendCoreAsync<T>(HttpMethod method, string uri, HttpContent? payload, CancellationToken cancellationToken)
+        {
             using var request = CreateHttpRequest(method, uri, typeof(T));
             request.Content = payload;
 
@@ -360,7 +374,7 @@ namespace Kampute.HttpClient
         /// reads the response content, and the caller must dispose the response to release the connection. <see cref="System.Net.Http.HttpClient.Timeout"/> then covers
         /// only the time until the headers arrive, and a failure while the body is read is not retried.
         /// </remarks>
-        public virtual async Task<HttpResponseMessage> SendAsync
+        public virtual Task<HttpResponseMessage> SendAsync
         (
             HttpMethod method,
             string uri,
@@ -374,6 +388,28 @@ namespace Kampute.HttpClient
             if (uri is null)
                 throw new ArgumentNullException(nameof(uri));
 
+            return SendCoreAsync(method, uri, payload, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends the request of <see cref="SendAsync(HttpMethod, string, HttpContent?, HttpCompletionOption, CancellationToken)"/> after its arguments
+        /// have been validated.
+        /// </summary>
+        /// <param name="method">The HTTP method to use for the request.</param>
+        /// <param name="uri">The URI to which the request is sent.</param>
+        /// <param name="payload">The HTTP request payload content.</param>
+        /// <param name="completionOption">When the operation completes.</param>
+        /// <param name="cancellationToken">A token for canceling the request.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the response.</returns>
+        private async Task<HttpResponseMessage> SendCoreAsync
+        (
+            HttpMethod method,
+            string uri,
+            HttpContent? payload,
+            HttpCompletionOption completionOption,
+            CancellationToken cancellationToken
+        )
+        {
             using var request = CreateHttpRequest(method, uri, responseObjectType: null);
             request.Content = payload;
 
@@ -397,11 +433,23 @@ namespace Kampute.HttpClient
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
         /// <seealso cref="ErrorHandlers"/>
-        protected virtual async Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
+        protected virtual Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
+            return DispatchWithRetriesCoreAsync(request, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends the request of <see cref="DispatchWithRetriesAsync"/> and retries it, after its arguments have been validated.
+        /// </summary>
+        /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
+        /// <param name="completionOption">When the operation completes.</param>
+        /// <param name="cancellationToken">A token for canceling the request.</param>
+        /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
+        private async Task<HttpResponseMessage> DispatchWithRetriesCoreAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
             using var cloneManager = new HttpRequestMessageCloneManager(request);
             var retryState = new HttpRetryState();
             for (; ; )
@@ -448,11 +496,23 @@ namespace Kampute.HttpClient
         /// an exception specific to the nature of the error. Additionally, the method incorporates pre-send and post-receive hooks for adding custom logic, such as modifying
         /// request headers or logging response details.
         /// </remarks>
-        protected virtual async Task<HttpResponseMessage> DispatchAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        protected virtual Task<HttpResponseMessage> DispatchAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
+            return DispatchCoreAsync(request, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends the request of <see cref="DispatchAsync"/> once, after its arguments have been validated.
+        /// </summary>
+        /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
+        /// <param name="completionOption">When the operation completes.</param>
+        /// <param name="cancellationToken">A token for canceling the request.</param>
+        /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
+        private async Task<HttpResponseMessage> DispatchCoreAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
             OnBeforeSendingRequest(request);
 #if NETSTANDARD2_1_OR_GREATER
             var response = await _httpClient.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
@@ -589,11 +649,22 @@ namespace Kampute.HttpClient
         /// the response's status code and a default error message.
         /// </remarks>
         /// <seealso cref="ResponseErrorType"/>
-        protected virtual async Task<HttpResponseException> ToExceptionAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+        protected virtual Task<HttpResponseException> ToExceptionAsync(HttpResponseMessage response, CancellationToken cancellationToken)
         {
             if (response is null)
                 throw new ArgumentNullException(nameof(response));
 
+            return ToExceptionCoreAsync(response, cancellationToken);
+        }
+
+        /// <summary>
+        /// Converts the response of <see cref="ToExceptionAsync"/> into an exception, after its arguments have been validated.
+        /// </summary>
+        /// <param name="response">The HTTP response message to convert.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the exception that represents the error.</returns>
+        private async Task<HttpResponseException> ToExceptionCoreAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+        {
             var responseObject = default(object);
             if (ResponseErrorType is not null && response.Content is not null && response.Content.Headers.ContentLength != 0)
             {
@@ -630,13 +701,25 @@ namespace Kampute.HttpClient
         /// failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about the parsing error.
         /// </remarks>
         /// <seealso cref="ResponseDeserializers"/>
-        protected virtual async Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
+        protected virtual Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
         {
             if (response is null)
                 throw new ArgumentNullException(nameof(response));
             if (objectType is null)
                 throw new ArgumentNullException(nameof(objectType));
 
+            return DeserializeContentCoreAsync(response, objectType, cancellationToken);
+        }
+
+        /// <summary>
+        /// Deserializes the response body of <see cref="DeserializeContentAsync"/>, after its arguments have been validated.
+        /// </summary>
+        /// <param name="response">The <see cref="HttpResponseMessage"/> to be read.</param>
+        /// <param name="objectType">The type of object to which the response body is to be converted.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task representing the asynchronous operation, with the deserialized response body as an object.</returns>
+        private async Task<object?> DeserializeContentCoreAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
+        {
             if (response.Content is null || response.Content.Headers.ContentLength == 0)
                 throw Error("The response body is empty.");
 

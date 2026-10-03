@@ -104,15 +104,26 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// If the failed request was sent with authorization details other than the most recently acquired ones, the request failed with outdated
         /// credentials. In that case, this method returns the most recently acquired authorization details without invoking the authentication delegate.
         /// </remarks>
-        protected virtual async Task<AuthenticationHeaderValue?> AuthenticateAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
+        protected virtual Task<AuthenticationHeaderValue?> AuthenticateAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
             var currentAuthorization = _lastAuthorization.Value;
             if (currentAuthorization is not null && !currentAuthorization.Equals(ctx.Request.Headers.Authorization))
-                return currentAuthorization;
+                return Task.FromResult<AuthenticationHeaderValue?>(currentAuthorization);
 
+            return RefreshAuthorizationAsync(ctx, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes the authentication delegate, unless a concurrent call already did, and returns the most recently acquired authorization details.
+        /// </summary>
+        /// <param name="ctx">The error context for the HTTP response.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task that resolves to the most recently acquired authorization details, or <see langword="null"/> if authentication failed.</returns>
+        private async Task<AuthenticationHeaderValue?> RefreshAuthorizationAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
+        {
             await _lastAuthorization.TryUpdateAsync(async () =>
             {
                 using (ctx.Client.BeginPropertyScope(AuthorizationScope.Properties))

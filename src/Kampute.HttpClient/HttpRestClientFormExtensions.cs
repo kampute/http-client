@@ -76,12 +76,7 @@ namespace Kampute.HttpClient
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            return SendAndDisposeResponseAsync(new FormUrlEncodedContent(payload));
-
-            async Task SendAndDisposeResponseAsync(HttpContent content)
-            {
-                using var _ = await client.SendAsync(method, uri, content, cancellationToken: cancellationToken).ConfigureAwait(false);
-            }
+            return HttpRestClientExtensions.ReleaseResponseAsync(client.SendAsync(method, uri, new FormUrlEncodedContent(payload), cancellationToken: cancellationToken));
         }
 
         /// <summary>

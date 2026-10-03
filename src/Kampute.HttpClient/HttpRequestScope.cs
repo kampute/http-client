@@ -116,11 +116,21 @@
         /// <param name="scopedAction">The asynchronous action to execute, which involves HTTP requests that will include the configured properties and headers.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="scopedAction"/> is <see langword="null"/>.</exception>
-        public async Task PerformAsync(Func<HttpRestClient, Task> scopedAction)
+        public Task PerformAsync(Func<HttpRestClient, Task> scopedAction)
         {
             if (scopedAction is null)
                 throw new ArgumentNullException(nameof(scopedAction));
 
+            return PerformCoreAsync(scopedAction);
+        }
+
+        /// <summary>
+        /// Executes the action of <see cref="PerformAsync(Func{HttpRestClient, Task})"/> within the scope, after its arguments have been validated.
+        /// </summary>
+        /// <param name="scopedAction">The asynchronous action to execute.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        private async Task PerformCoreAsync(Func<HttpRestClient, Task> scopedAction)
+        {
             using var propertyScope = _properties is not null ? Client.BeginPropertyScope(_properties) : null;
             using var headerScope = _headers is not null ? Client.BeginHeaderScope(_headers) : null;
             await scopedAction(Client).ConfigureAwait(false);
@@ -134,11 +144,22 @@
         /// <param name="scopedFunction">The asynchronous function to execute, which involves HTTP requests that will include the configured properties and headers.</param>
         /// <returns>A task representing the asynchronous operation with a result of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="scopedFunction"/> is <see langword="null"/>.</exception>
-        public async Task<T> PerformAsync<T>(Func<HttpRestClient, Task<T>> scopedFunction)
+        public Task<T> PerformAsync<T>(Func<HttpRestClient, Task<T>> scopedFunction)
         {
             if (scopedFunction is null)
                 throw new ArgumentNullException(nameof(scopedFunction));
 
+            return PerformCoreAsync(scopedFunction);
+        }
+
+        /// <summary>
+        /// Executes the function of <see cref="PerformAsync{T}(Func{HttpRestClient, Task{T}})"/> within the scope, after its arguments have been validated.
+        /// </summary>
+        /// <typeparam name="T">The type of the result returned by the scoped function.</typeparam>
+        /// <param name="scopedFunction">The asynchronous function to execute.</param>
+        /// <returns>A task representing the asynchronous operation with a result of type <typeparamref name="T"/>.</returns>
+        private async Task<T> PerformCoreAsync<T>(Func<HttpRestClient, Task<T>> scopedFunction)
+        {
             using var propertyScope = _properties is not null ? Client.BeginPropertyScope(_properties) : null;
             using var headerScope = _headers is not null ? Client.BeginHeaderScope(_headers) : null;
             return await scopedFunction(Client).ConfigureAwait(false);

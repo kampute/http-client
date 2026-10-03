@@ -50,16 +50,26 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Schedules a retry for the failed HTTP request using a provided scheduler factory.
         /// </summary>
+        /// <param name="source">
+        /// The component that handles this kind of failure and owns its retry budget, typically the <see cref="IHttpErrorHandler"/> that
+        /// handles the response.
+        /// </param>
         /// <param name="schedulerFactory">A function that returns an <see cref="IRetryScheduler"/> for scheduling retry attempts based on the error context.</param>
         /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
-        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(Func<HttpResponseErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// Each source has its own retry budget for a request, as described for
+        /// <see cref="HttpRequestErrorContext.ScheduleRetryAsync(object, Func{HttpRequestErrorContext, IRetryScheduler}, CancellationToken)"/>.
+        /// </remarks>
+        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpResponseErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
         {
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
             if (schedulerFactory is null)
                 throw new ArgumentNullException(nameof(schedulerFactory));
 
-            return base.ScheduleRetryAsync(_ => schedulerFactory(this), cancellationToken);
+            return base.ScheduleRetryAsync(source, _ => schedulerFactory(this), cancellationToken);
         }
     }
 }

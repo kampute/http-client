@@ -25,6 +25,11 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
     /// A retry time suggested by the server is honored only if it is no further away than <see cref="MaxRetryDelay"/>, which is five minutes
     /// by default. If the suggested time is later, the request is not retried.
     /// </para>
+    /// <para>
+    /// Each handler instance keeps its own retry budget for a request, separate from the budget of <see cref="HttpRestClient.BackoffStrategy"/>
+    /// for connection failures and from the budgets of other handlers. A request that fails in several ways can therefore be retried more times
+    /// in total than any single budget allows.
+    /// </para>
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
     /// <seealso cref="HttpRestClient.BackoffStrategy"/>
@@ -161,7 +166,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// <inheritdoc/>
         Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
-            return ctx.ScheduleRetryAsync(CreateScheduler, cancellationToken);
+            return ctx.ScheduleRetryAsync(this, CreateScheduler, cancellationToken);
         }
     }
 }

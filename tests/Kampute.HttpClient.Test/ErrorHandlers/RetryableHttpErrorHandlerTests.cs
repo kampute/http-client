@@ -5,9 +5,11 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.Diagnostics;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Net.Sockets;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -132,6 +134,74 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
 
             Assert.That(attempts, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task OnConnectionFailureThenRateLimit_RetriesAtSuggestedTime()
+        {
+            var suggestedDelay = TimeSpan.FromSeconds(1);
+            _client.BackoffStrategy = BackoffStrategies.Uniform(1, TimeSpan.Zero);
+            _client.ErrorHandlers.Add(new HttpError429Handler());
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                switch (Interlocked.Increment(ref attempts))
+                {
+                    case 1:
+                        throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.HostUnreachable));
+                    case 2:
+                        var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
+                        response.Headers.RetryAfter = new RetryConditionHeaderValue(suggestedDelay);
+                        return response;
+                    default:
+                        return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+            });
+
+            var timer = Stopwatch.StartNew();
+            using var response = await _client.SendAsync(HttpMethod.Get, "/resource");
+            timer.Stop();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(attempts, Is.EqualTo(3));
+                Assert.That(timer.Elapsed, Is.GreaterThanOrEqualTo(suggestedDelay - TimeSpan.FromMilliseconds(100)));
+            }
+        }
+
+        [Test]
+        public async Task OnServiceUnavailableThenConnectionFailure_RetriesWithBackoffStrategy()
+        {
+            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
+            _client.BackoffStrategy = mockBackoffStrategy.Object;
+            _client.ErrorHandlers.Add(new HttpError503Handler());
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                switch (Interlocked.Increment(ref attempts))
+                {
+                    case 1:
+                        var response = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+                        response.Headers.RetryAfter = new RetryConditionHeaderValue(TimeSpan.Zero);
+                        return response;
+                    case 2:
+                        throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.HostUnreachable));
+                    default:
+                        return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+            });
+
+            using var response = await _client.SendAsync(HttpMethod.Get, "/resource");
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(attempts, Is.EqualTo(3));
+            }
+            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 
         private Func<int> MockServiceUnavailable(TimeSpan retryAfter)

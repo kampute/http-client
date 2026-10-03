@@ -174,9 +174,15 @@ namespace Kampute.HttpClient
         /// The backoff strategy for handling transient connection failures during HTTP requests.
         /// </value>
         /// <remarks>
+        /// <para>
         /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines
         /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network
         /// issues or temporary server unavailability. The default is <see cref="BackoffStrategies.None"/>.
+        /// </para>
+        /// <para>
+        /// The retry budget of this strategy covers connection failures only. Each error handler that retries error responses keeps its own
+        /// budget for the same request, so a request that fails in several ways can be retried more times in total than this strategy allows.
+        /// </para>
         /// </remarks>
         public IHttpBackoffProvider BackoffStrategy
         {
@@ -485,7 +491,7 @@ namespace Kampute.HttpClient
         )
         {
             var ctx = new HttpRequestErrorContext(this, request, error);
-            return ctx.ScheduleRetryAsync(BackoffStrategy.CreateScheduler, cancellationToken);
+            return ctx.ScheduleRetryAsync(this, BackoffStrategy.CreateScheduler, cancellationToken);
         }
 
         /// <summary>

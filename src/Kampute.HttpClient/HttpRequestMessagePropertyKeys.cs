@@ -43,12 +43,22 @@ namespace Kampute.HttpClient
 
         /// <summary>
         /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that references
-        /// the <see cref="IRetryScheduler"/> instance associated with the request which is responsible for scheduling
+        /// the <see cref="IRetryScheduler"/> instances associated with the request which are responsible for scheduling
         /// the retry logic for transient failures.
         /// </summary>
         /// <remarks>
-        /// The value of this property is of type <see cref="IRetryScheduler"/>.
+        /// <para>
+        /// The value of this property is of type <see cref="System.Collections.Generic.IDictionary{TKey, TValue}"/> with <see cref="object"/> keys and
+        /// <see cref="IRetryScheduler"/> values. Each key is the source that handles one kind of failure: the <see cref="HttpRestClient"/>
+        /// for connection failures, or the <see cref="IHttpErrorHandler"/> for error responses. A <see langword="null"/> value means that
+        /// the source decided not to retry.
+        /// </para>
+        /// <para>
+        /// Because each kind of failure has its own retry budget, a request that fails in several ways can be retried more times in total
+        /// than any single budget allows.
+        /// </para>
         /// </remarks>
+        /// <seealso cref="HttpRequestErrorContext.ScheduleRetryAsync(object, Func{HttpRequestErrorContext, IRetryScheduler}, System.Threading.CancellationToken)"/>
         public const string RetryScheduler = nameof(HttpRestClient) + "." + nameof(RetryScheduler);
 
         /// <summary>

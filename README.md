@@ -182,15 +182,15 @@ using Kampute.HttpClient.ErrorHandlers;
 
 // Create an instance of the built-in '401 Unauthorized' error handler.
 // This handler defines the logic to handle unauthorized responses.
-using var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =>
+using var unauthorizedErrorHandler = new HttpError401Handler(async (ctx, cancellationToken) =>
 {
     // In this example, we're handling the unauthorized error by making a POST request to an
     // authentication endpoint to obtain a new authentication token.
-    var auth = await client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
+    var auth = await ctx.Client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
     [
         KeyValuePair.Create("client_id", MY_APP_ID),
         KeyValuePair.Create("client_secret", MY_APP_SECRET)
-    ]);
+    ], cancellationToken);
 
     // Return a new AuthenticationHeaderValue with the obtained token.
     // This will be used to include the authentication header in subsequent requests.

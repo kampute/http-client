@@ -240,13 +240,13 @@ When a response status code indicates failure, the client raises an [`HttpRespon
 using Kampute.HttpClient;
 using Kampute.HttpClient.ErrorHandlers;
 
-using var unauthorizedErrorHandler = new HttpError401Handler(async (client, challenges, cancellationToken) =>
+using var unauthorizedErrorHandler = new HttpError401Handler(async (ctx, cancellationToken) =>
 {
-    var auth = await client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
+    var auth = await ctx.Client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
     [
         KeyValuePair.Create("client_id", MY_APP_ID),
         KeyValuePair.Create("client_secret", MY_APP_SECRET)
-    ]);
+    ], cancellationToken);
 
     return new AuthenticationHeaderValue(AuthSchemes.Bearer, auth.Token);
 });

@@ -61,9 +61,9 @@
                 {
                     if (_instance is not null)
                         throw new InvalidOperationException("Cannot change the factory once the HttpClient instance has been created.");
-                }
 
-                _factory = value;
+                    _factory = value;
+                }
             }
         }
     }

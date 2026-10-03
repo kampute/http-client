@@ -121,7 +121,12 @@ namespace Kampute.HttpClient.ErrorHandlers
             if (authorization is null)
                 return HttpErrorHandlerResult.NoRetry;
 
-            ctx.Client.DefaultRequestHeaders.Authorization = authorization;
+            var defaultHeaders = ctx.Client.DefaultRequestHeaders;
+            lock (defaultHeaders)
+            {
+                if (!authorization.Equals(defaultHeaders.Authorization))
+                    defaultHeaders.Authorization = authorization;
+            }
 
             var authorizedRequest = ctx.Request.Clone();
             authorizedRequest.Headers.Authorization = authorization;

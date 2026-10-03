@@ -81,6 +81,58 @@
         }
 
         [Test]
+        public async Task On401Response_WhileRequestsAreCreatedConcurrently_AuthorizesAllRequestsWithNewToken()
+        {
+            var newAuthorization = new AuthenticationHeaderValue(AuthSchemes.Bearer, "new-token");
+            var numberOfRequests = 50;
+
+            using var unauthorizeHandler = new HttpError401Handler(async (_, ct) =>
+            {
+                await Task.Delay(50, ct);
+                return newAuthorization;
+            });
+
+            _client.ErrorHandlers.Add(unauthorizeHandler);
+
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                if (request.Headers.Authorization?.Scheme == newAuthorization.Scheme && request.Headers.Authorization?.Parameter == newAuthorization.Parameter)
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+
+                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            });
+
+            using var stopLoops = new CancellationTokenSource();
+            var loops = Enumerable.Range(1, Environment.ProcessorCount).Select(i => Task.Run(async () =>
+            {
+                while (!stopLoops.IsCancellationRequested)
+                {
+                    using var response = await _client.SendAsync(HttpMethod.Get, $"/protected/loop{i}");
+                    Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                }
+            })).ToArray();
+
+            var requests = Enumerable.Range(1, numberOfRequests).Select(i => _client.SendAsync(HttpMethod.Get, $"/protected/resource{i}")).ToArray();
+            try
+            {
+                await Task.WhenAll(requests);
+            }
+            finally
+            {
+                stopLoops.Cancel();
+                await Task.WhenAll(loops);
+            }
+
+            using (Assert.EnterMultipleScope())
+            {
+                foreach (var request in requests)
+                    Assert.That(request.Result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.EqualTo(newAuthorization));
+            }
+        }
+
+        [Test]
         public async Task On401Response_ByFailedAuthentication_ThrowsUnauthorizedHttpError()
         {
             using var unauthorizeHandler = new HttpError401Handler((ctx, ct) => ctx.Client.SendAsync<AuthenticationHeaderValue?>(HttpMethod.Get, "/authenticate", null, ct));

@@ -234,6 +234,11 @@ namespace Kampute.HttpClient
         /// <value>
         /// The headers which should be sent with each request.
         /// </value>
+        /// <remarks>
+        /// <see cref="HttpHeaders"/> is not thread-safe. The client locks this collection while it copies the headers into each new request, and
+        /// <see cref="Kampute.HttpClient.ErrorHandlers.HttpError401Handler"/> locks it while it updates the <c>Authorization</c> header. Code that
+        /// changes this collection while requests are in flight must lock the same object, for example <c>lock (client.DefaultRequestHeaders) { ... }</c>.
+        /// </remarks>
         public HttpRequestHeaders DefaultRequestHeaders { get; } = CreateRequestHeaders();
 
         /// <summary>
@@ -669,8 +674,11 @@ namespace Kampute.HttpClient
 
             void AddRequestHeaders()
             {
-                foreach (var header in DefaultRequestHeaders)
-                    request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                lock (DefaultRequestHeaders)
+                {
+                    foreach (var header in DefaultRequestHeaders)
+                        request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                }
 
                 if (_scopedHeaders.HasActiveScope)
                 {

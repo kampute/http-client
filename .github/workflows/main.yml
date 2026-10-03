@@ -44,3 +44,17 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./.site
         keep_files: false
+
+  test-net-framework:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Test .NET Framework Build
+      run: dotnet test tests/Kampute.HttpClient.NetFramework.Test --verbosity minimal

@@ -59,6 +59,28 @@ namespace Kampute.HttpClient.NetFramework.Test
             Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
         }
 
+        [Test]
+        public void OnErrorResponse_ResponseMessageKeepsHeadersButContentIsDisposed()
+        {
+            using var handler = new TestHttpMessageHandler(_ =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError) { Content = new StringContent("Error details") };
+                response.Headers.Add("X-Error-Id", "42");
+                return response;
+            });
+            using var client = CreateClient(handler);
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => client.SendAsync(HttpMethod.Get, "/resource"));
+
+            Assert.That(exception.ResponseMessage, Is.Not.Null);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.ResponseMessage!.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+                Assert.That(exception.ResponseMessage.Headers.GetValues("X-Error-Id"), Is.EqualTo(new[] { "42" }));
+                Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
+            }
+        }
+
         private static HttpRestClient CreateClient(TestHttpMessageHandler handler)
         {
             return new HttpRestClient(new System.Net.Http.HttpClient(handler, disposeHandler: false))

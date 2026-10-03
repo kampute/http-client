@@ -71,6 +71,16 @@ namespace Kampute.HttpClient
         /// <value>
         /// The HTTP response message associated with the exception. Can be <see langword="null"/> if there is no HTTP response message.
         /// </value>
+        /// <remarks>
+        /// <para>
+        /// When <see cref="HttpRestClient"/> throws this exception, it has already disposed the response. The status code, reason phrase,
+        /// response headers and request message remain readable, but reading the response content throws <see cref="ObjectDisposedException"/>.
+        /// </para>
+        /// <para>
+        /// To use a structured error body, set <see cref="HttpRestClient.ResponseErrorType"/>. The client then deserializes the error body before
+        /// disposing the response, and exposes it through <see cref="ResponseObject"/>.
+        /// </para>
+        /// </remarks>
         public HttpResponseMessage? ResponseMessage { get; set; }
 
         /// <summary>

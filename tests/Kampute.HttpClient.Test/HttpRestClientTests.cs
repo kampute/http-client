@@ -154,6 +154,27 @@
         }
 
         [Test]
+        public void OnUnsuccessfulStatusCode_ResponseMessageKeepsHeadersButContentIsDisposed()
+        {
+            _mockMessageHandler.MockHttpResponse(_ =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError) { Content = new StringContent("Error details") };
+                response.Headers.Add("X-Error-Id", "42");
+                return response;
+            });
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(TestHttpMethod, "/resource"));
+
+            Assert.That(exception.ResponseMessage, Is.Not.Null);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.ResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+                Assert.That(exception.ResponseMessage.Headers.GetValues("X-Error-Id"), Is.EqualTo(new[] { "42" }));
+                Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
+            }
+        }
+
+        [Test]
         public void OnUnsuccessfulStatusCode_WithResponseErrorType_ThrowsCustomizedRestException()
         {
             var errorDetails = new TestErrorResponse("You didn't provide the required data!");

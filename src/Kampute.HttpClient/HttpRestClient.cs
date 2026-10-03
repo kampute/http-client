@@ -203,7 +203,7 @@ namespace Kampute.HttpClient
         /// <para>
         /// This property specifies the <see cref="Type"/> that the <see cref="HttpRestClient"/> will use to deserialize the response content in cases
         /// where the HTTP response indicates an error. It is important to ensure that the custom type specified is compatible with the expected error
-        /// response format and can be deserialized by the content deserializers available to the <see cref="HttpRestClient"/>.
+        /// response format and can be read by the content formatters in <see cref="ContentFormatters"/>.
         /// </para>
         /// <para>
         /// When the specified type implements the <see cref="IHttpErrorResponse"/> interface, the deserialized object is utilized to construct a more

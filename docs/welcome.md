@@ -49,13 +49,14 @@ var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 
 ## Choosing Packages
 
-The base package contains [`HttpRestClient`](api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry strategies, error handlers, compression content wrappers, the content formatter registry, and XML support. JSON packages are separate so applications only reference the JSON library they use.
+The base package contains [`HttpRestClient`](api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry policies, error handlers, compression content wrappers, the content formatter registry, and XML support. It depends on `Kampute.Retry`, which provides the retry strategies. JSON packages are separate so applications only reference the JSON library they use.
 
 | Package                                                                           | Use it for                                                                                 |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | [`Kampute.HttpClient`](api/Kampute.HttpClient.html)                               | Core HTTP client, request helpers, scopes, retry behavior, error handling, and XML APIs.   |
 | [`Kampute.HttpClient.Json`](api/Kampute.HttpClient.Json.html)                     | JSON APIs using `System.Text.Json`.                                                        |
 | [`Kampute.HttpClient.NewtonsoftJson`](api/Kampute.HttpClient.NewtonsoftJson.html) | JSON APIs that require `Newtonsoft.Json` features or compatibility.                        |
+| [`Kampute.Retry`](api/Kampute.Retry.html)                                         | Retry strategies, also for operations other than HTTP requests. Installed with the core.   |
 
 You can combine formats when an API can return more than one content type.
 
@@ -115,7 +116,7 @@ The core package includes helpers for common request shapes:
 - [`HeadAsync()`](api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_HeadAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_) and [`OptionsAsync()`](api/Kampute.HttpClient.HttpRestClientExtensions.html#Kampute_HttpClient_HttpRestClientExtensions_OptionsAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Threading_CancellationToken_) for response headers.
 - [`SendAsync()`](api/Kampute.HttpClient.HttpRestClient.html) for lower-level control over the HTTP method and payload.
 
-Use content-specific packages for convenient request payload helpers such as [`PostAsJsonAsync()`](api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PostAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_), [`PatchAsJsonAsync()`](api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PatchAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_), and [`PostAsXmlAsync()`](api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_).
+Use the format helpers for request payloads, such as [`PostAsJsonAsync()`](api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PostAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_), [`PatchAsJsonAsync()`](api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html#Kampute_HttpClient_Json_HttpRestClientJsonExtensions_PatchAsJsonAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_), and [`PostAsXmlAsync()`](api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html#Kampute_HttpClient_Xml_HttpRestClientXmlExtensions_PostAsXmlAsync_Kampute_HttpClient_HttpRestClient_System_String_System_Object_System_Threading_CancellationToken_).
 
 ```csharp
 using Kampute.HttpClient;

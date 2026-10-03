@@ -136,7 +136,7 @@ namespace Kampute.HttpClient.Json
                 throw new ArgumentNullException(nameof(payload));
 
             var jsonContent = new JsonContent(payload) { Options = client.GetJsonSerializerOptions() };
-            using var _ = await client.SendAsync(method, uri, jsonContent, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(method, uri, jsonContent, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>

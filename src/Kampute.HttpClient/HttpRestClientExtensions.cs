@@ -25,6 +25,11 @@ namespace Kampute.HttpClient
     public static class HttpRestClientExtensions
     {
         /// <summary>
+        /// The buffer size used to copy a response body into a stream; the same default that <see cref="Stream.CopyToAsync(Stream)"/> uses.
+        /// </summary>
+        private const int CopyBufferSize = 81920;
+
+        /// <summary>
         /// Sends an asynchronous HEAD request to the specified URI and returns the response headers.
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance to be used for sending the request.</param>
@@ -38,7 +43,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task<HttpResponseHeaders> HeadAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            using var response = await client.SendAsync(HttpVerb.Head, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(HttpVerb.Head, uri, payload: null, cancellationToken: cancellationToken).ConfigureAwait(false);
             return response.Headers;
         }
 
@@ -56,7 +61,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task<HttpResponseHeaders> OptionsAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            using var response = await client.SendAsync(HttpVerb.Options, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(HttpVerb.Options, uri, payload: null, cancellationToken: cancellationToken).ConfigureAwait(false);
             return response.Headers;
         }
 
@@ -91,7 +96,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task<byte[]> GetAsByteArrayAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken: cancellationToken).ConfigureAwait(false);
             return response.Content is not null ? await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false) : [];
         }
 
@@ -108,7 +113,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task<string> GetAsStringAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken: cancellationToken).ConfigureAwait(false);
             return response.Content is not null ? await response.Content.ReadAsStringAsync().ConfigureAwait(false) : string.Empty;
         }
 
@@ -123,9 +128,19 @@ namespace Kampute.HttpClient
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        /// <remarks>
+        /// <para>
+        /// The task completes as soon as the response headers arrive. The response body is not buffered: the returned stream reads it from the network,
+        /// so the caller must dispose the stream to release the connection. Reading the stream can fail with an <see cref="IOException"/> if the transfer fails.
+        /// </para>
+        /// <para>
+        /// <see cref="System.Net.Http.HttpClient.Timeout"/> covers only the time until the response headers arrive. Because the body is not buffered,
+        /// an <see cref="HttpRestClient.AfterReceivingResponse"/> handler that reads the response content consumes the stream.
+        /// </para>
+        /// </remarks>
         public static async Task<Stream> GetAsStreamAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             if (response.Content is not null)
             {
                 // The response is intentionally not disposed to avoid disposal of the underlying stream.
@@ -147,15 +162,29 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="uri"/> or <paramref name="stream"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="IOException">Thrown if transferring the response body fails, or writing to <paramref name="stream"/> fails.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        /// <remarks>
+        /// <para>
+        /// The response body is not buffered: it is copied from the network into <paramref name="stream"/> as it arrives, and the cancellation token
+        /// can stop the copy.
+        /// </para>
+        /// <para>
+        /// <see cref="System.Net.Http.HttpClient.Timeout"/> covers only the time until the response headers arrive. Because the body is not buffered,
+        /// an <see cref="HttpRestClient.AfterReceivingResponse"/> handler that reads the response content consumes it, and nothing is copied.
+        /// </para>
+        /// </remarks>
         public static async Task GetToStreamAsync(this HttpRestClient client, string uri, Stream stream, CancellationToken cancellationToken = default)
         {
             if (stream is null)
                 throw new ArgumentNullException(nameof(stream));
 
-            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(HttpVerb.Get, uri, payload: null, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             if (response.Content is not null)
-                await response.Content.CopyToAsync(stream).ConfigureAwait(false);
+            {
+                using var body = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                await body.CopyToAsync(stream, CopyBufferSize, cancellationToken).ConfigureAwait(false);
+            }
         }
 
         /// <summary>
@@ -192,7 +221,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task PostAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
-            using var _ = await client.SendAsync(HttpVerb.Post, uri, payload, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(HttpVerb.Post, uri, payload, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -229,7 +258,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task PutAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
-            using var _ = await client.SendAsync(HttpVerb.Put, uri, payload, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(HttpVerb.Put, uri, payload, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -266,7 +295,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task PatchAsync(this HttpRestClient client, string uri, HttpContent? payload, CancellationToken cancellationToken = default)
         {
-            using var _ = await client.SendAsync(HttpVerb.Patch, uri, payload, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(HttpVerb.Patch, uri, payload, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -301,7 +330,7 @@ namespace Kampute.HttpClient
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
         public static async Task DeleteAsync(this HttpRestClient client, string uri, CancellationToken cancellationToken = default)
         {
-            using var _ = await client.SendAsync(HttpVerb.Delete, uri, payload: null, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(HttpVerb.Delete, uri, payload: null, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -320,7 +349,19 @@ namespace Kampute.HttpClient
         /// <exception cref="InvalidOperationException">Thrown if <paramref name="streamProvider"/> returns <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
+        /// <exception cref="IOException">Thrown if transferring the response body fails, or writing to the stream from <paramref name="streamProvider"/> fails.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
+        /// <remarks>
+        /// <para>
+        /// The response body is not buffered: it is copied from the network into the stream returned by <paramref name="streamProvider"/> as it
+        /// arrives, and the cancellation token can stop the copy. If the copy fails or is canceled, that stream is disposed before the exception
+        /// is rethrown.
+        /// </para>
+        /// <para>
+        /// <see cref="System.Net.Http.HttpClient.Timeout"/> covers only the time until the response headers arrive. Because the body is not buffered,
+        /// an <see cref="HttpRestClient.AfterReceivingResponse"/> handler that reads the response content consumes it, and nothing is copied.
+        /// </para>
+        /// </remarks>
         public static async Task<Stream> DownloadAsync
         (
             this HttpRestClient client,
@@ -338,11 +379,20 @@ namespace Kampute.HttpClient
             if (streamProvider is null)
                 throw new ArgumentNullException(nameof(streamProvider));
 
-            using var response = await client.SendAsync(method, uri, payload, cancellationToken).ConfigureAwait(false);
+            using var response = await client.SendAsync(method, uri, payload, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             response.Content ??= new EmptyContent();
 
             var stream = streamProvider(response.Content.Headers) ?? throw new InvalidOperationException("The stream provider must not return null.");
-            await response.Content.CopyToAsync(stream).ConfigureAwait(false);
+            try
+            {
+                using var body = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                await body.CopyToAsync(stream, CopyBufferSize, cancellationToken).ConfigureAwait(false);
+            }
+            catch
+            {
+                stream.Dispose();
+                throw;
+            }
             return stream;
         }
 

@@ -136,7 +136,7 @@ namespace Kampute.HttpClient.DataContract
                 throw new ArgumentNullException(nameof(payload));
 
             var xmlContent = new XmlContent(payload) { Settings = client.GetXmlSerializerSettings() };
-            using var _ = await client.SendAsync(method, uri, xmlContent, cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(method, uri, xmlContent, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>

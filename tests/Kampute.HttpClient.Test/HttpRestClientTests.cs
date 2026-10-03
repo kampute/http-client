@@ -377,7 +377,7 @@
 
             Assert.ThrowsAsync<TaskCanceledException>
             (
-                async () => await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"), cancellationTokenSource.Token)
+                async () => await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"), cancellationToken: cancellationTokenSource.Token)
             );
 
             mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Never);

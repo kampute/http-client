@@ -96,7 +96,7 @@ namespace Kampute.HttpClient.Xml
             if (payload is null)
                 throw new ArgumentNullException(nameof(payload));
 
-            using var _ = await client.SendAsync(method, uri, new XmlContent(payload), cancellationToken).ConfigureAwait(false);
+            using var _ = await client.SendAsync(method, uri, new XmlContent(payload), cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>

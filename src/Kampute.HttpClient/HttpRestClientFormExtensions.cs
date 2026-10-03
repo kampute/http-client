@@ -80,7 +80,7 @@ namespace Kampute.HttpClient
 
             async Task SendAndDisposeResponseAsync(HttpContent content)
             {
-                using var _ = await client.SendAsync(method, uri, content, cancellationToken).ConfigureAwait(false);
+                using var _ = await client.SendAsync(method, uri, content, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
         }
 

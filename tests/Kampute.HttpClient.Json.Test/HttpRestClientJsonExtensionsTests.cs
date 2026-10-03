@@ -199,7 +199,7 @@
             Assert.ThrowsAsync
             (
                 Is.InstanceOf<OperationCanceledException>(),
-                async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationTokenSource.Token)
+                async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationToken: cancellationTokenSource.Token)
             );
             Assert.That(attempts, Is.EqualTo(1));
         }

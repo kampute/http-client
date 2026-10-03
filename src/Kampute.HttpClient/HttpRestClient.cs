@@ -124,9 +124,16 @@ namespace Kampute.HttpClient
         /// Occurs when an HTTP response has been received.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This event is raised after an HTTP response is received but before the response is processed further. It provides a way for subscribers to inspect the
         /// <see cref="HttpResponseMessage"/>. This can be useful for logging response details, handling specific HTTP status codes, or modifying the response content
         /// or headers before they are processed by the rest of the application.
+        /// </para>
+        /// <para>
+        /// For requests sent with <see cref="HttpCompletionOption.ResponseHeadersRead"/>, such as those of <see cref="HttpRestClientExtensions.GetAsStreamAsync"/>,
+        /// <see cref="HttpRestClientExtensions.GetToStreamAsync"/> and <see cref="HttpRestClientExtensions.DownloadAsync"/>, the event is raised once the headers arrive
+        /// and the body is not buffered. A subscriber that reads the response content consumes the body stream, which leaves nothing for the caller.
+        /// </para>
         /// </remarks>
         public event EventHandler<HttpResponseMessageEventArgs>? AfterReceivingResponse;
 
@@ -333,7 +340,7 @@ namespace Kampute.HttpClient
             using var request = CreateHttpRequest(method, uri, typeof(T));
             request.Content = payload;
 
-            using var response = await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
+            using var response = await DispatchWithRetriesAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false);
             return (T?)await DeserializeContentAsync(response, typeof(T), cancellationToken).ConfigureAwait(false);
         }
 
@@ -343,13 +350,29 @@ namespace Kampute.HttpClient
         /// <param name="method">The HTTP method to use for the request.</param>
         /// <param name="uri">The URI to which the request is sent.</param>
         /// <param name="payload">The HTTP request payload content (optional).</param>
+        /// <param name="completionOption">
+        /// When the operation completes: after the whole response body has been read (<see cref="HttpCompletionOption.ResponseContentRead"/>, the default),
+        /// or as soon as the response headers have been read (<see cref="HttpCompletionOption.ResponseHeadersRead"/>).
+        /// </param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the response.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="method"/> or <paramref name="uri"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
         /// <exception cref="HttpRequestException">Thrown if the request fails due to an underlying issue such as network connectivity, DNS failure, server certificate validation, or timeout.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled via the cancellation token.</exception>
-        public virtual async Task<HttpResponseMessage> SendAsync(HttpMethod method, string uri, HttpContent? payload = default, CancellationToken cancellationToken = default)
+        /// <remarks>
+        /// With <see cref="HttpCompletionOption.ResponseHeadersRead"/>, the response body is not buffered: it is read from the network as the caller
+        /// reads the response content, and the caller must dispose the response to release the connection. <see cref="System.Net.Http.HttpClient.Timeout"/> then covers
+        /// only the time until the headers arrive, and a failure while the body is read is not retried.
+        /// </remarks>
+        public virtual async Task<HttpResponseMessage> SendAsync
+        (
+            HttpMethod method,
+            string uri,
+            HttpContent? payload = default,
+            HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
+            CancellationToken cancellationToken = default
+        )
         {
             if (method is null)
                 throw new ArgumentNullException(nameof(method));
@@ -359,13 +382,14 @@ namespace Kampute.HttpClient
             using var request = CreateHttpRequest(method, uri, responseObjectType: null);
             request.Content = payload;
 
-            return await DispatchWithRetriesAsync(request, cancellationToken).ConfigureAwait(false);
+            return await DispatchWithRetriesAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Sends an asynchronous HTTP request, with the possibility of retrying the request based on specific failure conditions.
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
+        /// <param name="completionOption">When the operation completes: after the whole response body has been read, or as soon as the response headers have been read.</param>
         /// <param name="cancellationToken">A token for canceling the request (optional).</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="request"/> is <see langword="null"/>.</exception>
@@ -378,7 +402,7 @@ namespace Kampute.HttpClient
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
         /// <seealso cref="ErrorHandlers"/>
-        protected virtual async Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
+        protected virtual async Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
@@ -389,7 +413,7 @@ namespace Kampute.HttpClient
                 cancellationToken.ThrowIfCancellationRequested();
                 try
                 {
-                    return await DispatchAsync(cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
+                    return await DispatchAsync(cloneManager.RequestToSend, completionOption, cancellationToken).ConfigureAwait(false);
                 }
                 catch (HttpResponseException httpError) when (httpError.ResponseMessage is not null)
                 {
@@ -417,6 +441,7 @@ namespace Kampute.HttpClient
         /// Asynchronously dispatches an HTTP request.
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
+        /// <param name="completionOption">When the operation completes: after the whole response body has been read, or as soon as the response headers have been read.</param>
         /// <param name="cancellationToken">A token for canceling the request.</param>
         /// <returns>A task that represents the asynchronous operation, with a result of the <see cref="HttpResponseMessage"/> received in response to the request.</returns>
         /// <exception cref="HttpResponseException">Thrown if the response status code indicates a failure.</exception>
@@ -427,14 +452,14 @@ namespace Kampute.HttpClient
         /// an exception specific to the nature of the error. Additionally, the method incorporates pre-send and post-receive hooks for adding custom logic, such as modifying
         /// request headers or logging response details.
         /// </remarks>
-        protected virtual async Task<HttpResponseMessage> DispatchAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected virtual async Task<HttpResponseMessage> DispatchAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
             OnBeforeSendingRequest(request);
 #if NETSTANDARD2_1_OR_GREATER
-            var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            var response = await _httpClient.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
 #else
             // HttpClient on .NET Framework disposes the request content after sending, but a retry sends the same content again.
             var content = request.Content;
@@ -444,7 +469,7 @@ namespace Kampute.HttpClient
             HttpResponseMessage response;
             try
             {
-                response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+                response = await _httpClient.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
             }
             finally
             {

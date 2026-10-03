@@ -81,6 +81,24 @@ namespace Kampute.HttpClient.NetFramework.Test
             }
         }
 
+        [Test]
+        public async Task GetToStreamAsync_WithBodyLargerThanBufferLimit_StreamsBody()
+        {
+            var body = new byte[1024];
+            new Random(1).NextBytes(body);
+
+            using var handler = new TestHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(body) });
+            using var client = new HttpRestClient(new System.Net.Http.HttpClient(handler, disposeHandler: false) { MaxResponseContentBufferSize = 16 })
+            {
+                BaseAddress = new Uri("http://api.test.com"),
+            };
+
+            using var resultStream = new System.IO.MemoryStream();
+            await client.GetToStreamAsync("/resource", resultStream);
+
+            Assert.That(resultStream.ToArray(), Is.EqualTo(body));
+        }
+
         private static HttpRestClient CreateClient(TestHttpMessageHandler handler)
         {
             return new HttpRestClient(new System.Net.Http.HttpClient(handler, disposeHandler: false))

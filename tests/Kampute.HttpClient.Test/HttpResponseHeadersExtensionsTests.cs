@@ -73,5 +73,50 @@
                 Assert.That(resetTime, Is.EqualTo(expectedTime).Within(TimeSpan.FromSeconds(1)));
             }
         }
+
+        [Test]
+        public void TryExtractRateLimitResetTime_WithOneDayHeader_ReadsSecondsFromNow()
+        {
+            var expectedTime = DateTimeOffset.UtcNow.AddDays(1);
+            _headers.Add("x-ratelimit-reset", "86400");
+
+            var result = _headers.TryExtractRateLimitResetTime(out var resetTime);
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(result, Is.True);
+                Assert.That(resetTime, Is.EqualTo(expectedTime).Within(TimeSpan.FromSeconds(1)));
+            }
+        }
+
+        [Test]
+        public void TryExtractRateLimitResetTime_WithValueAboveOneDay_ReadsUnixTime()
+        {
+            _headers.Add("x-ratelimit-reset", "86401");
+
+            var result = _headers.TryExtractRateLimitResetTime(out var resetTime);
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(result, Is.True);
+                Assert.That(resetTime, Is.EqualTo(DateTimeOffset.FromUnixTimeSeconds(86401)));
+            }
+        }
+
+        [TestCase("1727000000000")]
+        [TestCase("9223372036854775807")]
+        [TestCase("-1")]
+        public void TryExtractRateLimitResetTime_WithOutOfRangeHeader_ReturnsFalse(string headerValue)
+        {
+            _headers.Add("x-ratelimit-reset", headerValue);
+
+            var result = _headers.TryExtractRateLimitResetTime(out var resetTime);
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(result, Is.False);
+                Assert.That(resetTime, Is.Null);
+            }
+        }
     }
 }

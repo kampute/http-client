@@ -86,6 +86,31 @@
         }
 
         [Test]
+        public void On429Response_WithOutOfRangeRateLimitResetHeader_ThrowsHttpResponseException()
+        {
+            var tooManyRequestsHandler = new HttpError429Handler();
+            _client.ErrorHandlers.Add(tooManyRequestsHandler);
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                attempts++;
+
+                var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
+                response.Headers.Add("x-ratelimit-reset", "1727000000000");
+                return response;
+            });
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.TooManyRequests));
+                Assert.That(attempts, Is.EqualTo(1));
+            }
+        }
+
+        [Test]
         public async Task On429Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
         {
             var tooManyRequestsHandler = new HttpError429Handler

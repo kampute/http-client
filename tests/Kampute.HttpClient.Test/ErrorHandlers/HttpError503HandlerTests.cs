@@ -122,6 +122,31 @@
         }
 
         [Test]
+        public void On503Response_WithOutOfRangeRetryAfterDate_ThrowsHttpResponseException()
+        {
+            var serviceUnavailableHandler = new HttpError503Handler();
+            _client.ErrorHandlers.Add(serviceUnavailableHandler);
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                attempts++;
+
+                var response = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+                response.Headers.RetryAfter = new RetryConditionHeaderValue(new DateTimeOffset(9999, 12, 31, 0, 0, 0, TimeSpan.Zero));
+                return response;
+            });
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.ServiceUnavailable));
+                Assert.That(attempts, Is.EqualTo(1));
+            }
+        }
+
+        [Test]
         public async Task On503Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
         {
             var serviceUnavailableHandler = new HttpError503Handler

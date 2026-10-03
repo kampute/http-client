@@ -93,6 +93,24 @@
         }
 
         [Test]
+        public async Task WaitAsync_WhenDelayExceedsLimit_ReturnsFalseWithoutRetrying()
+        {
+            var delay = TimeSpan.FromDays(60);
+
+            var mockStrategy = new Mock<IRetryStrategy>();
+            mockStrategy.Setup(s => s.TryGetRetryDelay(It.IsAny<TimeSpan>(), It.IsAny<uint>(), out delay)).Returns(true);
+            var scheduler = new RetryScheduler(mockStrategy.Object);
+
+            var result = await scheduler.WaitAsync(CancellationToken.None);
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(result, Is.False);
+                Assert.That(scheduler.Attempts, Is.Zero);
+            }
+        }
+
+        [Test]
         public async Task Reset_ResetsInternalState()
         {
             var mockStrategy = new Mock<IRetryStrategy>();

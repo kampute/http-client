@@ -53,10 +53,18 @@ namespace Kampute.HttpClient.RetryManagement
         /// <param name="cancellationToken">A token that can be used to cancel the wait operation.</param>
         /// <returns>A task that resolves to <see langword="true"/> if a retry should be attempted; otherwise, <see langword="false"/>.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the wait operation is canceled.</exception>
+        /// <remarks>
+        /// The longest delay this method waits is <see cref="int.MaxValue"/> milliseconds (about 24.8 days), the limit that
+        /// <see cref="Task.Delay(TimeSpan, CancellationToken)"/> has on .NET Framework. If the strategy returns a longer delay, the method
+        /// returns <see langword="false"/> without waiting, so no retry is attempted.
+        /// </remarks>
         public virtual async Task<bool> WaitAsync(CancellationToken cancellationToken)
         {
             if (Strategy.TryGetRetryDelay(Elapsed, Attempts, out var delay))
             {
+                if (delay.TotalMilliseconds > int.MaxValue)
+                    return false;
+
                 if (delay > TimeSpan.Zero)
                     await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
                 else

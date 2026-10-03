@@ -5,7 +5,7 @@
     <Title>Kampute.Retry</Title>
     <Description>Kampute.Retry is a lightweight .NET library for retrying operations that can fail transiently. It provides composable retry strategies (uniform, linear, Fibonacci and exponential delays, with attempt limits, timeouts and jitter), retry sessions, and helpers that run synchronous or asynchronous operations with retries.</Description>
     <Authors>Kambiz Khojasteh</Authors>
-    <Version>2.5.1</Version>
+    <Version>3.0.0</Version>
     <Company>Kampute</Company>
     <Copyright>Copyright (c) 2025 Kampute</Copyright>
     <LangVersion>latest</LangVersion>

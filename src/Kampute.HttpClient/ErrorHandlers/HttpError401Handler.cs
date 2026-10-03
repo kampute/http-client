@@ -31,6 +31,11 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// instance, allowing the previously failed request to be retried with the updated authentication details.
     /// </para>
     /// <para>
+    /// The handler does not retry a request whose content cannot be sent again, such as a <see cref="System.Net.Http.StreamContent"/> over a non-seekable
+    /// stream, and does not invoke the delegate for it. Unless another error handler retries the request, the '401 Unauthorized' response reaches the caller
+    /// as an <see cref="HttpResponseException"/>.
+    /// </para>
+    /// <para>
     /// When an authentication process is underway for a client, subsequent authentication requests from the client will not initiate new processes. Instead, they 
     /// will await and utilize the outcome of the ongoing authentication. This approach guarantees that the authentication delegate is executed a single time for 
     /// concurrent requests, ensuring both efficiency and thread safety.
@@ -123,6 +128,9 @@ namespace Kampute.HttpClient.ErrorHandlers
         async Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
             if (ctx.Request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, out var skip) && skip is true)
+                return HttpErrorHandlerResult.NoRetry;
+
+            if (!ctx.Request.CanClone())
                 return HttpErrorHandlerResult.NoRetry;
 
             var authorization = await AuthenticateAsync(ctx, cancellationToken).ConfigureAwait(false);

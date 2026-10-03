@@ -202,5 +202,32 @@
             Assert.That(caughtException, Is.Not.Null);
             Assert.That(caughtException.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
+
+        [Test]
+        public void On401Response_WithNonReusableContent_ThrowsUnauthorizedHttpErrorWithoutAuthenticating()
+        {
+            var numberOfInvokes = 0;
+
+            using var unauthorizeHandler = new HttpError401Handler((_, _) =>
+            {
+                Interlocked.Increment(ref numberOfInvokes);
+                return Task.FromResult<AuthenticationHeaderValue?>(new AuthenticationHeaderValue(AuthSchemes.Bearer, "new-token"));
+            });
+
+            _client.ErrorHandlers.Add(unauthorizeHandler);
+
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.Unauthorized));
+
+            using var content = new StreamContent(new TestStream(seekable: false));
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Post, "/protected/resource", content));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+                Assert.That(numberOfInvokes, Is.Zero);
+                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Null);
+            }
+        }
     }
 }

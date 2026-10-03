@@ -21,7 +21,11 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="statusCode">The HTTP status code associated with the exception.</param>
         public HttpResponseException(HttpStatusCode statusCode)
+#if !NETSTANDARD2_0
+            : base(null, null, statusCode)
+#else
             : base()
+#endif
         {
             StatusCode = statusCode;
         }
@@ -32,7 +36,11 @@ namespace Kampute.HttpClient
         /// <param name="statusCode">The HTTP status code associated with the exception.</param>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         public HttpResponseException(HttpStatusCode statusCode, string message)
+#if !NETSTANDARD2_0
+            : base(message, null, statusCode)
+#else
             : base(message)
+#endif
         {
             StatusCode = statusCode;
         }
@@ -44,7 +52,11 @@ namespace Kampute.HttpClient
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a <see langword="null"/> reference if no inner exception is specified.</param>
         public HttpResponseException(HttpStatusCode statusCode, string message, Exception? innerException)
+#if !NETSTANDARD2_0
+            : base(message, innerException, statusCode)
+#else
             : base(message, innerException)
+#endif
         {
             StatusCode = statusCode;
         }
@@ -55,7 +67,15 @@ namespace Kampute.HttpClient
         /// <value>
         /// The HTTP status code associated with the exception.
         /// </value>
+        /// <remarks>
+        /// On .NET 10 and later, the inherited <c>HttpRequestException.StatusCode</c> has the same value, so exception filters on
+        /// <see cref="HttpRequestException"/> can test the status code of an error response.
+        /// </remarks>
+#if !NETSTANDARD2_0
+        public new HttpStatusCode StatusCode { get; }
+#else
         public HttpStatusCode StatusCode { get; }
+#endif
 
         /// <summary>
         /// Gets or sets the validation errors associated with the exception.

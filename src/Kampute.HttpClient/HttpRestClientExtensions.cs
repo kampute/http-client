@@ -399,7 +399,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance for which the scope is created.</param>
         /// <returns>An instance of <see cref="HttpRequestScope"/> that allows properties and headers to be temporarily modified for requests made through the client.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <see langword="null"/>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="client"/> argument is <see langword="null"/>.</exception>
         public static HttpRequestScope WithScope(this HttpRestClient client)
         {
             return new HttpRequestScope(client);

@@ -72,7 +72,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         ///     </description>
         ///   </item>
         /// </list>
-        /// The delegate should return a task resolving to an instance of <see cref="AuthenticationHeaderValue"/> containing the  authorization details
+        /// The delegate should return a task resolving to an instance of <see cref="AuthenticationHeaderValue"/> containing the authorization details
         /// necessary for subsequent requests if authentication can be successfully completed. If the authentication process fails, the delegate should
         /// return <see langword="null"/>.
         /// </param>
@@ -99,7 +99,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <param name="ctx">The error context for the HTTP response.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to an <see cref="AuthenticationHeaderValue"/> if the client successfully acquires new authorization details; otherwise, <see langword="null"/>.</returns>
-        /// <exception cref="ArgumentNullException">Throws if <paramref name="ctx"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// If the failed request was sent with authorization details other than the most recently acquired ones, the request failed with outdated
         /// credentials. In that case, this method returns the most recently acquired authorization details without invoking the authentication delegate.

@@ -79,7 +79,7 @@ namespace Kampute.HttpClient
         /// Initializes a new instance of the <see cref="HttpRestClient"/> class with the specified shared <see cref="HttpClient"/> reference.
         /// </summary>
         /// <param name="httpClientReference">A reference to a shared <see cref="HttpClient"/> instance, managed as <see cref="SharedDisposable{T}.Reference"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <see langword="null"/>>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="httpClientReference"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This constructor takes ownership of the shared <see cref="HttpClient"/> reference and ensures it is properly released when the <see cref="HttpRestClient"/> is disposed.
         /// </remarks>

@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient.Content.Compression;
     using NUnit.Framework;
+    using System;
     using System.IO;
     using System.IO.Compression;
     using System.Net.Http;
@@ -33,6 +34,16 @@
             using var reader = new StreamReader(decompressionStream, Encoding.UTF32);
 
             Assert.That(reader.ReadToEnd(), Is.EqualTo(text));
+        }
+
+        [Test]
+        public void Dispose_DisposesOriginalContent()
+        {
+            using var originalContent = new StringContent("Original content");
+
+            new GzipCompressedContent(originalContent, CompressionLevel.Optimal).Dispose();
+
+            Assert.ThrowsAsync<ObjectDisposedException>(() => originalContent.ReadAsStringAsync());
         }
     }
 }

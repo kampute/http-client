@@ -5,6 +5,7 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Content;
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.Utilities;
     using System;
@@ -426,7 +427,24 @@ namespace Kampute.HttpClient
                 throw new ArgumentNullException(nameof(request));
 
             OnBeforeSendingRequest(request);
+#if NETSTANDARD2_1_OR_GREATER
             var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+#else
+            // HttpClient on .NET Framework disposes the request content after sending, but a retry sends the same content again.
+            var content = request.Content;
+            if (content is not null)
+                request.Content = new NonOwningContent(content);
+
+            HttpResponseMessage response;
+            try
+            {
+                response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            }
+            finally
+            {
+                request.Content = content;
+            }
+#endif
             try
             {
                 response.RequestMessage = request;

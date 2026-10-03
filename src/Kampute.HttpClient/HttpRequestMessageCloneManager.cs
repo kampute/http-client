@@ -7,16 +7,16 @@ namespace Kampute.HttpClient
 {
     using System;
     using System.Net.Http;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
-    /// Manages clones of <see cref="HttpRequestMessage"/> for retry operations.
+    /// Manages the requests that replace the original <see cref="HttpRequestMessage"/> during retries.
     /// </summary>
     /// <remarks>
-    /// This class oversees the life-cycle of cloned <see cref="HttpRequestMessage"/> instances. It ensures that clones are properly managed 
-    /// and disposed of, preventing resource leaks and maintaining the integrity of the original <see cref="HttpRequestMessage"/>.
+    /// Each request that replaces another is disposed when it is itself replaced or when the manager is disposed. The original request is never
+    /// disposed. The content of a replaced request is disposed only when no other request still uses it: content that is the original request's
+    /// content, or that the replacing request reuses, is left undisposed.
     /// </remarks>
-    public struct HttpRequestMessageCloneManager : IDisposable
+    internal struct HttpRequestMessageCloneManager : IDisposable
     {
         private readonly HttpRequestMessage _originalRequest;
         private HttpRequestMessage _currentRequest;
@@ -41,40 +41,46 @@ namespace Kampute.HttpClient
         public readonly HttpRequestMessage RequestToSend => _currentRequest;
 
         /// <summary>
-        /// Attempts to apply a retry decision to the current request. If the decision includes a request to retry, updates the current request and 
-        /// disposes of the previous request if it is not the original.
+        /// Attempts to apply a retry decision to the current request. If the decision includes a request to retry, makes it the current request and
+        /// disposes of the request it replaces, unless that is the original request.
         /// </summary>
         /// <param name="decision">The retry decision.</param>
         /// <returns><see langword="true"/> if the decision was applied and a retry should occur; otherwise, <see langword="false"/>.</returns>
         public bool TryApplyDecision(in HttpErrorHandlerResult decision)
         {
-            if (decision.RequestToRetry is null)
+            var nextRequest = decision.RequestToRetry;
+            if (nextRequest is null)
                 return false;
 
-            DisposeNonOriginalRequest();
-            _currentRequest = decision.RequestToRetry;
+            if (!ReferenceEquals(nextRequest, _currentRequest))
+            {
+                DisposeCurrentRequest(contentInUse: nextRequest.Content);
+                _currentRequest = nextRequest;
+            }
+
             return true;
         }
 
         /// <summary>
-        /// Disposes of any cloned requests, releasing the managed resources.
+        /// Disposes of the current request, unless it is the original request.
         /// </summary>
         public readonly void Dispose()
         {
-            DisposeNonOriginalRequest();
+            DisposeCurrentRequest(contentInUse: null);
         }
 
         /// <summary>
-        /// Disposes of the current request if it is not the original request.
+        /// Disposes of the current request if it is not the original request, leaving its content undisposed if another request still uses it.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private readonly void DisposeNonOriginalRequest()
+        /// <param name="contentInUse">The content of the request that replaces the current request, if any.</param>
+        private readonly void DisposeCurrentRequest(HttpContent? contentInUse)
         {
             if (ReferenceEquals(_currentRequest, _originalRequest))
                 return;
 
-            if (_currentRequest.IsCloned())
-                _currentRequest.Content = null; // Content is reused, not cloned.
+            var content = _currentRequest.Content;
+            if (content is not null && (ReferenceEquals(content, _originalRequest.Content) || ReferenceEquals(content, contentInUse)))
+                _currentRequest.Content = null;
 
             _currentRequest.Dispose();
         }

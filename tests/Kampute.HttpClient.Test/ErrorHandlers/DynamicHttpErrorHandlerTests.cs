@@ -5,8 +5,10 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Sockets;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -60,6 +62,64 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.ServiceUnavailable));
                 Assert.That(attempts, Is.EqualTo(3));
             }
+        }
+
+        [Test]
+        public async Task OnErrorResponse_WithHandBuiltRetryRequestReusingOriginalContent_SendsOriginalBodyOnLaterRetries()
+        {
+            _client.BackoffStrategy = BackoffStrategies.Uniform(1, TimeSpan.Zero);
+            _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
+            {
+                var retryRequest = new HttpRequestMessage(ctx.Request.Method, ctx.Request.RequestUri) { Content = ctx.Request.Content };
+                return Task.FromResult(HttpErrorHandlerResult.Retry(retryRequest));
+            }));
+
+            var sentBodies = MockServiceUnavailableThenConnectionFailureThenSuccess();
+
+            using var response = await _client.SendAsync(HttpMethod.Post, "/resource", new StringContent("original"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(sentBodies, Is.EqualTo(new[] { "original", "original", "original" }));
+            }
+        }
+
+        [Test]
+        public async Task OnErrorResponse_WithHandBuiltRetryRequestWithNewContent_SendsNewBodyOnLaterRetries()
+        {
+            _client.BackoffStrategy = BackoffStrategies.Uniform(1, TimeSpan.Zero);
+            _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
+            {
+                var retryRequest = new HttpRequestMessage(ctx.Request.Method, ctx.Request.RequestUri) { Content = new StringContent("replacement") };
+                return Task.FromResult(HttpErrorHandlerResult.Retry(retryRequest));
+            }));
+
+            var sentBodies = MockServiceUnavailableThenConnectionFailureThenSuccess();
+
+            using var response = await _client.SendAsync(HttpMethod.Post, "/resource", new StringContent("original"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(sentBodies, Is.EqualTo(new[] { "original", "replacement", "replacement" }));
+            }
+        }
+
+        private List<string> MockServiceUnavailableThenConnectionFailureThenSuccess()
+        {
+            var sentBodies = new List<string>();
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBodies.Add(request.Content!.ReadAsStringAsync().Result);
+                return sentBodies.Count switch
+                {
+                    1 => new HttpResponseMessage(HttpStatusCode.ServiceUnavailable),
+                    2 => throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.HostUnreachable)),
+                    _ => new HttpResponseMessage(HttpStatusCode.OK),
+                };
+            });
+            return sentBodies;
         }
     }
 }

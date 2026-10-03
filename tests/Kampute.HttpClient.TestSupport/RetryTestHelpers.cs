@@ -1,14 +1,15 @@
 namespace Kampute.HttpClient.TestSupport
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Retry;
     using Moq;
     using System.Threading;
 
     public static class RetryTestHelpers
     {
-        public static Mock<IHttpBackoffProvider> MockBackoffStrategy(int retriesToAllow, out Mock<IRetryScheduler> mockRetryScheduler)
+        public static Mock<IHttpBackoffProvider> MockBackoffStrategy(int retriesToAllow, out Mock<IRetrySession> mockRetryScheduler)
         {
-            mockRetryScheduler = new Mock<IRetryScheduler>();
+            mockRetryScheduler = new Mock<IRetrySession>();
 
             var retries = 0;
             mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))

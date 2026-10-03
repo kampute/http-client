@@ -6,6 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Retry;
     using System;
     using System.Collections.Generic;
 
@@ -28,23 +29,23 @@ namespace Kampute.HttpClient
     /// <seealso cref="HttpRequestErrorContext.RetryState"/>
     public sealed class HttpRetryState
     {
-        private readonly Dictionary<object, IRetryScheduler?> _schedulers = [];
+        private readonly Dictionary<object, IRetrySession?> _sessions = [];
 
         /// <summary>
-        /// Returns the retry scheduler of the specified source, creating it on first use.
+        /// Returns the retry session of the specified source, creating it on first use.
         /// </summary>
         /// <param name="source">The component that owns the retry budget.</param>
-        /// <param name="schedulerFactory">The function that creates the scheduler, or returns <see langword="null"/> if the source does not retry.</param>
-        /// <returns>The scheduler of <paramref name="source"/>, or <see langword="null"/> if the source does not retry.</returns>
-        internal IRetryScheduler? GetOrCreateScheduler(object source, Func<IRetryScheduler?> schedulerFactory)
+        /// <param name="sessionFactory">The function that creates the session, or returns <see langword="null"/> if the source does not retry.</param>
+        /// <returns>The session of <paramref name="source"/>, or <see langword="null"/> if the source does not retry.</returns>
+        internal IRetrySession? GetOrCreateSession(object source, Func<IRetrySession?> sessionFactory)
         {
-            if (!_schedulers.TryGetValue(source, out var scheduler))
+            if (!_sessions.TryGetValue(source, out var session))
             {
-                scheduler = schedulerFactory();
-                _schedulers[source] = scheduler;
+                session = sessionFactory();
+                _sessions[source] = session;
             }
 
-            return scheduler;
+            return session;
         }
     }
 }

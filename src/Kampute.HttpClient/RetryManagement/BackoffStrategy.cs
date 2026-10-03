@@ -7,10 +7,11 @@ namespace Kampute.HttpClient.RetryManagement
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Retry;
     using System;
 
     /// <summary>
-    /// A factory for creating <see cref="RetryScheduler"/> instances configured with a specific retry strategy.
+    /// A factory for creating <see cref="RetrySession"/> instances configured with a specific retry strategy.
     /// </summary>
     /// <remarks>
     /// This factory encapsulates the creation logic of retry schedulers, allowing for consistent configuration of schedulers
@@ -36,12 +37,12 @@ namespace Kampute.HttpClient.RetryManagement
         public virtual IRetryStrategy Strategy { get; }
 
         /// <summary>
-        /// Creates a <see cref="RetryScheduler"/> instance using the associated retry strategy.
+        /// Creates a <see cref="RetrySession"/> instance using the associated retry strategy.
         /// </summary>
-        /// <returns>A new instance of <see cref="RetryScheduler"/> configured with the factory's retry strategy.</returns>
-        public virtual IRetryScheduler CreateScheduler() => new RetryScheduler(Strategy);
+        /// <returns>A new instance of <see cref="RetrySession"/> configured with the factory's retry strategy.</returns>
+        public virtual IRetrySession CreateScheduler() => new RetrySession(Strategy);
 
         /// <inheritdoc/>
-        IRetryScheduler IHttpBackoffProvider.CreateScheduler(HttpRequestErrorContext ctx) => CreateScheduler();
+        IRetrySession IHttpBackoffProvider.CreateScheduler(HttpRequestErrorContext ctx) => CreateScheduler();
     }
 }

@@ -1,7 +1,7 @@
 namespace Kampute.HttpClient.NetFramework.Test
 {
-    using Kampute.HttpClient.Interfaces;
-    using Kampute.HttpClient.RetryManagement.Strategies.Modifiers;
+    using Kampute.Retry;
+    using Kampute.Retry.Strategies.Modifiers;
     using NUnit.Framework;
     using System;
     using System.Linq;

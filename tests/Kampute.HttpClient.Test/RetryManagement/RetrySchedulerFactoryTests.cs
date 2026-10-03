@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.RetryManagement;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
 
@@ -14,7 +15,7 @@
             var mockRetryStrategy = new Mock<IRetryStrategy>();
             var factory = new BackoffStrategy(mockRetryStrategy.Object);
 
-            var scheduler = factory.CreateScheduler() as RetryScheduler;
+            var scheduler = factory.CreateScheduler() as RetrySession;
 
             Assert.That(scheduler, Is.Not.Null);
             Assert.That(scheduler.Strategy, Is.SameAs(mockRetryStrategy.Object));

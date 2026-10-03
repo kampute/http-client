@@ -5,6 +5,7 @@
 
 namespace Kampute.HttpClient.Interfaces
 {
+    using Kampute.Retry;
     using System;
 
     /// <summary>
@@ -21,8 +22,8 @@ namespace Kampute.HttpClient.Interfaces
         /// Creates a scheduler responsible for managing retry attempts for HTTP requests, based on a specified retry strategy.
         /// </summary>
         /// <param name="ctx">Provides context containing detailed information about the failed HTTP request, including client, request, and error specifics.</param>
-        /// <returns>An instance of <see cref="IRetryScheduler"/> that coordinates the retry attempts for the given context according to the defined strategy.</returns>
+        /// <returns>An instance of <see cref="IRetrySession"/> that coordinates the retry attempts for the given context according to the defined strategy.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
-        IRetryScheduler CreateScheduler(HttpRequestErrorContext ctx);
+        IRetrySession CreateScheduler(HttpRequestErrorContext ctx);
     }
 }

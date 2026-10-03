@@ -6,6 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Retry;
     using System;
     using System.Net.Http;
     using System.Threading;
@@ -55,15 +56,15 @@ namespace Kampute.HttpClient
         /// The component that handles this kind of failure and owns its retry budget, typically the <see cref="IHttpErrorHandler"/> that
         /// handles the response.
         /// </param>
-        /// <param name="schedulerFactory">A function that returns an <see cref="IRetryScheduler"/> for scheduling retry attempts based on the error context.</param>
+        /// <param name="schedulerFactory">A function that returns an <see cref="IRetrySession"/> for scheduling retry attempts based on the error context.</param>
         /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// Each source has its own retry budget for a call, as described for
-        /// <see cref="HttpRequestErrorContext.ScheduleRetryAsync(object, Func{HttpRequestErrorContext, IRetryScheduler}, CancellationToken)"/>.
+        /// <see cref="HttpRequestErrorContext.ScheduleRetryAsync(object, Func{HttpRequestErrorContext, IRetrySession}, CancellationToken)"/>.
         /// </remarks>
-        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpResponseErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
+        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpResponseErrorContext, IRetrySession?> schedulerFactory, CancellationToken cancellationToken = default)
         {
             if (source is null)
                 throw new ArgumentNullException(nameof(source));

@@ -7,7 +7,8 @@ namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.RetryManagement;
-    using Kampute.HttpClient.RetryManagement.Strategies;
+    using Kampute.Retry;
+    using Kampute.Retry.Strategies;
     using System;
 
     /// <summary>
@@ -306,14 +307,14 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Creates an instance of <see cref="DynamicBackoffStrategy"/> with a dynamic scheduler factory based on the context of a failed HTTP request.
         /// </summary>
-        /// <param name="schedulerFactory">A factory function that creates <see cref="IRetryScheduler"/> instances based on the failed HTTP request context.</param>
+        /// <param name="schedulerFactory">A factory function that creates <see cref="IRetrySession"/> instances based on the failed HTTP request context.</param>
         /// <returns>An instance of <see cref="DynamicBackoffStrategy"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This strategy offers the highest flexibility by dynamically scheduling retries based on the specific context of a failure. It adapts to the nature of
         /// encountered errors, making it ideal for complex systems with varied types of transient failures that cannot be effectively handled by a static retry strategy.
         /// </remarks>
-        public static IHttpBackoffProvider Dynamic(Func<HttpRequestErrorContext, IRetryScheduler> schedulerFactory)
+        public static IHttpBackoffProvider Dynamic(Func<HttpRequestErrorContext, IRetrySession> schedulerFactory)
         {
             return new DynamicBackoffStrategy(schedulerFactory);
         }

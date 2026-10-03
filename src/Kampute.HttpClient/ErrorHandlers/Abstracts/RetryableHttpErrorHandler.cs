@@ -6,6 +6,7 @@
 namespace Kampute.HttpClient.ErrorHandlers.Abstracts
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Retry;
     using System;
     using System.Net;
     using System.Threading;
@@ -142,7 +143,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// Creates a scheduler for retrying the failed request based on the error context.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
-        /// <returns>An <see cref="IRetryScheduler"/> that schedules the retry attempts, or <see langword="null"/> if the request must not be retried.</returns>
+        /// <returns>An <see cref="IRetrySession"/> that schedules the retry attempts, or <see langword="null"/> if the request must not be retried.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// If the response suggests a retry time further away than <see cref="MaxRetryDelay"/>, the method returns <see langword="null"/>,
@@ -150,7 +151,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// provided or returns <see langword="null"/>, and the response includes a suggested retry time, a single retry at that time is used.
         /// Otherwise the client's default backoff strategy is used.
         /// </remarks>
-        protected virtual IRetryScheduler? CreateScheduler(HttpResponseErrorContext ctx)
+        protected virtual IRetrySession? CreateScheduler(HttpResponseErrorContext ctx)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));

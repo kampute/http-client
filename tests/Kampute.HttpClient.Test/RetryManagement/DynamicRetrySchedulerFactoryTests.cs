@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.RetryManagement;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System.Net.Http;
@@ -25,7 +26,7 @@
             var factory = new DynamicBackoffStrategy(ctx => mockRetryStrategy.Object);
             var context = MockHttpRequestErrorContext();
 
-            var scheduler = factory.CreateScheduler(context) as RetryScheduler;
+            var scheduler = factory.CreateScheduler(context) as RetrySession;
 
             Assert.That(scheduler, Is.Not.Null);
             Assert.That(scheduler.Strategy, Is.SameAs(mockRetryStrategy.Object));
@@ -34,7 +35,7 @@
         [Test]
         public void CreateScheduler_UsingSchedulerFactory_ReturnsCorrectScheduler()
         {
-            var mockRetryScheduler = new Mock<IRetryScheduler>();
+            var mockRetryScheduler = new Mock<IRetrySession>();
             var factory = new DynamicBackoffStrategy(ctx => mockRetryScheduler.Object);
             var context = MockHttpRequestErrorContext();
 

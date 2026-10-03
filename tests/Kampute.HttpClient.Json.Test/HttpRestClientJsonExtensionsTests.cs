@@ -7,8 +7,10 @@
     using System;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Net.Sockets;
     using System.Runtime.CompilerServices;
+    using System.Text;
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
@@ -70,6 +72,19 @@
 
             Assert.That(result, Is.Not.SameAs(payload));
             Assert.That(result, Is.EqualTo(payload));
+        }
+
+        [Test]
+        public async Task GetAsync_WithJsonMediaTypeInDifferentCase_DeserializesResponse()
+        {
+            var expected = new TestModel { Name = "JSON Test" };
+            var content = new StringContent(expected.ToJsonString(), Encoding.UTF8);
+            content.Headers.ContentType = MediaTypeHeaderValue.Parse("Application/JSON; charset=utf-8");
+            _mockMessageHandler.MockHttpResponse(HttpStatusCode.OK, content);
+
+            var result = await _restClient.GetAsync<TestModel>("/resource");
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]

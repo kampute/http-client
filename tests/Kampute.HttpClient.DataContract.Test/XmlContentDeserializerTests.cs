@@ -29,6 +29,16 @@
         }
 
         [Test]
+        public void CanDeserialize_ForSupportedMediaTypeInDifferentCase_ReturnsTrue()
+        {
+            var deserializer = new XmlContentDeserializer();
+
+            var canDeserialize = deserializer.CanDeserialize("Application/XML", typeof(TestModel));
+
+            Assert.That(canDeserialize, Is.True);
+        }
+
+        [Test]
         public void CanDeserialize_ForUnsupportedMediaType_ReturnsFalse()
         {
             var deserializer = new XmlContentDeserializer();

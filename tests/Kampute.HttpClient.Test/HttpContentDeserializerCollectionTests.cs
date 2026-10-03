@@ -24,6 +24,65 @@
         }
 
         [Test]
+        public void GetDeserializerFor_WhenDeserializerMatches_CachesTheMatch()
+        {
+            var mockDeserializer = new Mock<IHttpContentDeserializer>();
+            mockDeserializer.Setup(d => d.CanDeserialize(It.IsAny<string>(), It.IsAny<Type>())).Returns(true);
+            var collection = new HttpContentDeserializerCollection
+            {
+                mockDeserializer.Object
+            };
+
+            var first = collection.GetDeserializerFor("application/test", typeof(string));
+            var second = collection.GetDeserializerFor("application/test", typeof(string));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(first, Is.SameAs(mockDeserializer.Object));
+                Assert.That(second, Is.SameAs(mockDeserializer.Object));
+            }
+            mockDeserializer.Verify(d => d.CanDeserialize(It.IsAny<string>(), It.IsAny<Type>()), Times.Once);
+        }
+
+        [Test]
+        public void GetDeserializerFor_WithMediaTypesDifferingOnlyInCase_SharesOneCacheEntry()
+        {
+            var mockDeserializer = new Mock<IHttpContentDeserializer>();
+            mockDeserializer.Setup(d => d.CanDeserialize(It.IsAny<string>(), It.IsAny<Type>())).Returns(true);
+            var collection = new HttpContentDeserializerCollection
+            {
+                mockDeserializer.Object
+            };
+
+            collection.GetDeserializerFor("application/test", typeof(string));
+            var result = collection.GetDeserializerFor("Application/TEST", typeof(string));
+
+            Assert.That(result, Is.SameAs(mockDeserializer.Object));
+            mockDeserializer.Verify(d => d.CanDeserialize(It.IsAny<string>(), It.IsAny<Type>()), Times.Once);
+        }
+
+        [Test]
+        public void GetDeserializerFor_WhenNoDeserializerMatches_DoesNotCacheTheMiss()
+        {
+            var mockDeserializer = new Mock<IHttpContentDeserializer>();
+            mockDeserializer.Setup(d => d.CanDeserialize(It.IsAny<string>(), It.IsAny<Type>())).Returns(false);
+            var collection = new HttpContentDeserializerCollection
+            {
+                mockDeserializer.Object
+            };
+
+            var first = collection.GetDeserializerFor("application/unknown", typeof(string));
+            var second = collection.GetDeserializerFor("application/unknown", typeof(string));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(first, Is.Null);
+                Assert.That(second, Is.Null);
+            }
+            mockDeserializer.Verify(d => d.CanDeserialize(It.IsAny<string>(), It.IsAny<Type>()), Times.Exactly(2));
+        }
+
+        [Test]
         public void GetAcceptableMediaTypes_ModelType_ReturnsCorrectMediaTypeHeaderValues()
         {
             var modelType = typeof(string);

@@ -45,9 +45,12 @@
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The target model type for deserialization.</param>
         /// <returns><see langword="true"/> if the deserializer supports the media type and the model type is not <see langword="null"/>; otherwise, <see langword="false"/>.</returns>
+        /// <remarks>
+        /// Media types are compared with the <see cref="SupportedMediaTypes"/> ignoring case.
+        /// </remarks>
         public virtual bool CanDeserialize(string mediaType, Type modelType)
         {
-            return SupportedMediaTypes.Contains(mediaType);
+            return SupportedMediaTypes.Contains(mediaType, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>

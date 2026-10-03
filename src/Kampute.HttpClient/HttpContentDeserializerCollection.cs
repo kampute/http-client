@@ -9,6 +9,7 @@ namespace Kampute.HttpClient
     using Kampute.HttpClient.Utilities;
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
@@ -28,7 +29,7 @@ namespace Kampute.HttpClient
 
         private readonly List<IHttpContentDeserializer> _collection;
         private readonly Lazy<AcceptableMediaTypeCache> _acceptCache;
-        private readonly FlyweightCache<(string, Type), IHttpContentDeserializer?> _deserializerCache;
+        private readonly ConcurrentDictionary<(string, Type), IHttpContentDeserializer> _deserializerCache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpContentDeserializerCollection"/> class.
@@ -36,7 +37,7 @@ namespace Kampute.HttpClient
         public HttpContentDeserializerCollection()
         {
             _collection = [];
-            _deserializerCache = new(key => FindDeserializer(key.Item1, key.Item2));
+            _deserializerCache = new(MediaTypeAndModelTypeComparer.Instance);
             _acceptCache = new(() => new(this), LazyThreadSafetyMode.PublicationOnly);
         }
 
@@ -62,9 +63,21 @@ namespace Kampute.HttpClient
         /// <param name="mediaType">The media type to deserialize.</param>
         /// <param name="modelType">The type of the model to deserialize.</param>
         /// <returns>An instance of <see cref="IHttpContentDeserializer"/> that can deserialize the specified media type and model type, or <see langword="null"/> if none is found.</returns>
+        /// <remarks>
+        /// Media types that differ only in case are treated as the same media type. A deserializer that is found is cached for later lookups of the same media
+        /// type and model type; a failed lookup is not cached.
+        /// </remarks>
         public IHttpContentDeserializer? GetDeserializerFor(string mediaType, Type modelType)
         {
-            return _deserializerCache.Get((mediaType, modelType));
+            var key = (mediaType, modelType);
+            if (_deserializerCache.TryGetValue(key, out var deserializer))
+                return deserializer;
+
+            deserializer = FindDeserializer(mediaType, modelType);
+            if (deserializer is not null)
+                _deserializerCache.TryAdd(key, deserializer);
+
+            return deserializer;
         }
 
         /// <summary>
@@ -249,6 +262,24 @@ namespace Kampute.HttpClient
         }
 
         #region Helper Types
+
+        /// <summary>
+        /// Compares pairs of media type and model type, ignoring the case of the media type.
+        /// </summary>
+        private sealed class MediaTypeAndModelTypeComparer : IEqualityComparer<(string, Type)>
+        {
+            public static readonly MediaTypeAndModelTypeComparer Instance = new();
+
+            public bool Equals((string, Type) x, (string, Type) y)
+            {
+                return StringComparer.OrdinalIgnoreCase.Equals(x.Item1, y.Item1) && x.Item2 == y.Item2;
+            }
+
+            public int GetHashCode((string, Type) obj)
+            {
+                return unchecked(StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Item1) * 31 + obj.Item2.GetHashCode());
+            }
+        }
 
         /// <summary>
         /// Provides cache of supported media types for .NET object types.

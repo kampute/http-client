@@ -61,9 +61,12 @@ namespace Kampute.HttpClient.DataContract
         /// <see langword="true"/> if the deserializer supports the media type and the model type is not <see langword="null"/> and is marked with
         /// a <see cref="DataContractAttribute"/>; otherwise, <see langword="false"/>.
         /// </returns>
+        /// <remarks>
+        /// Media types are compared with the <see cref="HttpContentDeserializer.SupportedMediaTypes"/> ignoring case.
+        /// </remarks>
         public override bool CanDeserialize(string mediaType, Type modelType)
         {
-            return modelType?.GetCustomAttribute<DataContractAttribute>() is not null && SupportedMediaTypes.Contains(mediaType);
+            return modelType?.GetCustomAttribute<DataContractAttribute>() is not null && SupportedMediaTypes.Contains(mediaType, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>

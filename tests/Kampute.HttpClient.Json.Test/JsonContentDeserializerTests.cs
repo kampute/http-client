@@ -29,6 +29,16 @@
         }
 
         [Test]
+        public void CanDeserialize_ForSupportedMediaTypeInDifferentCase_ReturnsTrue()
+        {
+            var deserializer = new JsonContentDeserializer();
+
+            var canDeserialize = deserializer.CanDeserialize("Application/JSON", typeof(TestModel));
+
+            Assert.That(canDeserialize, Is.True);
+        }
+
+        [Test]
         public void CanDeserialize_ForUnsupportedMediaType_ReturnsFalse()
         {
             var deserializer = new JsonContentDeserializer();

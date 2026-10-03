@@ -57,6 +57,10 @@ namespace Kampute.HttpClient.Interfaces
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The type of the model to be deserialized.</param>
         /// <returns><see langword="true"/> if this deserializer can handle the specified content type and model type; otherwise, <see langword="false"/>.</returns>
+        /// <remarks>
+        /// Media types are case-insensitive, so implementations should compare them ignoring case. <see cref="HttpContentDeserializerCollection"/> treats media
+        /// types that differ only in case as the same media type.
+        /// </remarks>
         bool CanDeserialize(string mediaType, Type modelType);
 
         /// <summary>

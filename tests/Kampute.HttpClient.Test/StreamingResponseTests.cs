@@ -53,6 +53,23 @@ namespace Kampute.HttpClient.Test
             Assert.That(resultStream.ToArray(), Is.EqualTo(LargeBody));
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetAsStreamAsync_WhenOpeningBodyFails_DisposesResponseContent(bool failSynchronously)
+        {
+            var failure = new IOException("Body failed.");
+            using var content = new FailingContent(failure, failSynchronously);
+            _mockMessageHandler.MockHttpResponse(_ => new HttpResponseMessage(HttpStatusCode.OK) { Content = content });
+
+            var exception = Assert.ThrowsAsync<HttpRequestException>(() => _client.GetAsStreamAsync("/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(content.IsDisposed, Is.True);
+                Assert.That(exception.InnerException, Is.SameAs(failure));
+            }
+        }
+
         [Test]
         public async Task GetToStreamAsync_WithBodyLargerThanBufferLimit_StreamsBody()
         {
@@ -142,6 +159,40 @@ namespace Kampute.HttpClient.Test
             public override void Write(byte[] buffer, int offset, int count) => throw new IOException("Write failed.");
             public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new IOException("Write failed.");
             public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default) => throw new IOException("Write failed.");
+
+            protected override void Dispose(bool disposing)
+            {
+                IsDisposed = true;
+                base.Dispose(disposing);
+            }
+        }
+
+        private sealed class FailingContent : HttpContent
+        {
+            private readonly IOException _failure;
+            private readonly bool _failSynchronously;
+
+            public FailingContent(IOException failure, bool failSynchronously)
+            {
+                _failure = failure;
+                _failSynchronously = failSynchronously;
+            }
+
+            public bool IsDisposed { get; private set; }
+
+            protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
+            {
+                if (_failSynchronously)
+                    throw _failure;
+
+                return Task.FromException(_failure);
+            }
+
+            protected override bool TryComputeLength(out long length)
+            {
+                length = 0;
+                return false;
+            }
 
             protected override void Dispose(bool disposing)
             {

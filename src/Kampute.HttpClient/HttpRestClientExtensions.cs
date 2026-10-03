@@ -155,8 +155,16 @@ namespace Kampute.HttpClient
                 var response = await sending.ConfigureAwait(false);
                 if (response.Content is not null)
                 {
-                    // The response is intentionally not disposed to avoid disposal of the underlying stream.
-                    return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    try
+                    {
+                        // The caller owns the stream once it has been opened successfully.
+                        return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                        response.Dispose();
+                        throw;
+                    }
                 }
 
                 response.Dispose();

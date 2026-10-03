@@ -62,7 +62,13 @@
         {
             if (Source.TryGetRetryDelay(elapsed, attempts, out delay))
             {
-                var jitter = delay.TotalMilliseconds * JitterFactor * (2 * _random.NextDouble() - 1);
+                double sample;
+                lock (_random)
+                {
+                    sample = _random.NextDouble();
+                }
+
+                var jitter = delay.TotalMilliseconds * JitterFactor * (2 * sample - 1);
                 delay = TimeSpan.FromMilliseconds(delay.TotalMilliseconds + jitter);
                 return true;
             }

@@ -19,6 +19,8 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnBackoffStrategy"/> delegate. If the delegate
     /// is not provided, or does not specify a strategy, the handler will look for a rate limit reset header in the response. If the
     /// header is present, its value is used to determine the backoff duration. If the header is not present, no retries will be attempted.
+    /// If the reset time is further away than <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the
+    /// request is not retried.
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
     public class HttpError429Handler : RetryableHttpErrorHandler

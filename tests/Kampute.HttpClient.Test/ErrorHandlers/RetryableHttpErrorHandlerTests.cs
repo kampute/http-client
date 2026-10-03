@@ -1,0 +1,151 @@
+namespace Kampute.HttpClient.Test.ErrorHandlers
+{
+    using Kampute.HttpClient.ErrorHandlers;
+    using Kampute.HttpClient.TestSupport;
+    using Moq;
+    using NUnit.Framework;
+    using System;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    [TestFixture]
+    public class RetryableHttpErrorHandlerTests
+    {
+        private readonly Mock<HttpMessageHandler> _mockMessageHandler = new();
+        private HttpRestClient _client;
+
+        [SetUp]
+        public void Setup()
+        {
+            var httpClient = new HttpClient(_mockMessageHandler.Object, disposeHandler: false);
+            _client = new HttpRestClient(httpClient)
+            {
+                BaseAddress = new Uri("http://api.test.com"),
+            };
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            _client.Dispose();
+        }
+
+        [Test]
+        public void MaxRetryDelay_DefaultsToFiveMinutes()
+        {
+            var handler = new HttpError503Handler();
+
+            Assert.That(handler.MaxRetryDelay, Is.EqualTo(TimeSpan.FromMinutes(5)));
+        }
+
+        [Test]
+        public void MaxRetryDelay_WhenNegative_ThrowsArgumentOutOfRangeException()
+        {
+            var handler = new HttpError503Handler();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => handler.MaxRetryDelay = TimeSpan.FromSeconds(-1));
+        }
+
+        [Test]
+        public void OnSuggestedDelayAboveMaxRetryDelay_DoesNotRetry()
+        {
+            var strategyRequested = false;
+            var handler = new HttpError503Handler
+            {
+                MaxRetryDelay = TimeSpan.FromMinutes(1),
+                OnBackoffStrategy = (_, _) =>
+                {
+                    strategyRequested = true;
+                    return RetryTestHelpers.MockBackoffStrategy(1, out _).Object;
+                }
+            };
+            _client.ErrorHandlers.Add(handler);
+
+            var attempts = MockServiceUnavailable(TimeSpan.FromHours(1));
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.ServiceUnavailable));
+                Assert.That(attempts(), Is.EqualTo(1));
+                Assert.That(strategyRequested, Is.False);
+            }
+        }
+
+        [Test]
+        public async Task OnSuggestedDelayBelowMaxRetryDelay_Retries()
+        {
+            var handler = new HttpError503Handler
+            {
+                MaxRetryDelay = TimeSpan.FromMinutes(1),
+                OnBackoffStrategy = (_, _) => RetryTestHelpers.MockBackoffStrategy(1, out _).Object
+            };
+            _client.ErrorHandlers.Add(handler);
+
+            var attempts = MockServiceUnavailable(TimeSpan.FromSeconds(30));
+
+            await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
+
+            Assert.That(attempts(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task OnLongSuggestedDelay_WithoutMaxRetryDelay_Retries()
+        {
+            var handler = new HttpError503Handler
+            {
+                MaxRetryDelay = null,
+                OnBackoffStrategy = (_, _) => RetryTestHelpers.MockBackoffStrategy(1, out _).Object
+            };
+            _client.ErrorHandlers.Add(handler);
+
+            var attempts = MockServiceUnavailable(TimeSpan.FromHours(1));
+
+            await Assert.ThatAsync(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"), Throws.TypeOf<HttpResponseException>());
+
+            Assert.That(attempts(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void OnRateLimitResetAboveMaxRetryDelay_DoesNotRetry()
+        {
+            var handler = new HttpError429Handler
+            {
+                OnBackoffStrategy = (_, _) => RetryTestHelpers.MockBackoffStrategy(1, out _).Object
+            };
+            _client.ErrorHandlers.Add(handler);
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Interlocked.Increment(ref attempts);
+
+                var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
+                response.Headers.Add("x-rate-limit-reset", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds().ToString());
+                return response;
+            });
+
+            Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
+
+            Assert.That(attempts, Is.EqualTo(1));
+        }
+
+        private Func<int> MockServiceUnavailable(TimeSpan retryAfter)
+        {
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Interlocked.Increment(ref attempts);
+
+                var response = new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+                response.Headers.RetryAfter = new RetryConditionHeaderValue(retryAfter);
+                return response;
+            });
+            return () => attempts;
+        }
+    }
+}

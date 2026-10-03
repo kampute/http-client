@@ -18,7 +18,8 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnBackoffStrategy"/> delegate. If the delegate
     /// is not provided, or does not specify a strategy, the handler will look for a <c>Retry-After</c> header in the response. If the
     /// <c>Retry-After</c> header is present, its value is used to determine the backoff duration. If the header is not present, the
-    /// default backoff strategy of the <see cref="HttpRestClient"/> is used.
+    /// default backoff strategy of the <see cref="HttpRestClient"/> is used. If the <c>Retry-After</c> time is further away than
+    /// <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the request is not retried.
     /// </para>
     /// <note type="hint" title="Hint">
     /// Consider using <see cref="TransientHttpErrorHandler"/> if you want to handle multiple transient HTTP errors (including 503) with

@@ -27,7 +27,7 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// </remarks>
     public class DynamicHttpErrorHandler : IHttpErrorHandler
     {
-        private readonly Func<HttpRequestErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> _asyncHandler;
+        private readonly Func<HttpResponseErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> _asyncHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicHttpErrorHandler"/> class.
@@ -48,7 +48,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// </item>
         /// </list>
         /// </remarks>
-        public DynamicHttpErrorHandler(Func<HttpRequestErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> asyncHandler)
+        public DynamicHttpErrorHandler(Func<HttpResponseErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> asyncHandler)
         {
             _asyncHandler = asyncHandler ?? throw new ArgumentNullException(nameof(asyncHandler));
         }

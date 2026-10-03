@@ -35,6 +35,27 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
+        public void OnErrorResponse_InvokesDelegateWithResponseContext()
+        {
+            var seenStatusCodes = new List<HttpStatusCode>();
+            _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
+            {
+                seenStatusCodes.Add(ctx.Response.StatusCode);
+                return Task.FromResult(HttpErrorHandlerResult.NoRetry);
+            }));
+
+            _mockMessageHandler.MockHttpResponse(HttpStatusCode.Conflict);
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.Conflict));
+                Assert.That(seenStatusCodes, Is.EqualTo(new[] { HttpStatusCode.Conflict }));
+            }
+        }
+
+        [Test]
         public void OnErrorResponse_WithHandBuiltRetryRequest_KeepsRetryBudget()
         {
             const int maxAttempts = 10;

@@ -106,11 +106,6 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Releases unmanaged resources.
-        /// </summary>
-        ~HttpRestClient() => Dispose(false);
-
-        /// <summary>
         /// Occurs when a new HTTP request message is about to be sent.
         /// </summary>
         /// <remarks>
@@ -768,6 +763,11 @@ namespace Kampute.HttpClient
         /// Disposes the <see cref="HttpRestClient"/> instance.
         /// </summary>
         /// <param name="disposing">Indicates whether the method is called from a <see cref="IDisposable.Dispose()"/> method.</param>
+        /// <remarks>
+        /// The <see cref="HttpRestClient"/> class has no finalizer, so this method is called with <paramref name="disposing"/> set to <see langword="false"/>
+        /// only by a finalizer that a derived class declares. A derived class that owns unmanaged resources must declare its own finalizer that calls this
+        /// method with <see langword="false"/>.
+        /// </remarks>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

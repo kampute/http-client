@@ -629,7 +629,7 @@ namespace Kampute.HttpClient
                 var decision = await errorHandler.DecideOnRetryAsync(ctx, cancellationToken).ConfigureAwait(false);
                 if (decision.RequestToRetry is not null)
                 {
-                    decision.RequestToRetry.Properties[HttpRequestMessagePropertyKeys.ErrorHandler] = errorHandler;
+                    decision.RequestToRetry.GetPropertyBag()[HttpRequestMessagePropertyKeys.ErrorHandler] = errorHandler;
                     return decision;
                 }
             }
@@ -845,17 +845,18 @@ namespace Kampute.HttpClient
 
             void AddRequestProperties()
             {
-                request.Properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
-                request.Properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
+                var properties = request.GetPropertyBag();
+                properties[HttpRequestMessagePropertyKeys.TransactionId] = Guid.NewGuid();
+                properties[HttpRequestMessagePropertyKeys.ResponseObjectType] = responseObjectType;
 
                 if (_scopedProperties.HasActiveScope)
                 {
                     foreach (var property in _scopedProperties)
                     {
                         if (property.Value is not null)
-                            request.Properties[property.Key] = property.Value;
+                            properties[property.Key] = property.Value;
                         else
-                            request.Properties.Remove(property.Key);
+                            properties.Remove(property.Key);
                     }
                 }
             }

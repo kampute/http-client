@@ -12,6 +12,19 @@ namespace Kampute.HttpClient
     /// <summary>
     /// Defines constant keys for storing and identifying custom properties in an <see cref="HttpRequestMessage"/>.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// On .NET 5 and later, read these properties through <c>HttpRequestMessage.Options</c> with an <c>HttpRequestOptionsKey&lt;TValue&gt;</c>
+    /// named after the key, because <c>HttpRequestMessage.Properties</c> is obsolete there. Both show the same values. On .NET Framework, read
+    /// them through <c>HttpRequestMessage.Properties</c>.
+    /// </para>
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// if (request.Options.TryGetValue(new HttpRequestOptionsKey&lt;Guid&gt;(HttpRequestMessagePropertyKeys.TransactionId), out var transactionId))
+    ///     Console.WriteLine($"Transaction {transactionId}");
+    /// </code>
+    /// </example>
     public static class HttpRequestMessagePropertyKeys
     {
         /// <summary>

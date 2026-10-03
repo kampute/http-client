@@ -37,10 +37,11 @@ namespace Kampute.HttpClient
             foreach (var header in request.Headers)
                 clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
 
-            foreach (var property in request.Properties)
-                clone.Properties.Add(property);
+            var cloneProperties = clone.GetPropertyBag();
+            foreach (var property in request.GetPropertyBag())
+                cloneProperties.Add(property);
 
-            clone.Properties[HttpRequestMessagePropertyKeys.CloneGeneration] = request.GetCloneGeneration() + 1;
+            cloneProperties[HttpRequestMessagePropertyKeys.CloneGeneration] = request.GetCloneGeneration() + 1;
 
             return clone;
         }
@@ -70,7 +71,7 @@ namespace Kampute.HttpClient
         /// <seealso cref="Clone(HttpRequestMessage)"/>
         public static bool IsCloned(this HttpRequestMessage request)
         {
-            return request.Properties.ContainsKey(HttpRequestMessagePropertyKeys.CloneGeneration);
+            return request.GetPropertyBag().ContainsKey(HttpRequestMessagePropertyKeys.CloneGeneration);
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Kampute.HttpClient
         /// <seealso cref="Clone(HttpRequestMessage)"/>
         public static int GetCloneGeneration(this HttpRequestMessage request)
         {
-            return request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.CloneGeneration, out var cloneGeneration) ? (int)cloneGeneration : 0;
+            return request.GetPropertyBag().TryGetValue(HttpRequestMessagePropertyKeys.CloneGeneration, out var cloneGeneration) && cloneGeneration is int generation ? generation : 0;
         }
     }
 }

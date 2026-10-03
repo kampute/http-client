@@ -138,7 +138,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <inheritdoc/>
         async Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
-            if (ctx.Request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, out var skip) && skip is true)
+            if (ctx.Request.GetPropertyBag().TryGetValue(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, out var skip) && skip is true)
                 return HttpErrorHandlerResult.NoRetry;
 
             if (!ctx.Request.CanClone())
@@ -157,7 +157,7 @@ namespace Kampute.HttpClient.ErrorHandlers
 
             var authorizedRequest = ctx.Request.Clone();
             authorizedRequest.Headers.Authorization = authorization;
-            authorizedRequest.Properties[HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true;
+            authorizedRequest.GetPropertyBag()[HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true;
             return HttpErrorHandlerResult.Retry(authorizedRequest);
         }
 

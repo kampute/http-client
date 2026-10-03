@@ -88,7 +88,7 @@ namespace Kampute.HttpClient.Xml
         /// <param name="stream">The target stream.</param>
         /// <param name="context">The transport context.</param>
         /// <returns>A completed task, because the object is serialized synchronously.</returns>
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             XmlSerialization.Write(stream, Encoding, _content, Serializer, DataContractSettings);
             return Task.CompletedTask;

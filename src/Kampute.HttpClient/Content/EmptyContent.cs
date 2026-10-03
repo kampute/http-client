@@ -20,7 +20,7 @@
         /// <param name="stream">The target stream to which the content should be written.</param>
         /// <param name="context">The transport context.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             return Task.CompletedTask;
         }

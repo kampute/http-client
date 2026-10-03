@@ -47,7 +47,7 @@ namespace Kampute.HttpClient
             /// <summary>
             /// Media type name for XML data.
             /// </summary>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             public const string Xml = System.Net.Mime.MediaTypeNames.Application.Xml;
 #else
             public const string Xml = "application/xml";
@@ -56,7 +56,7 @@ namespace Kampute.HttpClient
             /// <summary>
             /// Media type name for JSON data.
             /// </summary>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             public const string Json = System.Net.Mime.MediaTypeNames.Application.Json;
 #else
             public const string Json = "application/json";

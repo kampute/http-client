@@ -41,7 +41,7 @@
         /// <param name="stream">The target stream to which the content will be written.</param>
         /// <param name="context">Information about the transport (e.g., channel binding token).</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        protected sealed override async Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected sealed override async Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             using var compressionStream = CompressStream(stream);
             await OriginalContent.CopyToAsync(compressionStream).ConfigureAwait(false);

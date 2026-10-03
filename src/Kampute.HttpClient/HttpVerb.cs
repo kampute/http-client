@@ -57,7 +57,7 @@ namespace Kampute.HttpClient
         /// The PATCH method applies partial modifications to a resource. It is used to make a partial update on a resource, 
         /// in contrast to PUT which typically requires a complete resource representation.
         /// </remarks>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
         public readonly static System.Net.Http.HttpMethod Patch = System.Net.Http.HttpMethod.Patch;
 #else
         public readonly static System.Net.Http.HttpMethod Patch = new("PATCH");

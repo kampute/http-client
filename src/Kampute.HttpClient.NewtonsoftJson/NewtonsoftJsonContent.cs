@@ -52,7 +52,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// <param name="stream">The target stream.</param>
         /// <param name="context">The transport context.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             using var streamWriter = new StreamWriter(stream, utf8WithoutMarker, 4096, true);
             using var jsonWriter = new JsonTextWriter(streamWriter);

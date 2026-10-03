@@ -519,7 +519,7 @@ namespace Kampute.HttpClient
         private async Task<HttpResponseMessage> DispatchCoreAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             OnBeforeSendingRequest(request);
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             var response = await _httpClient.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
 #else
             // HttpClient on .NET Framework disposes the request content after sending, but a retry sends the same content again.

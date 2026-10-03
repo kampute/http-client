@@ -30,7 +30,7 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// This implementation specifically handles the HTTP '429 Too Many Requests' status code.
         /// </remarks>
         public sealed override bool CanHandle(HttpStatusCode statusCode) =>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             statusCode == HttpStatusCode.TooManyRequests;
 #else
             statusCode == (HttpStatusCode)429;

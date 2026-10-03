@@ -8,7 +8,7 @@
         "stopOnIssues": true
     },
     "assemblies": [
-        "src/**/bin/Release/netstandard2.1/*.dll"
+        "src/**/bin/Release/net10.0/*.dll"
     ],
     "topics": [
         "docs/**/*.md"

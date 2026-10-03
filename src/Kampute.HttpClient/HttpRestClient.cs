@@ -403,6 +403,7 @@ namespace Kampute.HttpClient
                 throw new ArgumentNullException(nameof(request));
 
             using var cloneManager = new HttpRequestMessageCloneManager(request);
+            var retryState = new HttpRetryState();
             for (; ; )
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -412,20 +413,20 @@ namespace Kampute.HttpClient
                 }
                 catch (HttpResponseException httpError) when (httpError.ResponseMessage is not null)
                 {
-                    var decision = await DecideOnRetryAsync(httpError, cloneManager.RequestToSend, httpError.ResponseMessage, cancellationToken).ConfigureAwait(false);
+                    var decision = await DecideOnRetryAsync(httpError, cloneManager.RequestToSend, httpError.ResponseMessage, retryState, cancellationToken).ConfigureAwait(false);
                     if (!cloneManager.TryApplyDecision(decision))
                         throw;
                 }
                 catch (HttpRequestException networkError) when (networkError.IsTransientNetworkError())
                 {
-                    var decision = await DecideOnRetryAsync(networkError, cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
+                    var decision = await DecideOnRetryAsync(networkError, cloneManager.RequestToSend, retryState, cancellationToken).ConfigureAwait(false);
                     if (!cloneManager.TryApplyDecision(decision))
                         throw;
                 }
                 catch (TaskCanceledException timeoutError) when (!cancellationToken.IsCancellationRequested)
                 {
                     var networkError = new HttpRequestException("The HTTP request timed out.", timeoutError);
-                    var decision = await DecideOnRetryAsync(networkError, cloneManager.RequestToSend, cancellationToken).ConfigureAwait(false);
+                    var decision = await DecideOnRetryAsync(networkError, cloneManager.RequestToSend, retryState, cancellationToken).ConfigureAwait(false);
                     if (!cloneManager.TryApplyDecision(decision))
                         throw;
                 }
@@ -494,23 +495,26 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="error">The <see cref="HttpRequestException"/> encapsulating details of the encountered error during the HTTP request execution.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
+        /// <param name="retryState">The retry budgets of the call, shared by all its attempts.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/> or <paramref name="request"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/> or <paramref name="retryState"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an
         /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or
-        /// to handle the error as unrecoverable.
+        /// to handle the error as unrecoverable. An override that creates its own <see cref="HttpRequestErrorContext"/> passes <paramref name="retryState"/>
+        /// to it, so that the retry budgets are kept across the attempts of the call.
         /// </remarks>
         /// <seealso cref="BackoffStrategy"/>
         protected virtual Task<HttpErrorHandlerResult> DecideOnRetryAsync
         (
             HttpRequestException error,
             HttpRequestMessage request,
+            HttpRetryState retryState,
             CancellationToken cancellationToken
         )
         {
-            var ctx = new HttpRequestErrorContext(this, request, error);
+            var ctx = new HttpRequestErrorContext(this, request, error, retryState);
             return ctx.ScheduleRetryAsync(this, BackoffStrategy.CreateScheduler, cancellationToken);
         }
 
@@ -521,30 +525,39 @@ namespace Kampute.HttpClient
         /// <param name="error">The <see cref="HttpResponseException"/> encapsulating details of the encountered error during the HTTP request execution.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that led to the failed response.</param>
         /// <param name="response">The received <see cref="HttpResponseMessage"/> indicating a failure.</param>
+        /// <param name="retryState">The retry budgets of the call, shared by all its attempts.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/> or <paramref name="response"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/>, <paramref name="response"/> or <paramref name="retryState"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// This method assesses HTTP request failures, leveraging error handling strategies within <see cref="ErrorHandlers"/>. It returns an <see cref="HttpErrorHandlerResult"/>
-        /// that guides the next steps, either to retry the request with potentially modified parameters or to handle the error as unrecoverable.
+        /// that guides the next steps, either to retry the request with potentially modified parameters or to handle the error as unrecoverable. An override that
+        /// creates its own <see cref="HttpResponseErrorContext"/> passes <paramref name="retryState"/> to it, so that the retry budgets are kept across the attempts
+        /// of the call.
         /// </remarks>
         /// <seealso cref="ErrorHandlers"/>
-        protected virtual async Task<HttpErrorHandlerResult> DecideOnRetryAsync
+        protected virtual Task<HttpErrorHandlerResult> DecideOnRetryAsync
         (
             HttpResponseException error,
             HttpRequestMessage request,
             HttpResponseMessage response,
+            HttpRetryState retryState,
             CancellationToken cancellationToken
         )
         {
-            if (error is null)
-                throw new ArgumentNullException(nameof(error));
-            if (request is null)
-                throw new ArgumentNullException(nameof(request));
-            if (response is null)
-                throw new ArgumentNullException(nameof(response));
+            var ctx = new HttpResponseErrorContext(this, request, response, error, retryState);
+            return ConsultErrorHandlersAsync(ctx, cancellationToken);
+        }
 
-            var ctx = new HttpResponseErrorContext(this, request, response, error);
+        /// <summary>
+        /// Asks the error handlers for the status code of the response, in order, until one of them decides to retry.
+        /// </summary>
+        /// <param name="ctx">The context of the failed response.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task that resolves to the decision of the first handler that retries, or <see cref="HttpErrorHandlerResult.NoRetry"/>.</returns>
+        private async Task<HttpErrorHandlerResult> ConsultErrorHandlersAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
+        {
+            var response = ctx.Response;
 
             foreach (var errorHandler in ErrorHandlers.GetHandlersFor(response.StatusCode))
             {

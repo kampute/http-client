@@ -15,7 +15,7 @@
             var mockRequest = new Mock<HttpRequestMessage>();
             var mockError = new Mock<HttpRequestException>();
 
-            return new HttpRequestErrorContext(mockClient.Object, mockRequest.Object, mockError.Object);
+            return new HttpRequestErrorContext(mockClient.Object, mockRequest.Object, mockError.Object, new HttpRetryState());
         }
 
         [Test]

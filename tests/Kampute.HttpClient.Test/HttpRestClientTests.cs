@@ -360,6 +360,47 @@
         }
 
         [Test]
+        public void OnUnsuccessfulStatusCode_WithOverriddenDecideOnRetry_KeepsRetryBudgetAcrossRetries()
+        {
+            const int maxAttempts = 10;
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request => Interlocked.Increment(ref attempts) < maxAttempts
+                ? new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+                : new HttpResponseMessage(HttpStatusCode.OK));
+
+            using var httpClient = new HttpClient(_mockMessageHandler.Object, false);
+            using var client = new RetryOnAnyErrorClient(httpClient, BackoffStrategies.Uniform(2, TimeSpan.Zero))
+            {
+                BaseAddress = new Uri("http://api.test.com"),
+            };
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => client.SendAsync(HttpMethod.Get, "/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.ServiceUnavailable));
+                Assert.That(attempts, Is.EqualTo(3));
+            }
+        }
+
+        private sealed class RetryOnAnyErrorClient(HttpClient httpClient, IHttpBackoffProvider backoff) : HttpRestClient(httpClient)
+        {
+            protected override Task<HttpErrorHandlerResult> DecideOnRetryAsync
+            (
+                HttpResponseException error,
+                HttpRequestMessage request,
+                HttpResponseMessage response,
+                HttpRetryState retryState,
+                CancellationToken cancellationToken
+            )
+            {
+                var ctx = new HttpResponseErrorContext(this, request, response, error, retryState);
+                return ctx.ScheduleRetryAsync(this, backoff.CreateScheduler, cancellationToken);
+            }
+        }
+
+        [Test]
         public void OnCallerCancellation_DoesNotUseBackoffStrategy()
         {
             var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();

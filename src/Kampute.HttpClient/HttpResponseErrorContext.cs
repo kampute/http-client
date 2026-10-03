@@ -23,10 +23,11 @@ namespace Kampute.HttpClient
         /// <param name="client">The <see cref="HttpRestClient"/> instance used to send the request.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that resulted in a failure.</param>
         /// <param name="response">The <see cref="HttpResponseMessage"/> indicating the failure.</param>
-        /// <param name="error">The <see cref="Exception"/> containing details of the error encountered during the HTTP request.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/>, <paramref name="response"/> or <paramref name="error"/> or is <see langword="null"/>.</exception>
-        public HttpResponseErrorContext(HttpRestClient client, HttpRequestMessage request, HttpResponseMessage response, HttpResponseException error)
-            : base(client, request, error)
+        /// <param name="error">The <see cref="HttpResponseException"/> containing details of the error encountered during the HTTP request.</param>
+        /// <param name="retryState">The retry budgets of the call that sent the request, shared by all its attempts.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/>, <paramref name="response"/>, <paramref name="error"/> or <paramref name="retryState"/> is <see langword="null"/>.</exception>
+        public HttpResponseErrorContext(HttpRestClient client, HttpRequestMessage request, HttpResponseMessage response, HttpResponseException error, HttpRetryState retryState)
+            : base(client, request, error, retryState)
         {
             Response = response ?? throw new ArgumentNullException(nameof(response));
         }
@@ -59,7 +60,7 @@ namespace Kampute.HttpClient
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// Each source has its own retry budget for a request, as described for
+        /// Each source has its own retry budget for a call, as described for
         /// <see cref="HttpRequestErrorContext.ScheduleRetryAsync(object, Func{HttpRequestErrorContext, IRetryScheduler}, CancellationToken)"/>.
         /// </remarks>
         public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpResponseErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)

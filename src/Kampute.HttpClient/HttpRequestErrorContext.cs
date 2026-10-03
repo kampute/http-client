@@ -7,7 +7,6 @@ namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
     using System;
-    using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,13 +21,15 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="client">The <see cref="HttpRestClient"/> instance used to send the request.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that resulted in a failure.</param>
-        /// <param name="error">The <see cref="Exception"/> containing details of the error encountered during the HTTP request.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/> or <paramref name="error"/> or is <see langword="null"/>.</exception>
-        public HttpRequestErrorContext(HttpRestClient client, HttpRequestMessage request, HttpRequestException error)
+        /// <param name="error">The <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.</param>
+        /// <param name="retryState">The retry budgets of the call that sent the request, shared by all its attempts.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/>, <paramref name="error"/> or <paramref name="retryState"/> is <see langword="null"/>.</exception>
+        public HttpRequestErrorContext(HttpRestClient client, HttpRequestMessage request, HttpRequestException error, HttpRetryState retryState)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
             Request = request ?? throw new ArgumentNullException(nameof(request));
             Error = error ?? throw new ArgumentNullException(nameof(error));
+            RetryState = retryState ?? throw new ArgumentNullException(nameof(retryState));
         }
 
         /// <summary>
@@ -56,6 +57,14 @@ namespace Kampute.HttpClient
         public HttpRequestException Error { get; }
 
         /// <summary>
+        /// Gets the retry budgets of the call that sent the request.
+        /// </summary>
+        /// <value>
+        /// The <see cref="HttpRetryState"/> shared by all attempts of the call. <see cref="ScheduleRetryAsync"/> keeps the retry scheduler of each source in it.
+        /// </value>
+        public HttpRetryState RetryState { get; }
+
+        /// <summary>
         /// Schedules a retry for the failed HTTP request using a provided scheduler factory.
         /// </summary>
         /// <param name="source">
@@ -68,16 +77,17 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// <para>
-        /// Each source has its own retry budget for a request. The first time a source schedules a retry for a request, <paramref name="schedulerFactory"/>
-        /// is called and the scheduler it returns is kept with the request and its clones. Later failures from the same source reuse that scheduler,
-        /// so they share its budget. Failures from another source use another scheduler, so a request that fails in several ways can be retried more
-        /// times in total than any single budget allows.
+        /// Each source has its own retry budget for a call. The first time a source schedules a retry during a call, <paramref name="schedulerFactory"/>
+        /// is called and the scheduler it returns is kept in <see cref="RetryState"/>. Later failures from the same source during the same call reuse
+        /// that scheduler, so they share its budget, whether the request to retry is a clone of the failed request or a request built by an error handler.
+        /// Failures from another source use another scheduler, so a request that fails in several ways can be retried more times in total than any single
+        /// budget allows.
         /// </para>
         /// <para>
-        /// The schedulers are stored in the request properties under <see cref="HttpRequestMessagePropertyKeys.RetryScheduler"/>.
+        /// If the request content cannot be sent again, the request is not retried and <paramref name="schedulerFactory"/> is not called.
         /// </para>
         /// </remarks>
-        public async Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpRequestErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
+        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpRequestErrorContext, IRetryScheduler?> schedulerFactory, CancellationToken cancellationToken = default)
         {
             if (source is null)
                 throw new ArgumentNullException(nameof(source));
@@ -85,21 +95,23 @@ namespace Kampute.HttpClient
                 throw new ArgumentNullException(nameof(schedulerFactory));
 
             if (!Request.CanClone())
-                return HttpErrorHandlerResult.NoRetry;
+                return Task.FromResult(HttpErrorHandlerResult.NoRetry);
 
-            if (!Request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.RetryScheduler, out var value) || value is not IDictionary<object, IRetryScheduler?> schedulers)
-            {
-                schedulers = new Dictionary<object, IRetryScheduler?>();
-                Request.Properties[HttpRequestMessagePropertyKeys.RetryScheduler] = schedulers;
-            }
+            var scheduler = RetryState.GetOrCreateScheduler(source, () => schedulerFactory(this));
+            return scheduler is not null
+                ? RetryWhenScheduledAsync(scheduler, cancellationToken)
+                : Task.FromResult(HttpErrorHandlerResult.NoRetry);
+        }
 
-            if (!schedulers.TryGetValue(source, out var scheduler))
-            {
-                scheduler = schedulerFactory(this);
-                schedulers[source] = scheduler;
-            }
-
-            return scheduler is not null && await scheduler.WaitAsync(cancellationToken).ConfigureAwait(false)
+        /// <summary>
+        /// Waits as the scheduler decides, and returns a clone of the request to retry if the scheduler allows another attempt.
+        /// </summary>
+        /// <param name="scheduler">The scheduler of the source that handles the failure.</param>
+        /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+        /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
+        private async Task<HttpErrorHandlerResult> RetryWhenScheduledAsync(IRetryScheduler scheduler, CancellationToken cancellationToken)
+        {
+            return await scheduler.WaitAsync(cancellationToken).ConfigureAwait(false)
                 ? HttpErrorHandlerResult.Retry(Request.Clone())
                 : HttpErrorHandlerResult.NoRetry;
         }

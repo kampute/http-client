@@ -8,7 +8,7 @@ Kampute.HttpClient is a .NET library that enhances the native `HttpClient` for s
 
 ### Core Components
 - **`HttpRestClient`**: Main client class wrapping `HttpClient` with enhanced features
-- **Extension Packages**: Modular serialization support (`Json`, `Xml`, `DataContract`, `NewtonsoftJson`)
+- **Content Formats**: XML support in the core (`Kampute.HttpClient.Xml` namespace) and extension packages for JSON (`Json`, `NewtonsoftJson`)
 - **Shared HttpClient**: Connection pooling via `SharedHttpClient` for efficient resource management
 - **Scoped Collections**: `ScopedCollection<T>` for temporary header/property overrides
 

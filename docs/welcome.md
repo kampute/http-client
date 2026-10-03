@@ -49,27 +49,25 @@ var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 
 ## Choosing Packages
 
-The base package contains [`HttpRestClient`](api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry strategies, error handlers, compression content wrappers, and the content formatter registry. Serializer packages are separate so applications only reference the serializers they use.
+The base package contains [`HttpRestClient`](api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry strategies, error handlers, compression content wrappers, the content formatter registry, and XML support. JSON packages are separate so applications only reference the JSON library they use.
 
-| Package                                                                           | Use it for                                                                     |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| [`Kampute.HttpClient`](api/Kampute.HttpClient.html)                               | Core HTTP client, request helpers, scopes, retry behavior, and error handling. |
-| [`Kampute.HttpClient.Json`](api/Kampute.HttpClient.Json.html)                     | JSON APIs using `System.Text.Json`.                                            |
-| [`Kampute.HttpClient.NewtonsoftJson`](api/Kampute.HttpClient.NewtonsoftJson.html) | JSON APIs that require `Newtonsoft.Json` features or compatibility.            |
-| [`Kampute.HttpClient.Xml`](api/Kampute.HttpClient.Xml.html)                       | XML APIs using `XmlSerializer`.                                                |
-| [`Kampute.HttpClient.DataContract`](api/Kampute.HttpClient.DataContract.html)     | XML APIs using `DataContractSerializer`.                                       |
+| Package                                                                           | Use it for                                                                                 |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [`Kampute.HttpClient`](api/Kampute.HttpClient.html)                               | Core HTTP client, request helpers, scopes, retry behavior, error handling, and XML APIs.   |
+| [`Kampute.HttpClient.Json`](api/Kampute.HttpClient.Json.html)                     | JSON APIs using `System.Text.Json`.                                                        |
+| [`Kampute.HttpClient.NewtonsoftJson`](api/Kampute.HttpClient.NewtonsoftJson.html) | JSON APIs that require `Newtonsoft.Json` features or compatibility.                        |
 
-You can combine serializer packages when an API can return more than one content type.
+You can combine formats when an API can return more than one content type.
 
 ```csharp
 using Kampute.HttpClient;
-using Kampute.HttpClient.DataContract;
 using Kampute.HttpClient.NewtonsoftJson;
+using Kampute.HttpClient.Xml;
 
 using var client = new HttpRestClient();
 
 client.AcceptJson();
-client.AcceptXml();
+client.UseXml();
 
 var result = await client.GetAsync<MyResource>("https://api.example.com/resource");
 ```
@@ -166,14 +164,26 @@ using (client.BeginHeaderScope(new Dictionary<string, string?>
 
 When the scope is disposed, the temporary headers and properties are removed.
 
-## Serializer Packages
+## Content Formats
 
-The base package registers no content formatter. Each serializer package registers its formatter in [`ContentFormatters`](api/Kampute.HttpClient.HttpRestClient.html) and exposes payload helpers for its content type.
+The base package registers no content formatter. Each format registers its formatter in [`ContentFormatters`](api/Kampute.HttpClient.HttpRestClient.html) and exposes payload helpers for its content type.
 
+- [`Kampute.HttpClient.Xml`](api/Kampute.HttpClient.Xml.html), in the base package: XML support through `XmlSerializer` and `DataContractSerializer`.
 - [`Kampute.HttpClient.Json`](api/Kampute.HttpClient.Json.html): JSON support through `System.Text.Json`.
 - [`Kampute.HttpClient.NewtonsoftJson`](api/Kampute.HttpClient.NewtonsoftJson.html): JSON support through `Newtonsoft.Json`.
-- [`Kampute.HttpClient.Xml`](api/Kampute.HttpClient.Xml.html): XML support through `XmlSerializer`.
-- [`Kampute.HttpClient.DataContract`](api/Kampute.HttpClient.DataContract.html): XML support through `DataContractSerializer`.
+
+[`UseXml()`](api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html) registers an [`XmlFormatter`](api/Kampute.HttpClient.Xml.XmlFormatter.html). Its `Serializer` setting chooses the serializer. With the default, `XmlSerializerKind.Auto`, types marked with `[DataContract]` or `[CollectionDataContract]` use `DataContractSerializer`, and all other types use `XmlSerializer`. The rule applies to responses by the requested type and to payloads by their runtime type. Set `XmlSerializerKind.XmlSerializer` or `XmlSerializerKind.DataContractSerializer` to use one serializer for every type, and `DataContractSettings` to configure `DataContractSerializer`.
+
+```csharp
+using Kampute.HttpClient;
+using Kampute.HttpClient.Xml;
+
+using var client = new HttpRestClient();
+
+client.UseXml(xml => xml.Serializer = XmlSerializerKind.DataContractSerializer);
+
+await client.PostAsXmlAsync("https://api.example.com/resources", resource);
+```
 
 You can also implement a content formatter for an application-specific content type. Derive from [`HttpContentFormatter`](api/Kampute.HttpClient.Content.Abstracts.HttpContentFormatter.html) and pass the media types it reads and the media types it writes to the base constructor. Override `ReadContentAsync` to read responses, `CreateContent` to write request payloads, or both. A formatter that only reads passes an empty list of writable media types, and one that only writes passes an empty list of readable media types.
 

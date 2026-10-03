@@ -49,7 +49,12 @@ array of functionalities to address the complexities of web service consumption.
 
 ## Serialization Support
 
-By default, `Kampute.HttpClient` registers no content formatter. To accommodate popular content types, the following extension packages are available:
+By default, `Kampute.HttpClient` registers no content formatter. XML support is part of the core package, and JSON support comes from extension packages:
+
+- **XML, in `Kampute.HttpClient`**:
+  Call `UseXml()` from the `Kampute.HttpClient.Xml` namespace to read and write `application/xml`. Types marked with `[DataContract]` or `[CollectionDataContract]`
+  use `DataContractSerializer`, and all other types use `XmlSerializer`. To use one serializer for every type, set the formatter's `Serializer` to
+  `XmlSerializerKind.XmlSerializer` or `XmlSerializerKind.DataContractSerializer`.
 
 - **[Kampute.HttpClient.Json](https://www.nuget.org/packages/Kampute.HttpClient.Json)**:
   Utilizes the `System.Text.Json` library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
@@ -58,14 +63,6 @@ By default, `Kampute.HttpClient` registers no content formatter. To accommodate 
 - **[Kampute.HttpClient.NewtonsoftJson](https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson)**:
   Leverages the `Newtonsoft.Json` library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON
   features and formats.
-
-- **[Kampute.HttpClient.Xml](https://www.nuget.org/packages/Kampute.HttpClient.Xml)**:
-  Employs the `XmlSerializer` for handling XML content types, enabling straightforward serialization and deserialization of XML into .NET objects using custom
-  class structures.
-
-- **[Kampute.HttpClient.DataContract](https://www.nuget.org/packages/Kampute.HttpClient.DataContract)**:
-  Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract
-  attributes for fine-grained control over the XML output.
 
 For content types that these packages do not cover, implement a content formatter: derive from `HttpContentFormatter`, pass the media types it reads and writes
 to its constructor, and add it to the client's `ContentFormatters` collection. The client then reads responses of those media types into .NET objects, and
@@ -208,15 +205,15 @@ retry requests during service outages and rate limit encounters.
 
 ### Handling Content Types
 
-For handling specific content types like JSON or XML, consider using the available extension packages.
+XML support is built into the core package. For JSON, use one of the extension packages.
 
-In the example below, we assume that both the `Kampute.HttpClient.NewtonsoftJson` package, which facilitates JSON content handling through the `Newtonsoft.Json`
-library, and the `Kampute.HttpClient.DataContract` package, enabling XML content management via `DataContractSerializer`, have been installed.
+In the example below, we assume that the `Kampute.HttpClient.NewtonsoftJson` package, which facilitates JSON content handling through the `Newtonsoft.Json`
+library, has been installed.
 
 ```csharp
 using Kampute.HttpClient;
 using Kampute.HttpClient.NewtonsoftJson;
-using Kampute.HttpClient.DataContract;
+using Kampute.HttpClient.Xml;
 
 // Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
@@ -225,9 +222,9 @@ using var client = new HttpRestClient();
 // This is an extension method provided by the Kampute.HttpClient.NewtonsoftJson package
 client.AcceptJson();
 
-// Configure the client to accept XML responses, using DataContractSerializer.
-// This is an extension method provided by the Kampute.HttpClient.DataContract package
-client.AcceptXml();
+// Configure the client to read and write XML. Types marked with [DataContract] use
+// DataContractSerializer, and other types use XmlSerializer.
+client.UseXml();
 
 // Execute a GET request. The server may respond in either JSON or XML format.
 // The GetAsync<TResponse> method will automatically deserialize the response
@@ -239,7 +236,7 @@ var result = await client.GetAsync<MyResource>("https://api.example.com/resource
 await client.PatchAsJsonAsync("https://api.example.com/resource", new { name = "new name" });
 
 // Send a POST request with a payload in XML format.
-// The PostAsXmlAsync method is provided by the Kampute.HttpClient.DataContract package.
+// The PostAsXmlAsync method is provided by the core package, in the Kampute.HttpClient.Xml namespace.
 var newResource = new MyResource();
 await client.PostAsXmlAsync("https://api.example.com/resource", newResource);
 ```

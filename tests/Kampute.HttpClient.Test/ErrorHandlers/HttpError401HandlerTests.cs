@@ -133,6 +133,54 @@
         }
 
         [Test]
+        public async Task On401Response_ArrivingAfterRefreshCompleted_DoesNotAuthenticateAgain()
+        {
+            var oldAuthorization = new AuthenticationHeaderValue(AuthSchemes.Bearer, "old-token");
+            var newAuthorization = new AuthenticationHeaderValue(AuthSchemes.Bearer, "new-token");
+            var delayedResponse = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            var numberOfInvokes = 0;
+
+            using var testHandler = new TestHttpMessageHandler
+            {
+                ResponseFactory = async (request, _) =>
+                {
+                    if (newAuthorization.Equals(request.Headers.Authorization))
+                        return new HttpResponseMessage(HttpStatusCode.OK);
+
+                    if (request.RequestUri!.AbsolutePath == "/delayed")
+                        await delayedResponse.Task;
+
+                    return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                }
+            };
+            using var httpClient = new HttpClient(testHandler, false);
+            using var client = new HttpRestClient(httpClient)
+            {
+                BaseAddress = new Uri("http://api.test.com"),
+            };
+            client.DefaultRequestHeaders.Authorization = oldAuthorization;
+
+            using var unauthorizeHandler = new HttpError401Handler((_, _) =>
+            {
+                Interlocked.Increment(ref numberOfInvokes);
+                return Task.FromResult<AuthenticationHeaderValue?>(newAuthorization);
+            });
+            client.ErrorHandlers.Add(unauthorizeHandler);
+
+            var delayedRequest = client.SendAsync(HttpMethod.Get, "/delayed");
+            using var immediateResponse = await client.SendAsync(HttpMethod.Get, "/immediate");
+            delayedResponse.SetResult(true);
+            using var delayedRequestResponse = await delayedRequest;
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(numberOfInvokes, Is.EqualTo(1));
+                Assert.That(immediateResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(delayedRequestResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            }
+        }
+
+        [Test]
         public async Task On401Response_ByFailedAuthentication_ThrowsUnauthorizedHttpError()
         {
             using var unauthorizeHandler = new HttpError401Handler((ctx, ct) => ctx.Client.SendAsync<AuthenticationHeaderValue?>(HttpMethod.Get, "/authenticate", null, ct));

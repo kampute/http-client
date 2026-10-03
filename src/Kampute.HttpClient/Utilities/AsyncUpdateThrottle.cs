@@ -10,15 +10,16 @@
     /// <typeparam name="T">The type of the value to be managed, preferably immutable for thread safety.</typeparam>
     /// <remarks>
     /// This class provides a mechanism to update a value asynchronously while ensuring that updates are serialized and efficient. It is designed to prevent multiple,
-    /// concurrent update operations from being processed if they are requested in quick succession. By employing a timing check before applying updates, the class ensures
-    /// that only necessary updates proceed when the value has not been recently updated, making it ideal for scenarios where collecting or calculating the updated value is
-    /// resource-intensive or costly.
+    /// concurrent update operations from being processed if they are requested in quick succession. Each completed update increments a version number, and an update
+    /// attempt proceeds only if no other update has completed since the attempt began. This makes it ideal for scenarios where collecting or calculating the updated
+    /// value is resource-intensive or costly.
     /// </remarks>
     public sealed class AsyncUpdateThrottle<T> : IDisposable
     {
         private readonly SemaphoreSlim _semaphore = new(1, 1);
         private VolatileWrapper _value;
         private long _lastUpdateTime;
+        private int _version;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncUpdateThrottle{T}"/> class with a default value.
@@ -58,8 +59,8 @@
         /// </value>
         public DateTimeOffset LastUpdateTime
         {
-            get => DateTimeOffset.FromUnixTimeMilliseconds(Volatile.Read(ref _lastUpdateTime));
-            private set => Volatile.Write(ref _lastUpdateTime, value.ToUnixTimeMilliseconds());
+            get => new(Volatile.Read(ref _lastUpdateTime), TimeSpan.Zero);
+            private set => Volatile.Write(ref _lastUpdateTime, value.UtcTicks);
         }
 
         /// <summary>
@@ -85,15 +86,16 @@
             if (asyncUpdater is null)
                 throw new ArgumentNullException(nameof(asyncUpdater));
 
-            var requestTime = DateTimeOffset.UtcNow;
+            var requestVersion = Volatile.Read(ref _version);
             await _semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
-                if (requestTime <= LastUpdateTime)
+                if (requestVersion != _version)
                     return false; // The value is already up to date.
 
                 Value = await asyncUpdater().ConfigureAwait(false);
                 LastUpdateTime = DateTimeOffset.UtcNow;
+                Interlocked.Increment(ref _version);
                 return true;
             }
             finally

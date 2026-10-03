@@ -7,18 +7,19 @@ namespace Kampute.HttpClient.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers.Abstracts;
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Retry;
     using System;
     using System.Net;
 
     /// <summary>
     /// Handles '429 Too Many Requests' HTTP responses by attempting to back off and retry the request according to a specified or
-    /// default backoff strategy.
+    /// default retry policy.
     /// </summary>
     /// <remarks>
     /// This handler provides a mechanism to respond to HTTP 429 errors by retrying the request after a delay. The delay duration and
-    /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnBackoffStrategy"/> delegate. If the delegate
+    /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnRetryPolicy"/> delegate. If the delegate
     /// is not provided, or does not specify a strategy, the handler will look for a rate limit reset header in the response. If the
-    /// header is present, its value is used to determine the backoff duration. If the header is not present, no retries will be attempted.
+    /// header is present, its value is used to determine the delay before the retry. If the header is not present, no retries will be attempted.
     /// If the reset time is further away than <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the
     /// request is not retried.
     /// </remarks>
@@ -47,12 +48,12 @@ namespace Kampute.HttpClient.ErrorHandlers
         }
 
         /// <inheritdoc/>
-        protected override IHttpBackoffProvider GetDefaultStrategy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
+        protected override IHttpRetryPolicy GetDefaultPolicy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
-            return retryTime.HasValue ? BackoffStrategies.Once(retryTime.Value) : BackoffStrategies.None;
+            return retryTime.HasValue ? RetryStrategies.Once(retryTime.Value).ToHttpRetryPolicy() : HttpRetryPolicy.None;
         }
     }
 }

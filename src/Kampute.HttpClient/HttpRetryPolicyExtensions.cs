@@ -3,7 +3,7 @@
 // This file is part of the Kampute.HttpClient package and is released under the terms of the MIT license.
 // See the LICENSE file in the project root for the full license text.
 
-namespace Kampute.HttpClient.RetryManagement
+namespace Kampute.HttpClient
 {
     using Kampute.Retry;
     using System;
@@ -11,15 +11,14 @@ namespace Kampute.HttpClient.RetryManagement
     /// <summary>
     /// Provides extension methods that use an <see cref="IRetryStrategy"/> for retrying HTTP requests.
     /// </summary>
-    public static class RetryStrategyHttpExtensions
+    public static class HttpRetryPolicyExtensions
     {
         /// <summary>
-        /// Converts an <see cref="IRetryStrategy"/> into a <see cref="BackoffStrategy"/>, creating a factory capable of producing retry sessions based
-        /// on the provided strategy.
+        /// Creates an HTTP retry policy that retries failed requests as the strategy decides.
         /// </summary>
-        /// <param name="source">The retry strategy to use for creating the sessions.</param>
-        /// <returns>A new instance of <see cref="BackoffStrategy"/>.</returns>
+        /// <param name="source">The retry strategy of the policy.</param>
+        /// <returns>A new <see cref="HttpRetryPolicy"/> for <paramref name="source"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> is <see langword="null"/>.</exception>
-        public static BackoffStrategy ToBackoffStrategy(this IRetryStrategy source) => new(source);
+        public static HttpRetryPolicy ToHttpRetryPolicy(this IRetryStrategy source) => new(source);
     }
 }

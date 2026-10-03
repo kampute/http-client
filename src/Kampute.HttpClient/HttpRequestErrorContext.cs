@@ -61,44 +61,44 @@ namespace Kampute.HttpClient
         /// Gets the retry budgets of the call that sent the request.
         /// </summary>
         /// <value>
-        /// The <see cref="HttpRetryState"/> shared by all attempts of the call. <see cref="ScheduleRetryAsync"/> keeps the retry scheduler of each source in it.
+        /// The <see cref="HttpRetryState"/> shared by all attempts of the call. <see cref="ScheduleRetryAsync"/> keeps the retry session of each source in it.
         /// </value>
         public HttpRetryState RetryState { get; }
 
         /// <summary>
-        /// Schedules a retry for the failed HTTP request using a provided scheduler factory.
+        /// Schedules a retry for the failed HTTP request using a retry session from the provided factory.
         /// </summary>
         /// <param name="source">
         /// The component that handles this kind of failure and owns its retry budget, such as the <see cref="HttpRestClient"/> for connection
         /// failures or an <see cref="IHttpErrorHandler"/> for error responses.
         /// </param>
-        /// <param name="schedulerFactory">A function that returns an <see cref="IRetrySession"/> for scheduling retry attempts based on the error context.</param>
+        /// <param name="sessionFactory">A function that returns an <see cref="IRetrySession"/> that decides on retry attempts, based on the error context.</param>
         /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="sessionFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// <para>
-        /// Each source has its own retry budget for a call. The first time a source schedules a retry during a call, <paramref name="schedulerFactory"/>
-        /// is called and the scheduler it returns is kept in <see cref="RetryState"/>. Later failures from the same source during the same call reuse
-        /// that scheduler, so they share its budget, whether the request to retry is a clone of the failed request or a request built by an error handler.
-        /// Failures from another source use another scheduler, so a request that fails in several ways can be retried more times in total than any single
+        /// Each source has its own retry budget for a call. The first time a source schedules a retry during a call, <paramref name="sessionFactory"/>
+        /// is called and the session it returns is kept in <see cref="RetryState"/>. Later failures from the same source during the same call reuse
+        /// that session, so they share its budget, whether the request to retry is a clone of the failed request or a request built by an error handler.
+        /// Failures from another source use another session, so a request that fails in several ways can be retried more times in total than any single
         /// budget allows.
         /// </para>
         /// <para>
-        /// If the request content cannot be sent again, the request is not retried and <paramref name="schedulerFactory"/> is not called.
+        /// If the request content cannot be sent again, the request is not retried and <paramref name="sessionFactory"/> is not called.
         /// </para>
         /// </remarks>
-        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpRequestErrorContext, IRetrySession?> schedulerFactory, CancellationToken cancellationToken = default)
+        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpRequestErrorContext, IRetrySession?> sessionFactory, CancellationToken cancellationToken = default)
         {
             if (source is null)
                 throw new ArgumentNullException(nameof(source));
-            if (schedulerFactory is null)
-                throw new ArgumentNullException(nameof(schedulerFactory));
+            if (sessionFactory is null)
+                throw new ArgumentNullException(nameof(sessionFactory));
 
             if (!Request.CanClone())
                 return Task.FromResult(HttpErrorHandlerResult.NoRetry);
 
-            var session = RetryState.GetOrCreateSession(source, () => schedulerFactory(this));
+            var session = RetryState.GetOrCreateSession(source, () => sessionFactory(this));
             return session is not null
                 ? RetryWhenScheduledAsync(session, cancellationToken)
                 : Task.FromResult(HttpErrorHandlerResult.NoRetry);

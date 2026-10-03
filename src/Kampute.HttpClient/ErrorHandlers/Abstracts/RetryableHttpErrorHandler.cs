@@ -14,26 +14,26 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
 
     /// <summary>
     /// Provides the base functionality for handling HTTP responses with transient error status codes by attempting to back off and
-    /// retry the request according to a specified or default backoff strategy.
+    /// retry the request according to a specified or default retry policy.
     /// </summary>
     /// <remarks>
     /// <para>
     /// This handler class is designed to be extended for specific transient error status codes. It offers a mechanism to respond to
     /// transient HTTP errors by retrying the request after a delay. The delay duration and retry logic can be customized through the
-    /// <see cref="OnBackoffStrategy"/> delegate.
+    /// <see cref="OnRetryPolicy"/> delegate.
     /// </para>
     /// <para>
     /// A retry time suggested by the server is honored only if it is no further away than <see cref="MaxRetryDelay"/>, which is five minutes
     /// by default. If the suggested time is later, the request is not retried.
     /// </para>
     /// <para>
-    /// Each handler instance keeps its own retry budget for a request, separate from the budget of <see cref="HttpRestClient.BackoffStrategy"/>
+    /// Each handler instance keeps its own retry budget for a request, separate from the budget of <see cref="HttpRestClient.RetryPolicy"/>
     /// for connection failures and from the budgets of other handlers. A request that fails in several ways can therefore be retried more times
     /// in total than any single budget allows.
     /// </para>
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
-    /// <seealso cref="HttpRestClient.BackoffStrategy"/>
+    /// <seealso cref="HttpRestClient.RetryPolicy"/>
     public abstract class RetryableHttpErrorHandler : IHttpErrorHandler
     {
         private TimeSpan? _maxRetryDelay = TimeSpan.FromMinutes(5);
@@ -48,11 +48,11 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// <para>
         /// When the response suggests a retry time, for example in a <c>Retry-After</c> header, and that time is further away than this value,
         /// the handler does not retry the request, and the <see cref="HttpResponseException"/> for the response reaches the caller. In that case,
-        /// <see cref="OnBackoffStrategy"/> is not called.
+        /// <see cref="OnRetryPolicy"/> is not called.
         /// </para>
         /// <para>
-        /// This limit applies only to retry times suggested by the server. It does not limit the delays of a backoff strategy, such as the
-        /// <see cref="HttpRestClient.BackoffStrategy"/> used when the response suggests no retry time.
+        /// This limit applies only to retry times suggested by the server. It does not limit the delays of a retry policy, such as the
+        /// <see cref="HttpRestClient.RetryPolicy"/> used when the response suggests no retry time.
         /// </para>
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the value is negative.</exception>
@@ -69,15 +69,15 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         }
 
         /// <summary>
-        /// A delegate that allows customization of the backoff strategy when responses with transient error status codes are received.
+        /// A delegate that allows customization of the retry policy when responses with transient error status codes are received.
         /// </summary>
         /// <value>
         /// A function that takes an <see cref="HttpResponseErrorContext"/> and an optional <see cref="DateTimeOffset"/> representing
-        /// the suggested retry time, and returns an <see cref="IHttpBackoffProvider"/> to be used for the retry operation.
+        /// the suggested retry time, and returns an <see cref="IHttpRetryPolicy"/> to be used for the retry operation.
         /// </value>
         /// <remarks>
         /// <para>
-        /// If this delegate is set and returns an <see cref="IHttpBackoffProvider"/>, the returned strategy is used for the retry operation.
+        /// If this delegate is set and returns an <see cref="IHttpRetryPolicy"/>, the returned policy is used for the retry operation.
         /// If it is not set, or returns <see langword="null"/>, a default behavior is applied.
         /// </para>
         /// <para>
@@ -87,7 +87,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         ///     <term>context</term>
         ///     <description>
         ///     Provides context about the HTTP response that indicates a transient error. It is encapsulated within an <see cref="HttpResponseErrorContext"/>
-        ///     instance, allowing for an informed decision on the retry strategy.
+        ///     instance, allowing for an informed decision on the retry policy.
         ///     </description>
         ///   </item>
         ///   <item>
@@ -100,7 +100,7 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// </list>
         /// </para>
         /// </remarks>
-        public Func<HttpResponseErrorContext, DateTimeOffset?, IHttpBackoffProvider?>? OnBackoffStrategy { get; set; }
+        public Func<HttpResponseErrorContext, DateTimeOffset?, IHttpRetryPolicy?>? OnRetryPolicy { get; set; }
 
         /// <summary>
         /// Determines whether this handler can process the specified HTTP status code.
@@ -125,33 +125,33 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         }
 
         /// <summary>
-        /// Provides the default backoff strategy when no custom strategy is specified.
+        /// Provides the default retry policy when <see cref="OnRetryPolicy"/> provides none.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response.</param>
         /// <param name="retryTime">The suggested retry time, if any.</param>
-        /// <returns>An <see cref="IHttpBackoffProvider"/> representing the default backoff strategy.</returns>
+        /// <returns>An <see cref="IHttpRetryPolicy"/> representing the default retry policy.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
-        protected virtual IHttpBackoffProvider GetDefaultStrategy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
+        protected virtual IHttpRetryPolicy GetDefaultPolicy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
-            return retryTime.HasValue ? BackoffStrategies.Once(retryTime.Value) : ctx.Client.BackoffStrategy;
+            return retryTime.HasValue ? RetryStrategies.Once(retryTime.Value).ToHttpRetryPolicy() : ctx.Client.RetryPolicy;
         }
 
         /// <summary>
-        /// Creates a scheduler for retrying the failed request based on the error context.
+        /// Creates the retry session for the failed request based on the error context.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
-        /// <returns>An <see cref="IRetrySession"/> that schedules the retry attempts, or <see langword="null"/> if the request must not be retried.</returns>
+        /// <returns>An <see cref="IRetrySession"/> that decides on the retry attempts, or <see langword="null"/> if the request must not be retried.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// If the response suggests a retry time further away than <see cref="MaxRetryDelay"/>, the method returns <see langword="null"/>,
-        /// so the request is not retried. Otherwise, the method uses <see cref="OnBackoffStrategy"/> when available. If the delegate is not
+        /// so the request is not retried. Otherwise, the method uses <see cref="OnRetryPolicy"/> when available. If the delegate is not
         /// provided or returns <see langword="null"/>, and the response includes a suggested retry time, a single retry at that time is used.
-        /// Otherwise the client's default backoff strategy is used.
+        /// Otherwise the client's retry policy is used.
         /// </remarks>
-        protected virtual IRetrySession? CreateScheduler(HttpResponseErrorContext ctx)
+        protected virtual IRetrySession? CreateSession(HttpResponseErrorContext ctx)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
@@ -160,14 +160,14 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
             if (retryTime.HasValue && _maxRetryDelay.HasValue && retryTime.Value - DateTimeOffset.UtcNow > _maxRetryDelay.Value)
                 return null;
 
-            var strategy = OnBackoffStrategy?.Invoke(ctx, retryTime) ?? GetDefaultStrategy(ctx, retryTime);
-            return strategy.CreateScheduler(ctx);
+            var strategy = OnRetryPolicy?.Invoke(ctx, retryTime) ?? GetDefaultPolicy(ctx, retryTime);
+            return strategy.CreateSession(ctx);
         }
 
         /// <inheritdoc/>
         Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
-            return ctx.ScheduleRetryAsync(this, CreateScheduler, cancellationToken);
+            return ctx.ScheduleRetryAsync(this, CreateSession, cancellationToken);
         }
     }
 }

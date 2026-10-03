@@ -10,15 +10,15 @@ namespace Kampute.HttpClient.ErrorHandlers
 
     /// <summary>
     /// Handles '503 Service Unavailable' HTTP responses by attempting to back off and retry the request according to a specified or
-    /// default backoff strategy.
+    /// default retry policy.
     /// </summary>
     /// <remarks>
     /// <para>
     /// This handler provides a mechanism to respond to HTTP 503 errors by retrying the request after a delay. The delay duration and
-    /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnBackoffStrategy"/> delegate. If the delegate
+    /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnRetryPolicy"/> delegate. If the delegate
     /// is not provided, or does not specify a strategy, the handler will look for a <c>Retry-After</c> header in the response. If the
-    /// <c>Retry-After</c> header is present, its value is used to determine the backoff duration. If the header is not present, the
-    /// default backoff strategy of the <see cref="HttpRestClient"/> is used. If the <c>Retry-After</c> time is further away than
+    /// <c>Retry-After</c> header is present, its value is used to determine the delay before the retry. If the header is not present, the
+    /// retry policy of the <see cref="HttpRestClient"/> is used. If the <c>Retry-After</c> time is further away than
     /// <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the request is not retried.
     /// </para>
     /// <note type="hint" title="Hint">
@@ -27,7 +27,7 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// </note>
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
-    /// <seealso cref="HttpRestClient.BackoffStrategy"/>
+    /// <seealso cref="HttpRestClient.RetryPolicy"/>
     /// <seealso cref="TransientHttpErrorHandler"/>
     public class HttpError503Handler : RetryableHttpErrorHandler
     {

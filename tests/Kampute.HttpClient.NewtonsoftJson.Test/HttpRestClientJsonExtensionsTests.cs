@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Retry;
     using Moq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
@@ -137,7 +138,7 @@
             var maxRetries = 2;
             var attempts = 0;
 
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform((uint)maxRetries, TimeSpan.Zero);
+            _restClient.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts((uint)maxRetries).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
@@ -176,7 +177,7 @@
             var attempts = 0;
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
+            _restClient.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse((request, cancellationToken) =>
             {
@@ -209,10 +210,10 @@
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public async Task SendAsync_OnTimeoutCancellation_WithCompressedJsonContent_UsesBackoffStrategy(string encoding)
+        public async Task SendAsync_OnTimeoutCancellation_WithCompressedJsonContent_UsesRetryPolicy(string encoding)
         {
             var payload = new TestModel { Name = "JSON Test" };
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(1, out var mockRetrySession);
 
             var attempts = 0;
             using var testHandler = new TestHttpMessageHandler
@@ -244,7 +245,7 @@
                 BaseAddress = new Uri("http://api.test.com"),
             };
             timedOutClient.UseNewtonsoftJson();
-            timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
+            timedOutClient.RetryPolicy = mockRetryPolicy.Object;
 
             using var content = new NewtonsoftJsonContent(payload)
             {
@@ -254,8 +255,8 @@
 
             using var response = await timedOutClient.SendAsync(HttpMethod.Post, "/resource", compressedContent);
 
-            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Once);
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Once);
+            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));

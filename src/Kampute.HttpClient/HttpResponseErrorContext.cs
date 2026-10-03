@@ -50,28 +50,28 @@ namespace Kampute.HttpClient
         public new HttpResponseException Error => (HttpResponseException)base.Error;
 
         /// <summary>
-        /// Schedules a retry for the failed HTTP request using a provided scheduler factory.
+        /// Schedules a retry for the failed HTTP request using a retry session from the provided factory.
         /// </summary>
         /// <param name="source">
         /// The component that handles this kind of failure and owns its retry budget, typically the <see cref="IHttpErrorHandler"/> that
         /// handles the response.
         /// </param>
-        /// <param name="schedulerFactory">A function that returns an <see cref="IRetrySession"/> for scheduling retry attempts based on the error context.</param>
+        /// <param name="sessionFactory">A function that returns an <see cref="IRetrySession"/> that decides on retry attempts, based on the error context.</param>
         /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="schedulerFactory"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="sessionFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// Each source has its own retry budget for a call, as described for
         /// <see cref="HttpRequestErrorContext.ScheduleRetryAsync(object, Func{HttpRequestErrorContext, IRetrySession}, CancellationToken)"/>.
         /// </remarks>
-        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpResponseErrorContext, IRetrySession?> schedulerFactory, CancellationToken cancellationToken = default)
+        public Task<HttpErrorHandlerResult> ScheduleRetryAsync(object source, Func<HttpResponseErrorContext, IRetrySession?> sessionFactory, CancellationToken cancellationToken = default)
         {
             if (source is null)
                 throw new ArgumentNullException(nameof(source));
-            if (schedulerFactory is null)
-                throw new ArgumentNullException(nameof(schedulerFactory));
+            if (sessionFactory is null)
+                throw new ArgumentNullException(nameof(sessionFactory));
 
-            return base.ScheduleRetryAsync(source, _ => schedulerFactory(this), cancellationToken);
+            return base.ScheduleRetryAsync(source, _ => sessionFactory(this), cancellationToken);
         }
     }
 }

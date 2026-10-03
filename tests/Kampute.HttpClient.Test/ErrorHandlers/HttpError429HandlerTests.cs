@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -39,10 +40,10 @@
             var actualResetTime = default(DateTimeOffset?);
             var tooManyRequestsHandler = new HttpError429Handler
             {
-                OnBackoffStrategy = (ctx, retryAfter) =>
+                OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualResetTime = retryAfter;
-                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
@@ -111,11 +112,11 @@
         }
 
         [Test]
-        public async Task On429Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
+        public async Task On429Response_WithCustomRetryPolicy_RetriesAccordingToCustomStrategy()
         {
             var tooManyRequestsHandler = new HttpError429Handler
             {
-                OnBackoffStrategy = (ctx, resetTime) => BackoffStrategies.Uniform(2, TimeSpan.Zero)
+                OnRetryPolicy = (ctx, resetTime) => RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
 

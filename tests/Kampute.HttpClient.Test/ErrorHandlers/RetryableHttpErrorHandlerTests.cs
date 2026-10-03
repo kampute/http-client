@@ -2,6 +2,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -58,10 +59,10 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             var handler = new HttpError503Handler
             {
                 MaxRetryDelay = TimeSpan.FromMinutes(1),
-                OnBackoffStrategy = (_, _) =>
+                OnRetryPolicy = (_, _) =>
                 {
                     strategyRequested = true;
-                    return RetryTestHelpers.MockBackoffStrategy(1, out _).Object;
+                    return RetryTestHelpers.MockRetryPolicy(1, out _).Object;
                 }
             };
             _client.ErrorHandlers.Add(handler);
@@ -84,7 +85,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             var handler = new HttpError503Handler
             {
                 MaxRetryDelay = TimeSpan.FromMinutes(1),
-                OnBackoffStrategy = (_, _) => RetryTestHelpers.MockBackoffStrategy(1, out _).Object
+                OnRetryPolicy = (_, _) => RetryTestHelpers.MockRetryPolicy(1, out _).Object
             };
             _client.ErrorHandlers.Add(handler);
 
@@ -101,7 +102,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             var handler = new HttpError503Handler
             {
                 MaxRetryDelay = null,
-                OnBackoffStrategy = (_, _) => RetryTestHelpers.MockBackoffStrategy(1, out _).Object
+                OnRetryPolicy = (_, _) => RetryTestHelpers.MockRetryPolicy(1, out _).Object
             };
             _client.ErrorHandlers.Add(handler);
 
@@ -117,7 +118,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         {
             var handler = new HttpError429Handler
             {
-                OnBackoffStrategy = (_, _) => RetryTestHelpers.MockBackoffStrategy(1, out _).Object
+                OnRetryPolicy = (_, _) => RetryTestHelpers.MockRetryPolicy(1, out _).Object
             };
             _client.ErrorHandlers.Add(handler);
 
@@ -140,7 +141,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         public async Task OnConnectionFailureThenRateLimit_RetriesAtSuggestedTime()
         {
             var suggestedDelay = TimeSpan.FromSeconds(1);
-            _client.BackoffStrategy = BackoffStrategies.Uniform(1, TimeSpan.Zero);
+            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
             _client.ErrorHandlers.Add(new HttpError429Handler());
 
             var attempts = 0;
@@ -172,10 +173,10 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
-        public async Task OnServiceUnavailableThenConnectionFailure_RetriesWithBackoffStrategy()
+        public async Task OnServiceUnavailableThenConnectionFailure_RetriesWithRetryPolicy()
         {
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
-            _client.BackoffStrategy = mockBackoffStrategy.Object;
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(1, out var mockRetrySession);
+            _client.RetryPolicy = mockRetryPolicy.Object;
             _client.ErrorHandlers.Add(new HttpError503Handler());
 
             var attempts = 0;
@@ -201,7 +202,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
                 Assert.That(attempts, Is.EqualTo(3));
             }
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 
         private Func<int> MockServiceUnavailable(TimeSpan retryAfter)

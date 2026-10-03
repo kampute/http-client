@@ -35,7 +35,7 @@ namespace Kampute.HttpClient
     /// If the <c>Accept</c> header is not predefined, the client dynamically adjusts it based on the configured formatters and the expected .NET object type.
     /// </para>
     /// <para>
-    /// Transient failures and network interruptions are managed via the <see cref="BackoffStrategy"/> property, which outlines retry logic and wait times
+    /// Transient failures and network interruptions are managed via the <see cref="RetryPolicy"/> property, which outlines retry logic and wait times
     /// between retries. This strategic approach helps avoid server overloads and improves communication success without excessive resource use.
     /// </para>
     /// <para>
@@ -61,7 +61,7 @@ namespace Kampute.HttpClient
         private readonly ScopedCollection<KeyValuePair<string, string?>> _scopedHeaders = new();
         private readonly ScopedCollection<KeyValuePair<string, object?>> _scopedProperties = new();
 
-        private IHttpBackoffProvider _backoffStrategy = BackoffStrategies.None;
+        private IHttpRetryPolicy _retryPolicy = HttpRetryPolicy.None;
         private Uri? _baseAddress;
 
         /// <summary>
@@ -170,26 +170,27 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets or sets the backoff strategy for handling transient connection failures during HTTP requests.
+        /// Gets or sets the retry policy for transient connection failures during HTTP requests.
         /// </summary>
         /// <value>
-        /// The backoff strategy for handling transient connection failures during HTTP requests.
+        /// The <see cref="IHttpRetryPolicy"/> that decides whether and when a request is retried after a transient connection failure.
         /// </value>
         /// <remarks>
         /// <para>
         /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines
         /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network
-        /// issues or temporary server unavailability. The default is <see cref="BackoffStrategies.None"/>.
+        /// issues or temporary server unavailability. The default is <see cref="HttpRetryPolicy.None"/>. To retry, assign a policy built from a retry strategy, such as
+        /// <c>RetryStrategies.Exponential(TimeSpan.FromSeconds(1)).WithMaxAttempts(5).ToHttpRetryPolicy()</c>.
         /// </para>
         /// <para>
-        /// The retry budget of this strategy covers connection failures only. Each error handler that retries error responses keeps its own
-        /// budget for the same request, so a request that fails in several ways can be retried more times in total than this strategy allows.
+        /// The retry budget of this policy covers connection failures only. Each error handler that retries error responses keeps its own
+        /// budget for the same request, so a request that fails in several ways can be retried more times in total than this policy allows.
         /// </para>
         /// </remarks>
-        public IHttpBackoffProvider BackoffStrategy
+        public IHttpRetryPolicy RetryPolicy
         {
-            get => _backoffStrategy;
-            set => _backoffStrategy = value ?? BackoffStrategies.None;
+            get => _retryPolicy;
+            set => _retryPolicy = value ?? HttpRetryPolicy.None;
         }
 
         /// <summary>
@@ -436,7 +437,7 @@ namespace Kampute.HttpClient
         /// This method is responsible for sending the HTTP request and optionally retrying it under specific failure conditions. The decision to retry a request is based
         /// on the nature of the failure, with potential consultation of external retry logic mechanisms.
         /// </remarks>
-        /// <seealso cref="BackoffStrategy"/>
+        /// <seealso cref="RetryPolicy"/>
         /// <seealso cref="ErrorHandlers"/>
         protected virtual Task<HttpResponseMessage> DispatchWithRetriesAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
         {
@@ -565,12 +566,12 @@ namespace Kampute.HttpClient
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/>, indicating whether to retry the request or that the error is unrecoverable.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="error"/>, <paramref name="request"/> or <paramref name="retryState"/> is <see langword="null"/>.</exception>
         /// <remarks>
-        /// This method assesses transient network issues, leveraging backoff strategies specified by <see cref="BackoffStrategy"/>. It returns an
+        /// This method assesses transient network issues, using the retry policy specified by <see cref="RetryPolicy"/>. It returns an
         /// <see cref="HttpErrorHandlerResult"/> that guides the next steps, either to retry the request with potentially modified parameters or
         /// to handle the error as unrecoverable. An override that creates its own <see cref="HttpRequestErrorContext"/> passes <paramref name="retryState"/>
         /// to it, so that the retry budgets are kept across the attempts of the call.
         /// </remarks>
-        /// <seealso cref="BackoffStrategy"/>
+        /// <seealso cref="RetryPolicy"/>
         protected virtual Task<HttpErrorHandlerResult> DecideOnRetryAsync
         (
             HttpRequestException error,
@@ -580,7 +581,7 @@ namespace Kampute.HttpClient
         )
         {
             var ctx = new HttpRequestErrorContext(this, request, error, retryState);
-            return ctx.ScheduleRetryAsync(this, BackoffStrategy.CreateScheduler, cancellationToken);
+            return ctx.ScheduleRetryAsync(this, RetryPolicy.CreateSession, cancellationToken);
         }
 
         /// <summary>

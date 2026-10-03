@@ -4,6 +4,7 @@
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.TestSupport;
     using Kampute.HttpClient.Utilities;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -243,13 +244,13 @@
         }
 
         [Test]
-        public async Task OnConnectionFailure_UsesBackoffStrategy()
+        public async Task OnConnectionFailure_UsesRetryPolicy()
         {
             var maxRetries = 2;
 
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(maxRetries, out var mockRetryScheduler);
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(maxRetries, out var mockRetrySession);
 
-            _client.BackoffStrategy = mockBackoffStrategy.Object;
+            _client.RetryPolicy = mockRetryPolicy.Object;
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -265,19 +266,19 @@
 
             await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
 
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
+            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
         }
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public async Task OnConnectionFailure_WithCompressedContent_UsesBackoffStrategy(string encoding)
+        public async Task OnConnectionFailure_WithCompressedContent_UsesRetryPolicy(string encoding)
         {
             var maxRetries = 2;
 
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(maxRetries, out var mockRetryScheduler);
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(maxRetries, out var mockRetrySession);
 
-            _client.BackoffStrategy = mockBackoffStrategy.Object;
+            _client.RetryPolicy = mockRetryPolicy.Object;
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -312,14 +313,14 @@
 
             await _client.SendAsync(TestHttpMethod, "/test", compressedPayload);
 
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
+            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
         }
 
         [Test]
-        public async Task OnTimeoutCancellation_UsesBackoffStrategy()
+        public async Task OnTimeoutCancellation_UsesRetryPolicy()
         {
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(1, out var mockRetrySession);
 
             var attempts = 0;
             using var testHandler = new TestHttpMessageHandler
@@ -346,12 +347,12 @@
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
-            timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
+            timedOutClient.RetryPolicy = mockRetryPolicy.Object;
 
             using var response = await timedOutClient.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
 
-            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Once);
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Once);
+            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -370,7 +371,7 @@
                 : new HttpResponseMessage(HttpStatusCode.OK));
 
             using var httpClient = new HttpClient(_mockMessageHandler.Object, false);
-            using var client = new RetryOnAnyErrorClient(httpClient, BackoffStrategies.Uniform(2, TimeSpan.Zero))
+            using var client = new RetryOnAnyErrorClient(httpClient, RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy())
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
@@ -384,7 +385,7 @@
             }
         }
 
-        private sealed class RetryOnAnyErrorClient(HttpClient httpClient, IHttpBackoffProvider backoff) : HttpRestClient(httpClient)
+        private sealed class RetryOnAnyErrorClient(HttpClient httpClient, IHttpRetryPolicy backoff) : HttpRestClient(httpClient)
         {
             protected override Task<HttpErrorHandlerResult> DecideOnRetryAsync
             (
@@ -396,15 +397,15 @@
             )
             {
                 var ctx = new HttpResponseErrorContext(this, request, response, error, retryState);
-                return ctx.ScheduleRetryAsync(this, backoff.CreateScheduler, cancellationToken);
+                return ctx.ScheduleRetryAsync(this, backoff.CreateSession, cancellationToken);
             }
         }
 
         [Test]
-        public void OnCallerCancellation_DoesNotUseBackoffStrategy()
+        public void OnCallerCancellation_DoesNotUseRetryPolicy()
         {
-            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
-            _client.BackoffStrategy = mockBackoffStrategy.Object;
+            var mockRetryPolicy = new Mock<IHttpRetryPolicy>();
+            _client.RetryPolicy = mockRetryPolicy.Object;
 
             var attempts = 0;
             using var cancellationTokenSource = new CancellationTokenSource();
@@ -421,7 +422,7 @@
                 async () => await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"), cancellationToken: cancellationTokenSource.Token)
             );
 
-            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Never);
+            mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Never);
             Assert.That(attempts, Is.EqualTo(1));
         }
 

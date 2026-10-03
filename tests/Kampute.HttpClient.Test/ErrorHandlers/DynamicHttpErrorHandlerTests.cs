@@ -2,6 +2,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -59,11 +60,11 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         public void OnErrorResponse_WithHandBuiltRetryRequest_KeepsRetryBudget()
         {
             const int maxAttempts = 10;
-            var backoff = BackoffStrategies.Uniform(2, TimeSpan.Zero);
+            var backoff = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
 
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler(async (ctx, ct) =>
             {
-                var decision = await ctx.ScheduleRetryAsync(backoff, backoff.CreateScheduler, ct);
+                var decision = await ctx.ScheduleRetryAsync(backoff, backoff.CreateSession, ct);
                 if (decision.RequestToRetry is null)
                     return decision;
 
@@ -88,7 +89,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         [Test]
         public async Task OnErrorResponse_WithHandBuiltRetryRequestReusingOriginalContent_SendsOriginalBodyOnLaterRetries()
         {
-            _client.BackoffStrategy = BackoffStrategies.Uniform(1, TimeSpan.Zero);
+            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
             {
                 var retryRequest = new HttpRequestMessage(ctx.Request.Method, ctx.Request.RequestUri) { Content = ctx.Request.Content };
@@ -109,7 +110,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         [Test]
         public async Task OnErrorResponse_WithHandBuiltRetryRequestWithNewContent_SendsNewBodyOnLaterRetries()
         {
-            _client.BackoffStrategy = BackoffStrategies.Uniform(1, TimeSpan.Zero);
+            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
             {
                 var retryRequest = new HttpRequestMessage(ctx.Request.Method, ctx.Request.RequestUri) { Content = new StringContent("replacement") };

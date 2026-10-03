@@ -25,9 +25,9 @@ array of functionalities to address the complexities of web service consumption.
   allowing for response status code-specific handling. Developers can craft and utilize custom `IHttpErrorHandler` implementations to address distinct HTTP errors
   directly, facilitating the development of refined retry strategies and precise error responses tailored to specific needs.
 
-- **Retry Strategies with Backoff Mechanisms:**
-  Implements backoff strategies to handle transient failures and network interruptions effectively. These strategies, configurable via the `BackoffStrategy`
-  property, ensure resilient communication by dictating the logic for retrying requests, thereby preventing server overload and optimizing resource use.
+- **Retry Policies with Backoff Mechanisms:**
+  Retries requests after transient failures and network interruptions, with delays that a retry strategy sets. The `RetryPolicy` property and the error
+  handlers take policies built from the strategies of the `Kampute.Retry` package, which prevents server overload and optimizes resource use.
 
 - **Modular Content Processing:**
   Supports extendable content formats for seamless integration with common and custom content types. It uses a collection of content formatters that
@@ -150,11 +150,12 @@ cleared once the scope is exited. This feature enhances the adaptability of your
 ### Custom Retry Strategies
 
 The library offers various retry strategies to manage transient failures, ensuring your application remains resilient during network instability or temporary
-service unavailability. The example below demonstrates how to apply a Fibonacci backoff strategy, which gradually increases the delay between retries, balancing
+service unavailability. The example below demonstrates how to apply a Fibonacci retry strategy, which gradually increases the delay between retries, balancing
 the need to retry soon against the need to wait longer as the number of attempts increases.
 
 ```csharp
 using Kampute.HttpClient;
+using Kampute.Retry;
 
 // Create a new instance of the HttpRestClient
 using var client = new HttpRestClient();
@@ -163,8 +164,12 @@ using var client = new HttpRestClient();
 // The Fibonacci strategy will retry up to 5 times
 // with an initial delay of 1 second between retries
 // and delay increases following the Fibonacci sequence for subsequent retries.
-client.BackoffStrategy = BackoffStrategies.Fibonacci(maxAttempts: 5, initialDelay: TimeSpan.FromSeconds(1));
+client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1))
+    .WithMaxAttempts(5)
+    .ToHttpRetryPolicy();
 ```
+
+The strategies come from the `Kampute.Retry` package, which the client depends on. They can also retry operations that are not HTTP requests.
 
 ### Handling HTTP Errors
 

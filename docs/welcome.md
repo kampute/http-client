@@ -236,28 +236,40 @@ var created = await client.SendObjectAsync<Resource>(
 
 ## Retry Behavior
 
-Retry strategies help clients recover from transient connection failures without duplicating retry loops around every request. Set [`BackoffStrategy`](api/Kampute.HttpClient.HttpRestClient.html) to choose how long the client waits between attempts.
+Retry policies help clients recover from transient connection failures without duplicating retry loops around every request. Set [`RetryPolicy`](api/Kampute.HttpClient.HttpRestClient.html) to choose whether and how long the client waits between attempts. The default, [`HttpRetryPolicy.None`](api/Kampute.HttpClient.HttpRetryPolicy.html), does not retry.
 
 ```csharp
 using Kampute.HttpClient;
+using Kampute.Retry;
 
 using var client = new HttpRestClient();
 
-client.BackoffStrategy = BackoffStrategies.Fibonacci(
-    maxAttempts: 5,
-    initialDelay: TimeSpan.FromSeconds(1));
+client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1))
+    .WithMaxAttempts(5)
+    .ToHttpRetryPolicy();
 ```
 
-Built-in strategies include:
+A policy is built from a retry strategy of the [`Kampute.Retry`](api/Kampute.Retry.html) package, which the client depends on. [`RetryStrategies`](api/Kampute.Retry.RetryStrategies.html) creates the built-in strategies:
 
-- [`BackoffStrategies.None`](api/Kampute.HttpClient.BackoffStrategies.html) for no retry delay.
-- [`BackoffStrategies.Once()`](api/Kampute.HttpClient.BackoffStrategies.html) for a single retry after a delay.
-- [`BackoffStrategies.Uniform()`](api/Kampute.HttpClient.BackoffStrategies.html) for a fixed delay.
-- [`BackoffStrategies.Linear()`](api/Kampute.HttpClient.BackoffStrategies.html) for linearly increasing delays.
-- [`BackoffStrategies.Exponential()`](api/Kampute.HttpClient.BackoffStrategies.html) for exponential backoff.
-- [`BackoffStrategies.Fibonacci()`](api/Kampute.HttpClient.BackoffStrategies.html) for gradually increasing delays.
+- `None` for no retry.
+- `Once()` for a single retry after a delay.
+- `Uniform()` for a fixed delay.
+- `Linear()` for linearly increasing delays.
+- `Fibonacci()` for delays that grow with the Fibonacci sequence.
+- `Exponential()` for exponential backoff.
 
-Retry strategies can be combined with limits and jitter where appropriate for the API you are calling.
+Except for `None` and `Once()`, they retry without limit. Chain `WithMaxAttempts()`, `WithTimeout()` and `WithJitter()` in any combination to limit them and to spread their delays. To choose the strategy from the failure, use [`HttpRetryPolicy.Dynamic()`](api/Kampute.HttpClient.HttpRetryPolicy.html).
+
+The same strategies retry any operation, not only HTTP requests:
+
+```csharp
+using Kampute.Retry;
+
+await RetryStrategies.Exponential(TimeSpan.FromSeconds(1))
+    .WithMaxAttempts(5)
+    .ExecuteAsync(ct => CopyFileAsync(source, target, ct),
+        retryOn: ex => ex is IOException, cancellationToken);
+```
 
 ## HTTP Error Handling
 

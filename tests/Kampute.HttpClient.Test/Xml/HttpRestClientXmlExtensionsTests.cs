@@ -3,6 +3,7 @@ namespace Kampute.HttpClient.Test.Xml
     using Kampute.HttpClient;
     using Kampute.HttpClient.TestSupport;
     using Kampute.HttpClient.Xml;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -137,7 +138,7 @@ namespace Kampute.HttpClient.Test.Xml
             var maxRetries = 2;
             var attempts = 0;
 
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform((uint)maxRetries, TimeSpan.Zero);
+            _restClient.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts((uint)maxRetries).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
@@ -173,7 +174,7 @@ namespace Kampute.HttpClient.Test.Xml
             var attempts = 0;
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
+            _restClient.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse((request, cancellationToken) =>
             {
@@ -203,10 +204,10 @@ namespace Kampute.HttpClient.Test.Xml
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public async Task SendAsync_OnTimeoutCancellation_WithCompressedXmlContent_UsesBackoffStrategy(string encoding)
+        public async Task SendAsync_OnTimeoutCancellation_WithCompressedXmlContent_UsesRetryPolicy(string encoding)
         {
             var payload = new PlainModel { Name = "XML Test" };
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(1, out var mockRetrySession);
 
             var attempts = 0;
             using var testHandler = new TestHttpMessageHandler
@@ -238,15 +239,15 @@ namespace Kampute.HttpClient.Test.Xml
                 BaseAddress = new Uri("http://api.test.com/xml"),
             };
             timedOutClient.UseXml();
-            timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
+            timedOutClient.RetryPolicy = mockRetryPolicy.Object;
 
             using var content = new XmlContent(payload);
             using var compressedContent = CompressContent(content, encoding);
 
             using var response = await timedOutClient.SendAsync(HttpMethod.Post, "/resource", compressedContent);
 
-            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Once);
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Once);
+            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));

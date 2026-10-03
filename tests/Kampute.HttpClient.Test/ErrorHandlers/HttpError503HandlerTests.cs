@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Retry;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -40,10 +41,10 @@
             var actualRetryTime = default(DateTimeOffset?);
             var serviceUnavailableHandler = new HttpError503Handler
             {
-                OnBackoffStrategy = (ctx, retryAfter) =>
+                OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
@@ -74,10 +75,10 @@
             var actualRetryTime = default(DateTimeOffset?);
             var serviceUnavailableHandler = new HttpError503Handler
             {
-                OnBackoffStrategy = (ctx, retryAfter) =>
+                OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
@@ -106,7 +107,7 @@
         {
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
-            _client.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
+            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -147,11 +148,11 @@
         }
 
         [Test]
-        public async Task On503Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
+        public async Task On503Response_WithCustomRetryPolicy_RetriesAccordingToCustomStrategy()
         {
             var serviceUnavailableHandler = new HttpError503Handler
             {
-                OnBackoffStrategy = (ctx, retryAfter) => BackoffStrategies.Uniform(2, TimeSpan.Zero)
+                OnRetryPolicy = (ctx, retryAfter) => RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 

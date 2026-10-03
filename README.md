@@ -220,9 +220,9 @@ using Kampute.HttpClient.Xml;
 // Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
 
-// Configure the client to accept JSON responses, using the Newtonsoft.Json library.
-// This is an extension method provided by the Kampute.HttpClient.NewtonsoftJson package
-client.AcceptJson();
+// Configure the client to read and write JSON, using the Newtonsoft.Json library.
+// This is an extension method provided by the Kampute.HttpClient.NewtonsoftJson package.
+client.UseNewtonsoftJson();
 
 // Configure the client to read and write XML. Types marked with [DataContract] use
 // DataContractSerializer, and other types use XmlSerializer.

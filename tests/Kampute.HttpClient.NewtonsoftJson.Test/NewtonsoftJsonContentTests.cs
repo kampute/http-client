@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class JsonContentTests
+    public class NewtonsoftJsonContentTests
     {
         [Test]
         public async Task SetsContentCorrectly()
@@ -13,7 +13,7 @@
             var model = new TestModel { Name = "Test" };
             var expectedString = model.ToJsonString();
 
-            using var jsonContent = new JsonContent(model) { Settings = TestModel.JsonSettings };
+            using var jsonContent = new NewtonsoftJsonContent(model) { Settings = TestModel.JsonSettings };
 
             var jsonString = await jsonContent.ReadAsStringAsync();
 

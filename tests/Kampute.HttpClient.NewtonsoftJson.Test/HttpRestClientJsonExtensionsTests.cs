@@ -4,12 +4,14 @@
     using Kampute.HttpClient.TestSupport;
     using Moq;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using NUnit.Framework;
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Sockets;
-    using System.Runtime.CompilerServices;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using static Kampute.HttpClient.TestSupport.CompressedContentHelpers;
@@ -35,8 +37,7 @@
             {
                 BaseAddress = new Uri("http://api.test.com/json"),
             };
-            _restClient.AcceptJson(TestModel.JsonSettings);
-            _restClient.SetJsonSerializerSettings(TestModel.JsonSettings);
+            _restClient.UseNewtonsoftJson(TestModel.JsonSettings);
         }
 
         [TearDown]
@@ -156,7 +157,7 @@
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             });
 
-            using var content = new JsonContent(payload)
+            using var content = new NewtonsoftJsonContent(payload)
             {
                 Settings = TestModel.JsonSettings
             };
@@ -192,7 +193,7 @@
                 throw new OperationCanceledException(cancellationToken);
             });
 
-            using var content = new JsonContent(payload)
+            using var content = new NewtonsoftJsonContent(payload)
             {
                 Settings = TestModel.JsonSettings
             };
@@ -242,10 +243,10 @@
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
-            timedOutClient.AcceptJson();
+            timedOutClient.UseNewtonsoftJson();
             timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
 
-            using var content = new JsonContent(payload)
+            using var content = new NewtonsoftJsonContent(payload)
             {
                 Settings = TestModel.JsonSettings
             };
@@ -263,57 +264,92 @@
         }
 
         [Test]
-        public void SetJsonSerializerSettings_WithValue_IsReturnedByGetJsonSerializerSettings()
+        public void UseNewtonsoftJson_RegistersOneFormatterAndUpdatesItsSettings()
         {
-            using var client = new HttpRestClient(new HttpClient());
-            var value = new JsonSerializerSettings();
+            var settings = new JsonSerializerSettings();
 
-            client.SetJsonSerializerSettings(value);
+            var formatter = _restClient.UseNewtonsoftJson(settings);
 
-            Assert.That(client.GetJsonSerializerSettings(), Is.SameAs(value));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(formatter.Settings, Is.SameAs(settings));
+                Assert.That(_restClient.ContentFormatters.OfType<NewtonsoftJsonFormatter>().Single(), Is.SameAs(formatter));
+            }
         }
 
         [Test]
-        public void SetJsonSerializerSettings_WithNull_RemovesSettings()
+        public async Task UseNewtonsoftJson_SettingsApplyToRequestAndResponse()
         {
-            using var client = new HttpRestClient(new HttpClient());
-            client.SetJsonSerializerSettings(new JsonSerializerSettings());
+            _restClient.UseNewtonsoftJson(new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver(), MissingMemberHandling = MissingMemberHandling.Error });
+            var sentBody = default(string);
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBody = request.Content!.ReadAsStringAsync().Result;
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"name\":\"Echo\"}", Encoding.UTF8, MediaTypeNames.Application.Json),
+                };
+            });
 
-            client.SetJsonSerializerSettings(null);
+            var result = await _restClient.PostAsJsonAsync<TestModel>("/echo", new TestModel { Name = "JSON Test" });
 
-            Assert.That(client.GetJsonSerializerSettings(), Is.Null);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(sentBody, Is.EqualTo("{\"name\":\"JSON Test\"}"));
+                Assert.That(result, Is.EqualTo(new TestModel { Name = "Echo" }));
+            }
         }
 
         [Test]
-        public void SetJsonSerializerSettings_WhenClientIsDisposed_RemovesSettings()
+        public async Task PostAsJsonAsync_WithoutRegistration_SendsWithDefaultSettings()
         {
-            var client = new HttpRestClient(new HttpClient());
-            client.SetJsonSerializerSettings(new JsonSerializerSettings());
+            using var client = new HttpRestClient(new HttpClient(_mockMessageHandler.Object, false))
+            {
+                BaseAddress = new Uri("http://api.test.com/json"),
+            };
+            var sentBody = default(string);
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBody = request.Content!.ReadAsStringAsync().Result;
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            });
 
-            client.Dispose();
+            await client.PostAsJsonAsync("/models", new TestModel { Name = "JSON Test" });
 
-            Assert.That(client.GetJsonSerializerSettings(), Is.Null);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(sentBody, Is.EqualTo(new TestModel { Name = "JSON Test" }.ToJsonString()));
+                Assert.That(client.ContentFormatters, Is.Empty);
+            }
         }
 
         [Test]
-        public void SetJsonSerializerSettings_DoesNotKeepClientAlive()
+        public void PostAsJsonAsync_WithNullPayload_ThrowsBeforeReturningTask()
         {
-            var clientReference = CreateUnreferencedClientWithSettings();
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-
-            Assert.That(clientReference.IsAlive, Is.False);
+            Assert.Throws<ArgumentNullException>(() => _restClient.PostAsJsonAsync("/models", null!));
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static WeakReference CreateUnreferencedClientWithSettings()
+        [Test]
+        public async Task PostAsJsonAsync_WithBothJsonFormattersRegistered_EachPackageUsesItsOwnFormatter()
         {
-            var client = new HttpRestClient(new HttpClient());
-            client.SetJsonSerializerSettings(new JsonSerializerSettings());
-            return new WeakReference(client);
-        }
+            using var client = new HttpRestClient(new HttpClient(_mockMessageHandler.Object, false))
+            {
+                BaseAddress = new Uri("http://api.test.com/json"),
+            };
+            Kampute.HttpClient.Json.HttpRestClientJsonExtensions.UseJson(client, new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase });
+            client.UseNewtonsoftJson(new JsonSerializerSettings { ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() } });
+            var sentBodies = new System.Collections.Generic.List<string>();
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBodies.Add(request.Content!.ReadAsStringAsync().Result);
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            });
+            var payload = new { FullName = "JSON Test" };
 
+            await Kampute.HttpClient.Json.HttpRestClientJsonExtensions.PostAsJsonAsync(client, "/models", payload);
+            await client.PostAsJsonAsync("/models", payload);
+
+            Assert.That(sentBodies, Is.EqualTo(new[] { "{\"fullName\":\"JSON Test\"}", "{\"full_name\":\"JSON Test\"}" }));
+        }
     }
 }

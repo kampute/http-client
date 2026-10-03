@@ -66,7 +66,7 @@ using Kampute.HttpClient.Xml;
 
 using var client = new HttpRestClient();
 
-client.AcceptJson();
+client.UseNewtonsoftJson();
 client.UseXml();
 
 var result = await client.GetAsync<MyResource>("https://api.example.com/resource");

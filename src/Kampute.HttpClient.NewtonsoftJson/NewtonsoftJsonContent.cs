@@ -17,18 +17,18 @@ namespace Kampute.HttpClient.NewtonsoftJson
     /// <summary>
     /// Represents HTTP content based on JSON serialized from an object.
     /// </summary>
-    public sealed class JsonContent : HttpContent
+    public sealed class NewtonsoftJsonContent : HttpContent
     {
         private static readonly Encoding utf8WithoutMarker = new UTF8Encoding(false);
 
         private readonly object _content;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonContent"/> class.
+        /// Initializes a new instance of the <see cref="NewtonsoftJsonContent"/> class.
         /// </summary>
         /// <param name="content">The object to be serialized into JSON format.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> is <see langword="null"/>.</exception>
-        public JsonContent(object content)
+        public NewtonsoftJsonContent(object content)
         {
             _content = content ?? throw new ArgumentNullException(nameof(content));
 

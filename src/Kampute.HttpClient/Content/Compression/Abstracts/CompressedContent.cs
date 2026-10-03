@@ -44,7 +44,7 @@
         protected sealed override async Task SerializeToStreamAsync(Stream stream, TransportContext context)
         {
             using var compressionStream = CompressStream(stream);
-            await OriginalContent.CopyToAsync(compressionStream);
+            await OriginalContent.CopyToAsync(compressionStream).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -123,7 +123,7 @@
 
             using var propertyScope = _properties is not null ? Client.BeginPropertyScope(_properties) : null;
             using var headerScope = _headers is not null ? Client.BeginHeaderScope(_headers) : null;
-            await scopedAction(Client);
+            await scopedAction(Client).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@
 
             using var propertyScope = _properties is not null ? Client.BeginPropertyScope(_properties) : null;
             using var headerScope = _headers is not null ? Client.BeginHeaderScope(_headers) : null;
-            return await scopedFunction(Client);
+            return await scopedFunction(Client).ConfigureAwait(false);
         }
     }
 }

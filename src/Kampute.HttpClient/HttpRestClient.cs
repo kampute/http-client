@@ -814,9 +814,11 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Raises the <see cref="Disposing"/> event.
         /// </summary>
+        /// <remarks>
         /// This method is called as part of the disposal process of the <see cref="HttpRestClient"/> instance, specifically
         /// just before the client starts releasing its resources. It triggers the <see cref="Disposing"/> event, allowing
         /// subscribed entities to perform any necessary cleanup actions before the client is fully disposed.
+        /// </remarks>
         protected virtual void OnDisposing()
         {
             Disposing?.Invoke(this, EventArgs.Empty);

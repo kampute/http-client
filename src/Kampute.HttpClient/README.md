@@ -1,262 +1,34 @@
 # Kampute.HttpClient
 
-`Kampute.HttpClient` is a .NET library designed to simplify HTTP communication with RESTful APIs by enhancing the native `HttpClient` capabilities.
-Tailored for developers seeking a potent yet flexible HTTP client for API integration within .NET applications, it combines ease of use with a wide
-array of functionalities to address the complexities of web service consumption.
+A .NET REST client built on `HttpClient`, with shared connections, scoped headers and properties, configurable retries, error handlers, and request/response events.
 
-## Key Features
-
-- **Shared HttpClient Instances:**
-  Facilitates the reuse of a single `HttpClient` instance across multiple `HttpRestClient` instances, promoting efficient resource and connection
-  management. This approach significantly boosts performance in scenarios involving concurrent access to multiple services or API endpoints.
-
-- **Flexible HttpClient Configuration:**
-  Allows the integration of custom or shared `HttpClient` instances, complete with configurations for message handlers, timeouts, and advanced authentication
-  mechanisms to fit specific application needs.
-
-- **Dynamic Request Customization:**
-  Offers the capability to define request headers and properties scoped to specific request blocks, allowing for temporary changes that do not affect the global
-  configuration. Scoped headers and properties ensure that modifications are contextually isolated, enhancing maintainability and reducing the risk of configuration
-  errors during runtime.
-
-- **Custom Error Handling and Exception Management:**
-  Converts HTTP response errors into detailed, meaningful exceptions, streamlining the process of interpreting API-specific errors with the aid of a customizable
-  error response type set through the `ResponseErrorType` property. Furthermore, it enhances flexibility in error management with the `ErrorHandlers` collection,
-  allowing for response status code-specific handling. Developers can craft and utilize custom `IHttpErrorHandler` implementations to address distinct HTTP errors
-  directly, facilitating the development of refined retry strategies and precise error responses tailored to specific needs.
-
-- **Retry Policies with Backoff Mechanisms:**
-  Retries requests after transient failures and network interruptions, with delays that a retry strategy sets. The `RetryPolicy` property and the error
-  handlers take policies built from the strategies of the `Kampute.Retry` package, which prevents server overload and optimizes resource use.
-
-- **Modular Content Processing:**
-  Supports extendable content formats for seamless integration with common and custom content types. It uses a collection of content formatters that
-  convert HTTP response content into .NET objects based on the response's `Content-Type`, write request payloads in a requested media type, and proactively
-  inform the service of the content types the client accepts by setting the appropriate `Accept` headers. This simplifies working with API requests and
-  responses, and aligns the expected response formats with the client’s capabilities.
-
-- **Streamlined Authentication and Authorization:**
-  Simplifies the process of integrating various authentication schemes and dynamic reauthorization, facilitating straightforward implementation of authentication
-  strategies.
-
-- **Request and Response Interception:**
-  Provides events such as `BeforeSendingRequest` and `AfterReceivingResponse` for executing custom logic before sending a request or after receiving a response.
-  This feature enables detailed request modification, response inspection, and logging, offering developers full control over the HTTP communication process.
-
-- **Asynchronous API for Enhanced Performance:**
-  Promotes fully asynchronous network operations with support for cancellation tokens, ensuring efficient management of long-running requests in line with modern
-  asynchronous programming practices in .NET.
-
-## Serialization Support
-
-By default, `Kampute.HttpClient` registers no content formatter. XML support is part of the core package, and JSON support comes from extension packages:
-
-- **XML, in `Kampute.HttpClient`**:
-  Call `UseXml()` from the `Kampute.HttpClient.Xml` namespace to read and write `application/xml`. Types marked with `[DataContract]` or `[CollectionDataContract]`
-  use `DataContractSerializer`, and all other types use `XmlSerializer`. To use one serializer for every type, set the formatter's `Serializer` to
-  `XmlSerializerKind.XmlSerializer` or `XmlSerializerKind.DataContractSerializer`.
-
-- **[Kampute.HttpClient.Json](https://www.nuget.org/packages/Kampute.HttpClient.Json)**:
-  Utilizes the `System.Text.Json` library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
-  with the .NET ecosystem.
-
-- **[Kampute.HttpClient.NewtonsoftJson](https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson)**:
-  Leverages the `Newtonsoft.Json` library for handling JSON content types, providing extensive customization options and compatibility with a vast number of JSON
-  features and formats.
-
-For content types that these packages do not cover, implement a content formatter: derive from `HttpContentFormatter`, pass the media types it reads and writes
-to its constructor, and add it to the client's `ContentFormatters` collection. The client then reads responses of those media types into .NET objects, and
-`SendObjectAsync` writes request payloads in them.
+[Documentation](https://kampute.github.io/http-client/) · [Getting started](https://kampute.github.io/http-client/overview/getting-started.html) · [API reference](https://kampute.github.io/http-client/api/Kampute.HttpClient.html)
 
 ## Installation
-
-Install `Kampute.HttpClient` via NuGet:
 
 ```shell
 dotnet add package Kampute.HttpClient
 ```
 
-## Usage Examples
+## Usage
 
-The examples below demonstrate how to use the library for common tasks.
-
-### Basic Usage
-
-To get started with `HttpRestClient`, simply instantiate it and use it to perform HTTP requests.
-
-```csharp
-using Kampute.HttpClient;
-using Kampute.HttpClient.Json;
-
-// Create a new instance of the HttpRestClient
-using var client = new HttpRestClient();
-
-// Configure the client to read and write JSON, using the System.Text.Json library.
-// This is an extension method provided by the Kampute.HttpClient.Json package.
-client.UseJson();
-
-// Perform a GET request.
-// The GetAsync<TResponse> method will automatically deserialize the JSON response
-// into the specified MyModel type.
-var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
-```
-
-### Scoped Request Headers
-
-In addition to setting default request headers that apply to all requests, you can define headers for a specific set of requests using a scoped approach. This feature
-allows for temporary modifications to headers that override default settings within a defined context. This is particularly useful for handling varying endpoint requirements
-or for testing scenarios.
-
-Below is an example that demonstrates how to temporarily override the `Accept` header for a series of requests, ensuring that all requests within the scope explicitly request
-a specific media type.
-
-```csharp
-using Kampute.HttpClient;
-
-// Create a new instance of the HttpRestClient.
-using var client = new HttpRestClient();
-
-string csv;
-
-// Begin a scoped block where the 'Accept' header is set to 'text/csv'.
-// All HTTP requests within this using block will include this 'Accept' header.
-using (client.BeginHeaderScope(new Dictionary<string, string> { ["Accept"] = MediaTypeNames.Text.Csv }))
-{
-    // Perform a GET request to retrieve data as CSV. The 'Accept' header for this request
-    // will be 'text/csv', as specified by the scoped header.
-    csv = await client.GetAsStringAsync("https://api.example.com/resource/csv");
-}
-```
-
-Alternatively, you can use the `WithScope` extension method to simplify the code as follows:
+Read a response as text without a content formatter. Replace the example URL with your API.
 
 ```csharp
 using Kampute.HttpClient;
 
 using var client = new HttpRestClient();
-
-var csv = await client
-    .WithScope()
-    .SetHeader("Accept", MediaTypeNames.Text.Csv)
-    .PerformAsync(scopedClient => scopedClient.GetAsStringAsync("https://api.example.com/resource/csv"));
+var text = await client.GetAsStringAsync("https://api.example.com/resource");
 ```
 
-### Scoped Request Properties
-
-Similar to headers, you can also scope request properties. This capability is invaluable in scenarios where you need to maintain state or context-specific information temporarily
-during a series of HTTP operations. Scoped properties work similarly to scoped headers, allowing developers to define temporary data attached to requests that are automatically
-cleared once the scope is exited. This feature enhances the adaptability of your HTTP interactions, especially in complex or state-dependent communication scenarios.
-
-### Custom Retry Strategies
-
-The library offers various retry strategies to manage transient failures, ensuring your application remains resilient during network instability or temporary
-service unavailability. The example below demonstrates how to apply a Fibonacci retry strategy, which gradually increases the delay between retries, balancing
-the need to retry soon against the need to wait longer as the number of attempts increases.
-
-```csharp
-using Kampute.HttpClient;
-using Kampute.Retry;
-
-// Create a new instance of the HttpRestClient
-using var client = new HttpRestClient();
-
-// Configure the client's retry mechanism.
-// The Fibonacci strategy will retry up to 5 times
-// with an initial delay of 1 second between retries
-// and delay increases following the Fibonacci sequence for subsequent retries.
-client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1))
-    .WithMaxAttempts(5)
-    .ToHttpRetryPolicy();
-```
-
-The strategies come from the `Kampute.Retry` package, which the client depends on. They can also retry operations that are not HTTP requests.
-
-### Handling HTTP Errors
-
-The library includes built-in handlers for managing common HTTP errors, streamlining the implementation of custom logic for error responses.
-Here's how to utilize the built-in '401 Unauthorized' error handler:
-
-```csharp
-using Kampute.HttpClient;
-using Kampute.HttpClient.ErrorHandlers;
-
-// Create an instance of the built-in '401 Unauthorized' error handler.
-// This handler defines the logic to handle unauthorized responses.
-using var unauthorizedErrorHandler = new HttpError401Handler(async (ctx, cancellationToken) =>
-{
-    // In this example, we're handling the unauthorized error by making a POST request to an
-    // authentication endpoint to obtain a new authentication token.
-    var auth = await ctx.Client.PostAsFormAsync<AuthToken>("https://api.example.com/auth",
-    [
-        KeyValuePair.Create("client_id", MY_APP_ID),
-        KeyValuePair.Create("client_secret", MY_APP_SECRET)
-    ], cancellationToken);
-
-    // Return a new AuthenticationHeaderValue with the obtained token.
-    // This will be used to include the authentication header in subsequent requests.
-    return new AuthenticationHeaderValue(AuthSchemes.Bearer, auth.Token);
-});
-
-// Create a new instance of the HttpRestClient
-using var client = new HttpRestClient();
-
-// Register the unauthorized error handler with the client.
-// This allows the client to handle '401 Unauthorized' responses automatically.
-client.ErrorHandlers.Add(unauthorizedErrorHandler);
-```
-
-Additionally, handling '503 Service Unavailable' and '429 Too Many Requests' errors is simplified with the built-in handler, ensuring your application can gracefully
-retry requests during service outages and rate limit encounters.
-
-### Handling Content Types
-
-XML support is built into the core package. For JSON, use one of the extension packages.
-
-In the example below, we assume that the `Kampute.HttpClient.NewtonsoftJson` package, which facilitates JSON content handling through the `Newtonsoft.Json`
-library, has been installed.
-
-```csharp
-using Kampute.HttpClient;
-using Kampute.HttpClient.NewtonsoftJson;
-using Kampute.HttpClient.Xml;
-
-// Create a new instance of the HttpRestClient.
-using var client = new HttpRestClient();
-
-// Configure the client to read and write JSON, using the Newtonsoft.Json library.
-// This is an extension method provided by the Kampute.HttpClient.NewtonsoftJson package.
-client.UseNewtonsoftJson();
-
-// Configure the client to read and write XML. Types marked with [DataContract] use
-// DataContractSerializer, and other types use XmlSerializer.
-client.UseXml();
-
-// Execute a GET request. The server may respond in either JSON or XML format.
-// The GetAsync<TResponse> method will automatically deserialize the response
-// into the specified MyResource type, based on the response content type (JSON or XML).
-var result = await client.GetAsync<MyResource>("https://api.example.com/resource");
-
-// Send a PATCH request with a payload in JSON format.
-// The PatchAsJsonAsync method is provided by the Kampute.HttpClient.NewtonsoftJson package.
-await client.PatchAsJsonAsync("https://api.example.com/resource", new { name = "new name" });
-
-// Send a POST request with a payload in XML format.
-// The PostAsXmlAsync method is provided by the core package, in the Kampute.HttpClient.Xml namespace.
-var newResource = new MyResource();
-await client.PostAsXmlAsync("https://api.example.com/resource", newResource);
-```
+The core package registers no content formatter. For typed responses, call `UseXml()` from `Kampute.HttpClient.Xml`, or install a JSON extension and register its formatter.
 
 ## Documentation
 
-Explore the `Kampute.HttpClient` library's [API Documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.html) for an in-depth understanding of its
-functionalities. You'll find detailed class references, method signatures, and descriptions of properties to guide your implementation and leverage the library's full
-potential.
-
-## Contributing
-
-Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new features, please open an issue
-first to discuss what you would like to change.
+- [Content formats](https://kampute.github.io/http-client/overview/content-formats.html): XML, JSON packages, and custom formatters.
+- [Request customization](https://kampute.github.io/http-client/overview/request-customization.html): temporary headers, properties, and events.
+- [Retries](https://kampute.github.io/http-client/overview/retries.html) and [error handling](https://kampute.github.io/http-client/overview/error-handling.html): connection failures and HTTP error responses.
 
 ## License
 
-`Kampute.HttpClient` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more details.
+[MIT License](LICENSE).

@@ -1,13 +1,12 @@
 # Kampute.HttpClient.NewtonsoftJson
 
-`Kampute.HttpClient.NewtonsoftJson` is an extension for the [`Kampute.HttpClient`](https://www.nuget.org/packages/Kampute.HttpClient)
-library, designed to enhance its functionality by providing support for handling `application/json` content types. This package leverages
-the `Newtonsoft.Json` for efficient serialization and deserialization of JSON data, simplifying the process of sending and receiving JSON
-payloads in RESTful API communications.
+JSON support for [Kampute.HttpClient](https://www.nuget.org/packages/Kampute.HttpClient), using `Newtonsoft.Json` to read responses and write request payloads.
+
+[Content formats guide](https://kampute.github.io/http-client/overview/content-formats.html) · [API reference](https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.html)
 
 ## Installation
 
-Install `Kampute.HttpClient.NewtonsoftJson` via NuGet:
+The package includes the core client as a dependency.
 
 ```shell
 dotnet add package Kampute.HttpClient.NewtonsoftJson
@@ -15,34 +14,26 @@ dotnet add package Kampute.HttpClient.NewtonsoftJson
 
 ## Usage
 
-To enable JSON processing capabilities in your `HttpRestClient` instance, simply import the `Kampute.HttpClient.NewtonsoftJson` namespace
-and use the provided extension methods.
+Register the JSON formatter before requesting a typed response. Replace the example URL with your API; this model assumes a response such as `{"Id":42,"Name":"Example"}`.
 
 ```csharp
 using Kampute.HttpClient;
 using Kampute.HttpClient.NewtonsoftJson;
 
-// Create a new instance of the HttpRestClient.
 using var client = new HttpRestClient();
-
-// Configure the client to read and write JSON.
 client.UseNewtonsoftJson();
 
-// Sending a JSON payload to an API endpoint.
-var payload = new MyPayload();
-var result = await client.PostAsJsonAsync<MyResult>("https://api.example.com/resource", payload);
+var resource = await client.GetAsync<Resource>("https://api.example.com/resource");
+
+public sealed class Resource
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+}
 ```
 
-## Documentation
-
-For details on how to utilize the `Kampute.HttpClient.NewtonsoftJson` extension, including class references, method signatures, and property
-descriptions, please refer to its [API Documentation](https://kampute.github.io/http-client/api/Kampute.HttpClient.NewtonsoftJson.html).
-
-## Contributing
-
-Contributions are welcomed! Please feel free to fork the repository, make changes, and submit pull requests. For major changes or new
-features, please open an issue first to discuss what you would like to change.
+Use `PostAsJsonAsync`, `PutAsJsonAsync`, or `PatchAsJsonAsync` to send JSON payloads. See [Sending requests](https://kampute.github.io/http-client/overview/sending-requests.html) for examples and [Content formats](https://kampute.github.io/http-client/overview/content-formats.html) for serializer configuration.
 
 ## License
 
-`Kampute.HttpClient.NewtonsoftJson` is licensed under the terms of the [MIT](LICENSE) license.
+[MIT License](LICENSE).

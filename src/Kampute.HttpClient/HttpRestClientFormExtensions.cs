@@ -5,6 +5,7 @@
 
 namespace Kampute.HttpClient
 {
+    using Kampute.HttpClient.Content;
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
@@ -44,10 +45,7 @@ namespace Kampute.HttpClient
             CancellationToken cancellationToken = default
         )
         {
-            if (payload is null)
-                throw new ArgumentNullException(nameof(payload));
-
-            return client.SendAsync<T>(method, uri, new FormUrlEncodedContent(payload), cancellationToken);
+            return client.SendObjectAsync<T>(method, uri, payload, client.ContentFormatters.FindOrDefault<FormUrlEncodedFormatter>(), cancellationToken);
         }
 
         /// <summary>
@@ -73,10 +71,7 @@ namespace Kampute.HttpClient
             CancellationToken cancellationToken = default
         )
         {
-            if (payload is null)
-                throw new ArgumentNullException(nameof(payload));
-
-            return HttpRestClientExtensions.ReleaseResponseAsync(client.SendAsync(method, uri, new FormUrlEncodedContent(payload), cancellationToken: cancellationToken));
+            return client.SendObjectAsync(method, uri, payload, client.ContentFormatters.FindOrDefault<FormUrlEncodedFormatter>(), cancellationToken);
         }
 
         /// <summary>

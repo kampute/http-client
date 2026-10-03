@@ -30,9 +30,9 @@ namespace Kampute.HttpClient
     /// that changes remain isolated to specific contexts, increasing maintainability and reducing configuration errors during runtime.
     /// </para>
     /// <para>
-    /// It includes a <see cref="ResponseDeserializers"/> collection that automatically deserializes HTTP response content into .NET objects based on the
-    /// response's <c>Content-Type</c>. If the <c>Accept</c> header is not predefined, the client dynamically adjusts it based on the configured response
-    /// deserializers and the expected .NET object type.
+    /// It includes a <see cref="ContentFormatters"/> collection that converts between .NET objects and HTTP content: it reads response content into
+    /// .NET objects based on the response's <c>Content-Type</c>, and writes the payloads of <see cref="HttpRestClientExtensions.SendObjectAsync{T}(HttpRestClient, HttpMethod, string, object, string, CancellationToken)"/>.
+    /// If the <c>Accept</c> header is not predefined, the client dynamically adjusts it based on the configured formatters and the expected .NET object type.
     /// </para>
     /// <para>
     /// Transient failures and network interruptions are managed via the <see cref="BackoffStrategy"/> property, which outlines retry logic and wait times
@@ -225,17 +225,22 @@ namespace Kampute.HttpClient
         public HttpErrorHandlerCollection ErrorHandlers { get; } = [];
 
         /// <summary>
-        /// Gets the mutable collection of HTTP content deserializers used for deserializing response content.
+        /// Gets the mutable collection of content formatters that read response content and write request payloads.
         /// </summary>
         /// <value>
-        /// The mutable collection of HTTP content deserializers used for deserializing response content.
+        /// The mutable collection of <see cref="IHttpContentFormatter"/> instances of this client.
         /// </value>
         /// <remarks>
-        /// This property provides access to a collection of <see cref="IHttpContentDeserializer"/> instances that are used to
-        /// deserialize the content of HTTP responses. The deserializers in this list are tried in order to deserialize the response
-        /// content into .NET objects.
+        /// <para>
+        /// The formatters are tried in order. The first one that can read the media type of a response into the expected .NET type reads it, and the
+        /// media types they can read feed the <c>Accept</c> header of requests that do not set one. The first one that can write a payload in the
+        /// requested media type writes the payloads of <see cref="HttpRestClientExtensions.SendObjectAsync{T}(HttpRestClient, HttpMethod, string, object, string, CancellationToken)"/>.
+        /// </para>
+        /// <para>
+        /// The collection is empty initially. Format packages register their formatters with extension methods such as <c>UseJson</c>.
+        /// </para>
         /// </remarks>
-        public HttpContentDeserializerCollection ResponseDeserializers { get; } = [];
+        public HttpContentFormatterCollection ContentFormatters { get; } = [];
 
         /// <summary>
         ///  Gets the headers which should be sent with each request.
@@ -697,10 +702,11 @@ namespace Kampute.HttpClient
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="response"/> or <paramref name="objectType"/> is <see langword="null"/>.</exception>
         /// <exception cref="HttpContentException">Thrown when the response body is empty, the content type is unsupported, or parsing the response fails.</exception>
         /// <remarks>
-        /// This method uses configured content deserializers for content deserialization and supports custom content types. In case of deserialization
-        /// failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about the parsing error.
+        /// This method reads the content with the first formatter in <see cref="ContentFormatters"/> that can read its media type into <paramref name="objectType"/>.
+        /// In case of deserialization failures, an <see cref="HttpContentException"/> is thrown, which may contain an inner exception providing more details about
+        /// the parsing error.
         /// </remarks>
-        /// <seealso cref="ResponseDeserializers"/>
+        /// <seealso cref="ContentFormatters"/>
         protected virtual Task<object?> DeserializeContentAsync(HttpResponseMessage response, Type objectType, CancellationToken cancellationToken)
         {
             if (response is null)
@@ -726,12 +732,12 @@ namespace Kampute.HttpClient
             var mediaType = (response.Content.Headers.ContentType?.MediaType)
                 ?? throw Error("The media type of the response is unspecified.");
 
-            var deserializer = ResponseDeserializers.GetDeserializerFor(mediaType, objectType)
-                ?? throw Error($"Unable to deserialize response body due to the absence of a matching deserializer for '{mediaType}' media type.");
+            var formatter = ContentFormatters.GetReaderFor(mediaType, objectType)
+                ?? throw Error($"Unable to deserialize response body due to the absence of a content formatter that reads '{mediaType}' media type.");
 
             try
             {
-                return await deserializer.DeserializeAsync(response.Content, objectType, cancellationToken).ConfigureAwait(false);
+                return await formatter.ReadAsync(response.Content, objectType, cancellationToken).ConfigureAwait(false);
             }
             catch (OperationCanceledException)
             {
@@ -771,8 +777,8 @@ namespace Kampute.HttpClient
         /// to ensure that context-specific modifications are respected.
         /// </para>
         /// <para>
-        /// If an <c>Accept</c> header is absent in both default and scoped headers, it is added based on the media types supported by the content deserializers
-        /// for the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <see langword="null"/>, the header defaults to accepting all
+        /// If an <c>Accept</c> header is absent in both default and scoped headers, it is added based on the media types that the content formatters can read
+        /// into the specified <paramref name="responseObjectType"/>. If <paramref name="responseObjectType"/> is <see langword="null"/>, the header defaults to accepting all
         /// media types ("*/*").
         /// </para>
         /// <para>
@@ -832,7 +838,7 @@ namespace Kampute.HttpClient
 
                 if (!request.Headers.Contains(nameof(HttpRequestHeader.Accept)))
                 {
-                    foreach (var mediaType in ResponseDeserializers.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
+                    foreach (var mediaType in ContentFormatters.GetAcceptableMediaTypes(responseObjectType, ResponseErrorType))
                         request.Headers.Accept.Add(MediaTypeHeaderValueStore.Get(mediaType));
                 }
             }

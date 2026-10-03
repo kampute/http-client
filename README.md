@@ -32,10 +32,10 @@ to address the complexities of web service consumption.
   property, ensure resilient communication by dictating the logic for retrying requests, thereby preventing server overload and optimizing resource use.
 
 - **Modular Content Processing:**
-  Supports extendable serialization/deserialization modules for seamless integration with common and custom content types. It uses a collection of response
-  deserializers that automatically convert HTTP response content into .NET objects based on the response's `Content-Type`, and proactively informs the service
-  of the content types it is configured to accept by setting the appropriate `Accept` headers. This dual-functionality simplifies the process of working with
-  API responses and ensures seamless data integration by aligning expected response formats with the client’s capabilities.
+  Supports extendable content formats for seamless integration with common and custom content types. It uses a collection of content formatters that
+  convert HTTP response content into .NET objects based on the response's `Content-Type`, write request payloads in a requested media type, and proactively
+  inform the service of the content types the client accepts by setting the appropriate `Accept` headers. This simplifies working with API requests and
+  responses, and aligns the expected response formats with the client’s capabilities.
 
 - **Streamlined Authentication and Authorization:**
   Simplifies the process of integrating various authentication schemes and dynamic reauthorization, facilitating straightforward implementation of authentication
@@ -51,7 +51,7 @@ to address the complexities of web service consumption.
 
 ## Serialization Support
 
-By default, `Kampute.HttpClient` does not include any content deserializer. To accommodate popular content types, the following extension packages are available:
+By default, `Kampute.HttpClient` registers no content formatter. To accommodate popular content types, the following extension packages are available:
 
 - **[Kampute.HttpClient.Json](https://kampute.github.io/http-client/api/Kampute.HttpClient.Json.html)**:
   Utilizes the `System.Text.Json` library for handling JSON content types, offering high-performance serialization and deserialization that integrates tightly
@@ -69,9 +69,9 @@ By default, `Kampute.HttpClient` does not include any content deserializer. To a
   Utilizes the `DataContractSerializer` for handling XML content types, focusing on serialization and deserialization of .NET objects into XML based on data contract
   attributes for fine-grained control over the XML output.
 
-For scenarios where the provided serialization packages do not meet specific requirements, `Kampute.HttpClient` allows the implementation of custom deserializers.
-Developers can create their own serialization modules by implementing interfaces for deserialization, thus enabling support for custom content types or proprietary
-data formats.
+For content types that these packages do not cover, implement a content formatter: derive from `HttpContentFormatter`, pass the media types it reads and writes
+to its constructor, and add it to the client's `ContentFormatters` collection. The client then reads responses of those media types into .NET objects, and
+`SendObjectAsync` writes request payloads in them.
 
 ## Installation
 

@@ -31,11 +31,11 @@ namespace Kampute.HttpClient.Xml
         /// </remarks>
         public static XmlContentDeserializer AcceptXml(this HttpRestClient client)
         {
-            var deserializer = client.ResponseDeserializers.Find<XmlContentDeserializer>();
+            var deserializer = client.ContentFormatters.Find<XmlContentDeserializer>();
             if (deserializer is null)
             {
                 deserializer = new XmlContentDeserializer();
-                client.ResponseDeserializers.Add(deserializer);
+                client.ContentFormatters.Add(deserializer);
             }
             return deserializer;
         }

@@ -47,10 +47,10 @@ kampose build
 ### Adding New Features
 1. **Core Features**: Modify `HttpRestClient.cs` and add tests in corresponding test file
 2. **Extensions**: Create new package in `src/Kampute.HttpClient.*` with matching test project
-3. **Serialization**: Implement `IHttpContentDeserializer` and add to `ResponseDeserializers`
+3. **Serialization**: Derive from `HttpContentFormatter` (or implement `IHttpContentFormatter`) and add to `ContentFormatters`
 
 ### Debugging Common Issues
 - **Connection Pooling**: Use `SharedHttpClient` reference counting for proper disposal
 - **Header Conflicts**: Scoped headers override defaults; avoid setting headers on underlying `HttpClient`
-- **Serialization Failures**: Check `ResponseDeserializers` collection has appropriate deserializer
+- **Serialization Failures**: Check that the `ContentFormatters` collection has a formatter that reads (for responses) or writes (for `SendObjectAsync` payloads) the media type
 - **Retry Behavior**: Verify `BackoffStrategy` is set and `ErrorHandlers` are configured

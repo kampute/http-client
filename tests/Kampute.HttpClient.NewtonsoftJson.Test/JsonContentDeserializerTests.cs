@@ -13,7 +13,7 @@
         {
             var deserializer = new JsonContentDeserializer();
 
-            var supportedMediaTypes = deserializer.GetSupportedMediaTypes(typeof(TestModel));
+            var supportedMediaTypes = deserializer.GetReadableMediaTypes(typeof(TestModel));
 
             Assert.That(supportedMediaTypes, Contains.Item(MediaTypeNames.Application.Json));
         }
@@ -23,7 +23,7 @@
         {
             var deserializer = new JsonContentDeserializer();
 
-            var canDeserialize = deserializer.CanDeserialize(MediaTypeNames.Application.Json, typeof(TestModel));
+            var canDeserialize = deserializer.CanRead(MediaTypeNames.Application.Json, typeof(TestModel));
 
             Assert.That(canDeserialize, Is.True);
         }
@@ -33,7 +33,7 @@
         {
             var deserializer = new JsonContentDeserializer();
 
-            var canDeserialize = deserializer.CanDeserialize(MediaTypeNames.Application.Xml, typeof(TestModel));
+            var canDeserialize = deserializer.CanRead(MediaTypeNames.Application.Xml, typeof(TestModel));
 
             Assert.That(canDeserialize, Is.False);
         }
@@ -45,7 +45,7 @@
             var content = new StringContent(expected.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
             var deserializer = new JsonContentDeserializer { Settings = TestModel.JsonSettings };
 
-            var result = await deserializer.DeserializeAsync(content, typeof(TestModel)) as TestModel;
+            var result = await deserializer.ReadAsync(content, typeof(TestModel)) as TestModel;
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -57,7 +57,7 @@
             var content = new StringContent(expected.ToJsonString(), Encoding.BigEndianUnicode, MediaTypeNames.Application.Json);
             var deserializer = new JsonContentDeserializer { Settings = TestModel.JsonSettings };
 
-            var result = await deserializer.DeserializeAsync(content, typeof(TestModel)) as TestModel;
+            var result = await deserializer.ReadAsync(content, typeof(TestModel)) as TestModel;
 
             Assert.That(result, Is.EqualTo(expected));
         }

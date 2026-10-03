@@ -24,7 +24,7 @@
     {
         private static readonly HttpMethod TestHttpMethod = new("TEST");
 
-        private readonly TestContentDeserializer _testContentFormatter = new();
+        private readonly TestContentFormatter _testContentFormatter = new();
         private readonly Mock<HttpMessageHandler> _mockMessageHandler = new();
         private HttpRestClient _client;
 
@@ -40,7 +40,7 @@
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
-            _client.ResponseDeserializers.Add(_testContentFormatter);
+            _client.ContentFormatters.Add(_testContentFormatter);
         }
 
         [TearDown]

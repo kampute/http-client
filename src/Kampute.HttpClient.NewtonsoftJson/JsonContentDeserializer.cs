@@ -17,13 +17,13 @@ namespace Kampute.HttpClient.NewtonsoftJson
     /// <summary>
     /// Provides functionality for deserializing JSON content from HTTP responses into objects.
     /// </summary>
-    public sealed class JsonContentDeserializer : HttpContentDeserializer
+    public sealed class JsonContentDeserializer : HttpContentFormatter
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonContentDeserializer"/> class.
         /// </summary>
         public JsonContentDeserializer()
-            : base(MediaTypeNames.Application.Json)
+            : base([MediaTypeNames.Application.Json], [])
         {
         }
 
@@ -40,16 +40,10 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// </summary>
         /// <param name="content">The <see cref="HttpContent"/> to read from.</param>
         /// <param name="modelType">The type of the object to read.</param>
-        /// <param name="cancellationToken">A token for canceling the read operation (optional).</param>
+        /// <param name="cancellationToken">A token for canceling the read operation.</param>
         /// <returns>A task representing the asynchronous read operation, containing the deserialized object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> or <paramref name="modelType"/> is <see langword="null"/>.</exception>
-        public override async Task<object?> DeserializeAsync(HttpContent content, Type modelType, CancellationToken cancellationToken = default)
+        protected override async Task<object?> ReadContentAsync(HttpContent content, Type modelType, CancellationToken cancellationToken)
         {
-            if (content is null)
-                throw new ArgumentNullException(nameof(content));
-            if (modelType is null)
-                throw new ArgumentNullException(nameof(modelType));
-
             var encoding = content.FindCharacterEncoding() ?? Encoding.UTF8;
 
             using var stream = await content.ReadAsStreamAsync().ConfigureAwait(false);

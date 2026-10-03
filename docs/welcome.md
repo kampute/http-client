@@ -16,7 +16,7 @@ Use it when you want a small client layer instead of a generated API SDK, or whe
 - Send common HTTP methods through concise async helpers.
 - Deserialize successful responses into typed .NET objects.
 - Read raw response bodies as strings, streams, or byte arrays when needed.
-- Register JSON, XML, or custom response deserializers.
+- Register JSON, XML, or custom content formatters that read responses and write request payloads.
 - Apply headers and request properties globally or inside temporary scopes.
 - Configure retry behavior for transient connection failures.
 - Handle HTTP error responses with reusable handlers.
@@ -49,7 +49,7 @@ var data = await client.GetAsync<MyModel>("https://api.example.com/resource");
 
 ## Choosing Packages
 
-The base package contains [`HttpRestClient`](api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry strategies, error handlers, compression content wrappers, and the deserializer registry. Serializer packages are separate so applications only reference the serializers they use.
+The base package contains [`HttpRestClient`](api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry strategies, error handlers, compression content wrappers, and the content formatter registry. Serializer packages are separate so applications only reference the serializers they use.
 
 | Package                                                                           | Use it for                                                                     |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
@@ -168,44 +168,61 @@ When the scope is disposed, the temporary headers and properties are removed.
 
 ## Serializer Packages
 
-The base package does not include a default content deserializer. Each serializer package registers a deserializer with [`ResponseDeserializers`](api/Kampute.HttpClient.HttpRestClient.html) and exposes payload helpers for its content type.
+The base package registers no content formatter. Each serializer package registers its formatter in [`ContentFormatters`](api/Kampute.HttpClient.HttpRestClient.html) and exposes payload helpers for its content type.
 
 - [`Kampute.HttpClient.Json`](api/Kampute.HttpClient.Json.html): JSON support through `System.Text.Json`.
 - [`Kampute.HttpClient.NewtonsoftJson`](api/Kampute.HttpClient.NewtonsoftJson.html): JSON support through `Newtonsoft.Json`.
 - [`Kampute.HttpClient.Xml`](api/Kampute.HttpClient.Xml.html): XML support through `XmlSerializer`.
 - [`Kampute.HttpClient.DataContract`](api/Kampute.HttpClient.DataContract.html): XML support through `DataContractSerializer`.
 
-You can also implement custom deserializers for application-specific content types.
+You can also implement a content formatter for an application-specific content type. Derive from [`HttpContentFormatter`](api/Kampute.HttpClient.Content.Abstracts.HttpContentFormatter.html) and pass the media types it reads and the media types it writes to the base constructor. Override `ReadContentAsync` to read responses, `CreateContent` to write request payloads, or both. A formatter that only reads passes an empty list of writable media types, and one that only writes passes an empty list of readable media types.
 
 ```csharp
 using Kampute.HttpClient.Content.Abstracts;
 
-public sealed class VendorContentDeserializer
-    : HttpContentDeserializer
+public sealed class VendorFormatter : HttpContentFormatter
 {
-    public VendorContentDeserializer()
-        : base("application/vnd.example.resource+json")
+    private const string VendorMediaType = "application/vnd.example.resource+json";
+
+    public VendorFormatter()
+        : base([VendorMediaType], [VendorMediaType])
     {
     }
 
-    public override Task<object?> DeserializeAsync(
+    protected override Task<object?> ReadContentAsync(
         HttpContent content,
         Type modelType,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
-        // Deserialize the vendor-specific payload here.
+        // Read the vendor-specific payload here.
+        throw new NotImplementedException();
+    }
+
+    protected override HttpContent CreateContent(object payload, string mediaType)
+    {
+        // Write the vendor-specific payload here.
         throw new NotImplementedException();
     }
 }
 ```
+
+Register the formatter with the client. Responses with its media type are then read into the requested .NET type, the media type is added to the `Accept` header, and [`SendObjectAsync`](api/Kampute.HttpClient.HttpRestClientExtensions.html) writes request payloads with it.
 
 ```csharp
 using Kampute.HttpClient;
 
 using var client = new HttpRestClient();
 
-client.ResponseDeserializers.Add(new VendorContentDeserializer());
+client.ContentFormatters.Add(new VendorFormatter());
+
+var created = await client.SendObjectAsync<Resource>(
+    HttpMethod.Post,
+    "https://api.example.com/resources",
+    resource,
+    "application/vnd.example.resource+json");
 ```
+
+`SendObjectAsync` throws `InvalidOperationException` before sending anything if no registered formatter can write the payload in the requested media type. A payload that is already an `HttpContent` is sent as it is.
 
 ## Retry Behavior
 

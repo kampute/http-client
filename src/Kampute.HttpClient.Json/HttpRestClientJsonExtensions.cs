@@ -75,11 +75,11 @@ namespace Kampute.HttpClient.Json
         /// </remarks>
         public static JsonContentDeserializer AcceptJson(this HttpRestClient client, JsonSerializerOptions? options = null)
         {
-            var deserializer = client.ResponseDeserializers.Find<JsonContentDeserializer>();
+            var deserializer = client.ContentFormatters.Find<JsonContentDeserializer>();
             if (deserializer is null)
             {
                 deserializer = new JsonContentDeserializer();
-                client.ResponseDeserializers.Add(deserializer);
+                client.ContentFormatters.Add(deserializer);
             }
             deserializer.Options = options;
             return deserializer;

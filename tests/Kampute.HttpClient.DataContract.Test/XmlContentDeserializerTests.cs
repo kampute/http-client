@@ -13,7 +13,7 @@
         {
             var deserializer = new XmlContentDeserializer();
 
-            var supportedMediaTypes = deserializer.GetSupportedMediaTypes(typeof(TestModel));
+            var supportedMediaTypes = deserializer.GetReadableMediaTypes(typeof(TestModel));
 
             Assert.That(supportedMediaTypes, Contains.Item(MediaTypeNames.Application.Xml));
         }
@@ -23,7 +23,7 @@
         {
             var deserializer = new XmlContentDeserializer();
 
-            var canDeserialize = deserializer.CanDeserialize(MediaTypeNames.Application.Xml, typeof(TestModel));
+            var canDeserialize = deserializer.CanRead(MediaTypeNames.Application.Xml, typeof(TestModel));
 
             Assert.That(canDeserialize, Is.True);
         }
@@ -33,7 +33,7 @@
         {
             var deserializer = new XmlContentDeserializer();
 
-            var canDeserialize = deserializer.CanDeserialize("Application/XML", typeof(TestModel));
+            var canDeserialize = deserializer.CanRead("Application/XML", typeof(TestModel));
 
             Assert.That(canDeserialize, Is.True);
         }
@@ -43,7 +43,7 @@
         {
             var deserializer = new XmlContentDeserializer();
 
-            var canDeserialize = deserializer.CanDeserialize(MediaTypeNames.Application.Json, typeof(TestModel));
+            var canDeserialize = deserializer.CanRead(MediaTypeNames.Application.Json, typeof(TestModel));
 
             Assert.That(canDeserialize, Is.False);
         }
@@ -56,7 +56,7 @@
             var content = new StringContent(expected.ToXmlString(encoding), encoding, MediaTypeNames.Application.Xml);
             var deserializer = new XmlContentDeserializer();
 
-            var result = await deserializer.DeserializeAsync(content, typeof(TestModel)) as TestModel;
+            var result = await deserializer.ReadAsync(content, typeof(TestModel)) as TestModel;
 
             Assert.That(result, Is.EqualTo(expected));
         }
@@ -69,7 +69,7 @@
             var content = new StringContent(expected.ToXmlString(encoding), encoding, MediaTypeNames.Application.Xml);
             var deserializer = new XmlContentDeserializer();
 
-            var result = await deserializer.DeserializeAsync(content, typeof(TestModel)) as TestModel;
+            var result = await deserializer.ReadAsync(content, typeof(TestModel)) as TestModel;
 
             Assert.That(result, Is.EqualTo(expected));
         }

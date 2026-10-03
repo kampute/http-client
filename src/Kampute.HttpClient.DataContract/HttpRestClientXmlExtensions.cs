@@ -75,11 +75,11 @@ namespace Kampute.HttpClient.DataContract
         /// </remarks>
         public static XmlContentDeserializer AcceptXml(this HttpRestClient client, DataContractSerializerSettings? settings = null)
         {
-            var deserializer = client.ResponseDeserializers.Find<XmlContentDeserializer>();
+            var deserializer = client.ContentFormatters.Find<XmlContentDeserializer>();
             if (deserializer is null)
             {
                 deserializer = new XmlContentDeserializer();
-                client.ResponseDeserializers.Add(deserializer);
+                client.ContentFormatters.Add(deserializer);
             }
             deserializer.Settings = settings;
             return deserializer;

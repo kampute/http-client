@@ -22,11 +22,11 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// <para>
     /// The <see cref="HttpError401Handler"/> class is specifically designed to enhance instances of <see cref="HttpRestClient"/> by providing a mechanism
     /// to handle HTTP '401 Unauthorized' responses. When a request made by a <see cref="HttpRestClient"/> instance receives a '401 Unauthorized' status code,
-    /// this indicates that the request was rejected due to insufficient or missing authentication credentials. The <see cref="HttpError401Handler"/> responds 
+    /// this indicates that the request was rejected due to insufficient or missing authentication credentials. The <see cref="HttpError401Handler"/> responds
     /// to such scenarios by initiating a re-authentication process using a delegate provided at instantiation, to obtain new authentication credentials.
     /// </para>
     /// <para>
-    /// The delegate provided to the constructor is tasked with obtaining new authentication credentials, which might involve interacting with an authentication 
+    /// The delegate provided to the constructor is tasked with obtaining new authentication credentials, which might involve interacting with an authentication
     /// server or prompting the user for credentials. Successful acquisition of new credentials leads to their application to the <see cref="HttpRestClient"/>
     /// instance, allowing the previously failed request to be retried with the updated authentication details.
     /// </para>
@@ -36,8 +36,8 @@ namespace Kampute.HttpClient.ErrorHandlers
     /// as an <see cref="HttpResponseException"/>.
     /// </para>
     /// <para>
-    /// When an authentication process is underway for a client, subsequent authentication requests from the client will not initiate new processes. Instead, they 
-    /// will await and utilize the outcome of the ongoing authentication. This approach guarantees that the authentication delegate is executed a single time for 
+    /// When an authentication process is underway for a client, subsequent authentication requests from the client will not initiate new processes. Instead, they
+    /// will await and utilize the outcome of the ongoing authentication. This approach guarantees that the authentication delegate is executed a single time for
     /// concurrent requests, ensuring both efficiency and thread safety.
     /// </para>
     /// <para>
@@ -164,7 +164,11 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="HttpError401Handler"/> and optionally disposes of the managed resources.
         /// </summary>
-        public void Dispose() => _lastAuthorization.Dispose();
+        public void Dispose()
+        {
+            _lastAuthorization.Dispose();
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
         /// Provides the request properties to be set during authorization process.

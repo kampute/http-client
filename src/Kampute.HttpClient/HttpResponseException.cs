@@ -12,7 +12,7 @@ namespace Kampute.HttpClient
     using System.Text;
 
     /// <summary>
-    /// Represents an exception that is thrown when an HTTP request results in a failure HTTP status code.
+    /// The exception that is thrown when a request receives an error response that no error handler retries.
     /// </summary>
     public class HttpResponseException : HttpRequestException
     {
@@ -21,7 +21,11 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="statusCode">The HTTP status code associated with the exception.</param>
         public HttpResponseException(HttpStatusCode statusCode)
+#if !NETSTANDARD2_0
+            : base(null, null, statusCode)
+#else
             : base()
+#endif
         {
             StatusCode = statusCode;
         }
@@ -32,7 +36,11 @@ namespace Kampute.HttpClient
         /// <param name="statusCode">The HTTP status code associated with the exception.</param>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         public HttpResponseException(HttpStatusCode statusCode, string message)
+#if !NETSTANDARD2_0
+            : base(message, null, statusCode)
+#else
             : base(message)
+#endif
         {
             StatusCode = statusCode;
         }
@@ -44,7 +52,11 @@ namespace Kampute.HttpClient
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a <see langword="null"/> reference if no inner exception is specified.</param>
         public HttpResponseException(HttpStatusCode statusCode, string message, Exception? innerException)
+#if !NETSTANDARD2_0
+            : base(message, innerException, statusCode)
+#else
             : base(message, innerException)
+#endif
         {
             StatusCode = statusCode;
         }
@@ -55,29 +67,49 @@ namespace Kampute.HttpClient
         /// <value>
         /// The HTTP status code associated with the exception.
         /// </value>
+        /// <remarks>
+        /// On .NET 10 and later, the inherited <c>HttpRequestException.StatusCode</c> has the same value, so exception filters on
+        /// <see cref="HttpRequestException"/> can test the status code of an error response.
+        /// </remarks>
+#if !NETSTANDARD2_0
+        public new HttpStatusCode StatusCode { get; }
+#else
         public HttpStatusCode StatusCode { get; }
+#endif
 
         /// <summary>
-        /// Gets or sets the validation errors associated with the exception.
+        /// Gets or sets the validation errors that the error response reports.
         /// </summary>
         /// <value>
-        /// The validation errors associated with the exception, if any. It maps error keys to their corresponding error messages arrays. Can be <see langword="null"/> if there are no validation errors.
+        /// The error messages of each invalid field, keyed by the field name, or <see langword="null"/> if there are none. An
+        /// <see cref="Interfaces.IHttpErrorResponse"/> can set them from the error body.
         /// </value>
         public IDictionary<string, string[]>? Errors { get; set; }
 
         /// <summary>
-        /// Gets or sets the HTTP response message associated with the exception.
+        /// Gets or sets the error response.
         /// </summary>
         /// <value>
-        /// The HTTP response message associated with the exception. Can be <see langword="null"/> if there is no HTTP response message.
+        /// The <see cref="HttpResponseMessage"/> of the error, or <see langword="null"/> if there is none.
         /// </value>
+        /// <remarks>
+        /// <para>
+        /// When <see cref="HttpRestClient"/> throws this exception, it has already disposed the response. The status code, reason phrase,
+        /// response headers and request message remain readable, but reading the response content throws <see cref="ObjectDisposedException"/>.
+        /// </para>
+        /// <para>
+        /// To use a structured error body, set <see cref="HttpRestClient.ResponseErrorType"/>. The client then deserializes the error body before
+        /// disposing the response, and exposes it through <see cref="ResponseObject"/>.
+        /// </para>
+        /// </remarks>
         public HttpResponseMessage? ResponseMessage { get; set; }
 
         /// <summary>
-        /// Gets or sets the deserialized object from the HTTP response associated with the exception.
+        /// Gets or sets the body of the error response, read as <see cref="HttpRestClient.ResponseErrorType"/>.
         /// </summary>
         /// <value>
-        /// The deserialized object from the HTTP response body. Can be <see langword="null"/> if the HTTP response is not deserialized.
+        /// The object read from the error body, or <see langword="null"/> if <see cref="HttpRestClient.ResponseErrorType"/> is not set or the body
+        /// could not be read.
         /// </value>
         public object? ResponseObject { get; set; }
 

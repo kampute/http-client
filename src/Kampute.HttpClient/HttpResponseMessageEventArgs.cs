@@ -10,21 +10,14 @@ namespace Kampute.HttpClient
     using System.Net.Http;
 
     /// <summary>
-    /// Provides event data for events related to the receipt of HTTP responses.
+    /// Provides the response of the <see cref="HttpRestClient.AfterReceivingResponse"/> event.
     /// </summary>
-    /// <remarks>
-    /// This class is typically used in scenarios where an application needs to process or inspect HTTP responses in a centralized 
-    /// manner. It encapsulates an instance of <see cref="HttpResponseMessage"/>, allowing event handlers to access and potentially 
-    /// modify the response message. This capability is particularly useful in middle-ware, HTTP client wrappers, or other scenarios 
-    /// where responses need to be logged, modified, or inspected for specific criteria (like status codes or headers) before being 
-    /// processed further.
-    /// </remarks>
     public class HttpResponseMessageEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpResponseMessageEventArgs"/> class with the specified response message.
         /// </summary>
-        /// <param name="response">The received HTTP response message.</param>
+        /// <param name="response">The response received.</param>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="response"/> is <see langword="null"/>.</exception>
         public HttpResponseMessageEventArgs(HttpResponseMessage response)
         {
@@ -32,10 +25,10 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets the HTTP response message.
+        /// Gets the response received.
         /// </summary>
         /// <value>
-        /// The HTTP response message involved in the event.
+        /// The <see cref="HttpResponseMessage"/> received, before the client checks its status code or reads its content.
         /// </value>
         public HttpResponseMessage Response { get; }
     }

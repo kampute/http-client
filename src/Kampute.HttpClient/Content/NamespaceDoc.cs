@@ -6,7 +6,7 @@
 namespace Kampute.HttpClient.Content
 {
     /// <summary>
-    /// This namespace contains classes for handling HTTP content.
+    /// This namespace contains content formatters and <c>HttpContent</c> types that requests can send.
     /// </summary>
     internal static class NamespaceDoc { }
 }

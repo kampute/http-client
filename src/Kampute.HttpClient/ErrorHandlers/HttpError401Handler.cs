@@ -16,31 +16,37 @@ namespace Kampute.HttpClient.ErrorHandlers
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Handles '401 Unauthorized' HTTP responses by attempting to re-authenticate and retry the request.
+    /// Handles '401 Unauthorized' responses by obtaining new authorization and retrying the request with it.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// The <see cref="HttpError401Handler"/> class is specifically designed to enhance instances of <see cref="HttpRestClient"/> by providing a mechanism
-    /// to handle HTTP '401 Unauthorized' responses. When a request made by a <see cref="HttpRestClient"/> instance receives a '401 Unauthorized' status code,
-    /// this indicates that the request was rejected due to insufficient or missing authentication credentials. The <see cref="HttpError401Handler"/> responds 
-    /// to such scenarios by initiating a re-authentication process using a delegate provided at instantiation, to obtain new authentication credentials.
+    /// When a request receives a '401 Unauthorized' response, the handler calls the authentication function passed to its constructor, sets the
+    /// authorization it returns as the <c>Authorization</c> header of <see cref="HttpRestClient.DefaultRequestHeaders"/>, and retries the request
+    /// with it. The handler retries a call once: if the retry is also rejected, the response reaches the caller as an <see cref="HttpResponseException"/>.
+    /// It does not retry a request whose content cannot be sent again, such as a <see cref="System.Net.Http.StreamContent"/> over a non-seekable
+    /// stream, and does not call the function for it.
     /// </para>
     /// <para>
-    /// The delegate provided to the constructor is tasked with obtaining new authentication credentials, which might involve interacting with an authentication 
-    /// server or prompting the user for credentials. Successful acquisition of new credentials leads to their application to the <see cref="HttpRestClient"/>
-    /// instance, allowing the previously failed request to be retried with the updated authentication details.
+    /// When several requests are rejected at the same time, the function runs once and all of them retry with its result. A request that was rejected
+    /// with older authorization than the latest one the handler obtained is retried with the latest one, without calling the function.
     /// </para>
     /// <para>
-    /// When an authentication process is underway for a client, subsequent authentication requests from the client will not initiate new processes. Instead, they 
-    /// will await and utilize the outcome of the ongoing authentication. This approach guarantees that the authentication delegate is executed a single time for 
-    /// concurrent requests, ensuring both efficiency and thread safety.
-    /// </para>
-    /// <para>
-    /// A single instance of this error handler can be shared with multiple <see cref="HttpRestClient"/> instances, enabling centralized management of authentication
-    /// challenges across various client instances that interact with different endpoints, if the <see cref="HttpRestClient"/> instances share the same authentication
-    /// details. This enables a more efficient use of credentials and reduces the need for frequent re-authentications.
+    /// One instance can serve several clients that use the same credentials. Keep it alive while the clients use it, and dispose it afterwards.
     /// </para>
     /// </remarks>
+    /// <example>
+    /// This handler obtains a new access token when a request is rejected. <c>RefreshAccessTokenAsync</c> stands for the application's own code that
+    /// requests a token from its authentication service.
+    /// <code>
+    /// using var unauthorizedHandler = new HttpError401Handler(async (ctx, cancellationToken) =>
+    /// {
+    ///     var token = await RefreshAccessTokenAsync(cancellationToken);
+    ///     return new AuthenticationHeaderValue(AuthSchemes.Bearer, token);
+    /// });
+    ///
+    /// client.ErrorHandlers.Add(unauthorizedHandler);
+    /// </code>
+    /// </example>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
     public class HttpError401Handler : IHttpErrorHandler, IDisposable
     {
@@ -51,25 +57,10 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Initializes a new instance of the <see cref="HttpError401Handler"/> class.
         /// </summary>
         /// <param name="asyncAuthenticator">
-        /// The asynchronous delegate to be invoked to acquire new authorization details. The delegate receives the following parameters:
-        /// <list type="bullet">
-        ///   <item>
-        ///     <term>context</term>
-        ///     <description>
-        ///     Provides context about the HTTP response indicating a '401 Unauthorized' error. It is encapsulated within
-        ///     an <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on authentication.
-        ///     </description>
-        ///   </item>
-        ///   <item>
-        ///     <term>cancellationToken</term>
-        ///     <description>
-        ///     A <see cref="CancellationToken"/> for canceling the operation.
-        ///     </description>
-        ///   </item>
-        /// </list>
-        /// The delegate should return a task resolving to an instance of <see cref="AuthenticationHeaderValue"/> containing the  authorization details
-        /// necessary for subsequent requests if authentication can be successfully completed. If the authentication process fails, the delegate should
-        /// return <see langword="null"/>.
+        /// The function that obtains new authorization. It receives the context of the '401 Unauthorized' response and a cancellation token, and
+        /// returns the <see cref="AuthenticationHeaderValue"/> to send, or <see langword="null"/> if authentication fails, in which case the request is
+        /// not retried. Requests that the function sends with the same client are not handled by this handler, so a rejected token request cannot
+        /// wait on itself.
         /// </param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncAuthenticator"/> is <see langword="null"/>.</exception>
         public HttpError401Handler(Func<HttpResponseErrorContext, CancellationToken, Task<AuthenticationHeaderValue?>> asyncAuthenticator)
@@ -82,24 +73,40 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Determines whether this handler can process the specified HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to evaluate.</param>
-        /// <returns><see langword="true"/> if the handler can process the status code; otherwise, <see langword="false"/>.</returns>
-        /// <remarks>
-        /// This implementation specifically handles the HTTP '401 Unauthorized' status code.
-        /// </remarks>
+        /// <returns><see langword="true"/> if <paramref name="statusCode"/> is '401 Unauthorized'; otherwise, <see langword="false"/>.</returns>
         public bool CanHandle(HttpStatusCode statusCode) => statusCode == HttpStatusCode.Unauthorized;
 
         /// <summary>
-        /// Asynchronously authenticates an HTTP request that resulted in a '401 Unauthorized' response.
+        /// Returns the authorization to retry a rejected request with.
         /// </summary>
-        /// <param name="ctx">The error context for the HTTP response.</param>
+        /// <param name="ctx">The context of the '401 Unauthorized' response.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>
-        /// <returns>A task that resolves to an <see cref="AuthenticationHeaderValue"/> if the client successfully acquires new authorization details; otherwise, <see langword="null"/>.</returns>
-        /// <exception cref="ArgumentNullException">Throws if <paramref name="ctx"/> is <see langword="null"/>.</exception>
-        protected virtual async Task<AuthenticationHeaderValue?> AuthenticateAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
+        /// <returns>A task that resolves to the authorization to send, or to <see langword="null"/> if authentication failed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// If the request was sent with authorization other than the latest one the handler obtained, this method returns the latest one without calling
+        /// the authentication function. Otherwise, it calls the function, or waits for a call already in progress.
+        /// </remarks>
+        protected virtual Task<AuthenticationHeaderValue?> AuthenticateAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
+            var currentAuthorization = _lastAuthorization.Value;
+            if (currentAuthorization is not null && !currentAuthorization.Equals(ctx.Request.Headers.Authorization))
+                return Task.FromResult<AuthenticationHeaderValue?>(currentAuthorization);
+
+            return RefreshAuthorizationAsync(ctx, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes the authentication delegate, unless a concurrent call already did, and returns the most recently acquired authorization details.
+        /// </summary>
+        /// <param name="ctx">The error context for the HTTP response.</param>
+        /// <param name="cancellationToken">A token for canceling the operation.</param>
+        /// <returns>A task that resolves to the most recently acquired authorization details, or <see langword="null"/> if authentication failed.</returns>
+        private async Task<AuthenticationHeaderValue?> RefreshAuthorizationAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
+        {
             await _lastAuthorization.TryUpdateAsync(async () =>
             {
                 using (ctx.Client.BeginPropertyScope(AuthorizationScope.Properties))
@@ -114,48 +121,49 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// <inheritdoc/>
         async Task<HttpErrorHandlerResult> IHttpErrorHandler.DecideOnRetryAsync(HttpResponseErrorContext ctx, CancellationToken cancellationToken)
         {
-            if (ctx.Request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, out var skip) && skip is true)
+            if (ctx.Request.GetPropertyBag().TryGetValue(HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling, out var skip) && skip is true)
+                return HttpErrorHandlerResult.NoRetry;
+
+            if (!ctx.Request.CanClone())
                 return HttpErrorHandlerResult.NoRetry;
 
             var authorization = await AuthenticateAsync(ctx, cancellationToken).ConfigureAwait(false);
             if (authorization is null)
                 return HttpErrorHandlerResult.NoRetry;
 
-            ctx.Client.DefaultRequestHeaders.Authorization = authorization;
+            var defaultHeaders = ctx.Client.DefaultRequestHeaders;
+            lock (defaultHeaders)
+            {
+                if (!authorization.Equals(defaultHeaders.Authorization))
+                    defaultHeaders.Authorization = authorization;
+            }
 
             var authorizedRequest = ctx.Request.Clone();
             authorizedRequest.Headers.Authorization = authorization;
-            authorizedRequest.Properties[HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true;
+            authorizedRequest.GetPropertyBag()[HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling] = true;
             return HttpErrorHandlerResult.Retry(authorizedRequest);
         }
 
         /// <summary>
-        /// Releases the unmanaged resources used by the <see cref="HttpError401Handler"/> and optionally disposes of the managed resources.
+        /// Releases the resources that the handler uses to coordinate concurrent authentication.
         /// </summary>
-        public void Dispose() => _lastAuthorization.Dispose();
+        public void Dispose()
+        {
+            _lastAuthorization.Dispose();
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
-        /// Provides the request properties to be set during authorization process.
+        /// Provides the request properties of the requests that the authentication function sends.
         /// </summary>
         /// <remarks>
-        /// This class defines request properties that are used during the authorization process.
-        /// <list type="bullet">
-        ///   <item>
-        ///     <term><see cref="HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling"/></term>
-        ///     <description>
-        ///     A flag indicating whether the request should skip the authorization process.
-        ///     <para>
-        ///     This property is set to <see langword="true"/> for all requests initiated by the authorization process
-        ///     to prevent the handler from reentering itself and causing potential deadlocks.
-        ///     </para>
-        ///     </description>
-        ///   </item>
-        /// </list>
+        /// <see cref="HttpRequestMessagePropertyKeys.SkipUnauthorizedHandling"/> is set on those requests, so that a '401 Unauthorized' response to
+        /// one of them does not start another authentication that would wait for the current one.
         /// </remarks>
         private static class AuthorizationScope
         {
             /// <summary>
-            /// Gets the scoped properties of requests initiated by the authorization process.
+            /// Gets the request properties of the requests that the authentication function sends.
             /// </summary>
             public static IEnumerable<KeyValuePair<string, object?>> Properties =>
             [

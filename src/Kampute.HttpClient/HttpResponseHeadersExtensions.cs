@@ -10,16 +10,19 @@ namespace Kampute.HttpClient
     using System.Net.Http.Headers;
 
     /// <summary>
-    /// Provides extension methods for <see cref="HttpResponseHeaders"/> to facilitate HTTP response processing.
+    /// Provides extension methods that read the retry time a response suggests from its headers.
     /// </summary>
     public static class HttpResponseHeadersExtensions
     {
         /// <summary>
-        /// Attempts to extract the retry-after time from the HTTP response headers.
+        /// Reads the retry time from the <c>Retry-After</c> header.
         /// </summary>
-        /// <param name="headers">The HTTP response headers.</param>
-        /// <param name="retryAfterTime">When this method returns, contains the extracted time if the operation is successful; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
-        /// <returns><see langword="true"/> if the time could be successfully extracted and parsed; otherwise, <see langword="false"/>.</returns>
+        /// <param name="headers">The response headers.</param>
+        /// <param name="retryAfterTime">
+        /// When this method returns, the time the header suggests, or <see langword="null"/> if it has none. A number of seconds is converted to a time
+        /// from now.
+        /// </param>
+        /// <returns><see langword="true"/> if the header has a valid date or number of seconds; otherwise, <see langword="false"/>.</returns>
         public static bool TryExtractRetryAfterTime(this HttpResponseHeaders headers, out DateTimeOffset? retryAfterTime)
         {
             if (headers.RetryAfter is RetryConditionHeaderValue retryAfterHeader)
@@ -41,11 +44,22 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Attempts to extract the rate limit reset time from the HTTP response headers.
+        /// Reads the time when a rate limit resets from the <c>Retry-After</c> header or a rate limit reset header.
         /// </summary>
-        /// <param name="headers">The HTTP response headers.</param>
-        /// <param name="resetTime">When this method returns, contains the extracted time if the operation is successful; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
-        /// <returns><see langword="true"/> if the time could be successfully extracted and parsed; otherwise, <see langword="false"/>.</returns>
+        /// <param name="headers">The response headers.</param>
+        /// <param name="resetTime">When this method returns, the time the headers suggest, or <see langword="null"/> if they suggest none.</param>
+        /// <returns><see langword="true"/> if a header has a valid value; otherwise, <see langword="false"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// The method first looks for a <c>Retry-After</c> header. If there is none, it reads the first rate limit reset header it finds among
+        /// <c>ratelimit-reset</c>, <c>rate-limit-reset</c>, <c>x-ratelimit-reset</c> and <c>x-rate-limit-reset</c>.
+        /// </para>
+        /// <para>
+        /// A rate limit reset value from 0 to 86400 is read as a number of seconds from now. A larger value, up to 253402300799 (the Unix time
+        /// of <see cref="DateTimeOffset.MaxValue"/>), is read as a Unix time in seconds. Any other value, such as a negative number or a time
+        /// in milliseconds, is treated as if the header were missing.
+        /// </para>
+        /// </remarks>
         public static bool TryExtractRateLimitResetTime(this HttpResponseHeaders headers, out DateTimeOffset? resetTime)
         {
             if (headers.TryExtractRetryAfterTime(out resetTime))
@@ -55,9 +69,9 @@ namespace Kampute.HttpClient
             {
                 if (headers.TryGetValues(name, out var values))
                 {
-                    if (long.TryParse(values.FirstOrDefault(), out var value))
+                    if (long.TryParse(values.FirstOrDefault(), out var value) && value >= 0 && value <= Constants.MaxUnixTimeSeconds)
                     {
-                        resetTime = value > 86400 // seconds per day
+                        resetTime = value > Constants.SecondsPerDay
                            ? DateTimeOffset.FromUnixTimeSeconds(value)
                            : DateTimeOffset.UtcNow.AddSeconds(value);
                         return true;
@@ -74,6 +88,16 @@ namespace Kampute.HttpClient
         /// </summary>
         private static class Constants
         {
+            /// <summary>
+            /// The largest rate limit reset value read as seconds from now. Larger values are read as a Unix time in seconds.
+            /// </summary>
+            public const long SecondsPerDay = 86400;
+
+            /// <summary>
+            /// The Unix time in seconds of <see cref="DateTimeOffset.MaxValue"/>, which is the largest rate limit reset value accepted.
+            /// </summary>
+            public const long MaxUnixTimeSeconds = 253402300799;
+
             /// <summary>
             /// The collection of possible HTTP header names for a rate limit reset value.
             /// </summary>

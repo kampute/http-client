@@ -2,12 +2,17 @@
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Net.Sockets;
+    using System.Text;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using static Kampute.HttpClient.TestSupport.CompressedContentHelpers;
@@ -33,8 +38,7 @@
             {
                 BaseAddress = new Uri("http://api.test.com/json"),
             };
-            _restClient.AcceptJson(TestModel.JsonOption);
-            _restClient.SetJsonSerializerOptions(TestModel.JsonOption);
+            _restClient.UseJson(TestModel.JsonOption);
         }
 
         [TearDown]
@@ -68,6 +72,19 @@
 
             Assert.That(result, Is.Not.SameAs(payload));
             Assert.That(result, Is.EqualTo(payload));
+        }
+
+        [Test]
+        public async Task GetAsync_WithJsonMediaTypeInDifferentCase_DeserializesResponse()
+        {
+            var expected = new TestModel { Name = "JSON Test" };
+            var content = new StringContent(expected.ToJsonString(), Encoding.UTF8);
+            content.Headers.ContentType = MediaTypeHeaderValue.Parse("Application/JSON; charset=utf-8");
+            _mockMessageHandler.MockHttpResponse(HttpStatusCode.OK, content);
+
+            var result = await _restClient.GetAsync<TestModel>("/resource");
+
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -134,7 +151,7 @@
             var maxRetries = 2;
             var attempts = 0;
 
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform((uint)maxRetries, TimeSpan.Zero);
+            _restClient.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries((uint)maxRetries).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
@@ -173,7 +190,7 @@
             var attempts = 0;
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            _restClient.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
+            _restClient.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse((request, cancellationToken) =>
             {
@@ -199,17 +216,17 @@
             Assert.ThrowsAsync
             (
                 Is.InstanceOf<OperationCanceledException>(),
-                async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationTokenSource.Token)
+                async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationToken: cancellationTokenSource.Token)
             );
             Assert.That(attempts, Is.EqualTo(1));
         }
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public async Task SendAsync_OnTimeoutCancellation_WithCompressedJsonContent_UsesBackoffStrategy(string encoding)
+        public async Task SendAsync_OnTimeoutCancellation_WithCompressedJsonContent_UsesRetryPolicy(string encoding)
         {
             var payload = new TestModel { Name = "JSON Test" };
-            var mockBackoffStrategy = RetryTestHelpers.MockBackoffStrategy(1, out var mockRetryScheduler);
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(1, out var mockRetrySession);
 
             var attempts = 0;
             using var testHandler = new TestHttpMessageHandler
@@ -240,8 +257,8 @@
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };
-            timedOutClient.AcceptJson();
-            timedOutClient.BackoffStrategy = mockBackoffStrategy.Object;
+            timedOutClient.UseJson();
+            timedOutClient.RetryPolicy = mockRetryPolicy.Object;
 
             using var content = new JsonContent(payload)
             {
@@ -251,13 +268,79 @@
 
             using var response = await timedOutClient.SendAsync(HttpMethod.Post, "/resource", compressedContent);
 
-            mockBackoffStrategy.Verify(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()), Times.Once);
-            mockRetryScheduler.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Once);
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Once);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
                 Assert.That(attempts, Is.EqualTo(2));
             }
+        }
+
+        [Test]
+        public void UseJson_RegistersOneFormatterAndUpdatesItsOptions()
+        {
+            var options = new JsonSerializerOptions();
+
+            var formatter = _restClient.UseJson(options);
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(formatter.Options, Is.SameAs(options));
+                Assert.That(_restClient.ContentFormatters.OfType<JsonFormatter>().Single(), Is.SameAs(formatter));
+            }
+        }
+
+        [Test]
+        public async Task UseJson_OptionsApplyToRequestAndResponse()
+        {
+            _restClient.UseJson(new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            var sentBody = default(string);
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBody = request.Content!.ReadAsStringAsync().Result;
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"name\":\"Echo\"}", Encoding.UTF8, MediaTypeNames.Application.Json),
+                };
+            });
+
+            var result = await _restClient.PostAsJsonAsync<TestModel>("/echo", new TestModel { Name = "JSON Test" });
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(sentBody, Is.EqualTo("{\"name\":\"JSON Test\"}"));
+                Assert.That(result, Is.EqualTo(new TestModel { Name = "Echo" }));
+            }
+        }
+
+        [Test]
+        public async Task PostAsJsonAsync_WithoutRegistration_SendsWithDefaultOptions()
+        {
+            using var client = new HttpRestClient(new HttpClient(_mockMessageHandler.Object, false))
+            {
+                BaseAddress = new Uri("http://api.test.com/json"),
+            };
+            var sentBody = default(string);
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentBody = request.Content!.ReadAsStringAsync().Result;
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            });
+
+            await client.PostAsJsonAsync("/models", new TestModel { Name = "JSON Test" });
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(sentBody, Is.EqualTo(new TestModel { Name = "JSON Test" }.ToJsonString()));
+                Assert.That(client.ContentFormatters, Is.Empty);
+            }
+        }
+
+        [Test]
+        public void PostAsJsonAsync_WithNullPayload_ThrowsBeforeReturningTask()
+        {
+            Assert.Throws<ArgumentNullException>(() => _restClient.PostAsJsonAsync("/models", null!));
         }
     }
 }

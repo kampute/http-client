@@ -6,11 +6,10 @@
 namespace Kampute.HttpClient
 {
     /// <summary>
-    /// Provides constants for common media type names used in MIME content types.
+    /// Provides the names of common media types.
     /// </summary>
     /// <remarks>
-    /// This class supplements the standard <see cref="System.Net.Mime.MediaTypeNames"/> with additional, commonly 
-    /// used media types that are not covered by the .NET Standard 2.0 specification.
+    /// This class covers more media types than <see cref="System.Net.Mime.MediaTypeNames"/>, which has fewer of them on .NET Standard 2.0.
     /// </remarks>
     public static class MediaTypeNames
     {
@@ -47,7 +46,7 @@ namespace Kampute.HttpClient
             /// <summary>
             /// Media type name for XML data.
             /// </summary>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             public const string Xml = System.Net.Mime.MediaTypeNames.Application.Xml;
 #else
             public const string Xml = "application/xml";
@@ -56,7 +55,7 @@ namespace Kampute.HttpClient
             /// <summary>
             /// Media type name for JSON data.
             /// </summary>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             public const string Json = System.Net.Mime.MediaTypeNames.Application.Json;
 #else
             public const string Json = "application/json";

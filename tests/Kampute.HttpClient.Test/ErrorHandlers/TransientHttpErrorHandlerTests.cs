@@ -7,6 +7,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -91,10 +92,10 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             var actualRetryTime = default(DateTimeOffset?);
             var transientHandler = new TransientHttpErrorHandler
             {
-                OnBackoffStrategy = (ctx, retryAfter) =>
+                OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(transientHandler);
@@ -125,10 +126,10 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             var actualRetryTime = default(DateTimeOffset?);
             var transientHandler = new TransientHttpErrorHandler
             {
-                OnBackoffStrategy = (ctx, retryAfter) =>
+                OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(transientHandler);
@@ -157,7 +158,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         {
             var transientHandler = new TransientHttpErrorHandler();
             _client.ErrorHandlers.Add(transientHandler);
-            _client.BackoffStrategy = BackoffStrategies.Uniform(2, TimeSpan.Zero);
+            _client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -173,11 +174,11 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
-        public async Task OnTransientHttpError_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
+        public async Task OnTransientHttpError_WithCustomRetryPolicy_RetriesAccordingToCustomStrategy()
         {
             var transientHandler = new TransientHttpErrorHandler
             {
-                OnBackoffStrategy = (ctx, retryAfter) => BackoffStrategies.Uniform(2, TimeSpan.Zero)
+                OnRetryPolicy = (ctx, retryAfter) => RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(transientHandler);
 

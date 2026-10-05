@@ -2,6 +2,7 @@
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -39,10 +40,10 @@
             var actualResetTime = default(DateTimeOffset?);
             var tooManyRequestsHandler = new HttpError429Handler
             {
-                OnBackoffStrategy = (ctx, retryAfter) =>
+                OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualResetTime = retryAfter;
-                    return BackoffStrategies.Uniform(1, TimeSpan.Zero);
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
@@ -86,11 +87,36 @@
         }
 
         [Test]
-        public async Task On429Response_WithCustomBackoffStrategy_RetriesAccordingToCustomStrategy()
+        public void On429Response_WithOutOfRangeRateLimitResetHeader_ThrowsHttpResponseException()
+        {
+            var tooManyRequestsHandler = new HttpError429Handler();
+            _client.ErrorHandlers.Add(tooManyRequestsHandler);
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                attempts++;
+
+                var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
+                response.Headers.Add("x-ratelimit-reset", "1727000000000");
+                return response;
+            });
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.TooManyRequests));
+                Assert.That(attempts, Is.EqualTo(1));
+            }
+        }
+
+        [Test]
+        public async Task On429Response_WithCustomRetryPolicy_RetriesAccordingToCustomStrategy()
         {
             var tooManyRequestsHandler = new HttpError429Handler
             {
-                OnBackoffStrategy = (ctx, resetTime) => BackoffStrategies.Uniform(2, TimeSpan.Zero)
+                OnRetryPolicy = (ctx, resetTime) => RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
 

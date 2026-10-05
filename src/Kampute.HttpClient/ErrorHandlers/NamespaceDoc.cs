@@ -6,7 +6,7 @@
 namespace Kampute.HttpClient.ErrorHandlers
 {
     /// <summary>
-    /// This namespace contains classes for handling specific HTTP error responses.
+    /// This namespace contains the error handlers that recover from specific error responses, such as '401 Unauthorized' and '503 Service Unavailable'.
     /// </summary>
     internal static class NamespaceDoc { }
 }

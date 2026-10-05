@@ -6,30 +6,29 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents an HTTP content with no data.
+    /// Represents content with no body, whose length is zero.
     /// </summary>
     /// <remarks>
-    /// This class is used when an HTTP request or response needs to indicate a content body, but there should be no actual content sent or received.
-    /// It effectively sets the content length to 0 and does not write anything to the output stream.
+    /// Use it to send a request that needs content, such as one with <c>Content-*</c> headers, but no body.
     /// </remarks>
     public sealed class EmptyContent : HttpContent
     {
         /// <summary>
-        /// Serializes the content to a stream asynchronously.
+        /// Writes nothing to the stream.
         /// </summary>
-        /// <param name="stream">The target stream to which the content should be written.</param>
+        /// <param name="stream">The stream to write to.</param>
         /// <param name="context">The transport context.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Attempts to compute the length of the content.
+        /// Returns the length of the content, which is zero.
         /// </summary>
-        /// <param name="length">When this method returns, contains the length of the content in bytes.</param>
-        /// <returns><see langword="true"/> if the length could be computed; otherwise, <see langword="false"/>.</returns>
+        /// <param name="length">Always 0.</param>
+        /// <returns>Always <see langword="true"/>.</returns>
         protected override bool TryComputeLength(out long length)
         {
             length = 0;

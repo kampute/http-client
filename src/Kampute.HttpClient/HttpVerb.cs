@@ -6,88 +6,55 @@
 namespace Kampute.HttpClient
 {
     /// <summary>
-    /// A helper class for retrieving the standard HTTP methods.
+    /// Provides the standard HTTP methods on every target framework.
     /// </summary>
     /// <remarks>
-    /// This class supplements the standard <see cref="System.Net.Http.HttpMethod"/> class with additional, commonly 
-    /// used HTTP methods that are not covered by the .NET Standard 2.0 specification.
+    /// <see cref="System.Net.Http.HttpMethod"/> has no <c>Patch</c> property on .NET Standard 2.0; this class provides it there too.
     /// </remarks>
     public static class HttpVerb
     {
         /// <summary>
-        /// Represents an HTTP DELETE protocol method.
+        /// The DELETE method, which removes the target resource.
         /// </summary>
-        /// <remarks>
-        /// The DELETE method requests that the target resource be removed. It is used to delete a resource identified 
-        /// by a URI.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Delete = System.Net.Http.HttpMethod.Delete;
 
         /// <summary>
-        /// Represents an HTTP GET protocol method.
+        /// The GET method, which retrieves a representation of the target resource without changing it.
         /// </summary>
-        /// <remarks>
-        /// The GET method requests a representation of the specified resource. Requests using GET should only retrieve 
-        /// data and should have no other effect.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Get = System.Net.Http.HttpMethod.Get;
 
         /// <summary>
-        /// Represents an HTTP HEAD protocol method.
+        /// The HEAD method, which is identical to GET except that the response has no body.
         /// </summary>
-        /// <remarks>
-        /// The HEAD method is identical to GET except that the server responds with headers only and no message body. 
-        /// It is often used for testing hypertext links for validity, accessibility, and recent modification.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Head = System.Net.Http.HttpMethod.Head;
 
         /// <summary>
-        /// Represents an HTTP OPTIONS protocol method.
+        /// The OPTIONS method, which asks for the communication options of the target resource, such as the methods it supports.
         /// </summary>
-        /// <remarks>
-        /// The OPTIONS method describes the communication options for the target resource. It can be used to query 
-        /// the server for supported HTTP methods and other options, without implying a resource action.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Options = System.Net.Http.HttpMethod.Options;
 
         /// <summary>
-        /// Represents an HTTP PATCH protocol method.
+        /// The PATCH method, which applies a partial update to the target resource.
         /// </summary>
-        /// <remarks>
-        /// The PATCH method applies partial modifications to a resource. It is used to make a partial update on a resource, 
-        /// in contrast to PUT which typically requires a complete resource representation.
-        /// </remarks>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
         public readonly static System.Net.Http.HttpMethod Patch = System.Net.Http.HttpMethod.Patch;
 #else
         public readonly static System.Net.Http.HttpMethod Patch = new("PATCH");
 #endif
 
         /// <summary>
-        /// Represents an HTTP POST protocol method.
+        /// The POST method, which submits the payload to the target resource for processing, such as to create a resource.
         /// </summary>
-        /// <remarks>
-        /// The POST method is used to submit an entity to the specified resource, often causing a change in state or side 
-        /// effects on the server.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Post = System.Net.Http.HttpMethod.Post;
 
         /// <summary>
-        /// Represents an HTTP PUT protocol method.
+        /// The PUT method, which replaces the target resource with the payload.
         /// </summary>
-        /// <remarks>
-        /// The PUT method replaces all current representations of the target resource with the request payload. It is 
-        /// used to update a resource entirely.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Put = System.Net.Http.HttpMethod.Put;
 
         /// <summary>
-        /// Represents an HTTP TRACE protocol method.
+        /// The TRACE method, which asks the server to echo the request it received, for diagnostics.
         /// </summary>
-        /// <remarks>
-        /// The TRACE method performs a message loop-back test along the path to the target resource, providing a useful 
-        /// debugging mechanism.
-        /// </remarks>
         public readonly static System.Net.Http.HttpMethod Trace = System.Net.Http.HttpMethod.Trace;
     }
 }

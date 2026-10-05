@@ -15,7 +15,7 @@ namespace Kampute.HttpClient.Json
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents HTTP content based on JSON serialized from an object.
+    /// Represents <c>application/json</c> content that serializes an object with <c>System.Text.Json</c> when it is sent.
     /// </summary>
     public sealed class JsonContent : HttpContent
     {
@@ -24,7 +24,7 @@ namespace Kampute.HttpClient.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonContent"/> class.
         /// </summary>
-        /// <param name="content">The object to be serialized into JSON format.</param>
+        /// <param name="content">The object to serialize.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="content"/> is <see langword="null"/>.</exception>
         public JsonContent(object content)
         {
@@ -37,20 +37,20 @@ namespace Kampute.HttpClient.Json
         }
 
         /// <summary>
-        /// Gets or sets the JSON serialization options.
+        /// Gets or sets the serializer options.
         /// </summary>
         /// <value>
-        /// The JSON serialization options, if any.
+        /// The options used to serialize the object, or <see langword="null"/> for the defaults of the serializer.
         /// </value>
         public JsonSerializerOptions? Options { get; set; }
 
         /// <summary>
-        /// Serializes the content to a stream asynchronously.
+        /// Writes the object to a stream as JSON.
         /// </summary>
-        /// <param name="stream">The target stream.</param>
+        /// <param name="stream">The stream to write to.</param>
         /// <param name="context">The transport context.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             return JsonSerializer.SerializeAsync(stream, _content, Options);
         }

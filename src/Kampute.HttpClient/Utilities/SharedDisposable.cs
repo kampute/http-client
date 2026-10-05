@@ -9,19 +9,12 @@ namespace Kampute.HttpClient.Utilities
     using System.Threading;
 
     /// <summary>
-    /// Manages shared access to a disposable resource, ensuring it is correctly disposed of when no longer in use.
+    /// Shares one instance of a disposable resource among its users, and disposes it when the last of them releases it.
     /// </summary>
-    /// <typeparam name="T">The type of the disposable object. Must be a class that implements <see cref="IDisposable"/>.</typeparam>
+    /// <typeparam name="T">The type of the resource.</typeparam>
     /// <remarks>
-    /// <para>
-    /// This class is particularly useful for managing resources that are expensive to create and can be safely shared across different parts
-    /// of an application. It ensures that the resource remains alive as long as it is needed and is properly cleaned up afterwards. This pattern
-    /// helps prevent resource leaks and promotes efficient resource usage.
-    /// </para>
-    /// <para>
-    /// The implementation is thread-safe, making it suitable for use in multi-threaded environments where resources may be accessed concurrently.
-    /// The resource is created lazily, only when it is first requested, and is disposed of when the last reference is released.
-    /// </para>
+    /// Each user acquires a <see cref="Reference"/> and disposes it when done. The resource is created when the first reference is acquired, and
+    /// disposed when the last reference is disposed; a later reference creates a new instance. The class is thread-safe.
     /// </remarks>
     public sealed class SharedDisposable<T> where T : class, IDisposable
     {
@@ -31,7 +24,7 @@ namespace Kampute.HttpClient.Utilities
         private readonly object _lock = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class that uses the default constructor of <typeparamref name="T"/>.
+        /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class that creates the resource with the parameterless constructor of <typeparamref name="T"/>.
         /// </summary>
         public SharedDisposable()
             : this(Activator.CreateInstance<T>)
@@ -39,9 +32,9 @@ namespace Kampute.HttpClient.Utilities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class with a factory function.
+        /// Initializes a new instance of the <see cref="SharedDisposable{T}"/> class that creates the resource with a function.
         /// </summary>
-        /// <param name="factory">A function that creates an instance of the object <typeparamref name="T"/> when needed.</param>
+        /// <param name="factory">The function that creates the resource.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="factory"/> is <see langword="null"/>.</exception>
         public SharedDisposable(Func<T> factory)
         {
@@ -49,15 +42,15 @@ namespace Kampute.HttpClient.Utilities
         }
 
         /// <summary>
-        /// Gets the current number of active references to the managed disposable object.
+        /// Gets the number of references that are not yet disposed.
         /// </summary>
         /// <value>The number of active references.</value>
         public int ReferenceCount => Volatile.Read(ref _referenceCount);
 
         /// <summary>
-        /// Creates a new reference to the shared disposable resource, increasing the reference count.
+        /// Acquires a reference to the resource, creating the resource if no other reference is active.
         /// </summary>
-        /// <returns>A new <see cref="Reference"/> instance.</returns>
+        /// <returns>A new <see cref="Reference"/>, which releases the resource when it is disposed.</returns>
         public Reference AcquireReference() => new(this);
 
         /// <summary>
@@ -91,7 +84,7 @@ namespace Kampute.HttpClient.Utilities
         }
 
         /// <summary>
-        /// Represents a reference to the shared disposable resource.
+        /// Represents one user's reference to the shared resource.
         /// </summary>
         public sealed class Reference : IDisposable
         {
@@ -109,20 +102,20 @@ namespace Kampute.HttpClient.Utilities
             }
 
             /// <summary>
-            /// Gets the <see cref="SharedDisposable{T}"/> instance that owns this reference.
+            /// Gets the <see cref="SharedDisposable{T}"/> that the reference belongs to.
             /// </summary>
-            /// <value>The owning <see cref="SharedDisposable{T}"/> instance.</value>
+            /// <value>The <see cref="SharedDisposable{T}"/> of this reference.</value>
             public SharedDisposable<T> Owner => _owner;
 
             /// <summary>
-            /// Gets the instance of the shared disposable resource.
+            /// Gets the shared resource.
             /// </summary>
-            /// <value>The shared disposable resource instance.</value>
+            /// <value>The shared instance of <typeparamref name="T"/>.</value>
             /// <exception cref="ObjectDisposedException">Thrown if the reference has been disposed.</exception>
             public T Instance => _instance ?? throw new ObjectDisposedException(typeof(Reference).Name);
 
             /// <summary>
-            /// Decreases the reference count and disposes the resource if it is no longer needed.
+            /// Releases the reference, and disposes the resource if this was the last active reference.
             /// </summary>
             public void Dispose()
             {
@@ -134,10 +127,10 @@ namespace Kampute.HttpClient.Utilities
             }
 
             /// <summary>
-            /// Allows implicit conversion of the <see cref="Reference"/> to the shared resource type.
+            /// Returns the shared resource of a reference.
             /// </summary>
-            /// <param name="reference">The reference instance.</param>
-            /// <returns>The shared disposable resource instance.</returns>
+            /// <param name="reference">The reference.</param>
+            /// <returns>The <see cref="Instance"/> of <paramref name="reference"/>.</returns>
             public static implicit operator T(Reference reference) => reference.Instance;
         }
     }

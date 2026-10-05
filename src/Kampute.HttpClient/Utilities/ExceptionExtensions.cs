@@ -9,15 +9,18 @@ namespace Kampute.HttpClient.Utilities
     using System.Net.Sockets;
 
     /// <summary>
-    /// Provides extension methods for <see cref="Exception"/> to enhance functionality related to HTTP request execution.
+    /// Provides extension methods that classify the exceptions of HTTP requests.
     /// </summary>
     public static class ExceptionExtensions
     {
         /// <summary>
-        /// Determines whether a given exception can be considered as a transient network issue for the purposes of retrying an HTTP request.
+        /// Determines whether an exception reports a network failure that a retry could overcome.
         /// </summary>
-        /// <param name="exception">The exception encountered during the HTTP request execution.</param>
-        /// <returns><see langword="true"/> if the error can be considered as a transient network issue and might warrant a retry attempt; <see langword="false"/> otherwise.</returns>
+        /// <param name="exception">The exception of a failed request.</param>
+        /// <returns>
+        /// <see langword="true"/> if the innermost exception is a <see cref="TimeoutException"/>, or a <see cref="System.Net.Sockets.SocketException"/>
+        /// for a transient condition, such as a refused or reset connection or an unreachable host; otherwise, <see langword="false"/>.
+        /// </returns>
         public static bool IsTransientNetworkError(this Exception exception) => exception.GetBaseException() switch
         {
             TimeoutException => true,

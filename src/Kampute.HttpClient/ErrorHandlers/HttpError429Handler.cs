@@ -7,28 +7,30 @@ namespace Kampute.HttpClient.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers.Abstracts;
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Resilience;
     using System;
     using System.Net;
 
     /// <summary>
-    /// Handles '429 Too Many Requests' HTTP responses by attempting to back off and retry the request according to a specified or
-    /// default backoff strategy.
+    /// Handles '429 Too Many Requests' responses by retrying the request when the server allows it.
     /// </summary>
     /// <remarks>
-    /// This handler provides a mechanism to respond to HTTP 429 errors by retrying the request after a delay. The delay duration and
-    /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnBackoffStrategy"/> delegate. If the delegate
-    /// is not provided, or does not specify a strategy, the handler will look for a rate limit reset header in the response. If the
-    /// header is present, its value is used to determine the backoff duration. If the header is not present, no retries will be attempted.
+    /// If the first '429 Too Many Requests' response of a call suggests a retry time, in a <c>Retry-After</c> header or otherwise in a rate limit
+    /// reset header such as <c>x-ratelimit-reset</c>, the request is retried once, at that time; a repeated 429 response then reaches the caller.
+    /// Without a suggested time, the request is not retried. <see cref="RetryableHttpErrorHandler.OnRetryPolicy"/> can choose another policy. If a
+    /// suggested time is further away than <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the request is not
+    /// retried. See <see cref="RetryableHttpErrorHandler"/> for how the retries of a call are decided, and
+    /// <see cref="HttpResponseHeadersExtensions.TryExtractRateLimitResetTime"/> for the headers that are read.
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
     public class HttpError429Handler : RetryableHttpErrorHandler
     {
         /// <inheritdoc/>
         /// <remarks>
-        /// This implementation specifically handles the HTTP '429 Too Many Requests' status code.
+        /// This handler handles the '429 Too Many Requests' status code only.
         /// </remarks>
         public sealed override bool CanHandle(HttpStatusCode statusCode) =>
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
             statusCode == HttpStatusCode.TooManyRequests;
 #else
             statusCode == (HttpStatusCode)429;
@@ -45,12 +47,12 @@ namespace Kampute.HttpClient.ErrorHandlers
         }
 
         /// <inheritdoc/>
-        protected override IHttpBackoffProvider GetDefaultStrategy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
+        protected override IHttpRetryPolicy GetDefaultPolicy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
         {
             if (ctx is null)
                 throw new ArgumentNullException(nameof(ctx));
 
-            return retryTime.HasValue ? BackoffStrategies.Once(retryTime.Value) : BackoffStrategies.None;
+            return retryTime.HasValue ? RetryStrategies.Once(retryTime.Value).ToHttpRetryPolicy() : HttpRetryPolicy.None;
         }
     }
 }

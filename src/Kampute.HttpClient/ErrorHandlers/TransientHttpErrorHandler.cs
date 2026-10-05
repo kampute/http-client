@@ -11,11 +11,17 @@ namespace Kampute.HttpClient.ErrorHandlers
     using System.Net;
 
     /// <summary>
-    /// Handles HTTP responses with a transient error status code by attempting to back off and retry the request according to a specified
-    /// or default backoff strategy.
+    /// Handles responses with a transient error status code by retrying the request after a delay.
     /// </summary>
+    /// <remarks>
+    /// If the first error response of a call that this handler handles has a <c>Retry-After</c> header, the request is retried once, at the time
+    /// the header suggests; a repeated error response then reaches the caller. Without the header, the request is retried as the
+    /// <see cref="HttpRestClient.RetryPolicy"/> of the client decides. <see cref="RetryableHttpErrorHandler.OnRetryPolicy"/> can choose another policy.
+    /// If a suggested time is further away than <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the request is
+    /// not retried. See <see cref="RetryableHttpErrorHandler"/> for how the retries of a call are decided.
+    /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
-    /// <seealso cref="HttpRestClient.BackoffStrategy"/>
+    /// <seealso cref="HttpRestClient.RetryPolicy"/>
     public class TransientHttpErrorHandler : RetryableHttpErrorHandler
     {
         private readonly HashSet<HttpStatusCode> _handledStatusCodes;

@@ -13,37 +13,37 @@ namespace Kampute.HttpClient
     using System.Net;
 
     /// <summary>
-    /// Represents a specialized collection of <see cref="IHttpErrorHandler"/> instances.
+    /// Represents the error handlers of an <see cref="HttpRestClient"/>, in the order they were added.
     /// </summary>
     /// <remarks>
-    /// This collection enables the management of <see cref="IHttpErrorHandler"/> instances for handling HTTP errors, 
-    /// with capabilities such as adding, removing, and querying error handlers based on HTTP status codes. 
+    /// The client asks the handlers that <see cref="GetHandlersFor"/> returns for the status code of an error response, in order, until one of them
+    /// retries. A handler can be added only once.
     /// </remarks>
     public sealed class HttpErrorHandlerCollection : ICollection<IHttpErrorHandler>
     {
         private readonly List<IHttpErrorHandler> _collection = [];
 
         /// <summary>
-        /// Gets the number of <see cref="IHttpErrorHandler"/> instances contained in the collection.
+        /// Gets the number of handlers in the collection.
         /// </summary>
         /// <value>
-        /// The number of <see cref="IHttpErrorHandler"/> instances contained in the collection.
+        /// The number of handlers in the collection.
         /// </value>
         public int Count => _collection.Count;
 
         /// <summary>
-        /// Gets a value indicating whether the collection is read-only. Always returns <see langword="false"/> for this implementation.
+        /// Gets a value indicating whether the collection is read-only.
         /// </summary>
         /// <value>
-        /// Indicates whether the collection is read-only. This property always returns <see langword="false"/>.
+        /// Always <see langword="false"/>.
         /// </value>
         bool ICollection<IHttpErrorHandler>.IsReadOnly => false;
 
         /// <summary>
-        /// Retrieves all <see cref="IHttpErrorHandler"/> instances in the collection that support handling a specific HTTP status code.
+        /// Returns the handlers that can handle the specified status code, in the order they were added.
         /// </summary>
-        /// <param name="statusCode">The HTTP status code to query.</param>
-        /// <returns>An enumerable of <see cref="IHttpErrorHandler"/> that can handle the specified status code.</returns>
+        /// <param name="statusCode">The status code of the error response.</param>
+        /// <returns>The handlers whose <see cref="IHttpErrorHandler.CanHandle"/> accepts <paramref name="statusCode"/>.</returns>
         public IEnumerable<IHttpErrorHandler> GetHandlersFor(HttpStatusCode statusCode)
         {
             return _collection.Where(errorHandler => errorHandler.CanHandle(statusCode));
@@ -54,7 +54,7 @@ namespace Kampute.HttpClient
         /// </summary>
         /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> to add.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="errorHandler"/> is <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="errorHandler"/> is already present in the collection, as duplicates are not allowed.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="errorHandler"/> is already in the collection.</exception>
         public void Add(IHttpErrorHandler errorHandler)
         {
             if (errorHandler is null)
@@ -66,7 +66,7 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Removes the first occurrence of a specific <see cref="IHttpErrorHandler"/> from the collection.
+        /// Removes a handler from the collection.
         /// </summary>
         /// <param name="errorHandler">The <see cref="IHttpErrorHandler"/> to remove from the collection.</param>
         /// <returns><see langword="true"/> if <paramref name="errorHandler"/> was successfully removed from the collection; otherwise, <see langword="false"/>.</returns>

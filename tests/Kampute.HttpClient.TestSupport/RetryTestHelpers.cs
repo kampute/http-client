@@ -1,25 +1,26 @@
 namespace Kampute.HttpClient.TestSupport
 {
     using Kampute.HttpClient.Interfaces;
+    using Kampute.Resilience;
     using Moq;
     using System.Threading;
 
     public static class RetryTestHelpers
     {
-        public static Mock<IHttpBackoffProvider> MockBackoffStrategy(int retriesToAllow, out Mock<IRetryScheduler> mockRetryScheduler)
+        public static Mock<IHttpRetryPolicy> MockRetryPolicy(int retriesToAllow, out Mock<IRetrySession> mockRetrySession)
         {
-            mockRetryScheduler = new Mock<IRetryScheduler>();
+            mockRetrySession = new Mock<IRetrySession>();
 
             var retries = 0;
-            mockRetryScheduler.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
+            mockRetrySession.Setup(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(() => retries < retriesToAllow)
                 .Callback(() => ++retries);
 
-            var mockBackoffStrategy = new Mock<IHttpBackoffProvider>();
-            mockBackoffStrategy.Setup(strategy => strategy.CreateScheduler(It.IsAny<HttpRequestErrorContext>()))
-                .Returns(mockRetryScheduler.Object);
+            var mockRetryPolicy = new Mock<IHttpRetryPolicy>();
+            mockRetryPolicy.Setup(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()))
+                .Returns(mockRetrySession.Object);
 
-            return mockBackoffStrategy;
+            return mockRetryPolicy;
         }
     }
 }

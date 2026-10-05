@@ -12,43 +12,36 @@ namespace Kampute.HttpClient.ErrorHandlers
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides a dynamic mechanism to handle HTTP error status codes and determine retry logic for HTTP requests.
+    /// Handles error responses with a function, without defining a handler class.
     /// </summary>
     /// <remarks>
-    /// <para>
-    /// This class implements the <see cref="IHttpErrorHandler"/> interface, allowing for custom and dynamic error handling strategies to be defined at runtime. 
-    /// It encapsulates a delegate that is invoked to determine the retry logic for failed HTTP requests, making it highly flexible and adaptable to various error 
-    /// handling scenarios.
-    /// </para>
-    /// <para>
-    /// Since this class always returns <see langword="true"/> for <see cref="CanHandle(HttpStatusCode)"/>, it represents a "catch-all" handler that can be used as a fall-back 
-    /// when no other specific error handlers are suitable.
-    /// </para>
+    /// The handler accepts every status code, so it is asked about every error response that the handlers added before it do not retry. The function
+    /// decides, for example by checking <see cref="HttpResponseErrorContext.Response"/>, whether to return a request to retry.
     /// </remarks>
+    /// <example>
+    /// This handler retries a request up to three times, one second apart, while the server answers '409 Conflict'. The policy object is the
+    /// source of the retries, so they are counted separately from the retries of other handlers.
+    /// <code>
+    /// var conflictRetries = RetryStrategies.Constant(TimeSpan.FromSeconds(1)).WithMaxRetries(3).ToHttpRetryPolicy();
+    ///
+    /// client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, cancellationToken) =>
+    ///     ctx.Response.StatusCode == HttpStatusCode.Conflict
+    ///         ? ctx.ScheduleRetryAsync(conflictRetries, errorContext => conflictRetries.CreateSession(errorContext), cancellationToken)
+    ///         : Task.FromResult(HttpErrorHandlerResult.NoRetry)));
+    /// </code>
+    /// </example>
     public class DynamicHttpErrorHandler : IHttpErrorHandler
     {
-        private readonly Func<HttpRequestErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> _asyncHandler;
+        private readonly Func<HttpResponseErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> _asyncHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicHttpErrorHandler"/> class.
         /// </summary>
-        /// <param name="asyncHandler">The asynchronous delegate to handle HTTP error status codes and decide on retry logic.</param>
+        /// <param name="asyncHandler">
+        /// The function that decides. It receives the context of the error response and a cancellation token, and returns the decision.
+        /// </param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="asyncHandler"/> is <see langword="null"/>.</exception>
-        /// <remarks>
-        /// The delegate receives the following parameters:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>context</term>
-        /// <description>Provides context about the HTTP request resulting in a failure response. It is encapsulated within an 
-        /// <see cref="HttpResponseErrorContext"/> instance, allowing for an informed decision on the retry strategy.</description>
-        /// </item>
-        /// <item>
-        /// <term>cancellationToken</term>
-        /// <description>A <see cref="CancellationToken"/> for canceling the operation.</description>
-        /// </item>
-        /// </list>
-        /// </remarks>
-        public DynamicHttpErrorHandler(Func<HttpRequestErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> asyncHandler)
+        public DynamicHttpErrorHandler(Func<HttpResponseErrorContext, CancellationToken, Task<HttpErrorHandlerResult>> asyncHandler)
         {
             _asyncHandler = asyncHandler ?? throw new ArgumentNullException(nameof(asyncHandler));
         }
@@ -57,11 +50,11 @@ namespace Kampute.HttpClient.ErrorHandlers
         /// Determines whether the handler is capable of handling the provided HTTP status code.
         /// </summary>
         /// <param name="statusCode">The HTTP status code to evaluate.</param>
-        /// <returns>Always <see langword="true"/>, indicating that this handler can handle any status code.</returns>
+        /// <returns>Always <see langword="true"/>.</returns>
         public bool CanHandle(HttpStatusCode statusCode) => true;
 
         /// <summary>
-        /// Invokes the configured asynchronous delegate to determine whether a failed request should be retried.
+        /// Calls the function of this handler to decide whether to retry a request after an error response.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
         /// <param name="cancellationToken">A token for canceling the operation.</param>

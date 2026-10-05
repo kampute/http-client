@@ -6,8 +6,7 @@
 namespace Kampute.HttpClient.ErrorHandlers.Abstracts
 {
     /// <summary>
-    /// This namespace contains abstract classes for handling transient HTTP error responses by implementing
-    /// backoff and retry strategies.
+    /// This namespace contains the base class of the error handlers that retry a request after an error response with a transient status code.
     /// </summary>
     internal static class NamespaceDoc { }
 }

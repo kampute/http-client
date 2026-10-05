@@ -9,19 +9,18 @@ namespace Kampute.HttpClient
     using System.Net.Http;
 
     /// <summary>
-    /// Provides extension methods for <see cref="HttpRequestMessage"/> to enhance functionality related to HTTP request processing.
+    /// Provides extension methods for <see cref="HttpRequestMessage"/> that error handlers use to retry a request.
     /// </summary>
     public static class HttpRequestMessageExtensions
     {
         /// <summary>
-        /// Clones the specified <see cref="HttpRequestMessage"/>, including its headers, version, and properties.
+        /// Creates a copy of a request to send again.
         /// </summary>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> to clone.</param>
-        /// <returns>A new instance of <see cref="HttpRequestMessage"/> that is a clone of the original.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if the request contains a content that cannot be reused.</exception>
+        /// <param name="request">The request to copy.</param>
+        /// <returns>A new <see cref="HttpRequestMessage"/> with the method, URI, version, headers, and properties of <paramref name="request"/>.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the content of the request cannot be sent again; see <see cref="CanClone"/>.</exception>
         /// <remarks>
-        /// This method copies the provided <see cref="HttpRequestMessage"/>, including its headers, version, and properties. The method reuses 
-        /// the original request's <see cref="HttpContent"/> in the cloned request. 
+        /// The copy shares the content of the original request rather than copying it, so disposing either request disposes the content of both.
         /// </remarks>
         public static HttpRequestMessage Clone(this HttpRequestMessage request)
         {
@@ -37,55 +36,51 @@ namespace Kampute.HttpClient
             foreach (var header in request.Headers)
                 clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
 
-            foreach (var property in request.Properties)
-                clone.Properties.Add(property);
+            var cloneProperties = clone.GetPropertyBag();
+            foreach (var property in request.GetPropertyBag())
+                cloneProperties.Add(property);
 
-            clone.Properties[HttpRequestMessagePropertyKeys.CloneGeneration] = request.GetCloneGeneration() + 1;
+            cloneProperties[HttpRequestMessagePropertyKeys.CloneGeneration] = request.GetCloneGeneration() + 1;
 
             return clone;
         }
 
         /// <summary>
-        /// Determines whether the <see cref="HttpRequestMessage"/> can be cloned without issues.
+        /// Determines whether a request can be copied with <see cref="Clone"/> and sent again.
         /// </summary>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> to check.</param>
-        /// <returns><see langword="true"/> if the request does not contain a content or the content is reusable; otherwise, <see langword="false"/>.</returns>
-        /// <remarks>
-        /// This is a quick check to prevent cloning of requests that contain one-time-use content, which could lead to unexpected behaviors
-        /// such as empty request bodies or <see cref="InvalidOperationException"/>.
-        /// </remarks>
+        /// <param name="request">The request to check.</param>
+        /// <returns>
+        /// <see langword="true"/> if the request has no content or its content can be sent again; otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <seealso cref="HttpContentExtensions.IsReusable"/>
         public static bool CanClone(this HttpRequestMessage request)
         {
             return request.Content is null || request.Content.IsReusable();
         }
 
         /// <summary>
-        /// Checks if the <see cref="HttpRequestMessage"/> is a clone.
+        /// Determines whether a request is a copy made with <see cref="Clone(HttpRequestMessage)"/>.
         /// </summary>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> to check.</param>
-        /// <returns><see langword="true"/> if the request has been cloned; otherwise, <see langword="false"/>.</returns>
-        /// <remarks>
-        /// A cloned request is one that has been created through the <see cref="Clone(HttpRequestMessage)"/> extension method.
-        /// </remarks>
+        /// <param name="request">The request to check.</param>
+        /// <returns><see langword="true"/> if the request is a copy; otherwise, <see langword="false"/>.</returns>
         /// <seealso cref="Clone(HttpRequestMessage)"/>
         public static bool IsCloned(this HttpRequestMessage request)
         {
-            return request.Properties.ContainsKey(HttpRequestMessagePropertyKeys.CloneGeneration);
+            return request.GetPropertyBag().ContainsKey(HttpRequestMessagePropertyKeys.CloneGeneration);
         }
 
         /// <summary>
-        /// Retrieves the number of times the original request was cloned to produce this <see cref="HttpRequestMessage"/> instance.
+        /// Returns how many copies separate a request from the original request.
         /// </summary>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> to check.</param>
-        /// <returns>The clone generation count or zero if the request has not been cloned.</returns>
-        /// <remarks>
-        /// The clone generation increases by 1 every time the request is cloned. An original request that has not been cloned
-        /// will have a generation count of 0.
-        /// </remarks>
+        /// <param name="request">The request to check.</param>
+        /// <returns>
+        /// 0 for an original request, 1 for a copy of it, 2 for a copy of that copy, and so on. Because each retry of a call clones the request
+        /// last sent, this is usually the number of retries so far.
+        /// </returns>
         /// <seealso cref="Clone(HttpRequestMessage)"/>
         public static int GetCloneGeneration(this HttpRequestMessage request)
         {
-            return request.Properties.TryGetValue(HttpRequestMessagePropertyKeys.CloneGeneration, out var cloneGeneration) ? (int)cloneGeneration : 0;
+            return request.GetPropertyBag().TryGetValue(HttpRequestMessagePropertyKeys.CloneGeneration, out var cloneGeneration) && cloneGeneration is int generation ? generation : 0;
         }
     }
 }

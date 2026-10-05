@@ -10,22 +10,34 @@ namespace Kampute.HttpClient
     using System.Net.Http;
 
     /// <summary>
-    /// Defines constant keys for storing and identifying custom properties in an <see cref="HttpRequestMessage"/>.
+    /// Provides the keys of the request properties that <see cref="HttpRestClient"/> sets and reads.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// On .NET 5 and later, read these properties through <c>HttpRequestMessage.Options</c> with an <c>HttpRequestOptionsKey&lt;TValue&gt;</c>
+    /// named after the key, because <c>HttpRequestMessage.Properties</c> is obsolete there. Both show the same values. On .NET Framework, read
+    /// them through <c>HttpRequestMessage.Properties</c>.
+    /// </para>
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// if (request.Options.TryGetValue(new HttpRequestOptionsKey&lt;Guid&gt;(HttpRequestMessagePropertyKeys.TransactionId), out var transactionId))
+    ///     Console.WriteLine($"Transaction {transactionId}");
+    /// </code>
+    /// </example>
     public static class HttpRequestMessagePropertyKeys
     {
         /// <summary>
-        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that tracks
-        /// how many times the request has been cloned. 
+        /// The key of the property that counts how many copies separate a request from the original request.
         /// </summary>
         /// <remarks>
-        /// The value of this property is of type <see cref="int"/>.
+        /// The value of this property is of type <see cref="int"/>. Read it through <see cref="HttpRequestMessageExtensions.GetCloneGeneration"/>
+        /// and <see cref="HttpRequestMessageExtensions.IsCloned"/>.
         /// </remarks>
-        public const string CloneGeneration = nameof(HttpRestClient) + "." + nameof(CloneGeneration);
+        internal const string CloneGeneration = nameof(HttpRestClient) + "." + nameof(CloneGeneration);
 
         /// <summary>
-        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that identifies
-        /// the request and its clones.
+        /// The key of the property that identifies a request and the copies made for its retries.
         /// </summary>
         /// <remarks>
         /// The value of this property is of type <see cref="Guid"/>.
@@ -33,8 +45,7 @@ namespace Kampute.HttpClient
         public const string TransactionId = nameof(HttpRestClient) + "." + nameof(TransactionId);
 
         /// <summary>
-        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that identifies
-        /// the type of expected .NET object in the response.
+        /// The key of the property that holds the type into which the response is read.
         /// </summary>
         /// <remarks>
         /// The value of this property is of type <see cref="Type"/>.
@@ -42,19 +53,7 @@ namespace Kampute.HttpClient
         public const string ResponseObjectType = nameof(HttpRestClient) + "." + nameof(ResponseObjectType);
 
         /// <summary>
-        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that references
-        /// the <see cref="IRetryScheduler"/> instance associated with the request which is responsible for scheduling
-        /// the retry logic for transient failures.
-        /// </summary>
-        /// <remarks>
-        /// The value of this property is of type <see cref="IRetryScheduler"/>.
-        /// </remarks>
-        public const string RetryScheduler = nameof(HttpRestClient) + "." + nameof(RetryScheduler);
-
-        /// <summary>
-        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that references
-        /// the <see cref="IHttpErrorHandler"/> instance associated with the request, which is responsible for processing
-        /// and potentially recovering from errors in the response.
+        /// The key of the property that holds the <see cref="IHttpErrorHandler"/> that decided to retry the request after an error response.
         /// </summary>
         /// <remarks>
         /// The value of this property is of type <see cref="IHttpErrorHandler"/>.
@@ -62,8 +61,8 @@ namespace Kampute.HttpClient
         public const string ErrorHandler = nameof(HttpRestClient) + "." + nameof(ErrorHandler);
 
         /// <summary>
-        /// A key used to store and identify the property within an <see cref="HttpRequestMessage"/> that indicates
-        /// '401 Unauthorized' errors should not be automatically handled.
+        /// The key of the property that, when <see langword="true"/>, stops <see cref="ErrorHandlers.HttpError401Handler"/> from handling a
+        /// '401 Unauthorized' response to the request.
         /// </summary>
         /// <remarks>
         /// The value of this property is of type <see cref="bool"/>.

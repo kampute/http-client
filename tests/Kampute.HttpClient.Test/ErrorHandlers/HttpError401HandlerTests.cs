@@ -81,6 +81,106 @@
         }
 
         [Test]
+        public async Task On401Response_WhileRequestsAreCreatedConcurrently_AuthorizesAllRequestsWithNewToken()
+        {
+            var newAuthorization = new AuthenticationHeaderValue(AuthSchemes.Bearer, "new-token");
+            var numberOfRequests = 50;
+
+            using var unauthorizeHandler = new HttpError401Handler(async (_, ct) =>
+            {
+                await Task.Delay(50, ct);
+                return newAuthorization;
+            });
+
+            _client.ErrorHandlers.Add(unauthorizeHandler);
+
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                if (request.Headers.Authorization?.Scheme == newAuthorization.Scheme && request.Headers.Authorization?.Parameter == newAuthorization.Parameter)
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+
+                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            });
+
+            using var stopLoops = new CancellationTokenSource();
+            var loops = Enumerable.Range(1, Environment.ProcessorCount).Select(i => Task.Run(async () =>
+            {
+                while (!stopLoops.IsCancellationRequested)
+                {
+                    using var response = await _client.SendAsync(HttpMethod.Get, $"/protected/loop{i}");
+                    Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                }
+            })).ToArray();
+
+            var requests = Enumerable.Range(1, numberOfRequests).Select(i => _client.SendAsync(HttpMethod.Get, $"/protected/resource{i}")).ToArray();
+            try
+            {
+                await Task.WhenAll(requests);
+            }
+            finally
+            {
+                stopLoops.Cancel();
+                await Task.WhenAll(loops);
+            }
+
+            using (Assert.EnterMultipleScope())
+            {
+                foreach (var request in requests)
+                    Assert.That(request.Result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.EqualTo(newAuthorization));
+            }
+        }
+
+        [Test]
+        public async Task On401Response_ArrivingAfterRefreshCompleted_DoesNotAuthenticateAgain()
+        {
+            var oldAuthorization = new AuthenticationHeaderValue(AuthSchemes.Bearer, "old-token");
+            var newAuthorization = new AuthenticationHeaderValue(AuthSchemes.Bearer, "new-token");
+            var delayedResponse = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            var numberOfInvokes = 0;
+
+            using var testHandler = new TestHttpMessageHandler
+            {
+                ResponseFactory = async (request, _) =>
+                {
+                    if (newAuthorization.Equals(request.Headers.Authorization))
+                        return new HttpResponseMessage(HttpStatusCode.OK);
+
+                    if (request.RequestUri!.AbsolutePath == "/delayed")
+                        await delayedResponse.Task;
+
+                    return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                }
+            };
+            using var httpClient = new HttpClient(testHandler, false);
+            using var client = new HttpRestClient(httpClient)
+            {
+                BaseAddress = new Uri("http://api.test.com"),
+            };
+            client.DefaultRequestHeaders.Authorization = oldAuthorization;
+
+            using var unauthorizeHandler = new HttpError401Handler((_, _) =>
+            {
+                Interlocked.Increment(ref numberOfInvokes);
+                return Task.FromResult<AuthenticationHeaderValue?>(newAuthorization);
+            });
+            client.ErrorHandlers.Add(unauthorizeHandler);
+
+            var delayedRequest = client.SendAsync(HttpMethod.Get, "/delayed");
+            using var immediateResponse = await client.SendAsync(HttpMethod.Get, "/immediate");
+            delayedResponse.SetResult(true);
+            using var delayedRequestResponse = await delayedRequest;
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(numberOfInvokes, Is.EqualTo(1));
+                Assert.That(immediateResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(delayedRequestResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            }
+        }
+
+        [Test]
         public async Task On401Response_ByFailedAuthentication_ThrowsUnauthorizedHttpError()
         {
             using var unauthorizeHandler = new HttpError401Handler((ctx, ct) => ctx.Client.SendAsync<AuthenticationHeaderValue?>(HttpMethod.Get, "/authenticate", null, ct));
@@ -101,6 +201,33 @@
 
             Assert.That(caughtException, Is.Not.Null);
             Assert.That(caughtException.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        }
+
+        [Test]
+        public void On401Response_WithNonReusableContent_ThrowsUnauthorizedHttpErrorWithoutAuthenticating()
+        {
+            var numberOfInvokes = 0;
+
+            using var unauthorizeHandler = new HttpError401Handler((_, _) =>
+            {
+                Interlocked.Increment(ref numberOfInvokes);
+                return Task.FromResult<AuthenticationHeaderValue?>(new AuthenticationHeaderValue(AuthSchemes.Bearer, "new-token"));
+            });
+
+            _client.ErrorHandlers.Add(unauthorizeHandler);
+
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.Unauthorized));
+
+            using var content = new StreamContent(new TestStream(seekable: false));
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Post, "/protected/resource", content));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+                Assert.That(numberOfInvokes, Is.Zero);
+                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Null);
+            }
         }
     }
 }

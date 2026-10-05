@@ -3,6 +3,8 @@ title: Home
 summary: A .NET client layer for REST integrations, with typed content, scoped requests, and configurable recovery.
 ---
 
+[![Version](https://img.shields.io/github/v/release/kampute/http-client?label=Version&color=darkred)](https://github.com/kampute/http-client/releases)
+
 # Welcome to Kampute.HttpClient
 
 REST integrations need more than an HTTP call: requests carry authentication and context, responses need to become application models, and failures need a recovery policy. [`Kampute.HttpClient`](~/api/Kampute.HttpClient.html) brings these concerns together around the native .NET [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient).

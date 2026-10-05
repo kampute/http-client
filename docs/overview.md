@@ -21,7 +21,7 @@ A request passes through these stages:
 
 1. The client creates the HTTP message using its default and scoped configuration.
 2. [`BeforeSendingRequest`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BeforeSendingRequest) gives subscribers an opportunity to modify the outgoing message.
-3. The underlying [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) sends it. A configured connection retry policy can schedule another attempt after a transient connection failure.
+3. The underlying [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) sends it. A configured connection retry policy can schedule another attempt after a transient connection failure or a timeout.
 4. [`AfterReceivingResponse`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_AfterReceivingResponse) exposes a received response before further processing.
 5. A successful response is read in the form requested by the caller. An error response is offered to registered error handlers; if none recovers by retrying, the call fails with [`HttpResponseException`](~/api/Kampute.HttpClient.HttpResponseException.html).
 
@@ -31,4 +31,4 @@ The [request helpers](sending-requests.md) let you choose typed objects, raw bod
 
 Connection failures, HTTP error responses, and content failures need different treatment. A retry policy controls transient connection failures. Error handlers decide whether an HTTP error response can be retried, while formatter or model problems must be corrected to read the response successfully.
 
-Set retry limits deliberately. The connection policy and retrying error handlers maintain separate budgets, so their limits do not form one total limit for a request. The [retry guide](retries.md) explains strategy composition and budgets; the [error handling guide](error-handling.md) covers structured errors and status-specific recovery.
+Set retry limits deliberately. The connection retry policy and each retrying error handler count only their own retries, so their limits do not add up to one limit for a call: a call that fails in several ways can be retried more times than any one limit allows. The [error handling guide](error-handling.md) explains how to retry connection failures, how handlers retry error responses, and how to read structured errors.

@@ -27,8 +27,8 @@ The core package registers no content formatter. For typed responses, call `UseX
 
 - [Content formats](https://kampute.github.io/http-client/overview/content-formats.html): XML, JSON packages, and custom formatters.
 - [Request customization](https://kampute.github.io/http-client/overview/request-customization.html): temporary headers, properties, and events.
-- [Retries](https://kampute.github.io/http-client/overview/retries.html) and [error handling](https://kampute.github.io/http-client/overview/error-handling.html): connection failures and HTTP error responses.
+- [Error handling](https://kampute.github.io/http-client/overview/error-handling.html): retries after connection failures, and recovery from HTTP error responses.
 
 ## License
 
-[MIT License](LICENSE).
+Kampute.HttpClient is released under the [MIT License](LICENSE).

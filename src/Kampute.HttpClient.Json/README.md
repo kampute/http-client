@@ -36,4 +36,4 @@ Use `PostAsJsonAsync`, `PutAsJsonAsync`, or `PatchAsJsonAsync` to send JSON payl
 
 ## License
 
-[MIT License](LICENSE).
+Kampute.HttpClient.Json is released under the [MIT License](LICENSE).

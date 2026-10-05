@@ -36,7 +36,7 @@ When passing an application-managed [`HttpClient`](https://learn.microsoft.com/d
 
 ## Base Address
 
-Set [`BaseAddress`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BaseAddress) when most requests target the same API. Use a trailing slash in the base address and relative request paths without a leading slash. Register a formatter before reading typed responses.
+Set [`BaseAddress`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BaseAddress) when most requests target the same API, and use relative request paths without a leading slash: a leading slash resolves the path from the host root and drops the path of the base address. The client adds a trailing slash to the base address if it has none. Register a formatter before reading typed responses.
 
 ```csharp
 using System;

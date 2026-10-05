@@ -46,7 +46,7 @@ using (client.BeginHeaderScope(new Dictionary<string, string?>
 }
 ```
 
-When the scope is disposed, the temporary headers and properties are removed.
+When the scope is disposed, the headers and properties it set or removed return to their previous values.
 
 ## Scoped Properties
 

@@ -16,11 +16,10 @@ The base package contains [`HttpRestClient`](~/api/Kampute.HttpClient.HttpRestCl
 | [`Kampute.HttpClient`](~/api/Kampute.HttpClient.html)                               | Core HTTP client, request helpers, scopes, retry behavior, error handling, and XML APIs.   |
 | [`Kampute.HttpClient.Json`](~/api/Kampute.HttpClient.Json.html)                     | JSON APIs using [`System.Text.Json`](https://learn.microsoft.com/dotnet/api/system.text.json).                                                        |
 | [`Kampute.HttpClient.NewtonsoftJson`](~/api/Kampute.HttpClient.NewtonsoftJson.html) | JSON APIs that require [`Newtonsoft.Json`](https://www.newtonsoft.com/json/help/html/N_Newtonsoft_Json.htm) features or compatibility.                        |
-| [`Kampute.Resilience`](https://kampute.github.io/resilience/)                       | Retry strategies, also for operations other than HTTP requests. Installed with the core.   |
 
 ## Install
 
-For a JSON API using [`System.Text.Json`](https://learn.microsoft.com/dotnet/api/system.text.json), install the extension package. It brings in the core client and [`Kampute.Resilience`](https://kampute.github.io/resilience/) as dependencies.
+For a JSON API using [`System.Text.Json`](https://learn.microsoft.com/dotnet/api/system.text.json), install the extension package. It brings in the core client and `Kampute.Resilience` as dependencies.
 
 ```shell
 dotnet add package Kampute.HttpClient.Json
@@ -55,4 +54,5 @@ public sealed class Resource
 - [Send requests and payloads](sending-requests.md).
 - [Configure the client and its lifetime](client-configuration.md).
 - [Customize individual requests](request-customization.md).
-- [Configure content formats](content-formats.md), [retries](retries.md), and [error handling](error-handling.md).
+- [Configure content formats](content-formats.md).
+- [Retry failed requests and handle errors](error-handling.md).

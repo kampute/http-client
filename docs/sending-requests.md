@@ -49,6 +49,6 @@ Dispose the stream returned by [`GetAsStreamAsync()`](~/api/Kampute.HttpClient.H
 
 ## Cancellation and Failures
 
-Request helpers accept a [`CancellationToken`](https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken); pass the caller's token through your API wrapper. See [Error handling](error-handling.md) for HTTP errors and [Retries](retries.md) for transient connection failures.
+Request helpers accept a [`CancellationToken`](https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken); pass the caller's token through your API wrapper. See [Error handling](error-handling.md) for retrying transient connection failures and handling HTTP errors.
 
 See the [core extensions](~/api/Kampute.HttpClient.HttpRestClientExtensions.html), [JSON extensions](~/api/Kampute.HttpClient.Json.HttpRestClientJsonExtensions.html), and [XML extensions](~/api/Kampute.HttpClient.Xml.HttpRestClientXmlExtensions.html) for signatures and overloads.

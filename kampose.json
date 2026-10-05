@@ -10,6 +10,16 @@
     "assemblies": [
         "src/**/bin/Release/net10.0/*.dll"
     ],
+    "references": [
+        {
+            "namespaces": [
+                "Kampute.Resilience",
+                "Kampute.Resilience.*"
+            ],
+            "strategy": "docFx",
+            "url": "https://kampute.github.io/resilience/"
+        }
+    ],
     "topics": [
         "docs/**/*.md"
     ],
@@ -21,7 +31,6 @@
         "docs/client-configuration.md",
         "docs/request-customization.md",
         "docs/content-formats.md",
-        "docs/retries.md",
         "docs/error-handling.md"
     ],
     "assets": [

@@ -35,8 +35,6 @@ Choose a retry policy for transient connection failures, with delays and limits 
 
 HTTP error responses have a separate recovery path. Register error handlers to refresh authorization after a 401 response or schedule retries for selected status codes. Structured error bodies can be deserialized into your API's error model; an unrecovered error response raises [`HttpResponseException`](~/api/Kampute.HttpClient.HttpResponseException.html).
 
-The same retry strategies can also be used independently of HTTP, through the standalone [`Kampute.Resilience`](https://kampute.github.io/resilience/) package.
-
 ## Get Started
 
 For a JSON API, install the JSON extension for the serializer your application uses. For XML or raw response bodies, start with the core package. The [getting-started guide](getting-started.md) walks through package selection, formatter registration, and a first typed request.

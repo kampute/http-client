@@ -14,12 +14,13 @@ A .NET library for REST API clients built on `HttpClient`, with scoped request c
 
 ## Packages
 
+The packages target .NET Standard 2.0 and .NET 10.
+
 | Package | Purpose |
 | --- | --- |
 | [Kampute.HttpClient](https://www.nuget.org/packages/Kampute.HttpClient) | Core client, scopes, error handlers, and XML support. |
 | [Kampute.HttpClient.Json](https://www.nuget.org/packages/Kampute.HttpClient.Json) | JSON with System.Text.Json. |
 | [Kampute.HttpClient.NewtonsoftJson](https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson) | JSON with Newtonsoft.Json. |
-| [Kampute.Resilience](https://www.nuget.org/packages/Kampute.Resilience) | Retry strategies for HTTP and other operations; included with the core client. |
 
 ## Quick Start
 
@@ -51,16 +52,8 @@ See [Getting started](https://kampute.github.io/http-client/overview/getting-sta
 
 ## Contributing
 
-Follow the existing code and documentation conventions. From the repository root:
-
-```shell
-dotnet build -c Release
-dotnet test --verbosity minimal
-kampose build
-```
-
-Documentation sources are in [docs](docs/); [kampose.json](kampose.json) controls site generation. Submit changes through a pull request.
+Report bugs and suggest features in [GitHub issues](https://github.com/kampute/http-client/issues). Pull requests are welcome; run `dotnet test` from the repository root before submitting one.
 
 ## License
 
-[MIT License](LICENSE).
+Kampute.HttpClient is released under the [MIT License](LICENSE).

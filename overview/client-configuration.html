@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kampute.HttpClient - Client Configuration</title><link rel="icon" href="../logo-dark.png"/><link rel="stylesheet" href="../style.css"/><script src="../script.js"></script><script src="../prism.min.js"></script><meta name="generator" content="Kampose v1.1.0"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="description" content=""/><meta name="description" content="Manage HttpClient lifetime, configure a base address, and wrap an API."/></head><body class="has-left-sidebar has-right-sidebar has-menu has-breadcrumb"><a href="#article" class="skip-link" aria-label="Skip to main content" tabindex="0">Skip to main content</a><header class="header" role="banner"><div class="header-main"><a class="brand" href="../index.html" aria-label="Home"><img src="../logo-light.png" alt="Kampute.HttpClient logo" class="logo dark-mode"/> <img src="../logo-dark.png" alt="Kampute.HttpClient logo" class="logo light-mode"/><div class="project-info"><span class="project-name">Kampute.HttpClient</span> <span class="project-slogan">A lightweight .NET library that simplifies RESTful API communication.</span></div></a><div class="header-tools" aria-label="Header tools"><button id="mobile-nav-toggle" class="mobile-header-button" type="button" aria-label="Open API navigation" aria-controls="site-navigation-panel" aria-expanded="false"><span class="icon icon-api-reference" aria-hidden="true"></span></button> <button id="mobile-menu-toggle" class="mobile-header-button" type="button" aria-label="Open documentation topics" aria-controls="menubar" aria-expanded="false"><span class="icon icon-topics" aria-hidden="true"></span></button><div id="color-mode" class="color-mode-selector has-submenu" aria-label="Color mode"><button type="button" class="color-mode-trigger" aria-label="Change color mode"><span class="icon selected-icon" aria-hidden="true"></span></button><ul class="menu" role="menu" aria-labelledby="color-mode" tabindex="-1"><li class="menu-item" data-mode="light" role="menuitemradio" aria-label="Light Color Mode" tabindex="-1"><a><span class="icon icon-light-color" aria-hidden="true"></span> <span>Light</span></a></li><li class="menu-item" data-mode="dark" role="menuitemradio" aria-label="Dark Color Mode" tabindex="-1"><a><span class="icon icon-dark-color" aria-hidden="true"></span> <span>Dark</span></a></li><li class="menu-item" data-mode="system" role="menuitemradio" aria-label="System Color Mode" tabindex="-1"><a><span class="icon icon-system-color" aria-hidden="true"></span> <span>System</span></a></li></ul></div></div></div><nav id="menubar" class="menu-bar" role="navigation" aria-label="Main Menu" data-base-url="../" tabindex="-1"><ul class="menu" role="menubar" aria-labelledby="menubar"></ul></nav><nav class="breadcrumb" role="navigation" aria-label="Breadcrumb" tabindex="-1"><ol><li class="is-topic"><a href="../index.html"><span class="name">Home</span></a></li><li class="is-topic"><a href="index.html"><span class="name">User Guide</span></a></li><li class="is-topic current-page" aria-current="page"><a href="client-configuration.html"><span class="name">Client Configuration</span></a></li></ol></nav></header><div class="content"><aside id="site-navigation-panel" class="sidebar sidebar-left" role="complementary" aria-label="Site navigation" tabindex="-1"><div class="sidebar-header"><div class="search-container" role="search"><span class="search-icon" aria-hidden="true"><span class="icon icon-search"></span></span> <input type="text" id="nav-search" class="nav-search" placeholder="" aria-label="Search documentation" title="Type to filter content (Press / to focus)" autocomplete="off" spellcheck="false"><button id="clear-search" type="button" class="clear-search hidden" aria-label="Clear search" title="Clear" tabindex="-1"><span class="icon icon-delete" aria-hidden="true"></span></button> <span class="search-placeholder" aria-hidden="true">Type <kbd>/</kbd> to search</span></div></div><nav id="site-navigation" class="sidebar-nav" data-base-url="../"><div class="no-search-results hidden" aria-live="polite" role="status">No results found</div></nav></aside><main id="article" role="main" class="article"><h1 id="client-configuration">Client Configuration</h1><p>See <a href="getting-started.html">Getting started</a> for package installation. Replace the example URLs and models with your API's values.</p><h2 id="httpclient-lifetime">HttpClient Lifetime</h2><p>By default, <a href="../api/Kampute.HttpClient.HttpRestClient.html"><code>HttpRestClient</code></a> acquires a shared <a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient"><code>HttpClient</code></a> instance. This avoids creating a new connection pool for every short-lived client wrapper.</p><pre><code class="language-csharp">using Kampute.HttpClient;
+
+using var client = new HttpRestClient();
+</code></pre><p>If your application already manages <a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient"><code>HttpClient</code></a> instances, pass one in directly. This is useful when you configure handlers, proxies, default timeouts, or dependency-injection lifetimes elsewhere.</p><pre><code class="language-csharp">using System;
+using System.Net.Http;
+using Kampute.HttpClient;
+
+using var httpClient = new HttpClient
+{
+    Timeout = TimeSpan.FromSeconds(30)
+};
+
+using var client = new HttpRestClient(httpClient, disposeClient: false);
+</code></pre><p>When passing an application-managed <a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient"><code>HttpClient</code></a>, use <a href="../api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient__ctor_System_Net_Http_HttpClient_System_Boolean_"><code>disposeClient: false</code></a> to keep ownership with the application. Otherwise, disposing <a href="../api/Kampute.HttpClient.HttpRestClient.html"><code>HttpRestClient</code></a> also disposes the supplied client.</p><h2 id="base-address">Base Address</h2><p>Set <a href="../api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_BaseAddress"><code>BaseAddress</code></a> when most requests target the same API, and use relative request paths without a leading slash: a leading slash resolves the path from the host root and drops the path of the base address. The client adds a trailing slash to the base address if it has none. Register a formatter before reading typed responses.</p><pre><code class="language-csharp">using System;
+using Kampute.HttpClient;
+using Kampute.HttpClient.Json;
+
+using var client = new HttpRestClient
+{
+    BaseAddress = new Uri(&quot;https://api.example.com/v1/&quot;)
+};
+
+client.UseJson();
+var resource = await client.GetAsync&lt;Resource&gt;(&quot;resources/42&quot;);
+</code></pre><h2 id="build-an-api-wrapper">Build an API Wrapper</h2><p>A typical API wrapper keeps one configured <a href="../api/Kampute.HttpClient.HttpRestClient.html"><code>HttpRestClient</code></a> and exposes domain-specific methods around it.</p><p>The <code>Account</code> type below is your application's response model. Both methods use relative URLs and pass cancellation to the request helper. <code>RenameAccountAsync</code> sends a PATCH that updates the remote account.</p><pre><code class="language-csharp">using System;
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
+using Kampute.HttpClient;
+using Kampute.HttpClient.Json;
+
+public sealed class AccountApiClient : IDisposable
+{
+    private readonly HttpRestClient _client;
+
+    public AccountApiClient(Uri baseAddress, string bearerToken)
+    {
+        _client = new HttpRestClient
+        {
+            BaseAddress = baseAddress
+        };
+
+        _client.UseJson();
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, bearerToken);
+    }
+
+    public Task&lt;Account?&gt; GetCurrentAccountAsync(CancellationToken cancellationToken = default)
+    {
+        return _client.GetAsync&lt;Account&gt;(&quot;accounts/current&quot;, cancellationToken);
+    }
+
+    public Task&lt;Account?&gt; RenameAccountAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return _client.PatchAsJsonAsync&lt;Account&gt;(&quot;accounts/current&quot;, new { name }, cancellationToken);
+    }
+
+    public void Dispose()
+    {
+        _client.Dispose();
+    }
+}
+</code></pre><p>This keeps the rest of the application focused on business operations instead of repeated HTTP setup.</p><p>For temporary request settings, see <a href="request-customization.html">Request customization</a>.</p><footer class="content-footer" role="contentinfo"><div class="content-footer-left"><ul><li>Copyright © 2026 Kampute</li><li><a href="../LICENSE">MIT License</a></li></ul></div><div class="content-footer-right"><p>Built with <a href="https://kampute.github.io/kampose/">Kampose</a></p></div></footer></main><aside class="sidebar sidebar-right" role="complementary" aria-label="In this article" tabindex="-1"><div class="sidebar-header" aria-hidden="true"><h3>In this article</h3></div><nav id="article-navigation" class="sidebar-nav" data-max-level="3"></nav></aside></div><div id="mobile-backdrop" class="mobile-backdrop" hidden></div><div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true"><div class="modal-container"><div class="modal-header"><h3 id="modal-title"></h3><button id="modal-close" type="button" class="modal-close-btn" aria-label="Close dialog">&times;</button></div><div class="modal-content"><div id="modal-body" class="modal-body"><iframe id="modal-iframe" frameborder="0" title="Dialog content"></iframe></div></div></div></div></body></html>

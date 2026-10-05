@@ -34,6 +34,23 @@ namespace Kampute.HttpClient.NetFramework.Test
         }
 
         [Test]
+        public async Task AsGzip_WhenOriginalLengthIsKnown_ReportsLengthOfCompressedBuffer()
+        {
+            using var originalContent = new StringContent("Original content");
+            _ = originalContent.Headers.ContentLength;
+
+            using var compressedContent = originalContent.AsGzip();
+
+            Assert.That(compressedContent.Headers.ContentLength, Is.Null);
+
+            // HttpClientHandler buffers content of unknown length and then sends the length of the buffer.
+            await compressedContent.LoadIntoBufferAsync();
+            var compressedBytes = await compressedContent.ReadAsByteArrayAsync();
+
+            Assert.That(compressedContent.Headers.ContentLength, Is.EqualTo(compressedBytes.Length));
+        }
+
+        [Test]
         public async Task HttpVerbPatch_SendsPatchMethod()
         {
             var sentMethod = default(string);

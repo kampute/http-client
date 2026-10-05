@@ -34,5 +34,27 @@
 
             Assert.That(reader.ReadToEnd(), Is.EqualTo(text));
         }
+
+        [Test]
+        public async Task Constructor_WithOriginalLengthAndHash_DoesNotCopyThem()
+        {
+            using var originalContent = new StringContent("Original content");
+            originalContent.Headers.ContentMD5 = [1, 2, 3, 4];
+            _ = originalContent.Headers.ContentLength;
+
+            using var compressedContent = new DeflateCompressedContent(originalContent, CompressionLevel.Optimal);
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(compressedContent.Headers.ContentLength, Is.Null);
+                Assert.That(compressedContent.Headers.ContentMD5, Is.Null);
+            }
+
+            // HttpClient on .NET Framework buffers content of unknown length and then sends the length of the buffer.
+            await compressedContent.LoadIntoBufferAsync();
+            var compressedBytes = await compressedContent.ReadAsByteArrayAsync();
+
+            Assert.That(compressedContent.Headers.ContentLength, Is.EqualTo(compressedBytes.Length));
+        }
     }
 }

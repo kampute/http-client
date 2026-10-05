@@ -11,7 +11,9 @@
     /// Provides a base class for content that compresses another <see cref="HttpContent"/> as it is sent.
     /// </summary>
     /// <remarks>
-    /// The content adds its encoding to the <c>Content-Encoding</c> header, and its length is not known until it is sent.
+    /// The content has the headers of the content it compresses, except <c>Content-Length</c> and <c>Content-MD5</c>, which describe the
+    /// uncompressed body. It adds its encoding to the <c>Content-Encoding</c> header, and its length is not known until it is sent, so it is sent
+    /// with chunked transfer encoding.
     /// </remarks>
     public abstract class CompressedContent : HttpContentDecorator
     {
@@ -28,6 +30,10 @@
             if (string.IsNullOrEmpty(contentEncoding))
                 throw new ArgumentException("Content encoding cannot be null or empty.", nameof(contentEncoding));
 
+            // The copied length and hash describe the uncompressed body. They are removed rather than set to null, because setting
+            // ContentLength to null also stops it from reporting the length of a buffered body, which HttpClient on .NET Framework needs.
+            Headers.Remove("Content-Length");
+            Headers.Remove("Content-MD5");
             Headers.ContentEncoding.Add(contentEncoding);
         }
 

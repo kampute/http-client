@@ -55,10 +55,6 @@
             },
             "overview",
             {
-                "title": "API Reference",
-                "url": "api/index.html"
-            },
-            {
                 "title": "GitHub",
                 "url": "https://github.com/kampute/http-client"
             }

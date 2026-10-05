@@ -1,7 +1,7 @@
 namespace Kampute.HttpClient.NetFramework.Test
 {
     using Kampute.HttpClient.ErrorHandlers;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using NUnit.Framework;
     using System;
     using System.Net;
@@ -24,7 +24,7 @@ namespace Kampute.HttpClient.NetFramework.Test
                 return Attempt(request) == 1 ? throw ConnectionFailure() : new HttpResponseMessage(HttpStatusCode.OK);
             });
             using var client = CreateClient(handler);
-            client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+            client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
 
             using var content = new StringContent(Payload);
             using var response = await client.SendAsync(HttpMethod.Post, "/resource", content);
@@ -46,7 +46,7 @@ namespace Kampute.HttpClient.NetFramework.Test
                 return Attempt(request) == 1 ? throw ConnectionFailure() : new HttpResponseMessage(HttpStatusCode.OK);
             });
             using var client = CreateClient(handler);
-            client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+            client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
 
             using var content = new StringContent(Payload);
             using var compressedContent = encoding == "gzip" ? (HttpContent)content.AsGzip() : content.AsDeflate();

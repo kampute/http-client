@@ -180,7 +180,7 @@ namespace Kampute.HttpClient
         /// This property specifies the retry logic applied exclusively to connection failures, not to the processing of server responses. It determines
         /// if and when the client should retry a failed connection attempt before giving up. This approach is crucial for dealing with transient network
         /// issues or temporary server unavailability. The default is <see cref="HttpRetryPolicy.None"/>. To retry, assign a policy built from a retry strategy, such as
-        /// <c>RetryStrategies.Exponential(TimeSpan.FromSeconds(1)).WithMaxAttempts(5).ToHttpRetryPolicy()</c>.
+        /// <c>RetryStrategies.Exponential(TimeSpan.FromSeconds(1)).WithMaxRetries(5).ToHttpRetryPolicy()</c>.
         /// </para>
         /// <para>
         /// The retry budget of this policy covers connection failures only. Each error handler that retries error responses keeps its own

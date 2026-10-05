@@ -6,7 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using System;
     using System.Net.Http;
     using System.Threading;

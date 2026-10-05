@@ -7,7 +7,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -95,7 +95,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(transientHandler);
@@ -129,7 +129,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(transientHandler);
@@ -158,7 +158,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         {
             var transientHandler = new TransientHttpErrorHandler();
             _client.ErrorHandlers.Add(transientHandler);
-            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
+            _client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -178,7 +178,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         {
             var transientHandler = new TransientHttpErrorHandler
             {
-                OnRetryPolicy = (ctx, retryAfter) => RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy()
+                OnRetryPolicy = (ctx, retryAfter) => RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(transientHandler);
 

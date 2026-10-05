@@ -1,7 +1,7 @@
 namespace Kampute.HttpClient.NetFramework.Test
 {
     using Kampute.HttpClient.ErrorHandlers;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace Kampute.HttpClient.NetFramework.Test
             using var client = CreateClient(handler);
             client.ErrorHandlers.Add(new HttpError429Handler
             {
-                OnRetryPolicy = (_, _) => RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy()
+                OnRetryPolicy = (_, _) => RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy()
             });
 
             using var response = await client.SendAsync(HttpMethod.Get, "/rate-limited/resource");

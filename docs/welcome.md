@@ -31,11 +31,11 @@ Request properties carry context for message handlers and hooks. The [`BeforeSen
 
 ## Recovery That Matches Your API
 
-Choose a retry policy for transient connection failures, with delays and limits supplied by [`Kampute.Retry`](~/api/Kampute.Retry.html). Retries are opt-in: the default connection policy does not retry.
+Choose a retry policy for transient connection failures, with delays and limits supplied by [`Kampute.Resilience`](https://kampute.github.io/resilience/). Retries are opt-in: the default connection policy does not retry.
 
 HTTP error responses have a separate recovery path. Register error handlers to refresh authorization after a 401 response or schedule retries for selected status codes. Structured error bodies can be deserialized into your API's error model; an unrecovered error response raises [`HttpResponseException`](~/api/Kampute.HttpClient.HttpResponseException.html).
 
-The same retry strategies can also be used independently of HTTP, through the standalone [`Kampute.Retry`](~/api/Kampute.Retry.html) package.
+The same retry strategies can also be used independently of HTTP, through the standalone [`Kampute.Resilience`](https://kampute.github.io/resilience/) package.
 
 ## Get Started
 

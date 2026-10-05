@@ -9,18 +9,18 @@ Use these examples in a .NET application with asynchronous calling code. The URL
 
 ## Choose a Package
 
-The base package contains [`HttpRestClient`](~/api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry policies, error handlers, compression content wrappers, the content formatter registry, and XML support. It depends on [`Kampute.Retry`](~/api/Kampute.Retry.html), which provides the retry strategies. JSON packages are separate so applications only reference the JSON library they use.
+The base package contains [`HttpRestClient`](~/api/Kampute.HttpClient.HttpRestClient.html), request helpers, scopes, retry policies, error handlers, compression content wrappers, the content formatter registry, and XML support. It depends on [`Kampute.Resilience`](https://kampute.github.io/resilience/), which provides the retry strategies. JSON packages are separate so applications only reference the JSON library they use.
 
 | Package                                                                           | Use it for                                                                                 |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | [`Kampute.HttpClient`](~/api/Kampute.HttpClient.html)                               | Core HTTP client, request helpers, scopes, retry behavior, error handling, and XML APIs.   |
 | [`Kampute.HttpClient.Json`](~/api/Kampute.HttpClient.Json.html)                     | JSON APIs using [`System.Text.Json`](https://learn.microsoft.com/dotnet/api/system.text.json).                                                        |
 | [`Kampute.HttpClient.NewtonsoftJson`](~/api/Kampute.HttpClient.NewtonsoftJson.html) | JSON APIs that require [`Newtonsoft.Json`](https://www.newtonsoft.com/json/help/html/N_Newtonsoft_Json.htm) features or compatibility.                        |
-| [`Kampute.Retry`](~/api/Kampute.Retry.html)                                         | Retry strategies, also for operations other than HTTP requests. Installed with the core.   |
+| [`Kampute.Resilience`](https://kampute.github.io/resilience/)                       | Retry strategies, also for operations other than HTTP requests. Installed with the core.   |
 
 ## Install
 
-For a JSON API using [`System.Text.Json`](https://learn.microsoft.com/dotnet/api/system.text.json), install the extension package. It brings in the core client and [`Kampute.Retry`](~/api/Kampute.Retry.html) as dependencies.
+For a JSON API using [`System.Text.Json`](https://learn.microsoft.com/dotnet/api/system.text.json), install the extension package. It brings in the core client and [`Kampute.Resilience`](https://kampute.github.io/resilience/) as dependencies.
 
 ```shell
 dotnet add package Kampute.HttpClient.Json

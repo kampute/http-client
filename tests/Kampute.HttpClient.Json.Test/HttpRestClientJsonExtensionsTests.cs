@@ -2,7 +2,7 @@
 {
     using Kampute.HttpClient;
     using Kampute.HttpClient.TestSupport;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -151,7 +151,7 @@
             var maxRetries = 2;
             var attempts = 0;
 
-            _restClient.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts((uint)maxRetries).ToHttpRetryPolicy();
+            _restClient.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries((uint)maxRetries).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse(request =>
             {
@@ -190,7 +190,7 @@
             var attempts = 0;
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            _restClient.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
+            _restClient.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
 
             _mockMessageHandler.MockHttpResponse((request, cancellationToken) =>
             {
@@ -269,7 +269,7 @@
             using var response = await timedOutClient.SendAsync(HttpMethod.Post, "/resource", compressedContent);
 
             mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Once);
-            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Once);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));

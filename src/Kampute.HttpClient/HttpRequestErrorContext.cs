@@ -6,7 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using System;
     using System.Net.Http;
     using System.Threading;
@@ -112,7 +112,7 @@ namespace Kampute.HttpClient
         /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
         private async Task<HttpErrorHandlerResult> RetryWhenScheduledAsync(IRetrySession session, CancellationToken cancellationToken)
         {
-            return await session.WaitAsync(cancellationToken).ConfigureAwait(false)
+            return await session.WaitToRetryAsync(cancellationToken).ConfigureAwait(false)
                 ? HttpErrorHandlerResult.Retry(Request.Clone())
                 : HttpErrorHandlerResult.NoRetry;
         }

@@ -19,7 +19,7 @@ A .NET library for REST API clients built on `HttpClient`, with scoped request c
 | [Kampute.HttpClient](https://www.nuget.org/packages/Kampute.HttpClient) | Core client, scopes, error handlers, and XML support. |
 | [Kampute.HttpClient.Json](https://www.nuget.org/packages/Kampute.HttpClient.Json) | JSON with System.Text.Json. |
 | [Kampute.HttpClient.NewtonsoftJson](https://www.nuget.org/packages/Kampute.HttpClient.NewtonsoftJson) | JSON with Newtonsoft.Json. |
-| [Kampute.Retry](https://www.nuget.org/packages/Kampute.Retry) | Retry strategies for HTTP and other operations; included with the core client. |
+| [Kampute.Resilience](https://www.nuget.org/packages/Kampute.Resilience) | Retry strategies for HTTP and other operations; included with the core client. |
 
 ## Quick Start
 

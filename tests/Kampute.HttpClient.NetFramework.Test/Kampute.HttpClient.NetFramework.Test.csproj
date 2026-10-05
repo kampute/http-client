@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Kampute.HttpClient\Kampute.HttpClient.csproj" />
-    <ProjectReference Include="..\..\src\Kampute.Retry\Kampute.Retry.csproj" />
   </ItemGroup>
 
 </Project>

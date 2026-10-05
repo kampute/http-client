@@ -3,7 +3,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.ErrorHandlers.Abstracts;
     using Kampute.HttpClient.TestSupport;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -126,7 +126,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             handler.OnRetryPolicy = (_, _) =>
             {
                 ++policyRequests;
-                return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
+                return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
             };
             _client.ErrorHandlers.Add(handler);
 
@@ -194,7 +194,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         public async Task OnConnectionFailureThenRateLimit_RetriesAtSuggestedTime()
         {
             var suggestedDelay = TimeSpan.FromSeconds(1);
-            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+            _client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
             _client.ErrorHandlers.Add(new HttpError429Handler());
 
             var attempts = 0;
@@ -255,7 +255,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
                 Assert.That(attempts, Is.EqualTo(3));
             }
-            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 
         private Func<int> MockServiceUnavailable(TimeSpan retryAfter)

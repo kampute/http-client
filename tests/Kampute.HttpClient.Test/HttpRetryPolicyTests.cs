@@ -1,6 +1,6 @@
 ﻿namespace Kampute.HttpClient.Test
 {
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -40,7 +40,7 @@
         {
             var session = HttpRetryPolicy.None.CreateSession(MockHttpRequestErrorContext());
 
-            Assert.That(session.WaitAsync(default).Result, Is.False);
+            Assert.That(session.WaitToRetryAsync(default).Result, Is.False);
         }
 
         [Test]

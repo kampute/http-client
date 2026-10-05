@@ -2,7 +2,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -60,7 +60,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         public void OnErrorResponse_WithHandBuiltRetryRequest_KeepsRetryBudget()
         {
             const int maxAttempts = 10;
-            var backoff = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
+            var backoff = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
 
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler(async (ctx, ct) =>
             {
@@ -89,7 +89,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         [Test]
         public async Task OnErrorResponse_WithHandBuiltRetryRequestReusingOriginalContent_SendsOriginalBodyOnLaterRetries()
         {
-            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+            _client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
             {
                 var retryRequest = new HttpRequestMessage(ctx.Request.Method, ctx.Request.RequestUri) { Content = ctx.Request.Content };
@@ -110,7 +110,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         [Test]
         public async Task OnErrorResponse_WithHandBuiltRetryRequestWithNewContent_SendsNewBodyOnLaterRetries()
         {
-            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+            _client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
             {
                 var retryRequest = new HttpRequestMessage(ctx.Request.Method, ctx.Request.RequestUri) { Content = new StringContent("replacement") };

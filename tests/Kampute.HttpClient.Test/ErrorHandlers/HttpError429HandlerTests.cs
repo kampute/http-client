@@ -2,7 +2,7 @@
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -43,7 +43,7 @@
                 OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualResetTime = retryAfter;
-                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
@@ -116,7 +116,7 @@
         {
             var tooManyRequestsHandler = new HttpError429Handler
             {
-                OnRetryPolicy = (ctx, resetTime) => RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy()
+                OnRetryPolicy = (ctx, resetTime) => RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
 

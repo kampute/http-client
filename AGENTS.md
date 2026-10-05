@@ -2,22 +2,21 @@
 
 ## Project Overview
 
-Kampute.HttpClient is a .NET library that enhances the native `HttpClient` for simplified RESTful API communication. It provides a modular, extensible architecture with shared connection pooling, scoped request customization, automatic content deserialization, and built-in retry strategies.
+Kampute.HttpClient is a .NET library that enhances the native `HttpClient` for simplified RESTful API communication. It provides a modular, extensible architecture with shared connection pooling, scoped request customization, and automatic content deserialization.
 
 ## Architecture & Design Patterns
 
 ### Core Components
 - **`HttpRestClient`**: Main client class wrapping `HttpClient` with enhanced features
 - **Content Formats**: XML support in the core (`Kampute.HttpClient.Xml` namespace) and extension packages for JSON (`Json`, `NewtonsoftJson`)
-- **Retry Library**: `Kampute.Retry` package (no dependencies) with retry strategies, sessions and `Execute`/`ExecuteAsync` helpers; the core package depends on it
 - **Shared HttpClient**: Connection pooling via `SharedHttpClient` for efficient resource management
 - **Scoped Collections**: `ScopedCollection<T>` for temporary header/property overrides
 
 ### Key Design Patterns
 - **Fluent API**: Extension methods for HTTP verbs (`GetAsync<T>`, `PostAsJsonAsync`, etc.)
 - **Event-driven**: `BeforeSendingRequest`/`AfterReceivingResponse` events for interception
-- **Strategy Pattern**: `IHttpRetryPolicy` for configurable retry logic, built on `IRetryStrategy` from the `Kampute.Retry` package
-- **Factory Pattern**: `RetryStrategies` (in `Kampute.Retry`) for creating retry strategies, and `ToHttpRetryPolicy()` to use one for HTTP requests
+- **Strategy Pattern**: `IHttpRetryPolicy` for configurable retry logic, built on `IRetryStrategy` from the `Kampute.Resilience` package
+- **Factory Pattern**: `RetryStrategies` (in `Kampute.Resilience`) for creating retry strategies, and `ToHttpRetryPolicy()` to use one for HTTP requests
 - **Decorator Pattern**: `HttpRequestScope` for fluent request configuration
 
 ### Request Flow

@@ -4,7 +4,7 @@
     using Kampute.HttpClient.Interfaces;
     using Kampute.HttpClient.TestSupport;
     using Kampute.HttpClient.Utilities;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -266,7 +266,7 @@
 
             await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
 
-            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
         }
 
@@ -313,7 +313,7 @@
 
             await _client.SendAsync(TestHttpMethod, "/test", compressedPayload);
 
-            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
         }
 
@@ -352,7 +352,7 @@
             using var response = await timedOutClient.SendAsync(TestHttpMethod, "/test", new StringContent("test"));
 
             mockRetryPolicy.Verify(strategy => strategy.CreateSession(It.IsAny<HttpRequestErrorContext>()), Times.Once);
-            mockRetrySession.Verify(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()), Times.Once);
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Once);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -371,7 +371,7 @@
                 : new HttpResponseMessage(HttpStatusCode.OK));
 
             using var httpClient = new HttpClient(_mockMessageHandler.Object, false);
-            using var client = new RetryOnAnyErrorClient(httpClient, RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy())
+            using var client = new RetryOnAnyErrorClient(httpClient, RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy())
             {
                 BaseAddress = new Uri("http://api.test.com"),
             };

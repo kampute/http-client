@@ -5,7 +5,7 @@
 
 namespace Kampute.HttpClient.Interfaces
 {
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using System;
 
     /// <summary>

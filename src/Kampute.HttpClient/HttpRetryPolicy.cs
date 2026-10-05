@@ -6,7 +6,7 @@
 namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using System;
 
     /// <summary>
@@ -17,7 +17,7 @@ namespace Kampute.HttpClient
     /// Create a policy from any <see cref="IRetryStrategy"/> with <see cref="HttpRetryPolicyExtensions.ToHttpRetryPolicy"/>:
     /// </para>
     /// <code>
-    /// client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1)).WithMaxAttempts(5).ToHttpRetryPolicy();
+    /// client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1)).WithMaxRetries(5).ToHttpRetryPolicy();
     /// </code>
     /// <para>
     /// Each failed request gets its own <see cref="RetrySession"/>, so the strategy, and the policy, can be shared by any number of requests and clients.

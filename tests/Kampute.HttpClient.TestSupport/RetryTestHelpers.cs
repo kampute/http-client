@@ -1,7 +1,7 @@
 namespace Kampute.HttpClient.TestSupport
 {
     using Kampute.HttpClient.Interfaces;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using System.Threading;
 
@@ -12,7 +12,7 @@ namespace Kampute.HttpClient.TestSupport
             mockRetrySession = new Mock<IRetrySession>();
 
             var retries = 0;
-            mockRetrySession.Setup(scheduler => scheduler.WaitAsync(It.IsAny<CancellationToken>()))
+            mockRetrySession.Setup(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(() => retries < retriesToAllow)
                 .Callback(() => ++retries);
 

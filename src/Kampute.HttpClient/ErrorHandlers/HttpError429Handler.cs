@@ -7,7 +7,7 @@ namespace Kampute.HttpClient.ErrorHandlers
 {
     using Kampute.HttpClient.ErrorHandlers.Abstracts;
     using Kampute.HttpClient.Interfaces;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using System;
     using System.Net;
 

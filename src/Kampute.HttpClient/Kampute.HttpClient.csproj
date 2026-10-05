@@ -33,7 +33,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Kampute.Retry/Kampute.Retry.csproj" />
+    <PackageReference Include="Kampute.Resilience" Version="1.*" />
   </ItemGroup>
 
   <ItemGroup>

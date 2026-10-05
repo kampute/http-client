@@ -2,7 +2,7 @@
 {
     using Kampute.HttpClient.ErrorHandlers;
     using Kampute.HttpClient.TestSupport;
-    using Kampute.Retry;
+    using Kampute.Resilience;
     using Moq;
     using NUnit.Framework;
     using System;
@@ -44,7 +44,7 @@
                 OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
@@ -78,7 +78,7 @@
                 OnRetryPolicy = (ctx, retryAfter) =>
                 {
                     actualRetryTime = retryAfter;
-                    return RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(1).ToHttpRetryPolicy();
+                    return RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(1).ToHttpRetryPolicy();
                 }
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
@@ -107,7 +107,7 @@
         {
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
-            _client.RetryPolicy = RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy();
+            _client.RetryPolicy = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
 
             var attempts = 0;
             _mockMessageHandler.MockHttpResponse(request =>
@@ -152,7 +152,7 @@
         {
             var serviceUnavailableHandler = new HttpError503Handler
             {
-                OnRetryPolicy = (ctx, retryAfter) => RetryStrategies.Uniform(TimeSpan.Zero).WithMaxAttempts(2).ToHttpRetryPolicy()
+                OnRetryPolicy = (ctx, retryAfter) => RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy()
             };
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
 

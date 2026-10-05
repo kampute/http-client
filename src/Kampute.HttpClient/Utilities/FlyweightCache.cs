@@ -5,14 +5,13 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Provides a thread-safe cache for efficiently retrieving and lazily adding key-value pairs.
+    /// Provides a thread-safe cache that creates the value of a key on first use and returns the same value afterwards.
     /// </summary>
     /// <typeparam name="TKey">The type of keys used in the cache.</typeparam>
     /// <typeparam name="TValue">The type of values stored in the cache.</typeparam>
     /// <remarks>
-    /// This cache utilizes <see cref="ConcurrentDictionary{TKey, TValue}"/> to ensure thread-safe access while optimizing for
-    /// high read scenarios and infrequent writes. Values are created on demand using a specified factory method when they
-    /// are accessed and not already present, allowing for efficient memory usage and avoiding pre-population overhead.
+    /// Entries are never removed except by <see cref="Clear"/>, so use the cache for a small, bounded set of keys. When two threads ask for a
+    /// missing key at the same time, the factory can run twice, but both get the same value.
     /// </remarks>
     public sealed class FlyweightCache<TKey, TValue> where TKey : notnull
     {
@@ -22,8 +21,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="FlyweightCache{TKey, TValue}"/> class using a specified value factory.
         /// </summary>
-        /// <param name="valueFactory">A delegate that defines the method to create values if the key does not exist in the cache.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> is <see langword="null"/>.</exception>
+        /// <param name="valueFactory">The function that creates the value of a key.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="valueFactory"/> is <see langword="null"/>.</exception>
         public FlyweightCache(Func<TKey, TValue> valueFactory)
         {
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
@@ -33,9 +32,9 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="FlyweightCache{TKey, TValue}"/> class using a specified value factory and key comparer.
         /// </summary>
-        /// <param name="valueFactory">A delegate that defines the method to create values if the key does not exist in the cache.</param>
-        /// <param name="keyComparer">The equality comparison implementation to use when comparing keys.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the provided <paramref name="valueFactory"/> or <paramref name="keyComparer"/> is <see langword="null"/>.</exception>
+        /// <param name="valueFactory">The function that creates the value of a key.</param>
+        /// <param name="keyComparer">The comparer that decides whether two keys are equal.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="valueFactory"/> or <paramref name="keyComparer"/> is <see langword="null"/>.</exception>
         public FlyweightCache(Func<TKey, TValue> valueFactory, IEqualityComparer<TKey> keyComparer)
         {
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
@@ -43,27 +42,27 @@
         }
 
         /// <summary>
-        /// Gets the number of key/value pairs contained in the cache.
+        /// Gets the number of cached values.
         /// </summary>
-        /// <value>The number of key/value pairs currently stored in the cache.</value>
+        /// <value>The number of keys in the cache.</value>
         public int Count => _store.Count;
 
         /// <summary>
-        /// Retrieves a value for the specified key.
+        /// Returns the value of a key, creating it if the cache has none.
         /// </summary>
-        /// <param name="key">The key whose value to retrieve.</param>
-        /// <returns>The value associated with the specified key.</returns>
+        /// <param name="key">The key whose value to return.</param>
+        /// <returns>The cached value of <paramref name="key"/>.</returns>
         public TValue Get(TKey key) => _store.GetOrAdd(key, _valueFactory);
 
         /// <summary>
-        /// Checks if the cache contains a value associated with the specified key.
+        /// Determines whether the cache has a value for a key.
         /// </summary>
-        /// <param name="key">The key to check in the cache.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns><see langword="true"/> if the key exists in the cache; otherwise, <see langword="false"/>.</returns>
         public bool Contains(TKey key) => _store.ContainsKey(key);
 
         /// <summary>
-        /// Clears the cache.
+        /// Removes all values from the cache.
         /// </summary>
         public void Clear() => _store.Clear();
     }

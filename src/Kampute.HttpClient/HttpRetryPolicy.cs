@@ -14,17 +14,20 @@ namespace Kampute.HttpClient
     /// </summary>
     /// <remarks>
     /// <para>
-    /// Create a policy from any <see cref="IRetryStrategy"/> with <see cref="HttpRetryPolicyExtensions.ToHttpRetryPolicy"/>:
+    /// Create a policy from any <see cref="IRetryStrategy"/> with <see cref="HttpRetryPolicyExtensions.ToHttpRetryPolicy"/>. Each call that fails gets
+    /// its own <see cref="RetrySession"/>, so the strategy, and the policy, can be shared by any number of requests and clients.
     /// </para>
-    /// <code>
-    /// client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1)).WithMaxRetries(5).ToHttpRetryPolicy();
-    /// </code>
     /// <para>
-    /// Each failed request gets its own <see cref="RetrySession"/>, so the strategy, and the policy, can be shared by any number of requests and clients.
     /// To choose the strategy or the session from the failure, use <see cref="Dynamic(Func{HttpRequestErrorContext, IRetryStrategy})"/> or
     /// <see cref="Dynamic(Func{HttpRequestErrorContext, IRetrySession})"/>.
     /// </para>
     /// </remarks>
+    /// <example>
+    /// This policy retries a request up to five times after connection failures, with delays that grow with the Fibonacci sequence from one second:
+    /// <code>
+    /// client.RetryPolicy = RetryStrategies.Fibonacci(TimeSpan.FromSeconds(1)).WithMaxRetries(5).ToHttpRetryPolicy();
+    /// </code>
+    /// </example>
     /// <seealso cref="HttpRestClient.RetryPolicy"/>
     public class HttpRetryPolicy : IHttpRetryPolicy
     {

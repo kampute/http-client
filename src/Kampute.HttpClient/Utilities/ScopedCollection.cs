@@ -7,22 +7,18 @@
     using System.Threading;
 
     /// <summary>
-    /// Manages items within specific contexts.
+    /// Holds items in nested scopes that flow with the asynchronous context of the code that begins them.
     /// </summary>
-    /// <typeparam name="T">The type of items managed within the scopes.</typeparam>
+    /// <typeparam name="T">The type of the items.</typeparam>
     /// <remarks>
     /// <para>
-    /// This class facilitates the management of contextual items, which are elements associated with distinct operational contexts,
-    /// such as HTTP requests, database transactions, or other scenarios requiring contextual data preservation.
+    /// A scope begun with <see cref="BeginScope"/> holds its items until it is disposed. The items are visible to the code that began the scope
+    /// and to the asynchronous operations it starts or awaits, but not to unrelated code running at the same time, because the active scope is
+    /// kept in an <see cref="AsyncLocal{T}"/>.
     /// </para>
     /// <para>
-    /// When enumerating the collection, items are presented from the outermost to the innermost scope, ensuring that items in outer
-    /// scopes are encountered before those in nested scopes. This ordering reflects the hierarchical relationship, where items defined
-    /// in outer scopes may be overridden by those in inner scopes.
-    /// </para>
-    /// <para>
-    /// This class is thread-safe and can be utilized reliably in concurrent and asynchronous operations, ensuring that contextual items
-    /// remain accessible and intact across the lifespan of a context.
+    /// Enumerating the collection yields the items of the outermost scope first, so that a consumer that applies them in order lets inner scopes
+    /// override outer ones. <see cref="Traverse"/> visits the innermost scope first.
     /// </para>
     /// </remarks>
     public class ScopedCollection<T> : IEnumerable<T>
@@ -30,7 +26,7 @@
         private readonly AsyncLocal<Scope?> _activeScope = new();
 
         /// <summary>
-        /// Gets a value indicating whether the current context has an active scope.
+        /// Gets a value indicating whether a scope is active in the current asynchronous context.
         /// </summary>
         /// <value>
         /// <see langword="true"/> if an active scope is present; otherwise, <see langword="false"/>.
@@ -38,10 +34,10 @@
         public bool HasActiveScope => _activeScope.Value is not null;
 
         /// <summary>
-        /// Initiates a new scope within the current context, incorporating the specified items.
+        /// Begins a scope with the specified items, nested in the active scope if there is one.
         /// </summary>
-        /// <param name="items">The items to include in the new scope.</param>
-        /// <returns>A new instance of the <see cref="Scope"/> class, containing the specified items.</returns>
+        /// <param name="items">The items of the new scope.</param>
+        /// <returns>The new <see cref="Scope"/>, which ends when it is disposed.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="items"/> is <see langword="null"/>.</exception>
         public virtual Scope BeginScope(IEnumerable<T> items)
         {
@@ -57,9 +53,9 @@
         }
 
         /// <summary>
-        /// Ends the specified scope and removes it from the current context.
+        /// Ends a scope, making its parent the active scope.
         /// </summary>
-        /// <param name="scope">The scope to be removed.</param>
+        /// <param name="scope">The scope to end.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="scope"/> is <see langword="null"/>.</exception>
         protected virtual void EndScope(Scope scope)
         {
@@ -74,15 +70,10 @@
         }
 
         /// <summary>
-        /// Traverses items in each scope from the innermost to the outermost, applying an action to each item.
+        /// Applies an action to the items of the active scopes, starting with the innermost scope.
         /// </summary>
-        /// <param name="action">The action to perform on each item within the scopes.</param>
-        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="action"/> is <see langword="null"/>.</exception>
-        /// <remarks>
-        /// Unlike the standard enumeration, which traverses items from outermost to innermost scopes, this method traverses the scopes
-        /// starting from the current active scope and moving outward to the parent scopes. This order ensures that actions are performed
-        /// on items starting from the most specific (innermost) to the most general (outermost) context.
-        /// </remarks>
+        /// <param name="action">The action to apply to each item.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <see langword="null"/>.</exception>
         public virtual void Traverse(Action<T> action)
         {
             if (action is null)
@@ -94,9 +85,9 @@
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the collection of items in the current context.
+        /// Returns an enumerator over the items of the active scopes, starting with the outermost scope.
         /// </summary>
-        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
+        /// <returns>An enumerator over the items.</returns>
         public virtual IEnumerator<T> GetEnumerator()
         {
             return GetEnumerable().GetEnumerator();
@@ -122,16 +113,16 @@
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
-        /// Represents a scope containing items within a specific context.
+        /// Represents a scope of a <see cref="ScopedCollection{T}"/>, which ends when it is disposed.
         /// </summary>
         public sealed class Scope : IDisposable
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="Scope"/> class, linking it to its owner and parent scope with specified items.
+            /// Initializes a new instance of the <see cref="Scope"/> class.
             /// </summary>
-            /// <param name="owner">The <see cref="ScopedCollection{T}"/> that this scope is part of.</param>
-            /// <param name="parent">The parent scope of this instance, if any.</param>
-            /// <param name="items">The items to be associated with this scope.</param>
+            /// <param name="owner">The collection that the scope belongs to.</param>
+            /// <param name="parent">The enclosing scope, if any.</param>
+            /// <param name="items">The items of the scope.</param>
             internal Scope(ScopedCollection<T> owner, Scope? parent, IEnumerable<T> items)
             {
                 Owner = owner;
@@ -140,25 +131,25 @@
             }
 
             /// <summary>
-            /// Gets the <see cref="ScopedCollection{T}"/> that owns this scope.
+            /// Gets the collection that the scope belongs to.
             /// </summary>
-            /// <value>The <see cref="ScopedCollection{T}"/> instance that owns this scope.</value>
+            /// <value>The <see cref="ScopedCollection{T}"/> of this scope.</value>
             public ScopedCollection<T> Owner { get; }
 
             /// <summary>
-            /// Gets the parent scope of this instance, if any.
+            /// Gets the enclosing scope.
             /// </summary>
-            /// <value>The parent scope of this scope. It is <see langword="null"/> if there is no parent scope.</value>
+            /// <value>The scope that was active when this scope began, or <see langword="null"/> if there was none.</value>
             public Scope? Parent { get; }
 
             /// <summary>
-            /// Gets the read-only collection of items in this scope.
+            /// Gets the items of the scope.
             /// </summary>
-            /// <value>The read-only collection of items in this scope.</value>
+            /// <value>The items of this scope.</value>
             public IReadOnlyCollection<T> Items { get; }
 
             /// <summary>
-            /// Disposes this scope, effectively removing it from the active context.
+            /// Ends the scope.
             /// </summary>
             public void Dispose() => Owner.EndScope(this);
         }

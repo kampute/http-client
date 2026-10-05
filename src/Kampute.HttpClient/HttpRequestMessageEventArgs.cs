@@ -9,20 +9,14 @@ namespace Kampute.HttpClient
     using System.Net.Http;
 
     /// <summary>
-    /// Provides event data for events that involve manipulation or inspection of HTTP request messages.
+    /// Provides the request of the <see cref="HttpRestClient.BeforeSendingRequest"/> event.
     /// </summary>
-    /// <remarks>
-    /// This class is typically used in scenarios where an HTTP request message needs to be inspected or modified
-    /// before it is sent. It encapsulates an instance of <see cref="HttpRequestMessage"/>, allowing subscribers
-    /// of the event to access and manipulate the request as necessary. Common use cases include adding headers,
-    /// changing the request URI, or modifying the request body.
-    /// </remarks>
     public class HttpRequestMessageEventArgs : EventArgs
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpRequestMessageEventArgs"/> class with the specified request message.
         /// </summary>
-        /// <param name="request">The HTTP request message that has been created.</param>
+        /// <param name="request">The request about to be sent.</param>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="request"/> is <see langword="null"/>.</exception>
         public HttpRequestMessageEventArgs(HttpRequestMessage request)
         {
@@ -30,10 +24,10 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets the HTTP request message.
+        /// Gets the request about to be sent.
         /// </summary>
         /// <value>
-        /// The HTTP request message involved in the event.
+        /// The <see cref="HttpRequestMessage"/> about to be sent. Changes to it are sent.
         /// </value>
         public HttpRequestMessage Request { get; }
     }

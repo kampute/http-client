@@ -10,8 +10,12 @@ namespace Kampute.HttpClient
     using System.Text;
 
     /// <summary>
-    /// The exception that is thrown when an invalid or unsupported content is encountered in an HTTP response.
+    /// The exception that is thrown when the content of a response cannot be read into the requested type.
     /// </summary>
+    /// <remarks>
+    /// The content cannot be read when the response has no body, when no registered content formatter reads its media type into the requested type,
+    /// or when the formatter fails; in the last case, the exception of the formatter is the inner exception.
+    /// </remarks>
     public class HttpContentException : Exception
     {
         /// <summary>
@@ -44,18 +48,18 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets or sets the HTTP content associated with the exception.
+        /// Gets or sets the content that could not be read.
         /// </summary>
         /// <value>
-        /// The HTTP content associated with the exception, if any.
+        /// The content that could not be read, if any.
         /// </value>
         public HttpContent? Content { get; set; }
 
         /// <summary>
-        /// Gets or sets the expected type for deserialization when the exception occurred.
+        /// Gets or sets the type into which the content was to be read.
         /// </summary>
         /// <value>
-        /// The type expected to be deserialized from the HTTP content, if any.
+        /// The requested type, if any.
         /// </value>
         public Type? ObjectType { get; set; }
 

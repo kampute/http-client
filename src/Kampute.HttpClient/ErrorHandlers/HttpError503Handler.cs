@@ -9,17 +9,15 @@ namespace Kampute.HttpClient.ErrorHandlers
     using System.Net;
 
     /// <summary>
-    /// Handles '503 Service Unavailable' HTTP responses by attempting to back off and retry the request according to a specified or
-    /// default retry policy.
+    /// Handles '503 Service Unavailable' responses by retrying the request after a delay.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This handler provides a mechanism to respond to HTTP 503 errors by retrying the request after a delay. The delay duration and
-    /// retry logic can be customized through the <see cref="RetryableHttpErrorHandler.OnRetryPolicy"/> delegate. If the delegate
-    /// is not provided, or does not specify a strategy, the handler will look for a <c>Retry-After</c> header in the response. If the
-    /// <c>Retry-After</c> header is present, its value is used to determine the delay before the retry. If the header is not present, the
-    /// retry policy of the <see cref="HttpRestClient"/> is used. If the <c>Retry-After</c> time is further away than
-    /// <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the request is not retried.
+    /// If the first '503 Service Unavailable' response of a call has a <c>Retry-After</c> header, the request is retried once, at the time the
+    /// header suggests; a repeated 503 response then reaches the caller. Without the header, the request is retried as the
+    /// <see cref="HttpRestClient.RetryPolicy"/> of the client decides. <see cref="RetryableHttpErrorHandler.OnRetryPolicy"/> can choose another policy.
+    /// If a suggested time is further away than <see cref="RetryableHttpErrorHandler.MaxRetryDelay"/>, which is five minutes by default, the request is
+    /// not retried. See <see cref="RetryableHttpErrorHandler"/> for how the retries of a call are decided.
     /// </para>
     /// <note type="hint" title="Hint">
     /// Consider using <see cref="TransientHttpErrorHandler"/> if you want to handle multiple transient HTTP errors (including 503) with
@@ -33,7 +31,7 @@ namespace Kampute.HttpClient.ErrorHandlers
     {
         /// <inheritdoc/>
         /// <remarks>
-        /// This implementation specifically handles the HTTP '503 Service Unavailable' status code.
+        /// This handler handles the '503 Service Unavailable' status code only.
         /// </remarks>
         public sealed override bool CanHandle(HttpStatusCode statusCode) => statusCode == HttpStatusCode.ServiceUnavailable;
     }

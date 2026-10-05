@@ -13,23 +13,37 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Provides the base functionality for handling HTTP responses with transient error status codes by attempting to back off and
-    /// retry the request according to a specified or default retry policy.
+    /// Provides the base class for error handlers that retry a request after a delay when it receives an error response with a transient
+    /// status code.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This handler class is designed to be extended for specific transient error status codes. It offers a mechanism to respond to
-    /// transient HTTP errors by retrying the request after a delay. The delay duration and retry logic can be customized through the
-    /// <see cref="OnRetryPolicy"/> delegate.
+    /// A derived class chooses the status codes it handles by overriding <see cref="CanHandle"/>, and can change where the suggested retry time
+    /// is read from and which policy applies when <see cref="OnRetryPolicy"/> provides none.
     /// </para>
     /// <para>
-    /// A retry time suggested by the server is honored only if it is no further away than <see cref="MaxRetryDelay"/>, which is five minutes
-    /// by default. If the suggested time is later, the request is not retried.
+    /// The handler decides how to retry when it handles the first error response of a call, and applies that decision to every later error response
+    /// it handles during the same call:
+    /// <list type="bullet">
+    ///   <item><description>If <see cref="OnRetryPolicy"/> returns a policy, that policy decides whether and when the request is retried.</description></item>
+    ///   <item><description>Otherwise, the policy returned by <see cref="GetDefaultPolicy"/> decides.</description></item>
+    /// </list>
     /// </para>
     /// <para>
-    /// Each handler instance keeps its own retry budget for a request, separate from the budget of <see cref="HttpRestClient.RetryPolicy"/>
-    /// for connection failures and from the budgets of other handlers. A request that fails in several ways can therefore be retried more times
-    /// in total than any single budget allows.
+    /// By default, if the first error response suggests a retry time, for example in a <c>Retry-After</c> header, the request is retried once, at
+    /// that time. If the retry receives another error response that this handler handles, the error reaches the caller, whatever retry time the new
+    /// response suggests. If the first error response suggests no retry time, the policy of <see cref="GetDefaultPolicy"/> for that case applies to
+    /// the rest of the call, and retry times suggested by later responses do not change its delays. Either way, a server cannot keep a call waiting
+    /// by moving its suggested retry time further away.
+    /// </para>
+    /// <para>
+    /// Every suggested retry time is checked against <see cref="MaxRetryDelay"/>, which is five minutes by default. If a response suggests a time
+    /// further away, the request is not retried, even when an earlier response of the same call was.
+    /// </para>
+    /// <para>
+    /// The handler counts only the retries it makes. Retries after connection failures, which <see cref="HttpRestClient.RetryPolicy"/> decides,
+    /// and retries made by other handlers are counted separately, so a call that fails in several ways can be retried more times in total than
+    /// any one of their limits allows.
     /// </para>
     /// </remarks>
     /// <seealso cref="HttpRestClient.ErrorHandlers"/>
@@ -46,9 +60,10 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         /// </value>
         /// <remarks>
         /// <para>
-        /// When the response suggests a retry time, for example in a <c>Retry-After</c> header, and that time is further away than this value,
-        /// the handler does not retry the request, and the <see cref="HttpResponseException"/> for the response reaches the caller. In that case,
-        /// <see cref="OnRetryPolicy"/> is not called.
+        /// When a response suggests a retry time, for example in a <c>Retry-After</c> header, and that time is further away than this value,
+        /// the handler does not retry the request, and the <see cref="HttpResponseException"/> for the response reaches the caller. The check
+        /// applies to every response the handler handles, including later responses of a call that it has already retried. When the first
+        /// error response of a call fails the check, <see cref="OnRetryPolicy"/> is not called.
         /// </para>
         /// <para>
         /// This limit applies only to retry times suggested by the server. It does not limit the delays of a retry policy, such as the
@@ -69,33 +84,27 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         }
 
         /// <summary>
-        /// A delegate that allows customization of the retry policy when responses with transient error status codes are received.
+        /// Gets or sets a function that chooses the retry policy of this handler for a call.
         /// </summary>
         /// <value>
-        /// A function that takes an <see cref="HttpResponseErrorContext"/> and an optional <see cref="DateTimeOffset"/> representing
-        /// the suggested retry time, and returns an <see cref="IHttpRetryPolicy"/> to be used for the retry operation.
+        /// A function that receives the context of the error response and the retry time the response suggests, and returns the
+        /// <see cref="IHttpRetryPolicy"/> to use, or <see langword="null"/> to use the policy of <see cref="GetDefaultPolicy"/>.
         /// </value>
         /// <remarks>
         /// <para>
-        /// If this delegate is set and returns an <see cref="IHttpRetryPolicy"/>, the returned policy is used for the retry operation.
-        /// If it is not set, or returns <see langword="null"/>, a default behavior is applied.
+        /// The function is called once per call, for the first error response this handler handles. The policy it returns decides the retries
+        /// of that response and of the later error responses this handler handles during the same call.
         /// </para>
         /// <para>
-        /// The delegate receives the following parameters:
+        /// The function receives the following parameters:
         /// <list type="bullet">
         ///   <item>
         ///     <term>context</term>
-        ///     <description>
-        ///     Provides context about the HTTP response that indicates a transient error. It is encapsulated within an <see cref="HttpResponseErrorContext"/>
-        ///     instance, allowing for an informed decision on the retry policy.
-        ///     </description>
+        ///     <description>The <see cref="HttpResponseErrorContext"/> of the error response.</description>
         ///   </item>
         ///   <item>
         ///     <term>retryTime</term>
-        ///     <description>
-        ///       Advises on the next retry attempt timing as a <see cref="DateTimeOffset"/> value if the response suggests one. If the response
-        ///       does not include a suggested retry time, the value will be <see langword="null"/>.
-        ///     </description>
+        ///     <description>The retry time the response suggests, or <see langword="null"/> if it suggests none.</description>
         ///   </item>
         /// </list>
         /// </para>
@@ -110,10 +119,13 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         public abstract bool CanHandle(HttpStatusCode statusCode);
 
         /// <summary>
-        /// Extracts the suggested retry time from the HTTP response's header, if present.
+        /// Reads the retry time that an error response suggests.
         /// </summary>
         /// <param name="ctx">The context containing information about the HTTP response.</param>
-        /// <returns>The suggested <see cref="DateTimeOffset"/> to retry the request, or <see langword="null"/> if the header is not present.</returns>
+        /// <returns>
+        /// The time the response suggests for the retry, or <see langword="null"/> if it suggests none. The base implementation reads the
+        /// <c>Retry-After</c> header.
+        /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         protected virtual DateTimeOffset? GetSuggestedRetryTime(HttpResponseErrorContext ctx)
         {
@@ -125,11 +137,14 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         }
 
         /// <summary>
-        /// Provides the default retry policy when <see cref="OnRetryPolicy"/> provides none.
+        /// Returns the retry policy of this handler for a call when <see cref="OnRetryPolicy"/> provides none.
         /// </summary>
-        /// <param name="ctx">The context containing information about the HTTP response.</param>
-        /// <param name="retryTime">The suggested retry time, if any.</param>
-        /// <returns>An <see cref="IHttpRetryPolicy"/> representing the default retry policy.</returns>
+        /// <param name="ctx">The context of the first error response this handler handles during the call.</param>
+        /// <param name="retryTime">The retry time the response suggests, or <see langword="null"/> if it suggests none.</param>
+        /// <returns>
+        /// The base implementation returns a policy that retries once, at <paramref name="retryTime"/>, if the response suggests a retry time,
+        /// and the <see cref="HttpRestClient.RetryPolicy"/> of the client otherwise.
+        /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         protected virtual IHttpRetryPolicy GetDefaultPolicy(HttpResponseErrorContext ctx, DateTimeOffset? retryTime)
         {
@@ -140,16 +155,21 @@ namespace Kampute.HttpClient.ErrorHandlers.Abstracts
         }
 
         /// <summary>
-        /// Creates the retry session for the failed request based on the error context.
+        /// Creates the retry session that decides the retries of this handler for a call.
         /// </summary>
-        /// <param name="ctx">The context containing information about the HTTP response that indicates a failure.</param>
+        /// <param name="ctx">The context of the first error response this handler handles during the call.</param>
         /// <returns>An <see cref="IRetrySession"/> that decides on the retry attempts, or <see langword="null"/> if the request must not be retried.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="ctx"/> is <see langword="null"/>.</exception>
         /// <remarks>
+        /// <para>
+        /// The handler calls this method only for the first error response it handles during a call. The later error responses it handles during
+        /// the same call reuse the session this method returns.
+        /// </para>
+        /// <para>
         /// If the response suggests a retry time further away than <see cref="MaxRetryDelay"/>, the method returns <see langword="null"/>,
-        /// so the request is not retried. Otherwise, the method uses <see cref="OnRetryPolicy"/> when available. If the delegate is not
-        /// provided or returns <see langword="null"/>, and the response includes a suggested retry time, a single retry at that time is used.
-        /// Otherwise the client's retry policy is used.
+        /// so the request is not retried. Otherwise, it creates the session from the policy that <see cref="OnRetryPolicy"/> returns, or from
+        /// the policy of <see cref="GetDefaultPolicy"/>.
+        /// </para>
         /// </remarks>
         protected virtual IRetrySession? CreateSession(HttpResponseErrorContext ctx)
         {

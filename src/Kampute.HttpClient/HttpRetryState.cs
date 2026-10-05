@@ -11,14 +11,15 @@ namespace Kampute.HttpClient
     using System.Collections.Generic;
 
     /// <summary>
-    /// Holds the retry budgets of one call to an <see cref="HttpRestClient"/>, shared by every attempt of that call.
+    /// Holds the retry sessions of one call to an <see cref="HttpRestClient"/>, shared by every attempt of that call.
     /// </summary>
     /// <remarks>
     /// <para>
     /// The <see cref="HttpRestClient"/> creates one instance for each call it sends, and passes it to every error context created for that call.
     /// Each component that handles a kind of failure, such as the client for connection failures or an <see cref="IHttpErrorHandler"/> for error
-    /// responses, has its own budget in this state. Because the state belongs to the call rather than to a request, the budgets are kept even when
-    /// an error handler retries with a request it built itself instead of a clone of the failed request.
+    /// responses, has its own retry session in this state, which counts its retries and measures the time since its first failure. Because the
+    /// state belongs to the call rather than to a request, the sessions are kept even when an error handler retries with a request it built itself
+    /// instead of a clone of the failed request.
     /// </para>
     /// <para>
     /// Code that creates an <see cref="HttpRequestErrorContext"/> or <see cref="HttpResponseErrorContext"/> outside the client, such as a unit test
@@ -34,7 +35,7 @@ namespace Kampute.HttpClient
         /// <summary>
         /// Returns the retry session of the specified source, creating it on first use.
         /// </summary>
-        /// <param name="source">The component that owns the retry budget.</param>
+        /// <param name="source">The component that handles the failure.</param>
         /// <param name="sessionFactory">The function that creates the session, or returns <see langword="null"/> if the source does not retry.</param>
         /// <returns>The session of <paramref name="source"/>, or <see langword="null"/> if the source does not retry.</returns>
         internal IRetrySession? GetOrCreateSession(object source, Func<IRetrySession?> sessionFactory)

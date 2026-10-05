@@ -5,24 +5,24 @@
     using System.Net.Http.Headers;
 
     /// <summary>
-    /// Provides a cache for <see cref="MediaTypeWithQualityHeaderValue"/> instances to improve performance by reusing instances for
-    /// frequently requested media types and quality settings.
+    /// Provides shared <see cref="MediaTypeWithQualityHeaderValue"/> instances for <c>Accept</c> headers, so that a value is not parsed again for every
+    /// request.
     /// </summary>
     public static class MediaTypeHeaderValueStore
     {
         /// <summary>
-        /// Retrieves a <see cref="MediaTypeWithQualityHeaderValue"/> from the cache or creates a new one if it does not exist.
+        /// Returns the shared header value of a media type without a quality factor.
         /// </summary>
-        /// <param name="mediaType">The media type as a string.</param>
-        /// <returns>A <see cref="MediaTypeWithQualityHeaderValue"/> corresponding to the specified media type.</returns>
+        /// <param name="mediaType">The media type, such as <c>application/json</c>.</param>
+        /// <returns>The shared <see cref="MediaTypeWithQualityHeaderValue"/> of <paramref name="mediaType"/>.</returns>
         public static MediaTypeWithQualityHeaderValue Get(string mediaType) => WithoutQuality.Store.Get(mediaType);
 
         /// <summary>
-        /// Retrieves a <see cref="MediaTypeWithQualityHeaderValue"/> from the cache or creates a new one if it does not exist.
+        /// Returns the shared header value of a media type with a quality factor.
         /// </summary>
-        /// <param name="mediaType">The media type as a string.</param>
-        /// <param name="quality">The quality factor associated with this media type, expressed as a value between 0 and 1.</param>
-        /// <returns>A <see cref="MediaTypeWithQualityHeaderValue"/> corresponding to the specified media type and quality factor.</returns>
+        /// <param name="mediaType">The media type, such as <c>application/json</c>.</param>
+        /// <param name="quality">The quality factor, from 0 to 1.</param>
+        /// <returns>The shared <see cref="MediaTypeWithQualityHeaderValue"/> of <paramref name="mediaType"/> and <paramref name="quality"/>.</returns>
         public static MediaTypeWithQualityHeaderValue Get(string mediaType, float quality) => WithQuality.Store.Get((mediaType, quality));
 
         /// <summary>

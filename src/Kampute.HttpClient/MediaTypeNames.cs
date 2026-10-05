@@ -6,11 +6,10 @@
 namespace Kampute.HttpClient
 {
     /// <summary>
-    /// Provides constants for common media type names used in MIME content types.
+    /// Provides the names of common media types.
     /// </summary>
     /// <remarks>
-    /// This class supplements the standard <see cref="System.Net.Mime.MediaTypeNames"/> with additional, commonly 
-    /// used media types that are not covered by the .NET Standard 2.0 specification.
+    /// This class covers more media types than <see cref="System.Net.Mime.MediaTypeNames"/>, which has fewer of them on .NET Standard 2.0.
     /// </remarks>
     public static class MediaTypeNames
     {

@@ -6,7 +6,7 @@
 namespace Kampute.HttpClient
 {
     /// <summary>
-    /// This namespace contains classes and methods for making HTTP requests and handling responses.
+    /// This namespace contains <see cref="HttpRestClient"/>, its request helpers, retry policies, and the types that describe failures.
     /// </summary>
     internal static class NamespaceDoc { }
 }

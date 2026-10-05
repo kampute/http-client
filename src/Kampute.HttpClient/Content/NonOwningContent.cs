@@ -43,11 +43,11 @@ namespace Kampute.HttpClient.Content
         }
 
         /// <summary>
-        /// Serializes the original content to a stream as an asynchronous operation.
+        /// Writes the original content to a stream.
         /// </summary>
-        /// <param name="stream">The target stream to which the content will be written.</param>
-        /// <param name="context">Information about the transport (e.g., channel binding token).</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="stream">The stream to write to.</param>
+        /// <param name="context">The transport context.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             return OriginalContent.CopyToAsync(stream, context);

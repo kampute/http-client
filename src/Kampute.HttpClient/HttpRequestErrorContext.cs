@@ -13,17 +13,17 @@ namespace Kampute.HttpClient
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents the context of an HTTP request error, encapsulating details about the request, the error encountered, and the client that sent the request.
+    /// Describes a failed request to the code that decides whether to retry it: the client, the request, and the error.
     /// </summary>
     public class HttpRequestErrorContext
     {
         /// <summary>
-        /// Initializes an instance of the <see cref="HttpRequestErrorContext"/> class.
+        /// Initializes a new instance of the <see cref="HttpRequestErrorContext"/> class.
         /// </summary>
-        /// <param name="client">The <see cref="HttpRestClient"/> instance used to send the request.</param>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> that resulted in a failure.</param>
-        /// <param name="error">The <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.</param>
-        /// <param name="retryState">The retry budgets of the call that sent the request, shared by all its attempts.</param>
+        /// <param name="client">The client that sent the request.</param>
+        /// <param name="request">The request that failed.</param>
+        /// <param name="error">The exception that describes the failure.</param>
+        /// <param name="retryState">The retry state of the call that sent the request, shared by all its attempts.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="client"/>, <paramref name="request"/>, <paramref name="error"/> or <paramref name="retryState"/> is <see langword="null"/>.</exception>
         public HttpRequestErrorContext(HttpRestClient client, HttpRequestMessage request, HttpRequestException error, HttpRetryState retryState)
         {
@@ -34,31 +34,31 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets the <see cref="HttpRestClient"/> instance used to send the request.
+        /// Gets the client that sent the request.
         /// </summary>
         /// <value>
-        /// The <see cref="HttpRestClient"/> instance used to send the request.
+        /// The <see cref="HttpRestClient"/> that sent the request.
         /// </value>
         public HttpRestClient Client { get; }
 
         /// <summary>
-        /// Gets the <see cref="HttpRequestMessage"/> that resulted in a failure.
+        /// Gets the request that failed.
         /// </summary>
         /// <value>
-        /// The <see cref="HttpRequestMessage"/> that resulted in a failure.
+        /// The <see cref="HttpRequestMessage"/> that failed.
         /// </value>
         public HttpRequestMessage Request { get; }
 
         /// <summary>
-        /// Gets the <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.
+        /// Gets the exception that describes the failure.
         /// </summary>
         /// <value>
-        /// The <see cref="HttpRequestException"/> containing details of the error encountered during the HTTP request.
+        /// The <see cref="HttpRequestException"/> of the failure.
         /// </value>
         public HttpRequestException Error { get; }
 
         /// <summary>
-        /// Gets the retry budgets of the call that sent the request.
+        /// Gets the retry state of the call that sent the request.
         /// </summary>
         /// <value>
         /// The <see cref="HttpRetryState"/> shared by all attempts of the call. <see cref="ScheduleRetryAsync"/> keeps the retry session of each source in it.
@@ -66,23 +66,27 @@ namespace Kampute.HttpClient
         public HttpRetryState RetryState { get; }
 
         /// <summary>
-        /// Schedules a retry for the failed HTTP request using a retry session from the provided factory.
+        /// Waits as the retry session of the source decides, and returns a clone of the request to retry, or a decision not to retry.
         /// </summary>
         /// <param name="source">
-        /// The component that handles this kind of failure and owns its retry budget, such as the <see cref="HttpRestClient"/> for connection
+        /// The component that handles this kind of failure and counts its retries, such as the <see cref="HttpRestClient"/> for connection
         /// failures or an <see cref="IHttpErrorHandler"/> for error responses.
         /// </param>
-        /// <param name="sessionFactory">A function that returns an <see cref="IRetrySession"/> that decides on retry attempts, based on the error context.</param>
+        /// <param name="sessionFactory">
+        /// A function that creates the retry session of the source from this context, or returns <see langword="null"/> if the source does not retry.
+        /// </param>
         /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
-        /// <returns>A task that resolves to an <see cref="HttpErrorHandlerResult"/> indicating whether a retry should be attempted.</returns>
+        /// <returns>
+        /// A task that resolves, after the wait, to a decision to retry with a clone of <see cref="Request"/>, or to <see cref="HttpErrorHandlerResult.NoRetry"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="source"/> or <paramref name="sessionFactory"/> is <see langword="null"/>.</exception>
         /// <remarks>
         /// <para>
-        /// Each source has its own retry budget for a call. The first time a source schedules a retry during a call, <paramref name="sessionFactory"/>
+        /// Each source has its own retry session for a call. The first time a source schedules a retry during a call, <paramref name="sessionFactory"/>
         /// is called and the session it returns is kept in <see cref="RetryState"/>. Later failures from the same source during the same call reuse
-        /// that session, so they share its budget, whether the request to retry is a clone of the failed request or a request built by an error handler.
-        /// Failures from another source use another session, so a request that fails in several ways can be retried more times in total than any single
-        /// budget allows.
+        /// that session, so its retry limit and elapsed time cover all of them, whether the request to retry is a clone of the failed request or a
+        /// request built by an error handler. Failures from another source use another session, so a call that fails in several ways can be retried
+        /// more times in total than any one session allows.
         /// </para>
         /// <para>
         /// If the request content cannot be sent again, the request is not retried and <paramref name="sessionFactory"/> is not called.

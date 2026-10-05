@@ -4,10 +4,11 @@
     using System.Net.Http;
 
     /// <summary>
-    /// Serves as a base class for decorating <see cref="HttpContent"/> instances.
+    /// Provides a base class for content that wraps another <see cref="HttpContent"/>.
     /// </summary>
     /// <remarks>
-    /// This class provides common functionality such as copying headers from the original content and managing the lifecycle of the wrapped content.
+    /// The decorator starts with a copy of the headers of the original content, and disposes the original content when it is disposed, unless it
+    /// was created to leave it open.
     /// </remarks>
     public abstract class HttpContentDecorator : HttpContent
     {
@@ -16,7 +17,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpContentDecorator"/> class.
         /// </summary>
-        /// <param name="content">The HTTP content to decorate. This content will be disposed when this decorator instance is disposed.</param>
+        /// <param name="content">The content to wrap. It is disposed when this instance is disposed.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <see langword="null"/>.</exception>
         protected HttpContentDecorator(HttpContent content)
             : this(content, leaveOpen: false)
@@ -24,9 +25,9 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpContentDecorator"/> class, specifying whether the decorated content is disposed with this instance.
+        /// Initializes a new instance of the <see cref="HttpContentDecorator"/> class, specifying whether the wrapped content is disposed with this instance.
         /// </summary>
-        /// <param name="content">The HTTP content to decorate.</param>
+        /// <param name="content">The content to wrap.</param>
         /// <param name="leaveOpen">
         /// <see langword="true"/> to leave <paramref name="content"/> undisposed when this decorator instance is disposed; <see langword="false"/> to dispose it.
         /// </param>
@@ -40,15 +41,15 @@
         }
 
         /// <summary>
-        /// Gets the original HTTP content that this instance decorates.
+        /// Gets the content that this instance wraps.
         /// </summary>
-        /// <value>The original <see cref="HttpContent"/> instance.</value>
+        /// <value>The wrapped <see cref="HttpContent"/>.</value>
         protected internal HttpContent OriginalContent { get; }
 
         /// <summary>
-        /// Releases the unmanaged resources used by the <see cref="HttpContent"/> and optionally disposes of the managed resources.
+        /// Releases the resources of this instance, and disposes the wrapped content unless this instance was created to leave it open.
         /// </summary>
-        /// <param name="disposing"><see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release only unmanaged resources.</param>
+        /// <param name="disposing"><see langword="true"/> when called from <see cref="IDisposable.Dispose"/>; <see langword="false"/> when called from a finalizer.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && !_leaveOpen)

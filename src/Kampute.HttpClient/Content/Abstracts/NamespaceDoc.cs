@@ -6,8 +6,7 @@
 namespace Kampute.HttpClient.Content.Abstracts
 {
     /// <summary>
-    /// This namespace contains abstract classes for HTTP content
-    /// deserialization and decoration.
+    /// This namespace contains base classes for content formatters, which read and write HTTP content, and for content decorators.
     /// </summary>
     internal static class NamespaceDoc { }
 }

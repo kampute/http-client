@@ -12,8 +12,8 @@ namespace Kampute.HttpClient.Interfaces
     /// Defines how failed HTTP requests are retried.
     /// </summary>
     /// <remarks>
-    /// A policy creates a retry session for a request when the request first fails in a way the policy covers. The session decides, for that failure
-    /// and the later ones of the same kind, whether and when the request is retried. <see cref="HttpRetryPolicy"/> creates sessions from an
+    /// A policy creates a retry session for a call when its request first fails in a way the policy covers. The session decides, for that failure
+    /// and the later ones of the same kind during the call, whether and when the request is retried. <see cref="HttpRetryPolicy"/> creates sessions from an
     /// <see cref="IRetryStrategy"/>, and <see cref="HttpRetryPolicy.Dynamic(Func{HttpRequestErrorContext, IRetryStrategy})"/> chooses the strategy or the
     /// session from the failure.
     /// </remarks>

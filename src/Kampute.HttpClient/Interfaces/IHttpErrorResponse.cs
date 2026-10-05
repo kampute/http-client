@@ -8,12 +8,11 @@ namespace Kampute.HttpClient.Interfaces
     using System.Net;
 
     /// <summary>
-    /// Defines an interface for handling HTTP error responses and converting them into a <see cref="HttpResponseException"/>.
+    /// Defines an error model that creates the exception for an error response.
     /// </summary>
     /// <remarks>
-    /// This interface is especially beneficial in RESTful operation contexts where the server provides error details in a 
-    /// distinct format. It facilitates the conversion of these details into a structured <see cref="HttpResponseException"/>, 
-    /// thereby enhancing error handling and its integration into client-side logic.
+    /// Implement this interface on the type assigned to <see cref="HttpRestClient.ResponseErrorType"/> to turn the error details that an API returns,
+    /// such as a message or validation errors, into the <see cref="HttpResponseException"/> that the client throws.
     /// </remarks>
     public interface IHttpErrorResponse
     {

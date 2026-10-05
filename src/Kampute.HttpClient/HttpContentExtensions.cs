@@ -13,35 +13,30 @@ namespace Kampute.HttpClient
     using System.Text;
 
     /// <summary>
-    /// Provides extension methods for <see cref="HttpContent"/> to enhance functionality related to HTTP content processing.
+    /// Provides extension methods for <see cref="HttpContent"/>.
     /// </summary>
     public static class HttpContentExtensions
     {
         /// <summary>
-        /// Attempts to find the character encoding from the <see cref="HttpContent"/> headers.
+        /// Returns the character encoding named by the <c>charset</c> parameter of the <c>Content-Type</c> header.
         /// </summary>
-        /// <param name="httpContent">The <see cref="HttpContent"/> instance to extract the character encoding from.</param>
-        /// <returns>The <see cref="Encoding"/> specified in the content's headers if the charset is recognized; otherwise, <see langword="null"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown if the charset specified in the content's headers is not recognized.</exception>
-        /// <remarks>
-        /// This method inspects the 'CharSet' value in the content type header of the <see cref="HttpContent"/>. If the charset is specified
-        /// and recognized, it returns the corresponding <see cref="Encoding"/>. If the charset is not specified, the method returns <see langword="null"/>, 
-        /// indicating that the encoding could not be determined. An <see cref="ArgumentException"/> is thrown if the charset is specified but 
-        /// not supported by the system.
-        /// </remarks>
+        /// <param name="httpContent">The content whose encoding to return.</param>
+        /// <returns>The <see cref="Encoding"/> that the header names, or <see langword="null"/> if the header names none.</returns>
+        /// <exception cref="ArgumentException">Thrown if the header names a character set that the runtime does not support.</exception>
         public static Encoding? FindCharacterEncoding(this HttpContent httpContent)
         {
             return httpContent.Headers.ContentType?.CharSet is string charSet ? Encoding.GetEncoding(charSet) : null;
         }
 
         /// <summary>
-        /// Determines whether the <see cref="HttpContent"/> instance can be reused.
+        /// Determines whether the content can be sent more than once, as a retry requires.
         /// </summary>
-        /// <param name="httpContent">The <see cref="HttpContent"/> instance to check for re-usability.</param>
-        /// <returns><see langword="true"/> if the content is reusable; otherwise, <see langword="false"/>.</returns>
+        /// <param name="httpContent">The content to check.</param>
+        /// <returns><see langword="true"/> if the content can be sent again; otherwise, <see langword="false"/>.</returns>
         /// <remarks>
-        /// Reusability of <see cref="HttpContent"/> is determined by its ability to provide its content multiple times without alteration.
-        /// For example, content backed by a non-seekable stream is not reusable as the stream can be consumed only once.
+        /// A <see cref="StreamContent"/> can be sent again only if its length is known, which is the case for a seekable stream; a non-seekable
+        /// stream can be read only once. Content that wraps another content, such as compressed content, can be sent again if the wrapped content can.
+        /// Other content is assumed to be reusable.
         /// </remarks>
         public static bool IsReusable(this HttpContent httpContent)
         {
@@ -55,22 +50,22 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Compresses the <see cref="HttpContent"/> using the GZIP compression algorithm.
+        /// Wraps the content in content that compresses it with GZip as it is sent.
         /// </summary>
-        /// <param name="httpContent">The HTTP content to compress.</param>
-        /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
-        /// <returns>A new instance of <see cref="GzipCompressedContent"/> that wraps the original HTTP content with GZIP compression.</returns>
+        /// <param name="httpContent">The content to compress. It is disposed when the returned content is disposed.</param>
+        /// <param name="compressionLevel">Whether to favor speed or size. The default is <see cref="CompressionLevel.Optimal"/>.</param>
+        /// <returns>A <see cref="GzipCompressedContent"/> that wraps <paramref name="httpContent"/>.</returns>
         public static GzipCompressedContent AsGzip(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             return new GzipCompressedContent(httpContent, compressionLevel);
         }
 
         /// <summary>
-        /// Compresses the <see cref="HttpContent"/> using the Deflate compression algorithm.
+        /// Wraps the content in content that compresses it with Deflate as it is sent.
         /// </summary>
-        /// <param name="httpContent">The HTTP content to compress.</param>
-        /// <param name="compressionLevel">The level of compression that indicates whether to emphasize speed or compression efficiency.</param>
-        /// <returns>A new instance of <see cref="DeflateCompressedContent"/> that wraps the original HTTP content with Deflate compression.</returns>
+        /// <param name="httpContent">The content to compress. It is disposed when the returned content is disposed.</param>
+        /// <param name="compressionLevel">Whether to favor speed or size. The default is <see cref="CompressionLevel.Optimal"/>.</param>
+        /// <returns>A <see cref="DeflateCompressedContent"/> that wraps <paramref name="httpContent"/>.</returns>
         public static DeflateCompressedContent AsDeflate(this HttpContent httpContent, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             return new DeflateCompressedContent(httpContent, compressionLevel);

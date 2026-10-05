@@ -16,7 +16,7 @@ namespace Kampute.HttpClient
     using System.Threading;
 
     /// <summary>
-    /// Represents a specialized collection of <see cref="IHttpContentFormatter"/> instances.
+    /// Represents the content formatters of an <see cref="HttpRestClient"/>, in the order they were added.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -50,18 +50,18 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets the number of <see cref="IHttpContentFormatter"/> instances contained in the collection.
+        /// Gets the number of formatters in the collection.
         /// </summary>
         /// <value>
-        /// The number of <see cref="IHttpContentFormatter"/> instances contained in the collection.
+        /// The number of formatters in the collection.
         /// </value>
         public int Count => _collection.Count;
 
         /// <summary>
-        /// Gets a value indicating whether the collection is read-only. Always returns <see langword="false"/> for this implementation.
+        /// Gets a value indicating whether the collection is read-only.
         /// </summary>
         /// <value>
-        /// Indicates whether the collection is read-only. This implementation always returns <see langword="false"/>.
+        /// Always <see langword="false"/>.
         /// </value>
         bool ICollection<IHttpContentFormatter>.IsReadOnly => false;
 
@@ -153,7 +153,7 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Adds an <see cref="IHttpContentFormatter"/> to the collection if an instance of the same type doesn't already exist.
+        /// Adds a formatter to the collection, which can hold one formatter of each type.
         /// </summary>
         /// <param name="formatter">The <see cref="IHttpContentFormatter"/> to add.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="formatter"/> is <see langword="null"/>.</exception>
@@ -172,7 +172,7 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Removes the first occurrence of a specific <see cref="IHttpContentFormatter"/> from the collection.
+        /// Removes a formatter from the collection.
         /// </summary>
         /// <param name="formatter">The <see cref="IHttpContentFormatter"/> to remove from the collection.</param>
         /// <returns><see langword="true"/> if <paramref name="formatter"/> was successfully removed from the collection; otherwise, <see langword="false"/>.</returns>

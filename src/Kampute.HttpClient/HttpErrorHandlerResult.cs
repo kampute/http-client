@@ -9,14 +9,11 @@ namespace Kampute.HttpClient
     using System.Net.Http;
 
     /// <summary>
-    /// Represents the outcome of an HTTP error handling attempt by a specific handler, indicating whether it determines a failed request 
-    /// should be retried.
+    /// Represents the decision of an error handler: retry with a given request, or do not retry.
     /// </summary>
     /// <remarks>
-    /// This struct communicates the decision of an HTTP error handler regarding the handling of a failed request. It specifies whether the 
-    /// handler determines the request should be retried, potentially with modifications, or if it considers the error not recoverable by 
-    /// its logic, indicating that a retry should not be attempted. This determination is contextual to the handler's implementation and does 
-    /// not preclude other handlers from potentially retrying the request.
+    /// A <see cref="NoRetry"/> decision only means that this handler does not retry; the client then asks the next handler that can handle the
+    /// status code.
     /// </remarks>
     public readonly struct HttpErrorHandlerResult
     {
@@ -31,24 +28,22 @@ namespace Kampute.HttpClient
         }
 
         /// <summary>
-        /// Gets the <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; 
-        /// otherwise, <see langword="null"/>.
+        /// The request to send as the retry, or <see langword="null"/> if the handler does not retry.
         /// </summary>
-        /// <value>
-        /// The <see cref="HttpRequestMessage"/> to use for retrying the failed request, if the handler determines a retry is warranted; otherwise, <see langword="null"/>.
-        /// </value>
         public readonly HttpRequestMessage? RequestToRetry;
 
         /// <summary>
-        /// Creates a result indicating that the request should be retried with the provided <see cref="HttpRequestMessage"/>.
+        /// Creates a decision to retry with the specified request.
         /// </summary>
-        /// <param name="requestToRetry">The request to use for the retry.</param>
-        /// <returns>An <see cref="HttpErrorHandlerResult"/> indicating the request should be retried with the provided <see cref="HttpRequestMessage"/>.</returns>
+        /// <param name="requestToRetry">
+        /// The request to send, such as a clone of the failed request made with <see cref="HttpRequestMessageExtensions.Clone"/>, or a new request.
+        /// </param>
+        /// <returns>An <see cref="HttpErrorHandlerResult"/> whose <see cref="RequestToRetry"/> is <paramref name="requestToRetry"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="requestToRetry"/> is <see langword="null"/>.</exception>
         public static HttpErrorHandlerResult Retry(HttpRequestMessage requestToRetry) => new(requestToRetry);
 
         /// <summary>
-        /// Represents a result indicating that the request should not be retried according to the handler's determination.
+        /// The decision not to retry.
         /// </summary>
         public static readonly HttpErrorHandlerResult NoRetry = new();
     }

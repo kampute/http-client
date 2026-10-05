@@ -4,12 +4,11 @@
     using System.Net.Http;
 
     /// <summary>
-    /// Provides a singleton-like access to a shared <see cref="HttpClient"/> instance across the application.
+    /// Provides the <see cref="HttpClient"/> that instances of <see cref="HttpRestClient"/> share by default.
     /// </summary>
     /// <remarks>
-    /// This static class manages the lifecycle of a single <see cref="HttpClient"/> instance. It ensures efficient resource usage by allowing
-    /// the <see cref="HttpClient"/> to be reused throughout the application. The <see cref="HttpClient"/> is managed as a shared disposable resource,
-    /// which means it is only disposed when no longer in use by any part of the application.
+    /// Sharing one <see cref="HttpClient"/> lets all clients reuse the same connections. The <see cref="HttpClient"/> is created when the first
+    /// reference is acquired, and disposed when the last reference is released; a later reference creates a new one with <see cref="Factory"/>.
     /// </remarks>
     public static class SharedHttpClient
     {
@@ -18,9 +17,9 @@
         private static SharedDisposable<HttpClient>? _instance;
 
         /// <summary>
-        /// Acquires a reference to the shared <see cref="HttpClient"/> instance.
+        /// Acquires a reference to the shared <see cref="HttpClient"/>.
         /// </summary>
-        /// <returns>A <see cref="SharedDisposable{T}.Reference"/> that manages the lifetime of the shared <see cref="HttpClient"/>.</returns>
+        /// <returns>A <see cref="SharedDisposable{T}.Reference"/> to the shared <see cref="HttpClient"/>, which releases it when it is disposed.</returns>
         public static SharedDisposable<HttpClient>.Reference AcquireReference()
         {
             if (_instance is null)
@@ -36,21 +35,21 @@
 
 
         /// <summary>
-        /// Gets the current number of active references to the shared <see cref="HttpClient"/> instance.
+        /// Gets the number of active references to the shared <see cref="HttpClient"/>.
         /// </summary>
         /// <value>The number of active references.</value>
         public static int ReferenceCount => _instance is not null ? _instance.ReferenceCount : 0;
 
         /// <summary>
-        /// Gets or sets the factory method used to create the <see cref="HttpClient"/> instance.
+        /// Gets or sets the function that creates the shared <see cref="HttpClient"/>.
         /// </summary>
         /// <value>
-        /// A function that returns an <see cref="HttpClient"/> when invoked.
+        /// The function that creates the shared <see cref="HttpClient"/>, or <see langword="null"/> to create one with its parameterless constructor.
         /// </value>
-        /// <exception cref="InvalidOperationException">Thrown if attempting to change the factory after the <see cref="HttpClient"/> instance has been created.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set after the first reference has been acquired.</exception>
         /// <remarks>
-        /// This property allows for the customization of the <see cref="HttpClient"/> creation process. Changing this property after the <see cref="HttpClient"/>
-        /// has been created will throw an <see cref="InvalidOperationException"/> to prevent inconsistent states by modifying the factory method post creation.
+        /// Set this property at application startup, before any <see cref="HttpRestClient"/> is created with the shared <see cref="HttpClient"/>,
+        /// to configure its handler, proxy, or timeout.
         /// </remarks>
         public static Func<HttpClient>? Factory
         {

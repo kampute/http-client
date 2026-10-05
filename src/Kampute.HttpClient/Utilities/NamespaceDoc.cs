@@ -6,8 +6,8 @@
 namespace Kampute.HttpClient.Utilities
 {
     /// <summary>
-    /// This namespace contains utility classes and extensions for managing
-    /// shared resources, caching, and asynchronous operations.
+    /// This namespace contains the general-purpose types that the client builds on: the shared <c>HttpClient</c>, scoped collections, caches,
+    /// and throttled updates.
     /// </summary>
     internal static class NamespaceDoc { }
 }

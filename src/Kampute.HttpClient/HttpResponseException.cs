@@ -12,7 +12,7 @@ namespace Kampute.HttpClient
     using System.Text;
 
     /// <summary>
-    /// Represents an exception that is thrown when an HTTP request results in a failure HTTP status code.
+    /// The exception that is thrown when a request receives an error response that no error handler retries.
     /// </summary>
     public class HttpResponseException : HttpRequestException
     {
@@ -78,18 +78,19 @@ namespace Kampute.HttpClient
 #endif
 
         /// <summary>
-        /// Gets or sets the validation errors associated with the exception.
+        /// Gets or sets the validation errors that the error response reports.
         /// </summary>
         /// <value>
-        /// The validation errors associated with the exception, if any. It maps error keys to their corresponding error messages arrays. Can be <see langword="null"/> if there are no validation errors.
+        /// The error messages of each invalid field, keyed by the field name, or <see langword="null"/> if there are none. An
+        /// <see cref="Interfaces.IHttpErrorResponse"/> can set them from the error body.
         /// </value>
         public IDictionary<string, string[]>? Errors { get; set; }
 
         /// <summary>
-        /// Gets or sets the HTTP response message associated with the exception.
+        /// Gets or sets the error response.
         /// </summary>
         /// <value>
-        /// The HTTP response message associated with the exception. Can be <see langword="null"/> if there is no HTTP response message.
+        /// The <see cref="HttpResponseMessage"/> of the error, or <see langword="null"/> if there is none.
         /// </value>
         /// <remarks>
         /// <para>
@@ -104,10 +105,11 @@ namespace Kampute.HttpClient
         public HttpResponseMessage? ResponseMessage { get; set; }
 
         /// <summary>
-        /// Gets or sets the deserialized object from the HTTP response associated with the exception.
+        /// Gets or sets the body of the error response, read as <see cref="HttpRestClient.ResponseErrorType"/>.
         /// </summary>
         /// <value>
-        /// The deserialized object from the HTTP response body. Can be <see langword="null"/> if the HTTP response is not deserialized.
+        /// The object read from the error body, or <see langword="null"/> if <see cref="HttpRestClient.ResponseErrorType"/> is not set or the body
+        /// could not be read.
         /// </value>
         public object? ResponseObject { get; set; }
 

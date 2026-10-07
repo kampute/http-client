@@ -29,6 +29,31 @@ namespace Kampute.HttpClient.Test.Content.Abstracts
             }
         }
 
+        [TestCase("application/vnd.example+json", ExpectedResult = true)]
+        [TestCase("Application/Vnd.Example+JSON", ExpectedResult = true)]
+        [TestCase("application/json", ExpectedResult = false)]
+        [TestCase("application/+json", ExpectedResult = false)]
+        [TestCase("application/vnd.example+json-seq", ExpectedResult = false)]
+        [TestCase("vnd.example+json", ExpectedResult = false)]
+        public bool HasStructuredSyntaxSuffix_RequiresSubtypeNameBeforeSuffix(string mediaType)
+        {
+            return SuffixFormatter.HasSuffix(mediaType, "+json");
+        }
+
+        [Test]
+        public void CanRead_UsesCanReadMediaTypeButAdvertisesOnlyListedMediaTypes()
+        {
+            var formatter = new SuffixFormatter();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(formatter.CanRead("text/x-read", typeof(string)), Is.True);
+                Assert.That(formatter.CanRead("application/vnd.example+test", typeof(string)), Is.True);
+                Assert.That(formatter.CanRead("application/vnd.example+other", typeof(string)), Is.False);
+                Assert.That(formatter.GetReadableMediaTypes(typeof(string)), Is.EqualTo(new[] { "text/x-read" }));
+            }
+        }
+
         [Test]
         public void Write_WithUnsupportedMediaTypeOrPayload_ThrowsNotSupportedException()
         {
@@ -110,6 +135,18 @@ namespace Kampute.HttpClient.Test.Content.Abstracts
             {
                 return new StringContent((string)payload);
             }
+        }
+
+        private sealed class SuffixFormatter : HttpContentFormatter
+        {
+            public SuffixFormatter()
+                : base(["text/x-read"], [])
+            {
+            }
+
+            public static bool HasSuffix(string mediaType, string suffix) => HasStructuredSyntaxSuffix(mediaType, suffix);
+
+            protected override bool CanReadMediaType(string mediaType) => base.CanReadMediaType(mediaType) || HasStructuredSyntaxSuffix(mediaType, "+test");
         }
 
         private sealed class NoOverridesFormatter : HttpContentFormatter

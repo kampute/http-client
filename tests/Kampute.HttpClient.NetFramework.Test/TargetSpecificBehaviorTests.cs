@@ -67,18 +67,18 @@ namespace Kampute.HttpClient.NetFramework.Test
         }
 
         [Test]
-        public void PostAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
+        public async Task PostAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
         {
             using var handler = new TestHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.InternalServerError));
             using var client = CreateClient(handler);
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => client.PostAsFormAsync("/resource", [new KeyValuePair<string, string>("name", "value")]));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => client.PostAsFormAsync("/resource", [new KeyValuePair<string, string>("name", "value")]));
 
-            Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+            Assert.That(exception!.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
         }
 
         [Test]
-        public void OnErrorResponse_ResponseMessageKeepsHeadersButContentIsDisposed()
+        public async Task OnErrorResponse_ResponseMessageKeepsHeadersButContentIsDisposed()
         {
             using var handler = new TestHttpMessageHandler(_ =>
             {
@@ -88,14 +88,14 @@ namespace Kampute.HttpClient.NetFramework.Test
             });
             using var client = CreateClient(handler);
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => client.SendAsync(HttpMethod.Get, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => client.SendAsync(HttpMethod.Get, "/resource"));
 
-            Assert.That(exception.ResponseMessage, Is.Not.Null);
+            Assert.That(exception!.ResponseMessage, Is.Not.Null);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(exception.ResponseMessage!.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
                 Assert.That(exception.ResponseMessage.Headers.GetValues("X-Error-Id"), Is.EqualTo(new[] { "42" }));
-                Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
+                await Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
             }
         }
 

@@ -62,6 +62,16 @@ namespace Kampute.HttpClient
 #endif
 
             /// <summary>
+            /// Media type name for problem details in JSON, defined by RFC 9457.
+            /// </summary>
+            public const string ProblemJson = "application/problem+json";
+
+            /// <summary>
+            /// Media type name for problem details in XML, defined by RFC 9457.
+            /// </summary>
+            public const string ProblemXml = "application/problem+xml";
+
+            /// <summary>
             /// Media type name for BSON data.
             /// </summary>
             public const string Bson = "application/bson";

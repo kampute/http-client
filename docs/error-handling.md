@@ -27,7 +27,7 @@ The retry strategy comes from the [`Kampute.Resilience`](https://kampute.github.
 
 ## Structured Error Bodies
 
-Set [`ResponseErrorType`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseErrorType) to your API's error model. Register a [content formatter](content-formats.md) that can read that model from the response media type.
+Set [`ResponseErrorType`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseErrorType) to your API's error model. Register a [content formatter](content-formats.md) that can read that model from the response media type. The JSON and XML formatters also read RFC 9457 problem details, `application/problem+json` and `application/problem+xml`, so an error model with the problem details fields works with them.
 
 The deserialized model is available through [`HttpResponseException.ResponseObject`](~/api/Kampute.HttpClient.HttpResponseException.html#Kampute_HttpClient_HttpResponseException_ResponseObject). If the model implements [`IHttpErrorResponse`](~/api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html), its [`ToException()`](~/api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html#Kampute_HttpClient_Interfaces_IHttpErrorResponse_ToException_System_Net_HttpStatusCode_) method constructs the exception. See the reference for the full error-response contract.
 

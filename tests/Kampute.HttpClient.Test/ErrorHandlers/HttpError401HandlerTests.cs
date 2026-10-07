@@ -204,7 +204,7 @@
         }
 
         [Test]
-        public void On401Response_WithNonReusableContent_ThrowsUnauthorizedHttpErrorWithoutAuthenticating()
+        public async Task On401Response_WithNonReusableContent_ThrowsUnauthorizedHttpErrorWithoutAuthenticating()
         {
             var numberOfInvokes = 0;
 
@@ -220,7 +220,7 @@
 
             using var content = new StreamContent(new TestStream(seekable: false));
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Post, "/protected/resource", content));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Post, "/protected/resource", content));
 
             using (Assert.EnterMultipleScope())
             {

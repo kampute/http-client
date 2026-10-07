@@ -98,29 +98,29 @@
         }
 
         [Test]
-        public void PostAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
+        public async Task PostAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
         {
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.InternalServerError);
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _restClient.PostAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _restClient.PostAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
             Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
         }
 
         [Test]
-        public void PutAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
+        public async Task PutAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
         {
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.InternalServerError);
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _restClient.PutAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _restClient.PutAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
             Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
         }
 
         [Test]
-        public void PatchAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
+        public async Task PatchAsFormAsync_OnErrorResponse_ThrowsHttpResponseException()
         {
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.InternalServerError);
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _restClient.PatchAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _restClient.PatchAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
             Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
         }
 
@@ -131,11 +131,11 @@
         }
 
         [Test]
-        public void PostAsFormAsync_OnConnectionFailure_ThrowsHttpRequestException()
+        public async Task PostAsFormAsync_OnConnectionFailure_ThrowsHttpRequestException()
         {
             _mockMessageHandler.MockHttpResponse(request => throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.HostUnreachable)));
 
-            Assert.ThrowsAsync<HttpRequestException>(() => _restClient.PostAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
+            await Assert.ThrowsAsync<HttpRequestException>(() => _restClient.PostAsFormAsync("/resource", [KeyValuePair.Create("name", "value")]));
         }
     }
 }

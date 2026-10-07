@@ -9,14 +9,29 @@
     public class NewtonsoftJsonFormatterTests
     {
         [Test]
-        public void MediaTypes_AreApplicationJsonInBothDirections()
+        public void MediaTypes_ReadJsonAndProblemJson_WriteJson()
         {
             var formatter = new NewtonsoftJsonFormatter();
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(formatter.GetReadableMediaTypes(typeof(TestModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Json }));
+                Assert.That(formatter.GetReadableMediaTypes(typeof(TestModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Json, MediaTypeNames.Application.ProblemJson }));
                 Assert.That(formatter.GetWritableMediaTypes(typeof(TestModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Json }));
+                Assert.That(formatter.CanRead(MediaTypeNames.Application.ProblemJson, typeof(TestModel)), Is.True);
+                Assert.That(formatter.CanWrite(MediaTypeNames.Application.ProblemJson, typeof(TestModel)), Is.False);
+            }
+        }
+
+        [Test]
+        public void CanRead_ForJsonSuffix_ReturnsTrueButCanWriteReturnsFalse()
+        {
+            var formatter = new NewtonsoftJsonFormatter();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(formatter.CanRead("application/vnd.example+json", typeof(TestModel)), Is.True);
+                Assert.That(formatter.CanRead("application/vnd.example+xml", typeof(TestModel)), Is.False);
+                Assert.That(formatter.CanWrite("application/vnd.example+json", typeof(TestModel)), Is.False);
             }
         }
 

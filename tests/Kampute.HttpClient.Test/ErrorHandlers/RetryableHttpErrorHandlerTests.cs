@@ -54,7 +54,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
-        public void OnSuggestedDelayAboveMaxRetryDelay_DoesNotRetry()
+        public async Task OnSuggestedDelayAboveMaxRetryDelay_DoesNotRetry()
         {
             var strategyRequested = false;
             var handler = new HttpError503Handler
@@ -70,7 +70,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 
             var attempts = MockServiceUnavailable(TimeSpan.FromHours(1));
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"));
 
             using (Assert.EnterMultipleScope())
             {
@@ -155,7 +155,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             }
             else
             {
-                var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
+                var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
                 Assert.That(exception.StatusCode, Is.EqualTo(statusCode));
             }
 
@@ -167,7 +167,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
-        public void OnRateLimitResetAboveMaxRetryDelay_DoesNotRetry()
+        public async Task OnRateLimitResetAboveMaxRetryDelay_DoesNotRetry()
         {
             var handler = new HttpError429Handler
             {
@@ -185,7 +185,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 return response;
             });
 
-            Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
+            await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
 
             Assert.That(attempts, Is.EqualTo(1));
         }

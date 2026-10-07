@@ -171,7 +171,7 @@
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public void SendAsync_OnCallerCancellation_WithCompressedJsonContent_DoesNotRetry(string encoding)
+        public async Task SendAsync_OnCallerCancellation_WithCompressedJsonContent_DoesNotRetry(string encoding)
         {
             var payload = new TestModel { Name = "JSON Test" };
             var attempts = 0;
@@ -200,7 +200,7 @@
             };
             using var compressedContent = CompressContent(content, encoding);
 
-            Assert.ThrowsAsync
+            await Assert.ThrowsAsync
             (
                 Is.InstanceOf<OperationCanceledException>(),
                 async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationToken: cancellationTokenSource.Token)

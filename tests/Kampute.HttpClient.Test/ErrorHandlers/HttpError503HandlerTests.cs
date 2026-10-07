@@ -123,7 +123,7 @@
         }
 
         [Test]
-        public void On503Response_WithOutOfRangeRetryAfterDate_ThrowsHttpResponseException()
+        public async Task On503Response_WithOutOfRangeRetryAfterDate_ThrowsHttpResponseException()
         {
             var serviceUnavailableHandler = new HttpError503Handler();
             _client.ErrorHandlers.Add(serviceUnavailableHandler);
@@ -138,7 +138,7 @@
                 return response;
             });
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/unavailable/resource"));
 
             using (Assert.EnterMultipleScope())
             {

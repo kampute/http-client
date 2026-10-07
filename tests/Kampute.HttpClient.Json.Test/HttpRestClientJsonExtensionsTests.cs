@@ -184,7 +184,7 @@
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public void SendAsync_OnCallerCancellation_WithCompressedJsonContent_DoesNotRetry(string encoding)
+        public async Task SendAsync_OnCallerCancellation_WithCompressedJsonContent_DoesNotRetry(string encoding)
         {
             var payload = new TestModel { Name = "JSON Test" };
             var attempts = 0;
@@ -213,7 +213,7 @@
             };
             using var compressedContent = CompressContent(content, encoding);
 
-            Assert.ThrowsAsync
+            await Assert.ThrowsAsync
             (
                 Is.InstanceOf<OperationCanceledException>(),
                 async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationToken: cancellationTokenSource.Token)
@@ -289,6 +289,33 @@
                 Assert.That(formatter.Options, Is.SameAs(options));
                 Assert.That(_restClient.ContentFormatters.OfType<JsonFormatter>().Single(), Is.SameAs(formatter));
             }
+        }
+
+        [Test]
+        public async Task ErrorResponse_WithProblemJson_IsReadIntoResponseErrorType()
+        {
+            _restClient.ResponseErrorType = typeof(TestModel);
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new StringContent(new TestModel { Name = "Invalid" }.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.ProblemJson),
+            });
+
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _restClient.GetAsync<TestModel>("/resource"));
+
+            Assert.That(exception.ResponseObject, Is.EqualTo(new TestModel { Name = "Invalid" }));
+        }
+
+        [Test]
+        public async Task Response_WithJsonSuffixMediaType_IsRead()
+        {
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(new TestModel { Name = "Vendor" }.ToJsonString(), Encoding.UTF8, "application/vnd.example.resource+json"),
+            });
+
+            var result = await _restClient.GetAsync<TestModel>("/resource");
+
+            Assert.That(result, Is.EqualTo(new TestModel { Name = "Vendor" }));
         }
 
         [Test]

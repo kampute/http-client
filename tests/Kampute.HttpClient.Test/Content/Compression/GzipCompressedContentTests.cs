@@ -59,13 +59,13 @@
         }
 
         [Test]
-        public void Dispose_DisposesOriginalContent()
+        public async Task Dispose_DisposesOriginalContent()
         {
             using var originalContent = new StringContent("Original content");
 
             new GzipCompressedContent(originalContent, CompressionLevel.Optimal).Dispose();
 
-            Assert.ThrowsAsync<ObjectDisposedException>(() => originalContent.ReadAsStringAsync());
+            await Assert.ThrowsAsync<ObjectDisposedException>(() => originalContent.ReadAsStringAsync());
         }
     }
 }

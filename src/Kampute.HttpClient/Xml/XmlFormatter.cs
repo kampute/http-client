@@ -18,6 +18,16 @@ namespace Kampute.HttpClient.Xml
     /// </summary>
     /// <remarks>
     /// <para>
+    /// The formatter also reads <c>text/xml</c>, which RFC 7303 registers with the same definition as <c>application/xml</c>, and
+    /// <c>application/problem+xml</c>, the problem details format of RFC 9457 for error responses, and advertises both in the <c>Accept</c> header.
+    /// It reads any other media type with the <c>+xml</c> structured syntax suffix, which RFC 7303 registers for XML media types, such as
+    /// <c>application/vnd.example+xml</c>, but does not advertise it. It writes <c>application/xml</c> only.
+    /// </para>
+    /// <para>
+    /// The client reads a response with the first formatter in <see cref="HttpRestClient.ContentFormatters"/> that can read it, so a formatter for a
+    /// specific <c>+xml</c> media type takes over that type only when it is added before this one.
+    /// </para>
+    /// <para>
     /// The <see cref="Serializer"/> property selects the serializer. The same rule applies when a response is read, by the requested model type, and when
     /// a payload is written, by the runtime type of the payload. With the default, <see cref="XmlSerializerKind.Auto"/>, a type marked with
     /// <see cref="DataContractAttribute"/> or <see cref="CollectionDataContractAttribute"/> uses <see cref="DataContractSerializer"/>, and any other type
@@ -34,7 +44,7 @@ namespace Kampute.HttpClient.Xml
         /// Initializes a new instance of the <see cref="XmlFormatter"/> class.
         /// </summary>
         public XmlFormatter()
-            : base([MediaTypeNames.Application.Xml], [MediaTypeNames.Application.Xml])
+            : base([MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml, MediaTypeNames.Application.ProblemXml], [MediaTypeNames.Application.Xml])
         {
         }
 
@@ -54,6 +64,19 @@ namespace Kampute.HttpClient.Xml
         /// They have no effect when <see cref="System.Xml.Serialization.XmlSerializer"/> is selected.
         /// </value>
         public DataContractSerializerSettings? DataContractSettings { get; set; }
+
+        /// <summary>
+        /// Determines whether this formatter can read content of the specified media type.
+        /// </summary>
+        /// <param name="mediaType">The media type of the content, without parameters.</param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="mediaType"/> is one of the <see cref="HttpContentFormatter.ReadableMediaTypes"/> or has the
+        /// <c>+xml</c> structured syntax suffix; otherwise, <see langword="false"/>.
+        /// </returns>
+        protected override bool CanReadMediaType(string mediaType)
+        {
+            return base.CanReadMediaType(mediaType) || HasStructuredSyntaxSuffix(mediaType, "+xml");
+        }
 
         /// <summary>
         /// Asynchronously reads an object of the specified type from XML content.

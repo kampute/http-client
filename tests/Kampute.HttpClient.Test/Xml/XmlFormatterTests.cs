@@ -157,7 +157,7 @@ namespace Kampute.HttpClient.Test.Xml
             {
                 Assert.That(written, Does.Contain("<Renamed ").And.Contain("xmlns=\"urn:test\""));
                 Assert.That(read, Is.EqualTo(model));
-                Assert.ThrowsAsync<SerializationException>(() => Read(new XmlFormatter(), written, typeof(ContractModel)));
+                await Assert.ThrowsAsync<SerializationException>(() => Read(new XmlFormatter(), written, typeof(ContractModel)));
             }
         }
 

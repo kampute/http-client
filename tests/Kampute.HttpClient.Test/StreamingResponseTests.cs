@@ -55,13 +55,13 @@ namespace Kampute.HttpClient.Test
 
         [TestCase(false)]
         [TestCase(true)]
-        public void GetAsStreamAsync_WhenOpeningBodyFails_DisposesResponseContent(bool failSynchronously)
+        public async Task GetAsStreamAsync_WhenOpeningBodyFails_DisposesResponseContent(bool failSynchronously)
         {
             var failure = new IOException("Body failed.");
             using var content = new FailingContent(failure, failSynchronously);
             _mockMessageHandler.MockHttpResponse(_ => new HttpResponseMessage(HttpStatusCode.OK) { Content = content });
 
-            var exception = Assert.ThrowsAsync<HttpRequestException>(() => _client.GetAsStreamAsync("/resource"));
+            var exception = await Assert.ThrowsAsync<HttpRequestException>(() => _client.GetAsStreamAsync("/resource"));
 
             using (Assert.EnterMultipleScope())
             {
@@ -104,13 +104,13 @@ namespace Kampute.HttpClient.Test
         }
 
         [Test]
-        public void DownloadAsync_WhenCopyFails_DisposesDestinationStream()
+        public async Task DownloadAsync_WhenCopyFails_DisposesDestinationStream()
         {
             _mockMessageHandler.MockHttpResponse(_ => new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent([1, 2, 3, 4]) });
 
             var destination = new FailingStream();
 
-            var exception = Assert.CatchAsync(() => _client.DownloadAsync(HttpMethod.Get, "/resource", null, _ => destination));
+            var exception = await Assert.CatchAsync(() => _client.DownloadAsync(HttpMethod.Get, "/resource", null, _ => destination));
 
             using (Assert.EnterMultipleScope())
             {

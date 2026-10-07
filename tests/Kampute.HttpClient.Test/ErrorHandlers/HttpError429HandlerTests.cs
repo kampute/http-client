@@ -87,7 +87,7 @@
         }
 
         [Test]
-        public void On429Response_WithOutOfRangeRateLimitResetHeader_ThrowsHttpResponseException()
+        public async Task On429Response_WithOutOfRangeRateLimitResetHeader_ThrowsHttpResponseException()
         {
             var tooManyRequestsHandler = new HttpError429Handler();
             _client.ErrorHandlers.Add(tooManyRequestsHandler);
@@ -102,7 +102,7 @@
                 return response;
             });
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/rate-limited/resource"));
 
             using (Assert.EnterMultipleScope())
             {

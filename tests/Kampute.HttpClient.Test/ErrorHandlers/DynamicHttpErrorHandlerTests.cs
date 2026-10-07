@@ -36,7 +36,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
-        public void OnErrorResponse_InvokesDelegateWithResponseContext()
+        public async Task OnErrorResponse_InvokesDelegateWithResponseContext()
         {
             var seenStatusCodes = new List<HttpStatusCode>();
             _client.ErrorHandlers.Add(new DynamicHttpErrorHandler((ctx, _) =>
@@ -47,7 +47,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
 
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.Conflict);
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
 
             using (Assert.EnterMultipleScope())
             {
@@ -57,7 +57,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
         }
 
         [Test]
-        public void OnErrorResponse_WithHandBuiltRetryRequest_KeepsRetryBudget()
+        public async Task OnErrorResponse_WithHandBuiltRetryRequest_KeepsRetryBudget()
         {
             const int maxAttempts = 10;
             var backoff = RetryStrategies.Constant(TimeSpan.Zero).WithMaxRetries(2).ToHttpRetryPolicy();
@@ -77,7 +77,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
                 ? new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
                 : new HttpResponseMessage(HttpStatusCode.OK));
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/resource"));
 
             using (Assert.EnterMultipleScope())
             {

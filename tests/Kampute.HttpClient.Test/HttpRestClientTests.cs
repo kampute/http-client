@@ -128,21 +128,21 @@
         }
 
         [Test]
-        public void OnUnsupportedMediaType_ThrowsContentException()
+        public async Task OnUnsupportedMediaType_ThrowsContentException()
         {
             using var responseContent = new StringContent("A,B", Encoding.UTF8, MediaTypeNames.Text.Csv);
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.OK, responseContent);
 
-            Assert.ThrowsAsync<HttpContentException>(async () => await _client.SendAsync<string[][]>(TestHttpMethod, "/resource"));
+            await Assert.ThrowsAsync<HttpContentException>(async () => await _client.SendAsync<string[][]>(TestHttpMethod, "/resource"));
         }
 
         [Test]
-        public void OnUnsuccessfulStatusCode_WithoutResponseErrorType_ThrowsStandardRestException()
+        public async Task OnUnsuccessfulStatusCode_WithoutResponseErrorType_ThrowsStandardRestException()
         {
             var errorDetails = new TestErrorResponse("You didn't provide the required data!");
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.BadRequest, new TestContent(errorDetails));
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception, Is.Not.Null);
             using (Assert.EnterMultipleScope())
@@ -155,7 +155,7 @@
         }
 
         [Test]
-        public void OnUnsuccessfulStatusCode_ResponseMessageKeepsHeadersButContentIsDisposed()
+        public async Task OnUnsuccessfulStatusCode_ResponseMessageKeepsHeadersButContentIsDisposed()
         {
             _mockMessageHandler.MockHttpResponse(_ =>
             {
@@ -164,25 +164,25 @@
                 return response;
             });
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(TestHttpMethod, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception.ResponseMessage, Is.Not.Null);
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(exception.ResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
                 Assert.That(exception.ResponseMessage.Headers.GetValues("X-Error-Id"), Is.EqualTo(new[] { "42" }));
-                Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
+                await Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
             }
         }
 
         [Test]
-        public void OnUnsuccessfulStatusCode_WithResponseErrorType_ThrowsCustomizedRestException()
+        public async Task OnUnsuccessfulStatusCode_WithResponseErrorType_ThrowsCustomizedRestException()
         {
             var errorDetails = new TestErrorResponse("You didn't provide the required data!");
             _mockMessageHandler.MockHttpResponse(HttpStatusCode.BadRequest, new TestContent(errorDetails));
 
             _client.ResponseErrorType = typeof(TestErrorResponse);
-            var exception = Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(async () => await _client.SendAsync(TestHttpMethod, "/resource"));
 
             Assert.That(exception, Is.Not.Null);
             using (Assert.EnterMultipleScope())
@@ -361,7 +361,7 @@
         }
 
         [Test]
-        public void OnUnsuccessfulStatusCode_WithOverriddenDecideOnRetry_KeepsRetryBudgetAcrossRetries()
+        public async Task OnUnsuccessfulStatusCode_WithOverriddenDecideOnRetry_KeepsRetryBudgetAcrossRetries()
         {
             const int maxAttempts = 10;
 
@@ -376,7 +376,7 @@
                 BaseAddress = new Uri("http://api.test.com"),
             };
 
-            var exception = Assert.ThrowsAsync<HttpResponseException>(() => client.SendAsync(HttpMethod.Get, "/resource"));
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => client.SendAsync(HttpMethod.Get, "/resource"));
 
             using (Assert.EnterMultipleScope())
             {
@@ -402,7 +402,7 @@
         }
 
         [Test]
-        public void OnCallerCancellation_DoesNotUseRetryPolicy()
+        public async Task OnCallerCancellation_DoesNotUseRetryPolicy()
         {
             var mockRetryPolicy = new Mock<IHttpRetryPolicy>();
             _client.RetryPolicy = mockRetryPolicy.Object;
@@ -417,7 +417,7 @@
                 throw new TaskCanceledException("The request was canceled.", null, cancellationToken);
             });
 
-            Assert.ThrowsAsync<TaskCanceledException>
+            await Assert.ThrowsAsync<TaskCanceledException>
             (
                 async () => await _client.SendAsync(TestHttpMethod, "/test", new StringContent("test"), cancellationToken: cancellationTokenSource.Token)
             );

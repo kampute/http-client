@@ -168,7 +168,7 @@ namespace Kampute.HttpClient.Test.Xml
 
         [TestCase("gzip")]
         [TestCase("deflate")]
-        public void SendAsync_OnCallerCancellation_WithCompressedXmlContent_DoesNotRetry(string encoding)
+        public async Task SendAsync_OnCallerCancellation_WithCompressedXmlContent_DoesNotRetry(string encoding)
         {
             var payload = new PlainModel { Name = "XML Test" };
             var attempts = 0;
@@ -194,7 +194,7 @@ namespace Kampute.HttpClient.Test.Xml
             using var content = new XmlContent(payload);
             using var compressedContent = CompressContent(content, encoding);
 
-            Assert.ThrowsAsync
+            await Assert.ThrowsAsync
             (
                 Is.InstanceOf<OperationCanceledException>(),
                 async () => await _restClient.SendAsync(HttpMethod.Post, "/resource", compressedContent, cancellationToken: cancellationTokenSource.Token)

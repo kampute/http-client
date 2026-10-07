@@ -292,6 +292,33 @@
         }
 
         [Test]
+        public void ErrorResponse_WithProblemJson_IsReadIntoResponseErrorType()
+        {
+            _restClient.ResponseErrorType = typeof(TestModel);
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new StringContent(new TestModel { Name = "Invalid" }.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.ProblemJson),
+            });
+
+            var exception = Assert.ThrowsAsync<HttpResponseException>(() => _restClient.GetAsync<TestModel>("/resource"));
+
+            Assert.That(exception.ResponseObject, Is.EqualTo(new TestModel { Name = "Invalid" }));
+        }
+
+        [Test]
+        public async Task Response_WithJsonSuffixMediaType_IsRead()
+        {
+            _mockMessageHandler.MockHttpResponse(request => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(new TestModel { Name = "Vendor" }.ToJsonString(), Encoding.UTF8, "application/vnd.example.resource+json"),
+            });
+
+            var result = await _restClient.GetAsync<TestModel>("/resource");
+
+            Assert.That(result, Is.EqualTo(new TestModel { Name = "Vendor" }));
+        }
+
+        [Test]
         public async Task UseJson_OptionsApplyToRequestAndResponse()
         {
             _restClient.UseJson(new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });

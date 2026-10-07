@@ -19,16 +19,22 @@ namespace Kampute.HttpClient.Test.Xml
         }
 
         [Test]
-        public void MediaTypes_AreApplicationXmlInBothDirections()
+        public void MediaTypes_ReadXmlTextXmlAndProblemXml_WriteXml()
         {
             var formatter = new XmlFormatter();
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(formatter.GetReadableMediaTypes(typeof(PlainModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Xml }));
+                Assert.That(formatter.GetReadableMediaTypes(typeof(PlainModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml, MediaTypeNames.Application.ProblemXml }));
                 Assert.That(formatter.GetWritableMediaTypes(typeof(PlainModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Xml }));
                 Assert.That(formatter.CanRead(MediaTypeNames.Application.Xml, typeof(ContractModel)), Is.True);
                 Assert.That(formatter.CanRead("Application/XML", typeof(PlainModel)), Is.True);
+                Assert.That(formatter.CanRead(MediaTypeNames.Text.Xml, typeof(PlainModel)), Is.True);
+                Assert.That(formatter.CanRead(MediaTypeNames.Application.ProblemXml, typeof(PlainModel)), Is.True);
+                Assert.That(formatter.CanWrite(MediaTypeNames.Text.Xml, typeof(PlainModel)), Is.False);
+                Assert.That(formatter.CanRead("application/vnd.example+xml", typeof(PlainModel)), Is.True);
+                Assert.That(formatter.CanRead("application/vnd.example+json", typeof(PlainModel)), Is.False);
+                Assert.That(formatter.CanWrite("application/vnd.example+xml", typeof(PlainModel)), Is.False);
                 Assert.That(formatter.CanRead(MediaTypeNames.Application.Json, typeof(PlainModel)), Is.False);
                 Assert.That(formatter.CanWrite("Application/XML", typeof(ContractModel)), Is.True);
                 Assert.That(formatter.CanWrite(MediaTypeNames.Application.Json, typeof(PlainModel)), Is.False);

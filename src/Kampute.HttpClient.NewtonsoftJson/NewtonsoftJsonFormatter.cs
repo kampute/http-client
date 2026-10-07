@@ -18,9 +18,21 @@ namespace Kampute.HttpClient.NewtonsoftJson
     /// Reads and writes <c>application/json</c> content with <c>Newtonsoft.Json</c>.
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// The formatter also reads <c>application/problem+json</c>, the problem details format of RFC 9457 for error responses, and advertises it in
+    /// the <c>Accept</c> header. It reads any other media type with the <c>+json</c> structured syntax suffix, which RFC 6839 permits for media
+    /// types whose representation follows <c>application/json</c>, such as <c>application/vnd.example+json</c>, but does not advertise it. It writes
+    /// <c>application/json</c> only.
+    /// </para>
+    /// <para>
+    /// The client reads a response with the first formatter in <see cref="HttpRestClient.ContentFormatters"/> that can read it, so a formatter for a
+    /// specific <c>+json</c> media type takes over that type only when it is added before this one.
+    /// </para>
+    /// <para>
     /// Register the formatter with <see cref="HttpRestClientJsonExtensions.UseNewtonsoftJson"/>. Its <see cref="Settings"/> apply both to the responses
     /// it reads and to the payloads it writes. Change them before the client sends requests, because a registered formatter is shared by all requests
     /// of the client.
+    /// </para>
     /// </remarks>
     public sealed class NewtonsoftJsonFormatter : HttpContentFormatter
     {
@@ -28,7 +40,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// Initializes a new instance of the <see cref="NewtonsoftJsonFormatter"/> class.
         /// </summary>
         public NewtonsoftJsonFormatter()
-            : base([MediaTypeNames.Application.Json], [MediaTypeNames.Application.Json])
+            : base([MediaTypeNames.Application.Json, MediaTypeNames.Application.ProblemJson], [MediaTypeNames.Application.Json])
         {
         }
 
@@ -39,6 +51,19 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// The settings used to read responses and write payloads, or <see langword="null"/> for the defaults of <see cref="JsonSerializer"/>.
         /// </value>
         public JsonSerializerSettings? Settings { get; set; }
+
+        /// <summary>
+        /// Determines whether this formatter can read content of the specified media type.
+        /// </summary>
+        /// <param name="mediaType">The media type of the content, without parameters.</param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="mediaType"/> is one of the <see cref="HttpContentFormatter.ReadableMediaTypes"/> or has the
+        /// <c>+json</c> structured syntax suffix; otherwise, <see langword="false"/>.
+        /// </returns>
+        protected override bool CanReadMediaType(string mediaType)
+        {
+            return base.CanReadMediaType(mediaType) || HasStructuredSyntaxSuffix(mediaType, "+json");
+        }
 
         /// <summary>
         /// Asynchronously reads an object of the specified type from JSON content.

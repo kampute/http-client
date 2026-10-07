@@ -20,7 +20,8 @@ namespace Kampute.HttpClient.Content.Abstracts
     /// <para>
     /// A derived class passes the media types it reads and the media types it writes to the constructor. A receive-only formatter passes no writable
     /// media types and overrides <see cref="ReadContentAsync"/>; a send-only formatter passes no readable media types and overrides <see cref="CreateContent"/>;
-    /// a two-way formatter does both. To limit the types a formatter handles, override <see cref="CanReadType"/> or <see cref="CanWriteType"/>.
+    /// a two-way formatter does both. To limit the types a formatter handles, override <see cref="CanReadType"/> or <see cref="CanWriteType"/>. To read
+    /// media types that are not listed, such as every media type with a structured syntax suffix, override <see cref="CanReadMediaType"/>.
     /// </para>
     /// <para>
     /// Media types are compared ignoring case. <see cref="ReadAsync"/> and <see cref="Write"/> validate their arguments before they call the
@@ -80,13 +81,13 @@ namespace Kampute.HttpClient.Content.Abstracts
         /// <param name="mediaType">The media type of the content.</param>
         /// <param name="modelType">The type of the object to read.</param>
         /// <returns>
-        /// <see langword="true"/> if <paramref name="mediaType"/> is one of the <see cref="ReadableMediaTypes"/> and <see cref="CanReadType"/> accepts
+        /// <see langword="true"/> if <see cref="CanReadMediaType"/> accepts <paramref name="mediaType"/> and <see cref="CanReadType"/> accepts
         /// <paramref name="modelType"/>; otherwise, <see langword="false"/>.
         /// </returns>
         public virtual bool CanRead(string mediaType, Type modelType)
         {
             return mediaType is not null && modelType is not null
-                && ReadableMediaTypes.Contains(mediaType, StringComparer.OrdinalIgnoreCase)
+                && CanReadMediaType(mediaType)
                 && CanReadType(modelType);
         }
 
@@ -162,6 +163,42 @@ namespace Kampute.HttpClient.Content.Abstracts
         /// <param name="modelType">The type of the object to read.</param>
         /// <returns><see langword="true"/> if this formatter can read objects of <paramref name="modelType"/>; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</returns>
         protected virtual bool CanReadType(Type modelType) => true;
+
+        /// <summary>
+        /// Determines whether this formatter can read content of the specified media type.
+        /// </summary>
+        /// <param name="mediaType">The media type of the content, without parameters.</param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="mediaType"/> is one of the <see cref="ReadableMediaTypes"/>, ignoring case; otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <remarks>
+        /// <see cref="CanRead"/> calls this method with a non-null media type. A media type accepted only by an override is read but not advertised
+        /// in the <c>Accept</c> header, which lists <see cref="ReadableMediaTypes"/>.
+        /// </remarks>
+        protected virtual bool CanReadMediaType(string mediaType) => ReadableMediaTypes.Contains(mediaType, StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// Determines whether a media type ends with the specified structured syntax suffix.
+        /// </summary>
+        /// <param name="mediaType">The media type to check, such as <c>application/vnd.example+json</c>.</param>
+        /// <param name="suffix">The suffix, including its plus sign, such as <c>+json</c>.</param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="mediaType"/> has a subtype name before <paramref name="suffix"/> and ends with it, ignoring case;
+        /// otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="mediaType"/> or <paramref name="suffix"/> is <see langword="null"/>.</exception>
+        protected static bool HasStructuredSyntaxSuffix(string mediaType, string suffix)
+        {
+            if (mediaType is null)
+                throw new ArgumentNullException(nameof(mediaType));
+            if (suffix is null)
+                throw new ArgumentNullException(nameof(suffix));
+
+            var slash = mediaType.IndexOf('/');
+            return slash > 0
+                && mediaType.Length - suffix.Length > slash + 1
+                && mediaType.EndsWith(suffix, StringComparison.OrdinalIgnoreCase);
+        }
 
         /// <summary>
         /// Determines whether this formatter can write payloads of the specified type.

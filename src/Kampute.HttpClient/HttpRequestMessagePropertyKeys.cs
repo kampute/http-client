@@ -7,7 +7,6 @@ namespace Kampute.HttpClient
 {
     using Kampute.HttpClient.Interfaces;
     using System;
-    using System.Net.Http;
 
     /// <summary>
     /// Provides the keys of the request properties that <see cref="HttpRestClient"/> sets and reads.

@@ -350,7 +350,7 @@
             await Kampute.HttpClient.Json.HttpRestClientJsonExtensions.PostAsJsonAsync(client, "/models", payload);
             await client.PostAsJsonAsync("/models", payload);
 
-            Assert.That(sentBodies, Is.EqualTo(new[] { "{\"fullName\":\"JSON Test\"}", "{\"full_name\":\"JSON Test\"}" }));
+            Assert.That(sentBodies, Is.EqualTo(["{\"fullName\":\"JSON Test\"}", "{\"full_name\":\"JSON Test\"}"]));
         }
     }
 }

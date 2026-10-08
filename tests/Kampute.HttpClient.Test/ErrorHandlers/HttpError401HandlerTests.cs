@@ -204,6 +204,30 @@
         }
 
         [Test]
+        public async Task On401Response_WhenAuthenticatorProvidesNoAuthorization_ThrowsUnauthorizedHttpErrorWithoutRetrying()
+        {
+            using var unauthorizeHandler = new HttpError401Handler((_, _) => Task.FromResult<AuthenticationHeaderValue?>(null));
+
+            _client.ErrorHandlers.Add(unauthorizeHandler);
+
+            var numberOfResponses = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                Interlocked.Increment(ref numberOfResponses);
+                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            });
+
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(HttpMethod.Get, "/protected/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+                Assert.That(numberOfResponses, Is.EqualTo(1));
+                Assert.That(_client.DefaultRequestHeaders.Authorization, Is.Null);
+            }
+        }
+
+        [Test]
         public async Task On401Response_WithNonReusableContent_ThrowsUnauthorizedHttpErrorWithoutAuthenticating()
         {
             var numberOfInvokes = 0;

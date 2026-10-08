@@ -115,7 +115,7 @@ namespace Kampute.HttpClient.Test
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(_sentRequests.Select(sent => sent.Request.Content), Is.EqualTo(new HttpContent[] { firstContent, secondContent }));
-                Assert.That(_sentRequests.Select(sent => sent.Body), Is.EqualTo(new[] { "first", "second" }));
+                Assert.That(_sentRequests.Select(sent => sent.Body), Is.EqualTo(["first", "second"]));
             }
         }
 
@@ -127,7 +127,7 @@ namespace Kampute.HttpClient.Test
 
             await _client.GetAsync<string>("/resource");
 
-            Assert.That(_sentRequests.Single().Request.Headers.Accept.Select(accept => accept.MediaType), Is.EqualTo(new[] { Constants.TestMediaType }));
+            Assert.That(_sentRequests.Single().Request.Headers.Accept.Select(accept => accept.MediaType), Is.EqualTo([Constants.TestMediaType]));
         }
 
         [Test]
@@ -138,7 +138,7 @@ namespace Kampute.HttpClient.Test
 
             await _client.GetAsync<string>("/resource");
 
-            Assert.That(_sentRequests.Single().Request.Headers.Accept.Select(accept => accept.MediaType), Is.EqualTo(new[] { ReadOnlyMediaType, Constants.TestMediaType }));
+            Assert.That(_sentRequests.Single().Request.Headers.Accept.Select(accept => accept.MediaType), Is.EqualTo([ReadOnlyMediaType, Constants.TestMediaType]));
         }
 
         private sealed class MarkingFormatter : HttpContentFormatter

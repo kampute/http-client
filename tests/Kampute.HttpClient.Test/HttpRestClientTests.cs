@@ -24,6 +24,7 @@
     public class HttpRestClientTests
     {
         private static readonly HttpMethod TestHttpMethod = new("TEST");
+        private const string BrokenMediaType = "application/x-broken";
 
         private readonly TestContentFormatter _testContentFormatter = new();
         private readonly Mock<HttpMessageHandler> _mockMessageHandler = new();
@@ -58,6 +59,26 @@
 
             client.Dispose();
             Assert.That(SharedHttpClient.ReferenceCount, Is.Zero);
+        }
+
+        [TestCase("http://example.com/api", "users", "http://example.com/api/users")]
+        [TestCase("http://example.com/api/", "users", "http://example.com/api/users")]
+        [TestCase("http://example.com/v1/api", "users?page=2", "http://example.com/v1/api/users?page=2")]
+        [TestCase("http://example.com", "users", "http://example.com/users")]
+        public void BaseAddress_ResolvesRelativeUriUnderItsPath(string baseAddress, string relativeUri, string expectedUri)
+        {
+            _client.BaseAddress = new Uri(baseAddress);
+
+            Assert.That(new Uri(_client.BaseAddress, relativeUri), Is.EqualTo(new Uri(expectedUri)));
+        }
+
+        [Test]
+        public void SharedHttpClientFactory_AfterSharedClientIsCreated_CannotBeChanged()
+        {
+            using var client = new HttpRestClient();
+            var factory = SharedHttpClient.Factory;
+
+            Assert.Throws<InvalidOperationException>(() => SharedHttpClient.Factory = factory);
         }
 
         [Test]
@@ -137,6 +158,38 @@
         }
 
         [Test]
+        public async Task OnUnparsableResponseBody_ThrowsContentExceptionWithParserError()
+        {
+            var parserError = new FormatException("Malformed content");
+            _client.ContentFormatters.Add(MockReader(BrokenMediaType, parserError).Object);
+            _mockMessageHandler.MockHttpResponse(_ => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent("content", Encoding.UTF8, BrokenMediaType),
+            });
+
+            var exception = await Assert.ThrowsAsync<HttpContentException>(() => _client.SendAsync<int>(TestHttpMethod, "/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.InnerException, Is.SameAs(parserError));
+                Assert.That(exception.ObjectType, Is.EqualTo(typeof(int)));
+                Assert.That(exception.Content?.Headers.ContentType?.MediaType, Is.EqualTo(BrokenMediaType));
+            }
+        }
+
+        [Test]
+        public async Task OnCanceledResponseBodyRead_ThrowsCancellationUnwrapped()
+        {
+            _client.ContentFormatters.Add(MockReader(BrokenMediaType, new OperationCanceledException()).Object);
+            _mockMessageHandler.MockHttpResponse(_ => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent("content", Encoding.UTF8, BrokenMediaType),
+            });
+
+            await Assert.ThrowsAsync<OperationCanceledException>(() => _client.SendAsync<int>(TestHttpMethod, "/resource"));
+        }
+
+        [Test]
         public async Task OnUnsuccessfulStatusCode_WithoutResponseErrorType_ThrowsStandardRestException()
         {
             var errorDetails = new TestErrorResponse("You didn't provide the required data!");
@@ -170,7 +223,7 @@
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(exception.ResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
-                Assert.That(exception.ResponseMessage.Headers.GetValues("X-Error-Id"), Is.EqualTo(new[] { "42" }));
+                Assert.That(exception.ResponseMessage.Headers.GetValues("X-Error-Id"), Is.EqualTo(["42"]));
                 await Assert.ThrowsAsync<ObjectDisposedException>(() => exception.ResponseMessage.Content.ReadAsStringAsync());
             }
         }
@@ -192,6 +245,22 @@
                 Assert.That(exception.ResponseMessage?.RequestMessage?.RequestUri, Is.EqualTo(AbsoluteUrl("/resource")));
                 Assert.That(exception.ResponseObject, Is.EqualTo(errorDetails).UsingPropertiesComparer());
                 Assert.That(exception.Message, Is.EqualTo(errorDetails.Message));
+            }
+        }
+
+        [Test]
+        public async Task OnUnsuccessfulStatusCode_WithUnreadableErrorBody_ThrowsStandardRestExceptionWithoutResponseObject()
+        {
+            using var responseContent = new StringContent("A,B", Encoding.UTF8, MediaTypeNames.Text.Csv);
+            _mockMessageHandler.MockHttpResponse(HttpStatusCode.BadRequest, responseContent);
+
+            _client.ResponseErrorType = typeof(TestErrorResponse);
+            var exception = await Assert.ThrowsAsync<HttpResponseException>(() => _client.SendAsync(TestHttpMethod, "/resource"));
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+                Assert.That(exception.ResponseObject, Is.Null);
             }
         }
 
@@ -268,6 +337,67 @@
 
             mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Exactly(maxRetries));
             Assert.That(attempts, Is.EqualTo(maxRetries + 1));
+        }
+
+        [Test]
+        public async Task OnResponseEndedPrematurely_UsesRetryPolicy()
+        {
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(1, out var mockRetrySession);
+            _client.RetryPolicy = mockRetryPolicy.Object;
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                if (++attempts == 1)
+                    throw new HttpRequestException("Error while copying content to a stream.", new HttpIOException(HttpRequestError.ResponseEnded));
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
+
+            await _client.SendAsync(TestHttpMethod, "/test");
+
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Once);
+            Assert.That(attempts, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task OnNonTransientConnectionFailure_DoesNotUseRetryPolicy()
+        {
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(2, out var mockRetrySession);
+            _client.RetryPolicy = mockRetryPolicy.Object;
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                attempts++;
+                throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.AccessDenied));
+            });
+
+            await Assert.ThrowsAsync<HttpRequestException>(() => _client.SendAsync(TestHttpMethod, "/test"));
+
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Never);
+            Assert.That(attempts, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task OnConnectionFailure_WithNonReusableContent_DoesNotUseRetryPolicy()
+        {
+            var mockRetryPolicy = RetryTestHelpers.MockRetryPolicy(2, out var mockRetrySession);
+            _client.RetryPolicy = mockRetryPolicy.Object;
+
+            var attempts = 0;
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                attempts++;
+                throw new HttpRequestException("Connection failure", new SocketException((int)SocketError.HostUnreachable));
+            });
+
+            using var content = new StreamContent(new TestStream(seekable: false));
+
+            await Assert.ThrowsAsync<HttpRequestException>(() => _client.SendAsync(TestHttpMethod, "/test", content));
+
+            mockRetrySession.Verify(session => session.WaitToRetryAsync(It.IsAny<CancellationToken>()), Times.Never);
+            Assert.That(attempts, Is.EqualTo(1));
         }
 
         [TestCase("gzip")]
@@ -484,6 +614,14 @@
             }
 
             Assert.That(sent, Is.True);
+        }
+
+        private static Mock<IHttpContentFormatter> MockReader(string mediaType, Exception readError)
+        {
+            var reader = new Mock<IHttpContentFormatter>();
+            reader.Setup(f => f.CanRead(mediaType, It.IsAny<Type>())).Returns(true);
+            reader.Setup(f => f.ReadAsync(It.IsAny<HttpContent>(), It.IsAny<Type>(), It.IsAny<CancellationToken>())).ThrowsAsync(readError);
+            return reader;
         }
     }
 }

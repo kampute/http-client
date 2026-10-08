@@ -9,7 +9,6 @@ namespace Kampute.HttpClient.Xml
     using System;
     using System.Net.Http;
     using System.Runtime.Serialization;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -18,10 +17,9 @@ namespace Kampute.HttpClient.Xml
     /// </summary>
     /// <remarks>
     /// <para>
-    /// The formatter also reads <c>text/xml</c>, which RFC 7303 registers with the same definition as <c>application/xml</c>, and
-    /// <c>application/problem+xml</c>, the problem details format of RFC 9457 for error responses, and advertises both in the <c>Accept</c> header.
-    /// It reads any other media type with the <c>+xml</c> structured syntax suffix, which RFC 7303 registers for XML media types, such as
-    /// <c>application/vnd.example+xml</c>, but does not advertise it. It writes <c>application/xml</c> only.
+    /// The formatter also reads <c>text/xml</c>, which RFC 7303 registers with the same definition as <c>application/xml</c>, and advertises it in
+    /// the <c>Accept</c> header. It reads any media type with the <c>+xml</c> structured syntax suffix, which RFC 7303 registers for XML media types,
+    /// such as <c>application/vnd.example+xml</c>, but does not advertise it. It writes <c>application/xml</c> only.
     /// </para>
     /// <para>
     /// The client reads a response with the first formatter in <see cref="HttpRestClient.ContentFormatters"/> that can read it, so a formatter for a
@@ -44,7 +42,7 @@ namespace Kampute.HttpClient.Xml
         /// Initializes a new instance of the <see cref="XmlFormatter"/> class.
         /// </summary>
         public XmlFormatter()
-            : base([MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml, MediaTypeNames.Application.ProblemXml], [MediaTypeNames.Application.Xml])
+            : base([MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml], [MediaTypeNames.Application.Xml])
         {
         }
 
@@ -86,11 +84,12 @@ namespace Kampute.HttpClient.Xml
         /// <param name="cancellationToken">A token for canceling the operation.</param>
         /// <returns>A task that resolves to the object read from <paramref name="content"/>.</returns>
         /// <remarks>
-        /// The content is decoded with the character set of its <c>Content-Type</c> header, or as UTF-8 if it has none.
+        /// As RFC 7303 specifies, a byte order mark decides the character encoding of the content. Without one, the <c>charset</c> parameter of its
+        /// <c>Content-Type</c> header decides it, and without either, the XML encoding declaration, or UTF-8 if there is none.
         /// </remarks>
         protected override async Task<object?> ReadContentAsync(HttpContent content, Type modelType, CancellationToken cancellationToken)
         {
-            var encoding = content.FindCharacterEncoding() ?? Encoding.UTF8;
+            var encoding = content.FindCharacterEncoding();
             using var stream = await content.ReadAsStreamAsync().ConfigureAwait(false);
             return XmlSerialization.Read(stream, encoding, modelType, Serializer, DataContractSettings);
         }

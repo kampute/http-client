@@ -9,7 +9,7 @@ A request can fail in two ways: without a response, such as when the connection 
 
 ## Retry Connection Failures
 
-A request that fails without a response, because the connection is refused or reset, the host cannot be reached, or [`HttpClient.Timeout`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient.timeout) elapses, is retried only if you set [`RetryPolicy`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_RetryPolicy). The default, [`HttpRetryPolicy.None`](~/api/Kampute.HttpClient.HttpRetryPolicy.html#Kampute_HttpClient_HttpRetryPolicy_None), does not retry.
+A request that fails without a response, because the connection is refused, reset, or closed before the response is complete, the host name cannot be resolved or the host cannot be reached, or [`HttpClient.Timeout`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient.timeout) elapses, is retried only if you set [`RetryPolicy`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_RetryPolicy). The default, [`HttpRetryPolicy.None`](~/api/Kampute.HttpClient.HttpRetryPolicy.html#Kampute_HttpClient_HttpRetryPolicy_None), does not retry.
 
 ```csharp
 using System;
@@ -27,7 +27,7 @@ The retry strategy comes from the [`Kampute.Resilience`](https://kampute.github.
 
 ## Structured Error Bodies
 
-Set [`ResponseErrorType`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseErrorType) to your API's error model. Register a [content formatter](content-formats.md) that can read that model from the response media type. The JSON and XML formatters also read RFC 9457 problem details, `application/problem+json` and `application/problem+xml`, so an error model with the problem details fields works with them.
+Set [`ResponseErrorType`](~/api/Kampute.HttpClient.HttpRestClient.html#Kampute_HttpClient_HttpRestClient_ResponseErrorType) to your API's error model. Register a [content formatter](content-formats.md) that can read that model from the response media type.
 
 The deserialized model is available through [`HttpResponseException.ResponseObject`](~/api/Kampute.HttpClient.HttpResponseException.html#Kampute_HttpClient_HttpResponseException_ResponseObject). If the model implements [`IHttpErrorResponse`](~/api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html), its [`ToException()`](~/api/Kampute.HttpClient.Interfaces.IHttpErrorResponse.html#Kampute_HttpClient_Interfaces_IHttpErrorResponse_ToException_System_Net_HttpStatusCode_) method constructs the exception. See the reference for the full error-response contract.
 

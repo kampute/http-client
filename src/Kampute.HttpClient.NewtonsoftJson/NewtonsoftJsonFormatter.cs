@@ -19,9 +19,8 @@ namespace Kampute.HttpClient.NewtonsoftJson
     /// </summary>
     /// <remarks>
     /// <para>
-    /// The formatter also reads <c>application/problem+json</c>, the problem details format of RFC 9457 for error responses, and advertises it in
-    /// the <c>Accept</c> header. It reads any other media type with the <c>+json</c> structured syntax suffix, which RFC 6839 permits for media
-    /// types whose representation follows <c>application/json</c>, such as <c>application/vnd.example+json</c>, but does not advertise it. It writes
+    /// The formatter also reads any media type with the <c>+json</c> structured syntax suffix, which RFC 6839 permits for media types whose
+    /// representation follows <c>application/json</c>, such as <c>application/vnd.example+json</c>, but does not advertise it. It writes
     /// <c>application/json</c> only.
     /// </para>
     /// <para>
@@ -40,7 +39,7 @@ namespace Kampute.HttpClient.NewtonsoftJson
         /// Initializes a new instance of the <see cref="NewtonsoftJsonFormatter"/> class.
         /// </summary>
         public NewtonsoftJsonFormatter()
-            : base([MediaTypeNames.Application.Json, MediaTypeNames.Application.ProblemJson], [MediaTypeNames.Application.Json])
+            : base([MediaTypeNames.Application.Json], [MediaTypeNames.Application.Json])
         {
         }
 

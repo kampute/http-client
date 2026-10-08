@@ -52,7 +52,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(exception.StatusCode, Is.EqualTo(HttpStatusCode.Conflict));
-                Assert.That(seenStatusCodes, Is.EqualTo(new[] { HttpStatusCode.Conflict }));
+                Assert.That(seenStatusCodes, Is.EqualTo([HttpStatusCode.Conflict]));
             }
         }
 
@@ -103,7 +103,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(sentBodies, Is.EqualTo(new[] { "original", "original", "original" }));
+                Assert.That(sentBodies, Is.EqualTo(["original", "original", "original"]));
             }
         }
 
@@ -124,7 +124,7 @@ namespace Kampute.HttpClient.Test.ErrorHandlers
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-                Assert.That(sentBodies, Is.EqualTo(new[] { "original", "replacement", "replacement" }));
+                Assert.That(sentBodies, Is.EqualTo(["original", "replacement", "replacement"]));
             }
         }
 

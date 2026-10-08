@@ -13,7 +13,7 @@
     /// <remarks>
     /// The content has the headers of the content it compresses, except <c>Content-Length</c> and <c>Content-MD5</c>, which describe the
     /// uncompressed body. It adds its encoding to the <c>Content-Encoding</c> header, and its length is not known until it is sent, so it is sent
-    /// with chunked transfer encoding.
+    /// without a <c>Content-Length</c> header, which over HTTP/1.1 means chunked transfer encoding.
     /// </remarks>
     public abstract class CompressedContent : HttpContentDecorator
     {

@@ -153,7 +153,7 @@ namespace Kampute.HttpClient
         public Uri? BaseAddress
         {
             get => _baseAddress;
-            set => _baseAddress = value is null || value.AbsolutePath.EndsWith("/") ? value : new Uri(value, "/");
+            set => _baseAddress = value is null || value.AbsolutePath.EndsWith("/") ? value : new Uri(value.GetLeftPart(UriPartial.Path) + "/");
         }
 
         /// <summary>
@@ -165,9 +165,9 @@ namespace Kampute.HttpClient
         /// </value>
         /// <remarks>
         /// <para>
-        /// The policy applies when a request fails without a response, for example because the connection is refused or reset, the host cannot be
-        /// reached, or <see cref="System.Net.Http.HttpClient.Timeout"/> elapses. Error responses, such as '503 Service Unavailable', are handled by
-        /// <see cref="ErrorHandlers"/> instead.
+        /// The policy applies when a request fails without a response, for example because the connection is refused, reset, or closed before the
+        /// response is complete, the host name cannot be resolved or the host cannot be reached, or <see cref="System.Net.Http.HttpClient.Timeout"/>
+        /// elapses. Error responses, such as '503 Service Unavailable', are handled by <see cref="ErrorHandlers"/> instead.
         /// </para>
         /// <para>
         /// The limits of the policy apply to the retries after connection failures only. Error handlers count their own retries separately, so a

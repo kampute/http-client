@@ -350,7 +350,7 @@
 
             var result = collection.GetAcceptableMediaTypes(typeof(string));
 
-            Assert.That(result, Is.EqualTo(new[] { Constants.TestMediaType }));
+            Assert.That(result, Is.EqualTo([Constants.TestMediaType]));
         }
 
         [Test]

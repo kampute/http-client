@@ -77,7 +77,7 @@ namespace Kampute.HttpClient.Test.Xml
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(accepted, Is.EqualTo($"{MediaTypeNames.Application.Xml}, {MediaTypeNames.Text.Xml}, {MediaTypeNames.Application.ProblemXml}"));
+                Assert.That(accepted, Is.EqualTo($"{MediaTypeNames.Application.Xml}, {MediaTypeNames.Text.Xml}"));
                 Assert.That(result, Is.EqualTo(new PlainModel { Name = "Test" }));
             }
         }

@@ -49,7 +49,9 @@
         /// <exception cref="InvalidOperationException">Thrown if the value is set after the first reference has been acquired.</exception>
         /// <remarks>
         /// Set this property at application startup, before any <see cref="HttpRestClient"/> is created with the shared <see cref="HttpClient"/>,
-        /// to configure its handler, proxy, or timeout.
+        /// to configure its handler, proxy, or timeout. The shared <see cref="HttpClient"/> is long-lived and resolves a host name only when it
+        /// opens a connection, so on .NET Core and .NET 5 or later, give it a <c>SocketsHttpHandler</c> with a <c>PooledConnectionLifetime</c> to
+        /// have it follow DNS changes.
         /// </remarks>
         public static Func<HttpClient>? Factory
         {

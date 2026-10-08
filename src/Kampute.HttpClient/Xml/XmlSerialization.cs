@@ -34,15 +34,18 @@ namespace Kampute.HttpClient.Xml
         /// Reads an object of the specified type from a stream.
         /// </summary>
         /// <param name="stream">The stream to read.</param>
-        /// <param name="encoding">The character encoding of the stream.</param>
+        /// <param name="encoding">
+        /// The character encoding named by the <c>charset</c> parameter of the content, which a byte order mark overrides, or <see langword="null"/>
+        /// to detect the encoding from a byte order mark or the XML encoding declaration, with UTF-8 as the default.
+        /// </param>
         /// <param name="type">The type of the object to read.</param>
         /// <param name="kind">The serializer choice.</param>
         /// <param name="dataContractSettings">The settings of <see cref="DataContractSerializer"/>, if it is used.</param>
         /// <returns>The object read from <paramref name="stream"/>.</returns>
-        public static object? Read(Stream stream, Encoding encoding, Type type, XmlSerializerKind kind, DataContractSerializerSettings? dataContractSettings)
+        public static object? Read(Stream stream, Encoding? encoding, Type type, XmlSerializerKind kind, DataContractSerializerSettings? dataContractSettings)
         {
-            using var streamReader = new StreamReader(stream, encoding);
-            using var xmlReader = XmlReader.Create(streamReader);
+            using var streamReader = encoding is not null ? new StreamReader(stream, encoding) : null;
+            using var xmlReader = streamReader is not null ? XmlReader.Create(streamReader) : XmlReader.Create(stream);
             return UsesDataContract(kind, type)
                 ? new DataContractSerializer(type, dataContractSettings).ReadObject(xmlReader)
                 : new XmlSerializer(type).Deserialize(xmlReader);

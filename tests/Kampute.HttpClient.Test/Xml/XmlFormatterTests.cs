@@ -4,6 +4,7 @@ namespace Kampute.HttpClient.Test.Xml
     using NUnit.Framework;
     using System;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Runtime.Serialization;
     using System.Text;
     using System.Threading.Tasks;
@@ -25,8 +26,8 @@ namespace Kampute.HttpClient.Test.Xml
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(formatter.GetReadableMediaTypes(typeof(PlainModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml, MediaTypeNames.Application.ProblemXml }));
-                Assert.That(formatter.GetWritableMediaTypes(typeof(PlainModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Xml }));
+                Assert.That(formatter.GetReadableMediaTypes(typeof(PlainModel)), Is.EqualTo([MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml]));
+                Assert.That(formatter.GetWritableMediaTypes(typeof(PlainModel)), Is.EqualTo([MediaTypeNames.Application.Xml]));
                 Assert.That(formatter.CanRead(MediaTypeNames.Application.Xml, typeof(ContractModel)), Is.True);
                 Assert.That(formatter.CanRead("Application/XML", typeof(PlainModel)), Is.True);
                 Assert.That(formatter.CanRead(MediaTypeNames.Text.Xml, typeof(PlainModel)), Is.True);
@@ -53,6 +54,36 @@ namespace Kampute.HttpClient.Test.Xml
             var result = await formatter.ReadAsync(content, typeof(PlainModel));
 
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public async Task ReadAsync_WithoutCharsetOrByteOrderMark_DecodesWithXmlEncodingDeclaration()
+        {
+            var body = Encoding.Latin1.GetBytes(PlainModelXml("iso-8859-1", "Café"));
+
+            var result = await ReadBytes(body, charset: null);
+
+            Assert.That(result, Is.EqualTo(new PlainModel { Name = "Café" }));
+        }
+
+        [Test]
+        public async Task ReadAsync_WithCharsetAndNoByteOrderMark_DecodesWithCharsetOverEncodingDeclaration()
+        {
+            var body = Encoding.Latin1.GetBytes(PlainModelXml("utf-8", "Café"));
+
+            var result = await ReadBytes(body, charset: "iso-8859-1");
+
+            Assert.That(result, Is.EqualTo(new PlainModel { Name = "Café" }));
+        }
+
+        [Test]
+        public async Task ReadAsync_WithByteOrderMark_DecodesWithByteOrderMarkOverCharset()
+        {
+            byte[] body = [.. Encoding.UTF8.GetPreamble(), .. Encoding.UTF8.GetBytes(PlainModelXml("utf-8", "Café"))];
+
+            var result = await ReadBytes(body, charset: "iso-8859-1");
+
+            Assert.That(result, Is.EqualTo(new PlainModel { Name = "Café" }));
         }
 
         [TestCase("utf-8")]
@@ -171,6 +202,18 @@ namespace Kampute.HttpClient.Test.Xml
         {
             using var content = new StringContent(xml, Encoding.UTF8, MediaTypeNames.Application.Xml);
             return await formatter.ReadAsync(content, modelType);
+        }
+
+        private static string PlainModelXml(string declaredEncoding, string name)
+        {
+            return $"<?xml version=\"1.0\" encoding=\"{declaredEncoding}\"?><{nameof(PlainModel)}><Name>{name}</Name></{nameof(PlainModel)}>";
+        }
+
+        private static async Task<object?> ReadBytes(byte[] body, string? charset)
+        {
+            using var content = new ByteArrayContent(body);
+            content.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Xml) { CharSet = charset };
+            return await new XmlFormatter { Serializer = XmlSerializerKind.XmlSerializer }.ReadAsync(content, typeof(PlainModel));
         }
 
         private static async Task<string> Write(XmlFormatter formatter, object payload)

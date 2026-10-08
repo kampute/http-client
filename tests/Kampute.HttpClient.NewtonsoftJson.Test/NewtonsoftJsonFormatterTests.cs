@@ -15,8 +15,8 @@
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(formatter.GetReadableMediaTypes(typeof(TestModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Json, MediaTypeNames.Application.ProblemJson }));
-                Assert.That(formatter.GetWritableMediaTypes(typeof(TestModel)), Is.EqualTo(new[] { MediaTypeNames.Application.Json }));
+                Assert.That(formatter.GetReadableMediaTypes(typeof(TestModel)), Is.EqualTo([MediaTypeNames.Application.Json]));
+                Assert.That(formatter.GetWritableMediaTypes(typeof(TestModel)), Is.EqualTo([MediaTypeNames.Application.Json]));
                 Assert.That(formatter.CanRead(MediaTypeNames.Application.ProblemJson, typeof(TestModel)), Is.True);
                 Assert.That(formatter.CanWrite(MediaTypeNames.Application.ProblemJson, typeof(TestModel)), Is.False);
             }

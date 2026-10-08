@@ -106,5 +106,28 @@
                 await client.SendAsync(HttpMethod.Get, "/test");
             });
         }
+
+        [Test]
+        public async Task PerformAsync_WithFunction_ReturnsResultAndAppliesScopeOnlyWhileRunning()
+        {
+            var headerName = "HEADER_NAME";
+            _scope.SetHeader(headerName, "HEADER_VALUE");
+
+            var sentHeaders = new List<bool>();
+            _mockMessageHandler.MockHttpResponse(request =>
+            {
+                sentHeaders.Add(request.Headers.Contains(headerName));
+                return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("RESULT") };
+            });
+
+            var result = await _scope.PerformAsync(client => client.GetAsStringAsync("/test"));
+            await _client.GetAsStringAsync("/test");
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(result, Is.EqualTo("RESULT"));
+                Assert.That(sentHeaders, Is.EqualTo([true, false]));
+            }
+        }
     }
 }

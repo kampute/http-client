@@ -4,6 +4,7 @@ namespace Kampute.HttpClient.Test
     using Moq;
     using NUnit.Framework;
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -51,6 +52,27 @@ namespace Kampute.HttpClient.Test
             }
 
             Assert.That(matched, Is.True);
+        }
+
+        [Test]
+        public void ToString_IncludesRequestResponseAndErrors()
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Delete, "http://api.test.com/items/42");
+            using var response = new HttpResponseMessage(HttpStatusCode.Conflict) { RequestMessage = request, ReasonPhrase = "Conflict" };
+            var exception = new HttpResponseException(HttpStatusCode.Conflict, "Request failed")
+            {
+                ResponseMessage = response,
+                Errors = new Dictionary<string, string[]> { ["Name"] = ["Required", "TooShort"] },
+            };
+
+            var text = exception.ToString();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(text, Does.Contain("DELETE http://api.test.com/items/42"));
+                Assert.That(text, Does.Contain("409 Conflict"));
+                Assert.That(text, Does.Contain("Name: Required TooShort"));
+            }
         }
     }
 }

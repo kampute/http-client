@@ -9,12 +9,25 @@ See [Getting started](getting-started.md) for package installation. Replace the 
 
 ## HttpClient Lifetime
 
-By default, [`HttpRestClient`](~/api/Kampute.HttpClient.HttpRestClient.html) acquires a shared [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) instance. This avoids creating a new connection pool for every short-lived client wrapper.
+By default, [`HttpRestClient`](~/api/Kampute.HttpClient.HttpRestClient.html) acquires a shared [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) instance, so clients that exist at the same time use one connection pool instead of one each. The shared instance is disposed when the last client that uses it is disposed, and the next client creates a new one, so keep a client for as long as you call the API rather than creating one per call.
 
 ```csharp
 using Kampute.HttpClient;
 
 using var client = new HttpRestClient();
+```
+
+An `HttpClient` resolves a host name only when it opens a connection, and it reuses open connections, so a long-lived shared instance does not follow DNS changes. On .NET Core and .NET 5 or later, set [`SharedHttpClient.Factory`](~/api/Kampute.HttpClient.Utilities.SharedHttpClient.html#Kampute_HttpClient_Utilities_SharedHttpClient_Factory) at startup, before the first client is created, to give the shared instance a [`SocketsHttpHandler`](https://learn.microsoft.com/dotnet/api/system.net.http.socketshttphandler) with a [`PooledConnectionLifetime`](https://learn.microsoft.com/dotnet/api/system.net.http.socketshttphandler.pooledconnectionlifetime). Connections older than that are replaced, and the host name is resolved again. Choose the interval from how often the DNS entries of your API change.
+
+```csharp
+using System;
+using System.Net.Http;
+using Kampute.HttpClient.Utilities;
+
+SharedHttpClient.Factory = () => new HttpClient(new SocketsHttpHandler
+{
+    PooledConnectionLifetime = TimeSpan.FromMinutes(15)
+});
 ```
 
 If your application already manages [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) instances, pass one in directly. This is useful when you configure handlers, proxies, default timeouts, or dependency-injection lifetimes elsewhere.

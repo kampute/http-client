@@ -17,9 +17,9 @@ namespace Kampute.HttpClient.Test.Content.Abstracts
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(formatter.GetReadableMediaTypes(typeof(string)), Is.EqualTo(new[] { "text/x-read" }));
+                Assert.That(formatter.GetReadableMediaTypes(typeof(string)), Is.EqualTo(["text/x-read"]));
                 Assert.That(formatter.GetReadableMediaTypes(typeof(int)), Is.Empty);
-                Assert.That(formatter.GetWritableMediaTypes(typeof(string)), Is.EqualTo(new[] { "text/x-write" }));
+                Assert.That(formatter.GetWritableMediaTypes(typeof(string)), Is.EqualTo(["text/x-write"]));
                 Assert.That(formatter.GetWritableMediaTypes(typeof(int)), Is.Empty);
                 Assert.That(formatter.CanRead("TEXT/X-READ", typeof(string)), Is.True);
                 Assert.That(formatter.CanRead("text/x-write", typeof(string)), Is.False);
@@ -50,7 +50,7 @@ namespace Kampute.HttpClient.Test.Content.Abstracts
                 Assert.That(formatter.CanRead("text/x-read", typeof(string)), Is.True);
                 Assert.That(formatter.CanRead("application/vnd.example+test", typeof(string)), Is.True);
                 Assert.That(formatter.CanRead("application/vnd.example+other", typeof(string)), Is.False);
-                Assert.That(formatter.GetReadableMediaTypes(typeof(string)), Is.EqualTo(new[] { "text/x-read" }));
+                Assert.That(formatter.GetReadableMediaTypes(typeof(string)), Is.EqualTo(["text/x-read"]));
             }
         }
 

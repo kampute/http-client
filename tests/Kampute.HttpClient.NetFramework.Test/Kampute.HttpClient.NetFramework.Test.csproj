@@ -4,6 +4,7 @@
     <TargetFramework>net48</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <IsTestProject Condition="'$(OS)' != 'Windows_NT'">false</IsTestProject>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>1701;1702;IDE0290;IDE0028</NoWarn>

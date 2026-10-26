@@ -1,0 +1,97 @@
+name: publish NuGet packages
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: nuget-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: nuget
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore Kampute.HttpClient.sln
+
+    - name: Test solution
+      run: dotnet test Kampute.HttpClient.sln --no-restore --configuration Release --verbosity minimal
+
+    - name: Pack signed packages
+      shell: bash
+      env:
+        SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+      run: |
+        set -euo pipefail
+
+        if [[ -z "$SIGNING_KEY_BASE64" ]]; then
+          echo "The SIGNING_KEY_BASE64 environment secret is not configured." >&2
+          exit 1
+        fi
+
+        signing_key="$RUNNER_TEMP/Kampute.HttpClient.snk"
+        trap 'rm -f "$signing_key"' EXIT
+        umask 077
+        printf '%s' "$SIGNING_KEY_BASE64" | base64 --decode > "$signing_key"
+
+        projects=(
+          src/Kampute.HttpClient/Kampute.HttpClient.csproj
+          src/Kampute.HttpClient.Json/Kampute.HttpClient.Json.csproj
+          src/Kampute.HttpClient.NewtonsoftJson/Kampute.HttpClient.NewtonsoftJson.csproj
+        )
+
+        for project in "${projects[@]}"; do
+          dotnet pack "$project" \
+            --no-restore \
+            --configuration Release \
+            --output artifacts \
+            -p:SignAssembly=true \
+            -p:AssemblyOriginatorKeyFile="$signing_key"
+        done
+
+        package_version="${GITHUB_REF_NAME#v}"
+        expected_packages=(
+          "artifacts/Kampute.HttpClient.${package_version}.nupkg"
+          "artifacts/Kampute.HttpClient.Json.${package_version}.nupkg"
+          "artifacts/Kampute.HttpClient.NewtonsoftJson.${package_version}.nupkg"
+        )
+
+        for package in "${expected_packages[@]}"; do
+          if [[ ! -f "$package" ]]; then
+            echo "Expected $package for release tag $GITHUB_REF_NAME." >&2
+            exit 1
+          fi
+        done
+
+    - name: Log in to NuGet with OIDC
+      id: nuget-login
+      uses: NuGet/login@v1.2.0
+      with:
+        user: ${{ vars.NUGET_USER }}
+
+    - name: Publish packages
+      shell: bash
+      env:
+        NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+      run: |
+        for package in artifacts/*.nupkg; do
+          dotnet nuget push "$package" \
+            --api-key "$NUGET_API_KEY" \
+            --source https://api.nuget.org/v3/index.json
+        done

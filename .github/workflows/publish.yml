@@ -90,6 +90,8 @@ jobs:
       env:
         NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
       run: |
+        set -euo pipefail
+
         for package in artifacts/*.nupkg; do
           dotnet nuget push "$package" \
             --api-key "$NUGET_API_KEY" \
